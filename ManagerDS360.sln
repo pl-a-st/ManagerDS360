@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33130.400
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerDS360", "ManagerDS360\ManagerDS360.csproj", "{00C8A3EB-7A15-477B-9C3E-78165513E3FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00C8A3EB-7A15-477B-9C3E-78165513E3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C8A3EB-7A15-477B-9C3E-78165513E3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C8A3EB-7A15-477B-9C3E-78165513E3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C8A3EB-7A15-477B-9C3E-78165513E3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F863BD4-D2B0-4139-A2F6-CDC225E4D17B}
+	EndGlobalSection
+EndGlobal

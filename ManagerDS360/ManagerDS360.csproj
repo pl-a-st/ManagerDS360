@@ -52,6 +52,12 @@
     <Compile Include="Default_Generator .Designer.cs">
       <DependentUpon>Default_Generator .cs</DependentUpon>
     </Compile>
+    <Compile Include="Editing_routes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editing_routes.Designer.cs">
+      <DependentUpon>Editing_routes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Default_Generator .resx">
       <DependentUpon>Default_Generator .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editing_routes.resx">
+      <DependentUpon>Editing_routes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

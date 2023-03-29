@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ManagerDS360 {
+   
     public partial class Form1 : Form {
+        
         public Form1() {
             InitializeComponent();
         }
 
-        private void greyButton1_Click(object sender, EventArgs e)
-        {
-            greyButton2.BackColor = Color.Black;
-        }
+       
     }
 }

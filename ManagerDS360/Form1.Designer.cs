@@ -24,138 +24,74 @@ namespace ManagerDS360 {
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.Name_Generator = new System.Windows.Forms.ListBox();
-            this.Сохраненные_маршруты = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.greyButton3 = new LibControls.GreyButton();
+            this.greyButton2 = new LibControls.GreyButton();
+            this.greyButton1 = new LibControls.GreyButton();
+            this.greyButton4 = new LibControls.GreyButton();
             this.SuspendLayout();
             // 
-            // treeView1
+            // greyButton3
             // 
-            this.treeView1.Location = new System.Drawing.Point(24, 60);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(308, 379);
-            this.treeView1.TabIndex = 1;
+            this.greyButton3.BackColor = System.Drawing.Color.Blue;
+            this.greyButton3.Location = new System.Drawing.Point(729, 113);
+            this.greyButton3.Name = "greyButton3";
+            this.greyButton3.Size = new System.Drawing.Size(97, 104);
+            this.greyButton3.TabIndex = 2;
+            this.greyButton3.Text = "greyButton3";
+            this.greyButton3.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // greyButton2
             // 
-            this.button1.Location = new System.Drawing.Point(645, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(258, 33);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Задать настройку\r\n";
-            this.button1.UseVisualStyleBackColor = true;
+            this.greyButton2.BackColor = System.Drawing.Color.Blue;
+            this.greyButton2.Location = new System.Drawing.Point(427, 149);
+            this.greyButton2.Name = "greyButton2";
+            this.greyButton2.Size = new System.Drawing.Size(171, 185);
+            this.greyButton2.TabIndex = 1;
+            this.greyButton2.Text = "greyButton2";
+            this.greyButton2.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // greyButton1
             // 
-            this.button2.Location = new System.Drawing.Point(645, 124);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(258, 35);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Задать следующую настройку";
-            this.button2.UseVisualStyleBackColor = true;
+            this.greyButton1.BackColor = System.Drawing.Color.Blue;
+            this.greyButton1.Location = new System.Drawing.Point(81, 118);
+            this.greyButton1.Name = "greyButton1";
+            this.greyButton1.Size = new System.Drawing.Size(289, 237);
+            this.greyButton1.TabIndex = 0;
+            this.greyButton1.Text = "greyButton1";
+            this.greyButton1.UseVisualStyleBackColor = false;
+            this.greyButton1.Click += new System.EventHandler(this.greyButton1_Click);
             // 
-            // button3
+            // greyButton4
             // 
-            this.button3.Location = new System.Drawing.Point(645, 181);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(257, 36);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Задать генератор по умолчанию";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // Name_Generator
-            // 
-            this.Name_Generator.FormattingEnabled = true;
-            this.Name_Generator.Location = new System.Drawing.Point(25, 15);
-            this.Name_Generator.Name = "Name_Generator";
-            this.Name_Generator.Size = new System.Drawing.Size(202, 17);
-            this.Name_Generator.TabIndex = 5;
-            // 
-            // Сохраненные_маршруты
-            // 
-            this.Сохраненные_маршруты.FormattingEnabled = true;
-            this.Сохраненные_маршруты.Location = new System.Drawing.Point(387, 60);
-            this.Сохраненные_маршруты.Name = "Сохраненные_маршруты";
-            this.Сохраненные_маршруты.Size = new System.Drawing.Size(146, 21);
-            this.Сохраненные_маршруты.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(384, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Сохраненные маршруты";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Древо жизни";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(645, 243);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(257, 35);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Редактирование маршрутов";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(645, 303);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(254, 34);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Управление генератором";
-            this.button5.UseVisualStyleBackColor = true;
+            this.greyButton4.BackColor = System.Drawing.Color.Blue;
+            this.greyButton4.Location = new System.Drawing.Point(530, 425);
+            this.greyButton4.Name = "greyButton4";
+            this.greyButton4.Size = new System.Drawing.Size(203, 103);
+            this.greyButton4.TabIndex = 3;
+            this.greyButton4.Text = "greyButton4";
+            this.greyButton4.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 580);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Сохраненные_маршруты);
-            this.Controls.Add(this.Name_Generator);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.greyButton4);
+            this.Controls.Add(this.greyButton3);
+            this.Controls.Add(this.greyButton2);
+            this.Controls.Add(this.greyButton1);
             this.Name = "Form1";
             this.Text = "DS360";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ListBox Name_Generator;
-        private System.Windows.Forms.ComboBox Сохраненные_маршруты;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private LibControls.GreyButton greyButton1;
+        private LibControls.GreyButton greyButton2;
+        private LibControls.GreyButton greyButton3;
+        private LibControls.GreyButton greyButton4;
     }
 }
 

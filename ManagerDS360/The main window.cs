@@ -30,5 +30,12 @@ namespace ManagerDS360 {
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Editing_routes managerRoutes = new Editing_routes();
+            managerRoutes.ShowDialog();
+
+        }
     }
 }

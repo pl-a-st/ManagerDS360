@@ -71,7 +71,7 @@ namespace ManagerDS360 {
             // 
             this.treeView1.Location = new System.Drawing.Point(12, 175);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(318, 344);
+            this.treeView1.Size = new System.Drawing.Size(494, 440);
             this.treeView1.TabIndex = 3;
             // 
             // label1
@@ -96,7 +96,7 @@ namespace ManagerDS360 {
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(411, 175);
+            this.comboBox1.Location = new System.Drawing.Point(769, 175);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(186, 21);
             this.comboBox1.TabIndex = 6;
@@ -104,7 +104,7 @@ namespace ManagerDS360 {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(408, 159);
+            this.label2.Location = new System.Drawing.Point(766, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 7;
@@ -131,16 +131,16 @@ namespace ManagerDS360 {
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(312, 175);
+            this.vScrollBar1.Location = new System.Drawing.Point(488, 175);
             this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(18, 327);
+            this.vScrollBar1.Size = new System.Drawing.Size(18, 422);
             this.vScrollBar1.TabIndex = 10;
             // 
             // hScrollBar1
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(12, 502);
+            this.hScrollBar1.Location = new System.Drawing.Point(12, 597);
             this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(318, 18);
+            this.hScrollBar1.Size = new System.Drawing.Size(494, 18);
             this.hScrollBar1.TabIndex = 11;
             // 
             // button6

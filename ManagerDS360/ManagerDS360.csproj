@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="editing routes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="editing routes.Designer.cs">
+      <DependentUpon>editing routes.cs</DependentUpon>
+    </Compile>
     <Compile Include="The main window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     </Compile>
     <EmbeddedResource Include="Default generator.resx">
       <DependentUpon>Default generator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editing routes.resx">
+      <DependentUpon>editing routes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="The main window.resx">
       <DependentUpon>The main window.cs</DependentUpon>

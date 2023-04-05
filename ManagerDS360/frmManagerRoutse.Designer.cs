@@ -47,6 +47,7 @@
             this.lstsaveroutes.Name = "lstsaveroutes";
             this.lstsaveroutes.Size = new System.Drawing.Size(351, 277);
             this.lstsaveroutes.TabIndex = 0;
+            this.lstsaveroutes.SelectedIndexChanged += new System.EventHandler(this.lstsaveroutes_SelectedIndexChanged);
             // 
             // label1
             // 

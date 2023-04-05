@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listcomport = new System.Windows.Forms.ListBox();
+            this.listComport = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.butsave = new System.Windows.Forms.Button();
-            this.butcancel = new System.Windows.Forms.Button();
-            this.butrefresh = new System.Windows.Forms.Button();
+            this.butSave = new System.Windows.Forms.Button();
+            this.butCancel = new System.Windows.Forms.Button();
+            this.butRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listcomport
+            // listComport
             // 
-            this.listcomport.FormattingEnabled = true;
-            this.listcomport.Location = new System.Drawing.Point(11, 25);
-            this.listcomport.Name = "listcomport";
-            this.listcomport.Size = new System.Drawing.Size(355, 160);
-            this.listcomport.TabIndex = 0;
+            this.listComport.FormattingEnabled = true;
+            this.listComport.Location = new System.Drawing.Point(11, 25);
+            this.listComport.Name = "listComport";
+            this.listComport.Size = new System.Drawing.Size(355, 160);
+            this.listComport.TabIndex = 0;
             // 
             // label1
             // 
@@ -53,43 +53,43 @@
             this.label1.Text = "Список com портов";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // butsave
+            // butSave
             // 
-            this.butsave.Location = new System.Drawing.Point(126, 203);
-            this.butsave.Name = "butsave";
-            this.butsave.Size = new System.Drawing.Size(75, 23);
-            this.butsave.TabIndex = 3;
-            this.butsave.Text = "Сохранить";
-            this.butsave.UseVisualStyleBackColor = true;
+            this.butSave.Location = new System.Drawing.Point(153, 203);
+            this.butSave.Name = "butSave";
+            this.butSave.Size = new System.Drawing.Size(75, 23);
+            this.butSave.TabIndex = 3;
+            this.butSave.Text = "Сохранить";
+            this.butSave.UseVisualStyleBackColor = true;
             // 
-            // butcancel
+            // butCancel
             // 
-            this.butcancel.Location = new System.Drawing.Point(277, 203);
-            this.butcancel.Name = "butcancel";
-            this.butcancel.Size = new System.Drawing.Size(75, 23);
-            this.butcancel.TabIndex = 4;
-            this.butcancel.Text = "Отмена";
-            this.butcancel.UseVisualStyleBackColor = true;
+            this.butCancel.Location = new System.Drawing.Point(291, 203);
+            this.butCancel.Name = "butCancel";
+            this.butCancel.Size = new System.Drawing.Size(75, 23);
+            this.butCancel.TabIndex = 4;
+            this.butCancel.Text = "Отмена";
+            this.butCancel.UseVisualStyleBackColor = true;
             // 
-            // butrefresh
+            // butRefresh
             // 
-            this.butrefresh.Location = new System.Drawing.Point(11, 203);
-            this.butrefresh.Name = "butrefresh";
-            this.butrefresh.Size = new System.Drawing.Size(75, 23);
-            this.butrefresh.TabIndex = 5;
-            this.butrefresh.Text = "Обновить";
-            this.butrefresh.UseVisualStyleBackColor = true;
+            this.butRefresh.Location = new System.Drawing.Point(11, 203);
+            this.butRefresh.Name = "butRefresh";
+            this.butRefresh.Size = new System.Drawing.Size(75, 23);
+            this.butRefresh.TabIndex = 5;
+            this.butRefresh.Text = "Обновить";
+            this.butRefresh.UseVisualStyleBackColor = true;
             // 
             // frmManagerRoutse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 238);
-            this.Controls.Add(this.butrefresh);
-            this.Controls.Add(this.butcancel);
-            this.Controls.Add(this.butsave);
+            this.Controls.Add(this.butRefresh);
+            this.Controls.Add(this.butCancel);
+            this.Controls.Add(this.butSave);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listcomport);
+            this.Controls.Add(this.listComport);
             this.Name = "frmManagerRoutse";
             this.Text = "Окно назначения генератора по умолчанию";
             this.ResumeLayout(false);
@@ -99,10 +99,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listcomport;
+        private System.Windows.Forms.ListBox listComport;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button butsave;
-        private System.Windows.Forms.Button butcancel;
-        private System.Windows.Forms.Button butrefresh;
+        private System.Windows.Forms.Button butSave;
+        private System.Windows.Forms.Button butCancel;
+        private System.Windows.Forms.Button butRefresh;
     }
 }

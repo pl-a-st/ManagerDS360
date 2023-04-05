@@ -16,7 +16,7 @@ namespace ManagerDS360
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmDS360());
 
             //тестовая строка
         }

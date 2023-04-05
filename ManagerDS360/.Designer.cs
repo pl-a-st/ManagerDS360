@@ -1,6 +1,6 @@
 ﻿
 namespace ManagerDS360 {
-    partial class Form1 {
+    partial class frmDS360 {
         /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
@@ -24,55 +24,55 @@ namespace ManagerDS360 {
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.but_broadcast_settings_generator = new System.Windows.Forms.Button();
-            this.but_next_setup = new System.Windows.Forms.Button();
-            this.but_default_generator = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.butBroadcastSettingsGenerator = new System.Windows.Forms.Button();
+            this.butNextSetup = new System.Windows.Forms.Button();
+            this.butDefaultGenerator = new System.Windows.Forms.Button();
+            this.treFieldКouteЕree = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_name_generator = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtNameGenerator = new System.Windows.Forms.TextBox();
+            this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.but_generator_control = new System.Windows.Forms.Button();
+            this.butEditingRoute = new System.Windows.Forms.Button();
+            this.butGeneratorControl = new System.Windows.Forms.Button();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // but_broadcast_settings_generator
+            // butBroadcastSettingsGenerator
             // 
-            this.but_broadcast_settings_generator.Location = new System.Drawing.Point(12, 151);
-            this.but_broadcast_settings_generator.Name = "but_broadcast_settings_generator";
-            this.but_broadcast_settings_generator.Size = new System.Drawing.Size(223, 31);
-            this.but_broadcast_settings_generator.TabIndex = 0;
-            this.but_broadcast_settings_generator.Text = "Передача настройки в генератор";
-            this.but_broadcast_settings_generator.UseVisualStyleBackColor = true;
+            this.butBroadcastSettingsGenerator.Location = new System.Drawing.Point(12, 151);
+            this.butBroadcastSettingsGenerator.Name = "butBroadcastSettingsGenerator";
+            this.butBroadcastSettingsGenerator.Size = new System.Drawing.Size(222, 31);
+            this.butBroadcastSettingsGenerator.TabIndex = 0;
+            this.butBroadcastSettingsGenerator.Text = "Передача настройки в генератор";
+            this.butBroadcastSettingsGenerator.UseVisualStyleBackColor = true;
             // 
-            // but_next_setup
+            // butNextSetup
             // 
-            this.but_next_setup.Location = new System.Drawing.Point(12, 188);
-            this.but_next_setup.Name = "but_next_setup";
-            this.but_next_setup.Size = new System.Drawing.Size(223, 24);
-            this.but_next_setup.TabIndex = 1;
-            this.but_next_setup.Text = "Следующая настройка ";
-            this.but_next_setup.UseVisualStyleBackColor = true;
+            this.butNextSetup.Location = new System.Drawing.Point(12, 226);
+            this.butNextSetup.Name = "butNextSetup";
+            this.butNextSetup.Size = new System.Drawing.Size(222, 31);
+            this.butNextSetup.TabIndex = 1;
+            this.butNextSetup.Text = "Следующая настройка ";
+            this.butNextSetup.UseVisualStyleBackColor = true;
             // 
-            // but_default_generator
+            // butDefaultGenerator
             // 
-            this.but_default_generator.Location = new System.Drawing.Point(12, 42);
-            this.but_default_generator.Name = "but_default_generator";
-            this.but_default_generator.Size = new System.Drawing.Size(222, 31);
-            this.but_default_generator.TabIndex = 2;
-            this.but_default_generator.Text = "Генератор по умолчанию";
-            this.but_default_generator.UseVisualStyleBackColor = true;
-            this.but_default_generator.Click += new System.EventHandler(this.button3_Click);
+            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 42);
+            this.butDefaultGenerator.Name = "butDefaultGenerator";
+            this.butDefaultGenerator.Size = new System.Drawing.Size(222, 31);
+            this.butDefaultGenerator.TabIndex = 2;
+            this.butDefaultGenerator.Text = "Генератор по умолчанию";
+            this.butDefaultGenerator.UseVisualStyleBackColor = true;
+            this.butDefaultGenerator.Click += new System.EventHandler(this.button3_Click);
             // 
-            // treeView1
+            // treFieldКouteЕree
             // 
-            this.treeView1.Location = new System.Drawing.Point(254, 42);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(494, 440);
-            this.treeView1.TabIndex = 3;
+            this.treFieldКouteЕree.Location = new System.Drawing.Point(254, 42);
+            this.treFieldКouteЕree.Name = "treFieldКouteЕree";
+            this.treFieldКouteЕree.Size = new System.Drawing.Size(494, 440);
+            this.treFieldКouteЕree.TabIndex = 3;
             // 
             // label1
             // 
@@ -84,22 +84,22 @@ namespace ManagerDS360 {
             this.label1.Text = "Древо жизни";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // txt_name_generator
+            // txtNameGenerator
             // 
-            this.txt_name_generator.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.txt_name_generator.Location = new System.Drawing.Point(12, 12);
-            this.txt_name_generator.Name = "txt_name_generator";
-            this.txt_name_generator.Size = new System.Drawing.Size(219, 20);
-            this.txt_name_generator.TabIndex = 5;
-            this.txt_name_generator.Text = "Name generator\r\n";
+            this.txtNameGenerator.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.txtNameGenerator.Location = new System.Drawing.Point(12, 12);
+            this.txtNameGenerator.Name = "txtNameGenerator";
+            this.txtNameGenerator.Size = new System.Drawing.Size(219, 20);
+            this.txtNameGenerator.TabIndex = 5;
+            this.txtNameGenerator.Text = "Name generator\r\n";
             // 
-            // comboBox1
+            // cboSavedRoutes
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(815, 42);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(186, 21);
-            this.comboBox1.TabIndex = 6;
+            this.cboSavedRoutes.FormattingEnabled = true;
+            this.cboSavedRoutes.Location = new System.Drawing.Point(815, 42);
+            this.cboSavedRoutes.Name = "cboSavedRoutes";
+            this.cboSavedRoutes.Size = new System.Drawing.Size(186, 21);
+            this.cboSavedRoutes.TabIndex = 6;
             // 
             // label2
             // 
@@ -111,24 +111,24 @@ namespace ManagerDS360 {
             this.label2.Text = "Сохраненные маршруты";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // button4
+            // butEditingRoute
             // 
-            this.button4.Location = new System.Drawing.Point(12, 218);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(214, 29);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Редактирование маршрутов";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.butEditingRoute.Location = new System.Drawing.Point(12, 279);
+            this.butEditingRoute.Name = "butEditingRoute";
+            this.butEditingRoute.Size = new System.Drawing.Size(222, 31);
+            this.butEditingRoute.TabIndex = 8;
+            this.butEditingRoute.Text = "Редактирование маршрутов";
+            this.butEditingRoute.UseVisualStyleBackColor = true;
+            this.butEditingRoute.Click += new System.EventHandler(this.butEditingRoute_Click);
             // 
-            // but_generator_control
+            // butGeneratorControl
             // 
-            this.but_generator_control.Location = new System.Drawing.Point(12, 91);
-            this.but_generator_control.Name = "but_generator_control";
-            this.but_generator_control.Size = new System.Drawing.Size(222, 31);
-            this.but_generator_control.TabIndex = 9;
-            this.but_generator_control.Text = "Управление генераторами";
-            this.but_generator_control.UseVisualStyleBackColor = true;
+            this.butGeneratorControl.Location = new System.Drawing.Point(12, 91);
+            this.butGeneratorControl.Name = "butGeneratorControl";
+            this.butGeneratorControl.Size = new System.Drawing.Size(222, 31);
+            this.butGeneratorControl.TabIndex = 9;
+            this.butGeneratorControl.Text = "Управление генераторами";
+            this.butGeneratorControl.UseVisualStyleBackColor = true;
             // 
             // vScrollBar1
             // 
@@ -153,7 +153,7 @@ namespace ManagerDS360 {
             this.button6.Text = "О программе";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frmDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,18 +161,18 @@ namespace ManagerDS360 {
             this.Controls.Add(this.button6);
             this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.vScrollBar1);
-            this.Controls.Add(this.but_generator_control);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.butGeneratorControl);
+            this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.txt_name_generator);
+            this.Controls.Add(this.cboSavedRoutes);
+            this.Controls.Add(this.txtNameGenerator);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.but_default_generator);
-            this.Controls.Add(this.but_next_setup);
-            this.Controls.Add(this.but_broadcast_settings_generator);
+            this.Controls.Add(this.treFieldКouteЕree);
+            this.Controls.Add(this.butDefaultGenerator);
+            this.Controls.Add(this.butNextSetup);
+            this.Controls.Add(this.butBroadcastSettingsGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Name = "Form1";
+            this.Name = "frmDS360";
             this.Text = "DS360";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -181,16 +181,16 @@ namespace ManagerDS360 {
 
         #endregion
 
-        private System.Windows.Forms.Button but_broadcast_settings_generator;
-        private System.Windows.Forms.Button but_next_setup;
-        private System.Windows.Forms.Button but_default_generator;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Button butBroadcastSettingsGenerator;
+        private System.Windows.Forms.Button butNextSetup;
+        private System.Windows.Forms.Button butDefaultGenerator;
+        private System.Windows.Forms.TreeView treFieldКouteЕree;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txt_name_generator;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txtNameGenerator;
+        private System.Windows.Forms.ComboBox cboSavedRoutes;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button but_generator_control;
+        private System.Windows.Forms.Button butEditingRoute;
+        private System.Windows.Forms.Button butGeneratorControl;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.Button button6;

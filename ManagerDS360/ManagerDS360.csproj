@@ -67,11 +67,11 @@
     <Compile Include="frmManagerRoutse.Designer.cs">
       <DependentUpon>frmManagerRoutse.cs</DependentUpon>
     </Compile>
-    <Compile Include="The main window.cs">
+    <Compile Include="frmDS360.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include=".Designer.cs">
-      <DependentUpon>The main window.cs</DependentUpon>
+      <DependentUpon>frmDS360.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -89,8 +89,8 @@
     <EmbeddedResource Include="frmManagerRoutse.resx">
       <DependentUpon>frmManagerRoutse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="The main window.resx">
-      <DependentUpon>The main window.cs</DependentUpon>
+    <EmbeddedResource Include="frmDS360.resx">
+      <DependentUpon>frmDS360.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

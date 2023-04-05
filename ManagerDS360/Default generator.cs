@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
-    public partial class Окно_назначение_генератора_по_умолчанию : Form
+    public partial class Default_Generator_window : Form
     {
-        public Окно_назначение_генератора_по_умолчанию()
+        public Default_Generator_window()
         {
             InitializeComponent();
         }

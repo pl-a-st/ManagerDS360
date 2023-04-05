@@ -1,6 +1,6 @@
 ﻿namespace ManagerDS360
 {
-    partial class but_editing_routes
+    partial class Editing_routes
     {
         /// <summary>
         /// Required designer variable.
@@ -127,7 +127,7 @@
             this.vScrollBar1.Size = new System.Drawing.Size(21, 260);
             this.vScrollBar1.TabIndex = 9;
             // 
-            // but_editing_routes
+            // Editing_routes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -142,8 +142,9 @@
             this.Controls.Add(this.create_routes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lst_save_routes);
-            this.Name = "but_editing_routes";
+            this.Name = "Editing_routes";
             this.Text = "Окно редактирования сохраненных маршрутов";
+            this.Load += new System.EventHandler(this.but_editing_routes_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

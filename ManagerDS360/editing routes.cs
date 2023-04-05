@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
-    public partial class but_editing_routes : Form
+    public partial class Editing_routes : Form
     {
-        public but_editing_routes()
+        public Editing_routes()
         {
             InitializeComponent();
         }
@@ -23,6 +23,11 @@ namespace ManagerDS360
         }
 
         private void but_up_route_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void but_editing_routes_Load(object sender, EventArgs e)
         {
 
         }

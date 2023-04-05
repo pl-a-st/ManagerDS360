@@ -24,8 +24,8 @@ namespace ManagerDS360 {
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.but_ = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.but_broadcast_settings_generator = new System.Windows.Forms.Button();
+            this.but_next_setup = new System.Windows.Forms.Button();
             this.but_default_generator = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,23 +39,23 @@ namespace ManagerDS360 {
             this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // but_
+            // but_broadcast_settings_generator
             // 
-            this.but_.Location = new System.Drawing.Point(12, 151);
-            this.but_.Name = "but_";
-            this.but_.Size = new System.Drawing.Size(223, 31);
-            this.but_.TabIndex = 0;
-            this.but_.Text = "Передача настройки в генератор";
-            this.but_.UseVisualStyleBackColor = true;
+            this.but_broadcast_settings_generator.Location = new System.Drawing.Point(12, 151);
+            this.but_broadcast_settings_generator.Name = "but_broadcast_settings_generator";
+            this.but_broadcast_settings_generator.Size = new System.Drawing.Size(223, 31);
+            this.but_broadcast_settings_generator.TabIndex = 0;
+            this.but_broadcast_settings_generator.Text = "Передача настройки в генератор";
+            this.but_broadcast_settings_generator.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // but_next_setup
             // 
-            this.button2.Location = new System.Drawing.Point(12, 188);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(223, 24);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Следующая настройка ";
-            this.button2.UseVisualStyleBackColor = true;
+            this.but_next_setup.Location = new System.Drawing.Point(12, 188);
+            this.but_next_setup.Name = "but_next_setup";
+            this.but_next_setup.Size = new System.Drawing.Size(223, 24);
+            this.but_next_setup.TabIndex = 1;
+            this.but_next_setup.Text = "Следующая настройка ";
+            this.but_next_setup.UseVisualStyleBackColor = true;
             // 
             // but_default_generator
             // 
@@ -106,9 +106,9 @@ namespace ManagerDS360 {
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(812, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 13);
+            this.label2.Size = new System.Drawing.Size(130, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Сохраненые маршруты";
+            this.label2.Text = "Сохраненные маршруты";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // button4
@@ -168,8 +168,8 @@ namespace ManagerDS360 {
             this.Controls.Add(this.label1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.but_default_generator);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.but_);
+            this.Controls.Add(this.but_next_setup);
+            this.Controls.Add(this.but_broadcast_settings_generator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "Form1";
             this.Text = "DS360";
@@ -180,8 +180,8 @@ namespace ManagerDS360 {
 
         #endregion
 
-        private System.Windows.Forms.Button but_;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button but_broadcast_settings_generator;
+        private System.Windows.Forms.Button but_next_setup;
         private System.Windows.Forms.Button but_default_generator;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label1;

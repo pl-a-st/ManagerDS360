@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
-    public partial class Editing_routes : Form
+    public partial class frmEditingRoutes : Form
     {
-        public Editing_routes()
+        public frmEditingRoutes()
         {
             InitializeComponent();
         }

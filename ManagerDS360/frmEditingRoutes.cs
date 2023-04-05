@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
-    public partial class Default_Generator_window : Form
+    public partial class frmManagerRoutse : Form
     {
-        public Default_Generator_window()
+        public frmManagerRoutse()
         {
             InitializeComponent();
         }

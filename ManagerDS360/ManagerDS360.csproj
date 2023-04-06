@@ -61,17 +61,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmCreationEditingRoute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreationEditingRoute.Designer.cs">
+      <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmManagerRoutse.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmManagerRoutse.Designer.cs">
       <DependentUpon>frmManagerRoutse.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDS360.cs">
+    <Compile Include="frmManagerDS360.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include=".Designer.cs">
-      <DependentUpon>frmDS360.cs</DependentUpon>
+      <DependentUpon>frmManagerDS360.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -83,14 +89,17 @@
     <Compile Include="frmEditingRoutes.Designer.cs">
       <DependentUpon>frmEditingRoutes.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmCreationEditingRoute.resx">
+      <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEditingRoutes.resx">
       <DependentUpon>frmEditingRoutes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmManagerRoutse.resx">
       <DependentUpon>frmManagerRoutse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDS360.resx">
-      <DependentUpon>frmDS360.cs</DependentUpon>
+    <EmbeddedResource Include="frmManagerDS360.resx">
+      <DependentUpon>frmManagerDS360.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

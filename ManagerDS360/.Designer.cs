@@ -1,6 +1,6 @@
 ﻿
 namespace ManagerDS360 {
-    partial class frmDS360 {
+    partial class frmManagerDS360 {
         /// <summary>
         /// Обязательная переменная конструктора.
         /// </summary>
@@ -34,9 +34,9 @@ namespace ManagerDS360 {
             this.label2 = new System.Windows.Forms.Label();
             this.butEditingRoute = new System.Windows.Forms.Button();
             this.butGeneratorControl = new System.Windows.Forms.Button();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.button6 = new System.Windows.Forms.Button();
+            this.sbrVerticalFieldКouteЕree = new System.Windows.Forms.VScrollBar();
+            this.sbrHorizontalFieldКouteЕree = new System.Windows.Forms.HScrollBar();
+            this.butAboutProgram = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // butBroadcastSettingsGenerator
@@ -79,9 +79,9 @@ namespace ManagerDS360 {
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(254, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Древо жизни";
+            this.label1.Text = "Маршрут";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtNameGenerator
@@ -130,37 +130,37 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Text = "Управление генераторами";
             this.butGeneratorControl.UseVisualStyleBackColor = true;
             // 
-            // vScrollBar1
+            // sbrVerticalFieldКouteЕree
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(730, 42);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(18, 422);
-            this.vScrollBar1.TabIndex = 10;
+            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(730, 42);
+            this.sbrVerticalFieldКouteЕree.Name = "sbrVerticalFieldКouteЕree";
+            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(18, 422);
+            this.sbrVerticalFieldКouteЕree.TabIndex = 10;
             // 
-            // hScrollBar1
+            // sbrHorizontalFieldКouteЕree
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(254, 464);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(494, 18);
-            this.hScrollBar1.TabIndex = 11;
+            this.sbrHorizontalFieldКouteЕree.Location = new System.Drawing.Point(254, 464);
+            this.sbrHorizontalFieldКouteЕree.Name = "sbrHorizontalFieldКouteЕree";
+            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(494, 18);
+            this.sbrHorizontalFieldКouteЕree.TabIndex = 11;
             // 
-            // button6
+            // butAboutProgram
             // 
-            this.button6.Location = new System.Drawing.Point(12, 589);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(157, 26);
-            this.button6.TabIndex = 12;
-            this.button6.Text = "О программе";
-            this.button6.UseVisualStyleBackColor = true;
+            this.butAboutProgram.Location = new System.Drawing.Point(12, 589);
+            this.butAboutProgram.Name = "butAboutProgram";
+            this.butAboutProgram.Size = new System.Drawing.Size(157, 26);
+            this.butAboutProgram.TabIndex = 12;
+            this.butAboutProgram.Text = "О программе";
+            this.butAboutProgram.UseVisualStyleBackColor = true;
             // 
             // frmDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 627);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.hScrollBar1);
-            this.Controls.Add(this.vScrollBar1);
+            this.Controls.Add(this.butAboutProgram);
+            this.Controls.Add(this.sbrHorizontalFieldКouteЕree);
+            this.Controls.Add(this.sbrVerticalFieldКouteЕree);
             this.Controls.Add(this.butGeneratorControl);
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.label2);
@@ -191,9 +191,9 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button butEditingRoute;
         private System.Windows.Forms.Button butGeneratorControl;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.VScrollBar sbrVerticalFieldКouteЕree;
+        private System.Windows.Forms.HScrollBar sbrHorizontalFieldКouteЕree;
+        private System.Windows.Forms.Button butAboutProgram;
     }
 }
 

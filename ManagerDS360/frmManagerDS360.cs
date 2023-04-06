@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ManagerDS360 {
    
-    public partial class frmDS360 : Form {
+    public partial class frmManagerDS360 : Form {
         
-        public frmDS360() {
+        public frmManagerDS360() {
             InitializeComponent();
         }
 

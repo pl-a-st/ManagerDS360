@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listComport = new System.Windows.Forms.ListBox();
+            this.lstComPort = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
             this.butRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listComport
+            // lstComPort
             // 
-            this.listComport.FormattingEnabled = true;
-            this.listComport.Location = new System.Drawing.Point(11, 25);
-            this.listComport.Name = "listComport";
-            this.listComport.Size = new System.Drawing.Size(355, 160);
-            this.listComport.TabIndex = 0;
+            this.lstComPort.FormattingEnabled = true;
+            this.lstComPort.Location = new System.Drawing.Point(11, 25);
+            this.lstComPort.Name = "lstComPort";
+            this.lstComPort.Size = new System.Drawing.Size(355, 160);
+            this.lstComPort.TabIndex = 0;
             // 
             // label1
             // 
@@ -89,7 +89,7 @@
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listComport);
+            this.Controls.Add(this.lstComPort);
             this.Name = "frmManagerRoutse";
             this.Text = "Окно назначения генератора по умолчанию";
             this.ResumeLayout(false);
@@ -99,7 +99,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listComport;
+        private System.Windows.Forms.ListBox lstComPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.Button butCancel;

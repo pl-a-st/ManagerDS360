@@ -33,9 +33,14 @@ namespace ManagerDS360 {
 
         private void button4_Click(object sender, EventArgs e)
         {
+           
+
+        }
+
+        private void butEditingRoute_Click(object sender, EventArgs e)
+        {
             frmEditingRoutes managerRoutes = new frmEditingRoutes();
             managerRoutes.ShowDialog();
-
         }
     }
 }

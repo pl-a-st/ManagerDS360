@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lstComPort = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblLisеComPorts = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
             this.butRefresh = new System.Windows.Forms.Button();
@@ -43,15 +43,15 @@
             this.lstComPort.Size = new System.Drawing.Size(355, 160);
             this.lstComPort.TabIndex = 0;
             // 
-            // label1
+            // lblLisеComPorts
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Список com портов";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblLisеComPorts.AutoSize = true;
+            this.lblLisеComPorts.Location = new System.Drawing.Point(9, 9);
+            this.lblLisеComPorts.Name = "lblLisеComPorts";
+            this.lblLisеComPorts.Size = new System.Drawing.Size(105, 13);
+            this.lblLisеComPorts.TabIndex = 1;
+            this.lblLisеComPorts.Text = "Список com портов";
+            this.lblLisеComPorts.Click += new System.EventHandler(this.label1_Click);
             // 
             // butSave
             // 
@@ -88,7 +88,7 @@
             this.Controls.Add(this.butRefresh);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblLisеComPorts);
             this.Controls.Add(this.lstComPort);
             this.Name = "frmManagerRoutse";
             this.Text = "Окно назначения генератора по умолчанию";
@@ -100,7 +100,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox lstComPort;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblLisеComPorts;
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.Button butCancel;
         private System.Windows.Forms.Button butRefresh;

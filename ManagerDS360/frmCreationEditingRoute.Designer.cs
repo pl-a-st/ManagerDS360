@@ -43,7 +43,7 @@
             // 
             // txtNameRoute
             // 
-            this.txtNameRoute.Location = new System.Drawing.Point(24, 38);
+            this.txtNameRoute.Location = new System.Drawing.Point(12, 40);
             this.txtNameRoute.Name = "txtNameRoute";
             this.txtNameRoute.Size = new System.Drawing.Size(222, 20);
             this.txtNameRoute.TabIndex = 0;

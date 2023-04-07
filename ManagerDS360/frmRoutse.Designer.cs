@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lstSaveRoutes = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSavedRoutes = new System.Windows.Forms.Label();
             this.butCreateRoutes = new System.Windows.Forms.Button();
             this.butEditingRoute = new System.Windows.Forms.Button();
             this.butUpRoute = new System.Windows.Forms.Button();
@@ -49,14 +49,14 @@
             this.lstSaveRoutes.TabIndex = 0;
             this.lstSaveRoutes.SelectedIndexChanged += new System.EventHandler(this.lstsaveroutes_SelectedIndexChanged);
             // 
-            // label1
+            // lblSavedRoutes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Сохраненные маршруты";
+            this.lblSavedRoutes.AutoSize = true;
+            this.lblSavedRoutes.Location = new System.Drawing.Point(18, 13);
+            this.lblSavedRoutes.Name = "lblSavedRoutes";
+            this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
+            this.lblSavedRoutes.TabIndex = 1;
+            this.lblSavedRoutes.Text = "Сохраненные маршруты";
             // 
             // butCreateRoutes
             // 
@@ -141,7 +141,7 @@
             this.Controls.Add(this.butUpRoute);
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.butCreateRoutes);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblSavedRoutes);
             this.Controls.Add(this.lstSaveRoutes);
             this.Name = "frmEditingRoutes";
             this.Text = "Окно редактирования сохраненных маршрутов";
@@ -154,7 +154,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox lstSaveRoutes;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSavedRoutes;
         private System.Windows.Forms.Button butCreateRoutes;
         private System.Windows.Forms.Button butEditingRoute;
         private System.Windows.Forms.Button butUpRoute;

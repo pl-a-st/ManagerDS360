@@ -16,5 +16,10 @@ namespace ManagerDS360
         {
             InitializeComponent();
         }
+
+        private void butAddFolder_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

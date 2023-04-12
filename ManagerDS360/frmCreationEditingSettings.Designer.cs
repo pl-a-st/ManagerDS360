@@ -132,6 +132,7 @@
             this.butSave.TabIndex = 9;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
+            this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // butCancel
             // 

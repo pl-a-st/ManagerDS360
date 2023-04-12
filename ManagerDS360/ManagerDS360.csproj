@@ -106,6 +106,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRoutse.resx">
       <DependentUpon>frmRoutse.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="frmManagerDS360.resx">
       <DependentUpon>frmManagerDS360.cs</DependentUpon>

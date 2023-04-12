@@ -46,5 +46,10 @@ namespace ManagerDS360
         {
 
         }
+
+        private void butDeleteRoute_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

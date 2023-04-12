@@ -16,5 +16,10 @@ namespace ManagerDS360
         {
             InitializeComponent();
         }
+
+        private void butSave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -82,6 +82,7 @@
             this.butAddFolder.TabIndex = 4;
             this.butAddFolder.Text = "Добавить папку";
             this.butAddFolder.UseVisualStyleBackColor = true;
+            this.butAddFolder.Click += new System.EventHandler(this.butAddFolder_Click);
             // 
             // butAddSetting
             // 

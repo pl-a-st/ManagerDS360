@@ -31,16 +31,51 @@ namespace ManagerDS360 {
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-           
+        //private void button4_Click(object sender, EventArgs e)
+        //{
 
-        }
+
+        //}
 
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
             frmEditingRoutes managerRoutes = new frmEditingRoutes();
             managerRoutes.ShowDialog();
+        }
+
+        private void butNextSetup_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butGeneratorControl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butAboutProgram_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNameGenerator_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }

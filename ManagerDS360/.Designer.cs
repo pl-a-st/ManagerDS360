@@ -27,7 +27,7 @@ namespace ManagerDS360 {
             this.butBroadcastSettingsGenerator = new System.Windows.Forms.Button();
             this.butNextSetup = new System.Windows.Forms.Button();
             this.butDefaultGenerator = new System.Windows.Forms.Button();
-            this.treFieldКouteЕree = new System.Windows.Forms.TreeView();
+            this.lstRouteSettings = new System.Windows.Forms.TreeView();
             this.lblRoute = new System.Windows.Forms.Label();
             this.txtNameGenerator = new System.Windows.Forms.TextBox();
             this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
@@ -67,12 +67,12 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.UseVisualStyleBackColor = true;
             this.butDefaultGenerator.Click += new System.EventHandler(this.button3_Click);
             // 
-            // treFieldКouteЕree
+            // lstRouteSettings
             // 
-            this.treFieldКouteЕree.Location = new System.Drawing.Point(254, 42);
-            this.treFieldКouteЕree.Name = "treFieldКouteЕree";
-            this.treFieldКouteЕree.Size = new System.Drawing.Size(494, 440);
-            this.treFieldКouteЕree.TabIndex = 3;
+            this.lstRouteSettings.Location = new System.Drawing.Point(254, 42);
+            this.lstRouteSettings.Name = "lstRouteSettings";
+            this.lstRouteSettings.Size = new System.Drawing.Size(494, 440);
+            this.lstRouteSettings.TabIndex = 3;
             // 
             // lblRoute
             // 
@@ -167,7 +167,7 @@ namespace ManagerDS360 {
             this.Controls.Add(this.cboSavedRoutes);
             this.Controls.Add(this.txtNameGenerator);
             this.Controls.Add(this.lblRoute);
-            this.Controls.Add(this.treFieldКouteЕree);
+            this.Controls.Add(this.lstRouteSettings);
             this.Controls.Add(this.butDefaultGenerator);
             this.Controls.Add(this.butNextSetup);
             this.Controls.Add(this.butBroadcastSettingsGenerator);
@@ -187,7 +187,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butBroadcastSettingsGenerator;
         private System.Windows.Forms.Button butNextSetup;
         private System.Windows.Forms.Button butDefaultGenerator;
-        private System.Windows.Forms.TreeView treFieldКouteЕree;
+        private System.Windows.Forms.TreeView lstRouteSettings;
         private System.Windows.Forms.Label lblRoute;
         private System.Windows.Forms.TextBox txtNameGenerator;
         private System.Windows.Forms.ComboBox cboSavedRoutes;

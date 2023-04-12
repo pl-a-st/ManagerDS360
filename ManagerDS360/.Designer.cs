@@ -47,6 +47,7 @@ namespace ManagerDS360 {
             this.butBroadcastSettingsGenerator.TabIndex = 0;
             this.butBroadcastSettingsGenerator.Text = "Передача настройки в генератор";
             this.butBroadcastSettingsGenerator.UseVisualStyleBackColor = true;
+            this.butBroadcastSettingsGenerator.Click += new System.EventHandler(this.butBroadcastSettingsGenerator_Click);
             // 
             // butNextSetup
             // 
@@ -56,6 +57,7 @@ namespace ManagerDS360 {
             this.butNextSetup.TabIndex = 1;
             this.butNextSetup.Text = "Следующая настройка ";
             this.butNextSetup.UseVisualStyleBackColor = true;
+            this.butNextSetup.Click += new System.EventHandler(this.butNextSetup_Click);
             // 
             // butDefaultGenerator
             // 
@@ -92,6 +94,7 @@ namespace ManagerDS360 {
             this.txtNameGenerator.Size = new System.Drawing.Size(219, 20);
             this.txtNameGenerator.TabIndex = 5;
             this.txtNameGenerator.Text = "Name generator\r\n";
+            this.txtNameGenerator.TextChanged += new System.EventHandler(this.txtNameGenerator_TextChanged);
             // 
             // cboSavedRoutes
             // 
@@ -100,6 +103,7 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.Name = "cboSavedRoutes";
             this.cboSavedRoutes.Size = new System.Drawing.Size(186, 21);
             this.cboSavedRoutes.TabIndex = 6;
+            this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
             // 
             // lblSavedRoutes
             // 
@@ -129,6 +133,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.TabIndex = 9;
             this.butGeneratorControl.Text = "Управление генераторами";
             this.butGeneratorControl.UseVisualStyleBackColor = true;
+            this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
             // 
             // sbrVerticalFieldКouteЕree
             // 
@@ -152,6 +157,7 @@ namespace ManagerDS360 {
             this.butAboutProgram.TabIndex = 12;
             this.butAboutProgram.Text = "О программе";
             this.butAboutProgram.UseVisualStyleBackColor = true;
+            this.butAboutProgram.Click += new System.EventHandler(this.butAboutProgram_Click);
             // 
             // frmManagerDS360
             // 

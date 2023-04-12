@@ -90,7 +90,10 @@
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblLisеComPorts);
             this.Controls.Add(this.lstComPort);
+            this.MaximumSize = new System.Drawing.Size(394, 277);
+            this.MinimumSize = new System.Drawing.Size(394, 277);
             this.Name = "frmManagerRoutse";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно назначения генератора по умолчанию";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -132,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(582, 412);
             this.Controls.Add(this.sbrVerticalSaveRoutes);
             this.Controls.Add(this.sbrHorizontalSaveRoutes);
             this.Controls.Add(this.butDeleteRoute);
@@ -143,7 +143,10 @@
             this.Controls.Add(this.butCreateRoutes);
             this.Controls.Add(this.lblSavedRoutes);
             this.Controls.Add(this.lstSaveRoutes);
+            this.MaximumSize = new System.Drawing.Size(598, 451);
+            this.MinimumSize = new System.Drawing.Size(598, 451);
             this.Name = "frmEditingRoutes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно редактирования сохраненных маршрутов";
             this.Load += new System.EventHandler(this.but_editing_routes_Load);
             this.ResumeLayout(false);

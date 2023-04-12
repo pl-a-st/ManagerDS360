@@ -172,7 +172,10 @@ namespace ManagerDS360 {
             this.Controls.Add(this.butNextSetup);
             this.Controls.Add(this.butBroadcastSettingsGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MaximumSize = new System.Drawing.Size(1022, 666);
+            this.MinimumSize = new System.Drawing.Size(1022, 666);
             this.Name = "frmManagerDS360";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DS360";
             this.ResumeLayout(false);
             this.PerformLayout();

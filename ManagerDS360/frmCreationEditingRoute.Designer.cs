@@ -62,7 +62,7 @@
             this.lstRouteTree.FormattingEnabled = true;
             this.lstRouteTree.Location = new System.Drawing.Point(295, 42);
             this.lstRouteTree.Name = "lstRouteTree";
-            this.lstRouteTree.Size = new System.Drawing.Size(376, 264);
+            this.lstRouteTree.Size = new System.Drawing.Size(440, 303);
             this.lstRouteTree.TabIndex = 2;
             // 
             // lblRouteTree
@@ -103,7 +103,7 @@
             // 
             // butDelete
             // 
-            this.butDelete.Location = new System.Drawing.Point(575, 322);
+            this.butDelete.Location = new System.Drawing.Point(639, 362);
             this.butDelete.Name = "butDelete";
             this.butDelete.Size = new System.Drawing.Size(96, 25);
             this.butDelete.TabIndex = 7;
@@ -112,7 +112,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(295, 322);
+            this.butSave.Location = new System.Drawing.Point(295, 362);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(96, 25);
             this.butSave.TabIndex = 8;
@@ -141,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 362);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.butSave);
@@ -153,7 +153,10 @@
             this.Controls.Add(this.lstRouteTree);
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
+            this.MaximumSize = new System.Drawing.Size(816, 489);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmCreationEditingRoute";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCreationEditingRoute";
             this.ResumeLayout(false);
             this.PerformLayout();

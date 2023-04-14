@@ -57,6 +57,7 @@
             this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
             this.lblSavedRoutes.TabIndex = 1;
             this.lblSavedRoutes.Text = "Сохраненные маршруты";
+            this.lblSavedRoutes.Click += new System.EventHandler(this.lblSavedRoutes_Click);
             // 
             // butCreateRoutes
             // 
@@ -66,6 +67,7 @@
             this.butCreateRoutes.TabIndex = 2;
             this.butCreateRoutes.Text = "Создать маршрут";
             this.butCreateRoutes.UseVisualStyleBackColor = true;
+            this.butCreateRoutes.Click += new System.EventHandler(this.butCreateRoutes_Click);
             // 
             // butEditingRoute
             // 
@@ -75,6 +77,7 @@
             this.butEditingRoute.TabIndex = 3;
             this.butEditingRoute.Text = "Редактировать маршрут";
             this.butEditingRoute.UseVisualStyleBackColor = true;
+            this.butEditingRoute.Click += new System.EventHandler(this.butEditingRoute_Click);
             // 
             // butUpRoute
             // 
@@ -84,7 +87,7 @@
             this.butUpRoute.TabIndex = 4;
             this.butUpRoute.Text = "Вверх";
             this.butUpRoute.UseVisualStyleBackColor = true;
-            this.butUpRoute.Click += new System.EventHandler(this.but_up_route_Click);
+            this.butUpRoute.Click += new System.EventHandler(this.butUpRoute_Click);
             // 
             // butDownRoute
             // 
@@ -94,7 +97,7 @@
             this.butDownRoute.TabIndex = 5;
             this.butDownRoute.Text = "Вниз";
             this.butDownRoute.UseVisualStyleBackColor = true;
-            this.butDownRoute.Click += new System.EventHandler(this.but_down_route_Click);
+            this.butDownRoute.Click += new System.EventHandler(this.butDownRoute_Click);
             // 
             // butSaveRoutes
             // 
@@ -104,6 +107,7 @@
             this.butSaveRoutes.TabIndex = 6;
             this.butSaveRoutes.Text = "Сохранить";
             this.butSaveRoutes.UseVisualStyleBackColor = true;
+            this.butSaveRoutes.Click += new System.EventHandler(this.butSaveRoutes_Click);
             // 
             // butDeleteRoute
             // 
@@ -121,6 +125,7 @@
             this.sbrHorizontalSaveRoutes.Name = "sbrHorizontalSaveRoutes";
             this.sbrHorizontalSaveRoutes.Size = new System.Drawing.Size(351, 17);
             this.sbrHorizontalSaveRoutes.TabIndex = 8;
+            this.sbrHorizontalSaveRoutes.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrHorizontalSaveRoutes_Scroll);
             // 
             // sbrVerticalSaveRoutes
             // 
@@ -128,6 +133,7 @@
             this.sbrVerticalSaveRoutes.Name = "sbrVerticalSaveRoutes";
             this.sbrVerticalSaveRoutes.Size = new System.Drawing.Size(21, 260);
             this.sbrVerticalSaveRoutes.TabIndex = 9;
+            this.sbrVerticalSaveRoutes.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrVerticalSaveRoutes_Scroll);
             // 
             // frmEditingRoutes
             // 
@@ -147,7 +153,7 @@
             this.Name = "frmEditingRoutes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно редактирования сохраненных маршрутов";
-            this.Load += new System.EventHandler(this.but_editing_routes_Load);
+            this.Load += new System.EventHandler(this.frmEditingRoutes_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

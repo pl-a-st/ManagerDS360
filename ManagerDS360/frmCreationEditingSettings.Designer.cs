@@ -56,6 +56,7 @@
             this.chcDefaultGenerator.TabIndex = 0;
             this.chcDefaultGenerator.Text = "Генератор по умолчанию";
             this.chcDefaultGenerator.UseVisualStyleBackColor = true;
+            this.chcDefaultGenerator.CheckedChanged += new System.EventHandler(this.chcDefaultGenerator_CheckedChanged);
             // 
             // cboComPort
             // 
@@ -64,6 +65,7 @@
             this.cboComPort.Name = "cboComPort";
             this.cboComPort.Size = new System.Drawing.Size(143, 21);
             this.cboComPort.TabIndex = 1;
+            this.cboComPort.SelectedIndexChanged += new System.EventHandler(this.cboComPort_SelectedIndexChanged);
             // 
             // lblComPort
             // 
@@ -73,6 +75,7 @@
             this.lblComPort.Size = new System.Drawing.Size(54, 13);
             this.lblComPort.TabIndex = 2;
             this.lblComPort.Text = "Com порт";
+            this.lblComPort.Click += new System.EventHandler(this.lblComPort_Click);
             // 
             // cboTypeSignal
             // 
@@ -81,6 +84,7 @@
             this.cboTypeSignal.Name = "cboTypeSignal";
             this.cboTypeSignal.Size = new System.Drawing.Size(143, 21);
             this.cboTypeSignal.TabIndex = 3;
+            this.cboTypeSignal.SelectedIndexChanged += new System.EventHandler(this.cboTypeSignal_SelectedIndexChanged);
             // 
             // lblTypeSignal
             // 
@@ -90,6 +94,7 @@
             this.lblTypeSignal.Size = new System.Drawing.Size(70, 13);
             this.lblTypeSignal.TabIndex = 4;
             this.lblTypeSignal.Text = "Вид сигнала";
+            this.lblTypeSignal.Click += new System.EventHandler(this.lblTypeSignal_Click);
             // 
             // cboSetValue
             // 
@@ -98,6 +103,7 @@
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(143, 21);
             this.cboSetValue.TabIndex = 5;
+            this.cboSetValue.SelectedIndexChanged += new System.EventHandler(this.cboSetValue_SelectedIndexChanged);
             // 
             // lblSetValue
             // 
@@ -107,6 +113,7 @@
             this.lblSetValue.Size = new System.Drawing.Size(120, 13);
             this.lblSetValue.TabIndex = 6;
             this.lblSetValue.Text = "Задаваемая величина";
+            this.lblSetValue.Click += new System.EventHandler(this.lblSetValue_Click);
             // 
             // txtConversionFactor
             // 
@@ -114,6 +121,7 @@
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
             this.txtConversionFactor.TabIndex = 7;
+            this.txtConversionFactor.TextChanged += new System.EventHandler(this.txtConversionFactor_TextChanged);
             // 
             // lblConversionFactor
             // 
@@ -123,6 +131,7 @@
             this.lblConversionFactor.Size = new System.Drawing.Size(143, 26);
             this.lblConversionFactor.TabIndex = 8;
             this.lblConversionFactor.Text = "Коэффициент \r\nпреобразования мВ/м×с-2";
+            this.lblConversionFactor.Click += new System.EventHandler(this.lblConversionFactor_Click);
             // 
             // butSave
             // 
@@ -142,6 +151,7 @@
             this.butCancel.TabIndex = 10;
             this.butCancel.Text = "Отмена";
             this.butCancel.UseVisualStyleBackColor = true;
+            this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
             // 
             // txtFrequency
             // 
@@ -149,6 +159,7 @@
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(143, 20);
             this.txtFrequency.TabIndex = 11;
+            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
             // 
             // lblFrequency
             // 
@@ -158,6 +169,7 @@
             this.lblFrequency.Size = new System.Drawing.Size(64, 13);
             this.lblFrequency.TabIndex = 12;
             this.lblFrequency.Text = "Частота Гц";
+            this.lblFrequency.Click += new System.EventHandler(this.lblFrequency_Click);
             // 
             // txtDetector
             // 
@@ -165,6 +177,7 @@
             this.txtDetector.Name = "txtDetector";
             this.txtDetector.Size = new System.Drawing.Size(143, 20);
             this.txtDetector.TabIndex = 13;
+            this.txtDetector.TextChanged += new System.EventHandler(this.txtDetector_TextChanged);
             // 
             // lblDetector
             // 
@@ -174,6 +187,7 @@
             this.lblDetector.Size = new System.Drawing.Size(56, 13);
             this.lblDetector.TabIndex = 14;
             this.lblDetector.Text = "Детектор";
+            this.lblDetector.Click += new System.EventHandler(this.lblDetector_Click);
             // 
             // txtOffset
             // 
@@ -181,6 +195,7 @@
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(143, 20);
             this.txtOffset.TabIndex = 15;
+            this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
             // lblOffset
             // 
@@ -190,6 +205,7 @@
             this.lblOffset.Size = new System.Drawing.Size(61, 13);
             this.lblOffset.TabIndex = 16;
             this.lblOffset.Text = "Смещение";
+            this.lblOffset.Click += new System.EventHandler(this.lblOffset_Click);
             // 
             // frmCreationEditingSettings
             // 
@@ -215,6 +231,7 @@
             this.Controls.Add(this.chcDefaultGenerator);
             this.Name = "frmCreationEditingSettings";
             this.Text = "frmCreationEditingSettings";
+            this.Load += new System.EventHandler(this.frmCreationEditingSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

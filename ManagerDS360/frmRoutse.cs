@@ -22,17 +22,17 @@ namespace ManagerDS360
             InitializeComponent();
         }
 
-        private void but_down_route_Click(object sender, EventArgs e)
+        private void butDownRoute_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void but_up_route_Click(object sender, EventArgs e)
+        private void butUpRoute_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void but_editing_routes_Load(object sender, EventArgs e)
+        private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
 
             listRoutesFiles.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#").GetFiles());
@@ -48,6 +48,36 @@ namespace ManagerDS360
         }
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSavedRoutes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sbrHorizontalSaveRoutes_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void sbrVerticalSaveRoutes_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void butSaveRoutes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butCreateRoutes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butEditingRoute_Click(object sender, EventArgs e)
         {
 
         }

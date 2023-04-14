@@ -16,17 +16,17 @@ namespace ManagerDS360 {
             InitializeComponent();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void butDefaultGenerator_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void lblRoute_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void lblSavedRoutes_Click(object sender, EventArgs e)
         {
 
         }
@@ -74,6 +74,26 @@ namespace ManagerDS360 {
         }
 
         private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void frmManagerDS360_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstRouteSettings_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void sbrVerticalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
         {
 
         }

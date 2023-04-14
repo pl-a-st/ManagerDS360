@@ -21,5 +21,60 @@ namespace ManagerDS360
         {
 
         }
+
+        private void lblRouteName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNameRoute_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butAddSetting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butEditSetting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butUp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butDown_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstRouteTree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRouteTree_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmCreationEditingRoute_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

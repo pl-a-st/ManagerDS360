@@ -47,15 +47,17 @@
             this.txtNameRoute.Name = "txtNameRoute";
             this.txtNameRoute.Size = new System.Drawing.Size(222, 20);
             this.txtNameRoute.TabIndex = 0;
+            this.txtNameRoute.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
             // 
             // lblRouteName
             // 
             this.lblRouteName.AutoSize = true;
-            this.lblRouteName.Location = new System.Drawing.Point(25, 24);
+            this.lblRouteName.Location = new System.Drawing.Point(12, 26);
             this.lblRouteName.Name = "lblRouteName";
             this.lblRouteName.Size = new System.Drawing.Size(110, 13);
             this.lblRouteName.TabIndex = 1;
             this.lblRouteName.Text = "Название маршрута";
+            this.lblRouteName.Click += new System.EventHandler(this.lblRouteName_Click);
             // 
             // lstRouteTree
             // 
@@ -64,6 +66,7 @@
             this.lstRouteTree.Name = "lstRouteTree";
             this.lstRouteTree.Size = new System.Drawing.Size(440, 303);
             this.lstRouteTree.TabIndex = 2;
+            this.lstRouteTree.SelectedIndexChanged += new System.EventHandler(this.lstRouteTree_SelectedIndexChanged);
             // 
             // lblRouteTree
             // 
@@ -73,6 +76,7 @@
             this.lblRouteTree.Size = new System.Drawing.Size(99, 13);
             this.lblRouteTree.TabIndex = 3;
             this.lblRouteTree.Text = "Дерево маршрута";
+            this.lblRouteTree.Click += new System.EventHandler(this.lblRouteTree_Click);
             // 
             // butAddFolder
             // 
@@ -92,6 +96,7 @@
             this.butAddSetting.TabIndex = 5;
             this.butAddSetting.Text = "Добавить настройку";
             this.butAddSetting.UseVisualStyleBackColor = true;
+            this.butAddSetting.Click += new System.EventHandler(this.butAddSetting_Click);
             // 
             // butEditSetting
             // 
@@ -101,6 +106,7 @@
             this.butEditSetting.TabIndex = 6;
             this.butEditSetting.Text = "Редактировать настройку";
             this.butEditSetting.UseVisualStyleBackColor = true;
+            this.butEditSetting.Click += new System.EventHandler(this.butEditSetting_Click);
             // 
             // butDelete
             // 
@@ -110,6 +116,7 @@
             this.butDelete.TabIndex = 7;
             this.butDelete.Text = "Удалить";
             this.butDelete.UseVisualStyleBackColor = true;
+            this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
             // 
             // butSave
             // 
@@ -119,6 +126,7 @@
             this.butSave.TabIndex = 8;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
+            this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // butUp
             // 
@@ -128,6 +136,7 @@
             this.butUp.TabIndex = 9;
             this.butUp.Text = "Вверх";
             this.butUp.UseVisualStyleBackColor = true;
+            this.butUp.Click += new System.EventHandler(this.butUp_Click);
             // 
             // butDown
             // 
@@ -137,6 +146,7 @@
             this.butDown.TabIndex = 10;
             this.butDown.Text = "Вниз";
             this.butDown.UseVisualStyleBackColor = true;
+            this.butDown.Click += new System.EventHandler(this.butDown_Click);
             // 
             // frmCreationEditingRoute
             // 
@@ -159,6 +169,7 @@
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCreationEditingRoute";
+            this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

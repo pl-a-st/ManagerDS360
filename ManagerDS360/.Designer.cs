@@ -67,7 +67,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.TabIndex = 2;
             this.butDefaultGenerator.Text = "Генератор по умолчанию";
             this.butDefaultGenerator.UseVisualStyleBackColor = true;
-            this.butDefaultGenerator.Click += new System.EventHandler(this.button3_Click);
+            this.butDefaultGenerator.Click += new System.EventHandler(this.butDefaultGenerator_Click);
             // 
             // lstRouteSettings
             // 
@@ -75,6 +75,7 @@ namespace ManagerDS360 {
             this.lstRouteSettings.Name = "lstRouteSettings";
             this.lstRouteSettings.Size = new System.Drawing.Size(494, 440);
             this.lstRouteSettings.TabIndex = 3;
+            this.lstRouteSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.lstRouteSettings_AfterSelect);
             // 
             // lblRoute
             // 
@@ -84,7 +85,7 @@ namespace ManagerDS360 {
             this.lblRoute.Size = new System.Drawing.Size(52, 13);
             this.lblRoute.TabIndex = 4;
             this.lblRoute.Text = "Маршрут";
-            this.lblRoute.Click += new System.EventHandler(this.label1_Click);
+            this.lblRoute.Click += new System.EventHandler(this.lblRoute_Click);
             // 
             // txtNameGenerator
             // 
@@ -113,7 +114,7 @@ namespace ManagerDS360 {
             this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
             this.lblSavedRoutes.TabIndex = 7;
             this.lblSavedRoutes.Text = "Сохраненные маршруты";
-            this.lblSavedRoutes.Click += new System.EventHandler(this.label2_Click);
+            this.lblSavedRoutes.Click += new System.EventHandler(this.lblSavedRoutes_Click);
             // 
             // butEditingRoute
             // 
@@ -141,6 +142,7 @@ namespace ManagerDS360 {
             this.sbrVerticalFieldКouteЕree.Name = "sbrVerticalFieldКouteЕree";
             this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(18, 422);
             this.sbrVerticalFieldКouteЕree.TabIndex = 10;
+            this.sbrVerticalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrVerticalFieldКouteЕree_Scroll);
             // 
             // sbrHorizontalFieldКouteЕree
             // 
@@ -148,6 +150,7 @@ namespace ManagerDS360 {
             this.sbrHorizontalFieldКouteЕree.Name = "sbrHorizontalFieldКouteЕree";
             this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(494, 18);
             this.sbrHorizontalFieldКouteЕree.TabIndex = 11;
+            this.sbrHorizontalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrHorizontalFieldКouteЕree_Scroll);
             // 
             // butAboutProgram
             // 
@@ -183,6 +186,7 @@ namespace ManagerDS360 {
             this.Name = "frmManagerDS360";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DS360";
+            this.Load += new System.EventHandler(this.frmManagerDS360_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

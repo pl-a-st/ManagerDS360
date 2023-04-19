@@ -32,13 +32,21 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-        
-                listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
+            DirectoryInfo directoryInfo = new DirectoryInfo("E:\\0000SteamLibrary");
+            if (!directoryInfo.Exists)
+            {
+                MessageBox.Show("Нет данных о созданных маршрутах!"); 
+                return;
+            }
+
+                //listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
             //listRoutesFiles.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#").GetFiles());
             foreach (FileInfo info in listRoutesFiles)
             {
                 lstSaveRoutes.Items.Add(info);
             }
+            
+
         }
 
         private void lstsaveroutes_SelectedIndexChanged(object sender, EventArgs e)

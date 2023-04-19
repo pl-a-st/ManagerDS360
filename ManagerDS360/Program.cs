@@ -24,19 +24,8 @@ namespace ManagerDS360
         }
     }
 
-    //public class DAO
-    //{
-    //    List<FileInfo> RouteFileInfoList = new List<FileInfo>();
 
-    //    public DAO()
-    //    {
-    //        RouteFileInfoList.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя").GetFiles());
-
-    //    }
 
 }
-public class Constants
-{
 
-}
 

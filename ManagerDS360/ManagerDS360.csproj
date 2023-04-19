@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="DAO.cs" />
     <Compile Include="frmCreationEditingRoute.cs">
       <SubType>Form</SubType>
     </Compile>

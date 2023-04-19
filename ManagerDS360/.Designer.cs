@@ -186,6 +186,7 @@ namespace ManagerDS360 {
             this.Name = "frmManagerDS360";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DS360";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManagerDS360_Closing);
             this.Load += new System.EventHandler(this.frmManagerDS360_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

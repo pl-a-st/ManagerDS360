@@ -12,13 +12,33 @@ namespace ManagerDS360 {
    
     public partial class frmManagerDS360 : Form {
         
-        public frmManagerDS360() {
+        public frmManagerDS360() 
+        {
             InitializeComponent();
+        }
+
+        //по крестику спрашивает, закрыть или нет окно
+        private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show(
+             "Вы действительно хотите выйти из программы?",
+             "Завершение программы",
+             MessageBoxButtons.YesNo,
+             MessageBoxIcon.Warning);
+
+            if (dialog == DialogResult.Yes)
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void butDefaultGenerator_Click(object sender, EventArgs e)
         {
-
+            //задать генератор по умолчанию?
         }
 
         private void lblRoute_Click(object sender, EventArgs e)
@@ -45,32 +65,33 @@ namespace ManagerDS360 {
 
         private void butNextSetup_Click(object sender, EventArgs e)
         {
-
+            //переместить фокус на след. и запустить след. настройку
         }
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
-
+            frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
+            frmDefaultGenerator.ShowDialog();
         }
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
-
+            //передача настройки в генератор
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)
         {
-
+            //появление новой формы? 
         }
 
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //загрузить выпадающий список сохранённых маршрутов
         }
 
         private void txtNameGenerator_TextChanged(object sender, EventArgs e)
         {
-
+            //отображение в окошке наименования генератора
         }
 
         private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -80,7 +101,16 @@ namespace ManagerDS360 {
 
         private void frmManagerDS360_Load(object sender, EventArgs e)
         {
+            PushListBox();
+        }
 
+        private void PushListBox()
+        {
+            //lstRouteSettings.Items.Clear();
+            //foreach (Entry entry1 in ProgramData.Entries)
+            //{
+
+            //}
         }
 
         private void lstRouteSettings_AfterSelect(object sender, TreeViewEventArgs e)

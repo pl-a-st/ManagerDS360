@@ -12,6 +12,7 @@ namespace ManagerDS360 {
    
     public partial class frmManagerDS360 : Form {
         
+
         public frmManagerDS360() 
         {
             InitializeComponent();
@@ -71,6 +72,7 @@ namespace ManagerDS360 {
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
+            frmDefaultGenerator.Type = Type.Control;
             frmDefaultGenerator.ShowDialog();
         }
 

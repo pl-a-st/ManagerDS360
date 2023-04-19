@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
+    public enum Type
+    {
+        Change,
+        Control
+    }
     public partial class frmManagerRoutse : Form
     {
+        public Type Type;
         public frmManagerRoutse()
         {
             InitializeComponent();

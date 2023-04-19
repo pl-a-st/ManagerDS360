@@ -90,7 +90,7 @@
             // 
             // butAddSetting
             // 
-            this.butAddSetting.Location = new System.Drawing.Point(12, 190);
+            this.butAddSetting.Location = new System.Drawing.Point(12, 145);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(144, 42);
             this.butAddSetting.TabIndex = 5;
@@ -100,7 +100,7 @@
             // 
             // butEditSetting
             // 
-            this.butEditSetting.Location = new System.Drawing.Point(12, 305);
+            this.butEditSetting.Location = new System.Drawing.Point(12, 234);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(144, 42);
             this.butEditSetting.TabIndex = 6;
@@ -110,9 +110,9 @@
             // 
             // butDelete
             // 
-            this.butDelete.Location = new System.Drawing.Point(639, 362);
+            this.butDelete.Location = new System.Drawing.Point(12, 193);
             this.butDelete.Name = "butDelete";
-            this.butDelete.Size = new System.Drawing.Size(96, 25);
+            this.butDelete.Size = new System.Drawing.Size(144, 35);
             this.butDelete.TabIndex = 7;
             this.butDelete.Text = "Удалить";
             this.butDelete.UseVisualStyleBackColor = true;

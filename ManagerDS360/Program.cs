@@ -35,4 +35,8 @@ namespace ManagerDS360
         }
 
     }
+     public class  Constants
+    {
+
+    }
 }

@@ -168,7 +168,7 @@
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmCreationEditingRoute";
+            this.Text = "Окно создания и окно редактирования маршрута";
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

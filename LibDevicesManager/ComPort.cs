@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace LibDevicesManager
 {
@@ -65,7 +66,8 @@ namespace LibDevicesManager
             }
             devicesNameList.Clear();
             Result result = new Result();
-            foreach (string port in PortsNamesList)
+            List<string> ports = PortsNamesList;
+            foreach (string port in ports)
             {
                 if (port == "COM1111") //ToDEL
                 {
@@ -106,6 +108,21 @@ namespace LibDevicesManager
             }
             return generators;
         }
+        public static string GetDeviceModel(string portName)
+        {
+            Result result = new Result();
+            result = IsComPortDS360Emulator(portName);
+            if (result == Result.Success)
+            {
+                return "DS360-Emulator";
+            }
+            result = IsComPortDS360(portName);
+            if (result == Result.Success)
+            {
+                return "DS360";
+            }
+            return "Unknown";
+        }
         private static Result Send(SerialPort port, string message)
         {
             if (message == null)
@@ -114,6 +131,7 @@ namespace LibDevicesManager
             }
             if (port != null && port.IsOpen)
             {
+                Thread.Sleep(100);
                 try
                 {
                     port.WriteLine(message);
@@ -128,11 +146,39 @@ namespace LibDevicesManager
             }
             return Result.AcsessError;
         }
+        /*
+        private static Result _Send(SerialPort port, string message)
+        {
+            if (message == null)
+            {
+                return Result.ParamError;
+            }
+            if (port != null && port.IsOpen)
+            {
+                message += "\n";
+                char[] chars = message.ToCharArray();
+                try
+                {
+                    //port.WriteLine(message);
+                    port.Write(chars, 0, chars.Length);
+                    return Result.Success;
+                }
+                catch (TimeoutException ex)
+                {
+                    //Обработать ошибку передачи
+                    //ExceptionMessage = "Ошибка времени отправки пакета. " + ex.Message;
+                    return Result.Exception;
+                }
+            }
+            return Result.AcsessError;
+        }
+        */
         private static string Receive(SerialPort port)
         {
             string receivedMessage = string.Empty;
             if (port != null && port.IsOpen)
             {
+                Thread.Sleep(100);
                 try
                 {
                     receivedMessage = port.ReadLine();
@@ -146,7 +192,36 @@ namespace LibDevicesManager
             }
             return receivedMessage;
         }
-
+        /*
+        private static string _Receive(SerialPort port)
+        {
+            string receivedMessage = string.Empty;
+            char charToRead;
+            if (port != null && port.IsOpen)
+            {
+                try
+                {
+                    //receivedMessage = port.ReadLine();
+                    //receivedMessage = port.ReadExisting();
+                    while (port.BytesToRead> 0)
+                    {
+                        charToRead = (char)port.ReadChar();
+                        if (charToRead == '\n')
+                        {
+                            return receivedMessage;
+                        }
+                        receivedMessage += charToRead;
+                    }
+                }
+                catch (TimeoutException ex)
+                {
+                    //ExceptionMessage = "Ошибка времени получения пакета. " + ex.Message;
+                    return "Ошибка времени получения пакета";
+                }
+            }
+            return receivedMessage;
+        }
+        */
         public static void TestARD(SerialPort port) //ToDEL
         {
             SetupPortDS360Emulator(port);
@@ -163,8 +238,8 @@ namespace LibDevicesManager
                 port.Parity = Parity.None;
                 port.StopBits = StopBits.Two;
                 port.DtrEnable = true;
-                port.ReadTimeout = 500;
-                // port.WriteTimeout = 500;
+                port.ReadTimeout = 100;
+                port.WriteTimeout = 100;
                 return Result.Success;
             }
             catch (IOException ex)
@@ -178,11 +253,11 @@ namespace LibDevicesManager
             try
             {
                 port.BaudRate = 9600;
-                port.Parity = Parity.None;
-                port.StopBits = StopBits.One;
-                port.DtrEnable = false;
-                port.ReadTimeout = 500;
-                //port.WriteTimeout = 500;
+                //port.Parity = Parity.None;
+                //port.StopBits = StopBits.One;
+                //port.DtrEnable = true;
+                port.ReadTimeout = 100;
+                port.WriteTimeout = 100;
                 return Result.Success;
             }
             catch (IOException ex)
@@ -280,11 +355,12 @@ namespace LibDevicesManager
                 port.Dispose();
                 return result;
             }
+            //Thread.Sleep(100);
             //*/
             result = Send(port, "*IDN?");
             if (result == Result.Success)
             {
-                //Thread.Sleep(500);
+                //Thread.Sleep(100);
                 string receivedMessage = Receive(port);
                 Console.WriteLine(receivedMessage);             //ToDEL
                 if (!receivedMessage.Contains("emu"))

@@ -24,6 +24,7 @@ namespace ManagerDS360
 
         private void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
+            /*
             if (this.Type == Type.Control)
             {
                 butSendSetting.visble = true;
@@ -34,6 +35,7 @@ namespace ManagerDS360
                 butSendSetting.visble = false;
                 butSave.Visible = true;
             }
+            */
         }
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)

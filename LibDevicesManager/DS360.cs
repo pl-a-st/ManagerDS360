@@ -64,5 +64,15 @@ namespace LibDevicesManager
             List<string> portsNamesList = ComPort.PortsNamesList;
             return portsNamesList;
         }
+        public static string[] GetDevicesArray()
+        {
+            List<string> ports = ComPort.PortsNamesList;
+            string[] devices = new string[ports.Count];
+            for (int i = 0; i < ports.Count; i++)
+            {
+                devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
+            }
+            return devices;
+        }
     }
 }

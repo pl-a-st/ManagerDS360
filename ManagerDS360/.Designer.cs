@@ -89,12 +89,13 @@ namespace ManagerDS360 {
             // 
             // txtNameGenerator
             // 
+            this.txtNameGenerator.AcceptsReturn = true;
+            this.txtNameGenerator.AcceptsTab = true;
             this.txtNameGenerator.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.txtNameGenerator.Location = new System.Drawing.Point(12, 12);
             this.txtNameGenerator.Name = "txtNameGenerator";
             this.txtNameGenerator.Size = new System.Drawing.Size(219, 20);
             this.txtNameGenerator.TabIndex = 5;
-            this.txtNameGenerator.Text = "Name generator\r\n";
             this.txtNameGenerator.TextChanged += new System.EventHandler(this.txtNameGenerator_TextChanged);
             // 
             // cboSavedRoutes

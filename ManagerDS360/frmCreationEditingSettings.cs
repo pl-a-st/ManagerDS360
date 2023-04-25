@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibDevicesManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibDevicesManager;
 
 namespace ManagerDS360
 {
@@ -36,11 +38,12 @@ namespace ManagerDS360
                 butSave.Visible = true;
             }
             */
+            //this.cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
         }
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)
         {
-
+            //галочка, чтобы взять генератор по умолч. 
         }
 
         private void cboComPort_SelectedIndexChanged(object sender, EventArgs e)

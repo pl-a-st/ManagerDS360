@@ -106,6 +106,7 @@ namespace ManagerDS360 {
         private void txtNameGenerator_TextChanged(object sender, EventArgs e)
         {
             //отображение в окошке наименования генератора
+            txtNameGenerator.Text = "cboListComPorts_SelectedIndexChanged";
         }
 
         private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)

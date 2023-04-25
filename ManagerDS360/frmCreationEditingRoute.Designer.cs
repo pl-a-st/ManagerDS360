@@ -30,7 +30,6 @@
         {
             this.txtNameRoute = new System.Windows.Forms.TextBox();
             this.lblRouteName = new System.Windows.Forms.Label();
-            this.lstRouteTree = new System.Windows.Forms.ListBox();
             this.lblRouteTree = new System.Windows.Forms.Label();
             this.butAddFolder = new System.Windows.Forms.Button();
             this.butAddSetting = new System.Windows.Forms.Button();
@@ -39,6 +38,7 @@
             this.butSave = new System.Windows.Forms.Button();
             this.butUp = new System.Windows.Forms.Button();
             this.butDown = new System.Windows.Forms.Button();
+            this.treRouteTree = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -58,15 +58,6 @@
             this.lblRouteName.TabIndex = 1;
             this.lblRouteName.Text = "Название маршрута";
             this.lblRouteName.Click += new System.EventHandler(this.lblRouteName_Click);
-            // 
-            // lstRouteTree
-            // 
-            this.lstRouteTree.FormattingEnabled = true;
-            this.lstRouteTree.Location = new System.Drawing.Point(295, 42);
-            this.lstRouteTree.Name = "lstRouteTree";
-            this.lstRouteTree.Size = new System.Drawing.Size(440, 303);
-            this.lstRouteTree.TabIndex = 2;
-            this.lstRouteTree.SelectedIndexChanged += new System.EventHandler(this.lstRouteTree_SelectedIndexChanged);
             // 
             // lblRouteTree
             // 
@@ -90,7 +81,7 @@
             // 
             // butAddSetting
             // 
-            this.butAddSetting.Location = new System.Drawing.Point(12, 145);
+            this.butAddSetting.Location = new System.Drawing.Point(12, 190);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(144, 42);
             this.butAddSetting.TabIndex = 5;
@@ -100,7 +91,7 @@
             // 
             // butEditSetting
             // 
-            this.butEditSetting.Location = new System.Drawing.Point(12, 234);
+            this.butEditSetting.Location = new System.Drawing.Point(12, 305);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(144, 42);
             this.butEditSetting.TabIndex = 6;
@@ -110,9 +101,9 @@
             // 
             // butDelete
             // 
-            this.butDelete.Location = new System.Drawing.Point(12, 193);
+            this.butDelete.Location = new System.Drawing.Point(639, 333);
             this.butDelete.Name = "butDelete";
-            this.butDelete.Size = new System.Drawing.Size(144, 35);
+            this.butDelete.Size = new System.Drawing.Size(96, 25);
             this.butDelete.TabIndex = 7;
             this.butDelete.Text = "Удалить";
             this.butDelete.UseVisualStyleBackColor = true;
@@ -120,7 +111,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(295, 362);
+            this.butSave.Location = new System.Drawing.Point(299, 333);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(96, 25);
             this.butSave.TabIndex = 8;
@@ -148,11 +139,19 @@
             this.butDown.UseVisualStyleBackColor = true;
             this.butDown.Click += new System.EventHandler(this.butDown_Click);
             // 
+            // treRouteTree
+            // 
+            this.treRouteTree.Location = new System.Drawing.Point(295, 42);
+            this.treRouteTree.Name = "treRouteTree";
+            this.treRouteTree.Size = new System.Drawing.Size(436, 274);
+            this.treRouteTree.TabIndex = 11;
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.treRouteTree);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.butSave);
@@ -161,14 +160,13 @@
             this.Controls.Add(this.butAddSetting);
             this.Controls.Add(this.butAddFolder);
             this.Controls.Add(this.lblRouteTree);
-            this.Controls.Add(this.lstRouteTree);
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
             this.MaximumSize = new System.Drawing.Size(816, 489);
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Окно создания и окно редактирования маршрута";
+            this.Text = "Окно создания и редактирования маршрута";
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,7 +177,6 @@
 
         private System.Windows.Forms.TextBox txtNameRoute;
         private System.Windows.Forms.Label lblRouteName;
-        private System.Windows.Forms.ListBox lstRouteTree;
         private System.Windows.Forms.Label lblRouteTree;
         private System.Windows.Forms.Button butAddFolder;
         private System.Windows.Forms.Button butAddSetting;
@@ -188,5 +185,6 @@
         private System.Windows.Forms.Button butSave;
         private System.Windows.Forms.Button butUp;
         private System.Windows.Forms.Button butDown;
+        private System.Windows.Forms.TreeView treRouteTree;
     }
 }

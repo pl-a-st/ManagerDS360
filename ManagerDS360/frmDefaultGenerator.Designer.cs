@@ -47,7 +47,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(200, 128);
+            this.butSave.Location = new System.Drawing.Point(12, 203);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(113, 23);
             this.butSave.TabIndex = 3;
@@ -57,7 +57,9 @@
             // 
             // butCancel
             // 
-            this.butCancel.Location = new System.Drawing.Point(12, 203);
+            this.butCancel.Location = new System.Drawing.Point(280, 203);
+            this.butCancel.MaximumSize = new System.Drawing.Size(113, 23);
+            this.butCancel.MinimumSize = new System.Drawing.Size(113, 23);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(113, 23);
             this.butCancel.TabIndex = 4;
@@ -67,7 +69,7 @@
             // 
             // butFindGenerator
             // 
-            this.butFindGenerator.Location = new System.Drawing.Point(200, 27);
+            this.butFindGenerator.Location = new System.Drawing.Point(280, 27);
             this.butFindGenerator.Name = "butFindGenerator";
             this.butFindGenerator.Size = new System.Drawing.Size(113, 23);
             this.butFindGenerator.TabIndex = 5;
@@ -80,7 +82,7 @@
             this.cboListComPorts.FormattingEnabled = true;
             this.cboListComPorts.Location = new System.Drawing.Point(12, 27);
             this.cboListComPorts.Name = "cboListComPorts";
-            this.cboListComPorts.Size = new System.Drawing.Size(154, 21);
+            this.cboListComPorts.Size = new System.Drawing.Size(160, 21);
             this.cboListComPorts.TabIndex = 6;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
             // 
@@ -88,14 +90,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 238);
+            this.ClientSize = new System.Drawing.Size(405, 238);
             this.Controls.Add(this.cboListComPorts);
             this.Controls.Add(this.butFindGenerator);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblLisеComPorts);
-            this.MaximumSize = new System.Drawing.Size(394, 277);
-            this.MinimumSize = new System.Drawing.Size(394, 277);
             this.Name = "frmManagerRoutse";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно назначения генератора по умолчанию";

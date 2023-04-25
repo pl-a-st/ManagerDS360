@@ -101,9 +101,9 @@
             // 
             // butDelete
             // 
-            this.butDelete.Location = new System.Drawing.Point(639, 333);
+            this.butDelete.Location = new System.Drawing.Point(635, 333);
             this.butDelete.Name = "butDelete";
-            this.butDelete.Size = new System.Drawing.Size(144, 35);
+            this.butDelete.Size = new System.Drawing.Size(96, 25);
             this.butDelete.TabIndex = 7;
             this.butDelete.Text = "Удалить";
             this.butDelete.UseVisualStyleBackColor = true;
@@ -111,7 +111,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(299, 333);
+            this.butSave.Location = new System.Drawing.Point(295, 333);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(96, 25);
             this.butSave.TabIndex = 8;

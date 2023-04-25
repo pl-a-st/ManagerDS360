@@ -40,7 +40,9 @@ namespace ManagerDS360 {
 
         private void butDefaultGenerator_Click(object sender, EventArgs e)
         {
-            //задать генератор по умолчанию?
+            frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
+            frmDefaultGenerator.Type = Type.Control;
+            frmDefaultGenerator.ShowDialog();
         }
 
         private void lblRoute_Click(object sender, EventArgs e)
@@ -61,8 +63,8 @@ namespace ManagerDS360 {
 
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-            frmEditingRoutes managerRoutes = new frmEditingRoutes();
-            managerRoutes.ShowDialog();
+            frmEditingRoutes editingRoutes = new frmEditingRoutes();
+            editingRoutes.ShowDialog();
         }
 
         private void butNextSetup_Click(object sender, EventArgs e)
@@ -72,9 +74,8 @@ namespace ManagerDS360 {
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
-            frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
-            frmDefaultGenerator.Type = Type.Control;
-            frmDefaultGenerator.ShowDialog();
+            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            editingSettings.ShowDialog();
         }
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
@@ -84,9 +85,19 @@ namespace ManagerDS360 {
 
         private void butAboutProgram_Click(object sender, EventArgs e)
         {
-            //появление новой формы? 
+            //появление messageBox
+            MessageBox.Show(
+         "Мanager DS360. Версия ПО 0.001.\n  Технический отдел - лучший! ",
+         "О программе",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Information,
+          MessageBoxDefaultButton.Button1,
+          MessageBoxOptions.ServiceNotification);
+
         }
 
+     
+    
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
             //загрузить выпадающий список сохранённых маршрутов

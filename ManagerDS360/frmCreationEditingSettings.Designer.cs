@@ -230,6 +230,7 @@
             this.Controls.Add(this.cboComPort);
             this.Controls.Add(this.chcDefaultGenerator);
             this.Name = "frmCreationEditingSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно создания и редактирования настройки";
             this.Load += new System.EventHandler(this.frmCreationEditingSettings_Load);
             this.ResumeLayout(false);

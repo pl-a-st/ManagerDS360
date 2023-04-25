@@ -154,6 +154,7 @@ namespace ManagerDS360 {
             // 
             // butAboutProgram
             // 
+            this.butAboutProgram.DialogResult = System.Windows.Forms.DialogResult.Ignore;
             this.butAboutProgram.Location = new System.Drawing.Point(12, 589);
             this.butAboutProgram.Name = "butAboutProgram";
             this.butAboutProgram.Size = new System.Drawing.Size(157, 26);
@@ -181,6 +182,7 @@ namespace ManagerDS360 {
             this.Controls.Add(this.butNextSetup);
             this.Controls.Add(this.butBroadcastSettingsGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1022, 666);
             this.MinimumSize = new System.Drawing.Size(1022, 666);
             this.Name = "frmManagerDS360";

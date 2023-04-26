@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(405, 238);
+            this.ClientSize = new System.Drawing.Size(428, 238);
             this.Controls.Add(this.cboListComPorts);
             this.Controls.Add(this.butFindGenerator);
             this.Controls.Add(this.butCancel);

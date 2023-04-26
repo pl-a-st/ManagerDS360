@@ -29,7 +29,6 @@ namespace ManagerDS360 {
             this.butDefaultGenerator = new System.Windows.Forms.Button();
             this.lstRouteSettings = new System.Windows.Forms.TreeView();
             this.lblRoute = new System.Windows.Forms.Label();
-            this.txtNameGenerator = new System.Windows.Forms.TextBox();
             this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
             this.lblSavedRoutes = new System.Windows.Forms.Label();
             this.butEditingRoute = new System.Windows.Forms.Button();
@@ -37,6 +36,7 @@ namespace ManagerDS360 {
             this.sbrVerticalFieldКouteЕree = new System.Windows.Forms.VScrollBar();
             this.sbrHorizontalFieldКouteЕree = new System.Windows.Forms.HScrollBar();
             this.butAboutProgram = new System.Windows.Forms.Button();
+            this.lblDefaultGenerator = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // butBroadcastSettingsGenerator
@@ -87,17 +87,6 @@ namespace ManagerDS360 {
             this.lblRoute.Text = "Маршрут";
             this.lblRoute.Click += new System.EventHandler(this.lblRoute_Click);
             // 
-            // txtNameGenerator
-            // 
-            this.txtNameGenerator.AcceptsReturn = true;
-            this.txtNameGenerator.AcceptsTab = true;
-            this.txtNameGenerator.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.txtNameGenerator.Location = new System.Drawing.Point(12, 12);
-            this.txtNameGenerator.Name = "txtNameGenerator";
-            this.txtNameGenerator.Size = new System.Drawing.Size(219, 20);
-            this.txtNameGenerator.TabIndex = 5;
-            this.txtNameGenerator.TextChanged += new System.EventHandler(this.txtNameGenerator_TextChanged);
-            // 
             // cboSavedRoutes
             // 
             this.cboSavedRoutes.FormattingEnabled = true;
@@ -133,7 +122,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(222, 31);
             this.butGeneratorControl.TabIndex = 9;
-            this.butGeneratorControl.Text = "Управление генераторами";
+            this.butGeneratorControl.Text = "Управление генератором";
             this.butGeneratorControl.UseVisualStyleBackColor = true;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
             // 
@@ -164,11 +153,21 @@ namespace ManagerDS360 {
             this.butAboutProgram.UseVisualStyleBackColor = true;
             this.butAboutProgram.Click += new System.EventHandler(this.butAboutProgram_Click);
             // 
+            // lblDefaultGenerator
+            // 
+            this.lblDefaultGenerator.AutoSize = true;
+            this.lblDefaultGenerator.Location = new System.Drawing.Point(9, 9);
+            this.lblDefaultGenerator.Name = "lblDefaultGenerator";
+            this.lblDefaultGenerator.Size = new System.Drawing.Size(134, 13);
+            this.lblDefaultGenerator.TabIndex = 14;
+            this.lblDefaultGenerator.Text = "Генератор по умолчанию";
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 627);
+            this.Controls.Add(this.lblDefaultGenerator);
             this.Controls.Add(this.butAboutProgram);
             this.Controls.Add(this.sbrHorizontalFieldКouteЕree);
             this.Controls.Add(this.sbrVerticalFieldКouteЕree);
@@ -176,7 +175,6 @@ namespace ManagerDS360 {
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.lblSavedRoutes);
             this.Controls.Add(this.cboSavedRoutes);
-            this.Controls.Add(this.txtNameGenerator);
             this.Controls.Add(this.lblRoute);
             this.Controls.Add(this.lstRouteSettings);
             this.Controls.Add(this.butDefaultGenerator);
@@ -203,7 +201,6 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butDefaultGenerator;
         private System.Windows.Forms.TreeView lstRouteSettings;
         private System.Windows.Forms.Label lblRoute;
-        private System.Windows.Forms.TextBox txtNameGenerator;
         private System.Windows.Forms.ComboBox cboSavedRoutes;
         private System.Windows.Forms.Label lblSavedRoutes;
         private System.Windows.Forms.Button butEditingRoute;
@@ -211,6 +208,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.VScrollBar sbrVerticalFieldКouteЕree;
         private System.Windows.Forms.HScrollBar sbrHorizontalFieldКouteЕree;
         private System.Windows.Forms.Button butAboutProgram;
+        private System.Windows.Forms.Label lblDefaultGenerator;
     }
 }
 

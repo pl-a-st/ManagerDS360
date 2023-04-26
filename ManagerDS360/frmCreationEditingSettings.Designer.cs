@@ -41,10 +41,11 @@
             this.butCancel = new System.Windows.Forms.Button();
             this.txtFrequency = new System.Windows.Forms.TextBox();
             this.lblFrequency = new System.Windows.Forms.Label();
-            this.txtDetector = new System.Windows.Forms.TextBox();
             this.lblDetector = new System.Windows.Forms.Label();
             this.txtOffset = new System.Windows.Forms.TextBox();
             this.lblOffset = new System.Windows.Forms.Label();
+            this.cboDetector = new System.Windows.Forms.ComboBox();
+            this.butSend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
@@ -135,7 +136,7 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(12, 300);
+            this.butSave.Location = new System.Drawing.Point(21, 300);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(109, 27);
             this.butSave.TabIndex = 9;
@@ -171,22 +172,14 @@
             this.lblFrequency.Text = "Частота Гц";
             this.lblFrequency.Click += new System.EventHandler(this.lblFrequency_Click);
             // 
-            // txtDetector
-            // 
-            this.txtDetector.Location = new System.Drawing.Point(24, 228);
-            this.txtDetector.Name = "txtDetector";
-            this.txtDetector.Size = new System.Drawing.Size(143, 20);
-            this.txtDetector.TabIndex = 13;
-            this.txtDetector.TextChanged += new System.EventHandler(this.txtDetector_TextChanged);
-            // 
             // lblDetector
             // 
             this.lblDetector.AutoSize = true;
             this.lblDetector.Location = new System.Drawing.Point(21, 212);
             this.lblDetector.Name = "lblDetector";
-            this.lblDetector.Size = new System.Drawing.Size(56, 13);
+            this.lblDetector.Size = new System.Drawing.Size(95, 13);
             this.lblDetector.TabIndex = 14;
-            this.lblDetector.Text = "Детектор";
+            this.lblDetector.Text = "Выбор детектора";
             this.lblDetector.Click += new System.EventHandler(this.lblDetector_Click);
             // 
             // txtOffset
@@ -207,15 +200,33 @@
             this.lblOffset.Text = "Смещение";
             this.lblOffset.Click += new System.EventHandler(this.lblOffset_Click);
             // 
+            // cboDetector
+            // 
+            this.cboDetector.FormattingEnabled = true;
+            this.cboDetector.Location = new System.Drawing.Point(21, 228);
+            this.cboDetector.Name = "cboDetector";
+            this.cboDetector.Size = new System.Drawing.Size(146, 21);
+            this.cboDetector.TabIndex = 17;
+            // 
+            // butSend
+            // 
+            this.butSend.Location = new System.Drawing.Point(228, 300);
+            this.butSend.Name = "butSend";
+            this.butSend.Size = new System.Drawing.Size(102, 26);
+            this.butSend.TabIndex = 18;
+            this.butSend.Text = "Отправить";
+            this.butSend.UseVisualStyleBackColor = true;
+            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 339);
+            this.Controls.Add(this.butSend);
+            this.Controls.Add(this.cboDetector);
             this.Controls.Add(this.lblOffset);
             this.Controls.Add(this.txtOffset);
             this.Controls.Add(this.lblDetector);
-            this.Controls.Add(this.txtDetector);
             this.Controls.Add(this.lblFrequency);
             this.Controls.Add(this.txtFrequency);
             this.Controls.Add(this.butCancel);
@@ -253,9 +264,10 @@
         private System.Windows.Forms.Button butCancel;
         private System.Windows.Forms.TextBox txtFrequency;
         private System.Windows.Forms.Label lblFrequency;
-        private System.Windows.Forms.TextBox txtDetector;
         private System.Windows.Forms.Label lblDetector;
         private System.Windows.Forms.TextBox txtOffset;
         private System.Windows.Forms.Label lblOffset;
+        private System.Windows.Forms.ComboBox cboDetector;
+        private System.Windows.Forms.Button butSend;
     }
 }

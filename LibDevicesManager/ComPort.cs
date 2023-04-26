@@ -131,7 +131,7 @@ namespace LibDevicesManager
             }
             if (port != null && port.IsOpen)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(300);
                 try
                 {
                     port.WriteLine(message);
@@ -178,7 +178,7 @@ namespace LibDevicesManager
             string receivedMessage = string.Empty;
             if (port != null && port.IsOpen)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(300);
                 try
                 {
                     receivedMessage = port.ReadLine();
@@ -253,9 +253,9 @@ namespace LibDevicesManager
             try
             {
                 port.BaudRate = 9600;
-                //port.Parity = Parity.None;
-                //port.StopBits = StopBits.One;
-                //port.DtrEnable = true;
+                port.Parity = Parity.None;
+                port.StopBits = StopBits.One;
+                port.DtrEnable = true;
                 port.ReadTimeout = 100;
                 port.WriteTimeout = 100;
                 return Result.Success;
@@ -302,7 +302,7 @@ namespace LibDevicesManager
             if (result == Result.Success)
             {
                 string receivedMessage = Receive(port);
-                Console.WriteLine(receivedMessage);
+                //Console.WriteLine(receivedMessage);
                 if (!receivedMessage.Contains("DS360"))
                 {
                     result = Result.Failure;
@@ -324,22 +324,18 @@ namespace LibDevicesManager
                 return Result.ParamError;
             }
             SerialPort port = new SerialPort(portName);
-            //TestARD(port);
             result = SetupPortDS360Emulator(port);
             if (result != Result.Success)
             {
                 return Result.Exception;
             }
-            //Thread.Sleep(5000);
-            //port.Open();
-            ///*
             try
             {
                 port.Open();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
                 result = Result.AcsessError;
             }
             catch (IOException ex)
@@ -355,14 +351,11 @@ namespace LibDevicesManager
                 port.Dispose();
                 return result;
             }
-            //Thread.Sleep(100);
-            //*/
             result = Send(port, "*IDN?");
             if (result == Result.Success)
             {
-                //Thread.Sleep(100);
                 string receivedMessage = Receive(port);
-                Console.WriteLine(receivedMessage);             //ToDEL
+                //Console.WriteLine(receivedMessage);             //ToDEL
                 if (!receivedMessage.Contains("emu"))
                 {
                     result = Result.Failure;

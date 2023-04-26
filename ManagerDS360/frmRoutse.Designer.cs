@@ -114,6 +114,7 @@
             this.treSaveRoutes.Name = "treSaveRoutes";
             this.treSaveRoutes.Size = new System.Drawing.Size(360, 266);
             this.treSaveRoutes.TabIndex = 8;
+            this.treSaveRoutes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treSaveRoutes_AfterSelect);
             // 
             // frmEditingRoutes
             // 
@@ -128,6 +129,9 @@
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.butCreateRoutes);
             this.Controls.Add(this.lblSavedRoutes);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(816, 489);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmEditingRoutes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно редактирования сохраненных маршрутов";

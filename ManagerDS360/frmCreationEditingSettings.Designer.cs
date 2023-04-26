@@ -148,6 +148,7 @@
             this.butSave.TabIndex = 9;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
+            this.butSave.Visible = false;
             this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // butCancel
@@ -303,6 +304,9 @@
             this.Controls.Add(this.lblComPort);
             this.Controls.Add(this.cboComPort);
             this.Controls.Add(this.chcDefaultGenerator);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(566, 378);
+            this.MinimumSize = new System.Drawing.Size(566, 378);
             this.Name = "frmCreationEditingSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно создания и редактирования настройки";

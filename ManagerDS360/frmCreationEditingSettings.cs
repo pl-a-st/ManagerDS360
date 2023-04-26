@@ -12,8 +12,14 @@ using LibDevicesManager;
 
 namespace ManagerDS360
 {
+    public enum Type
+    {
+        Change,
+        Control
+    }
     public partial class frmCreationEditingSettings : Form
     {
+        public Type Type;
         public frmCreationEditingSettings()
         {
             InitializeComponent();
@@ -21,24 +27,36 @@ namespace ManagerDS360
 
         private void butSave_Click(object sender, EventArgs e)
         {
+            //сохранить в файл
 
         }
 
         private void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
-            /*
+            //добавление в комбобокс физ.величин
+            cboSetValue.Items.Add("м/с2");
+            cboSetValue.Items.Add("мм/с");
+            cboSetValue.Items.Add("мкм");
+            cboSetValue.Items.Add("дюйм");
+            cboSetValue.Items.Add("G");
+
+            //добавление в комбобокс вид. сигнала
+            cboTypeSignal.Items.Add("Sine");
+            cboTypeSignal.Items.Add("Square");
+
+
             if (this.Type == Type.Control)
             {
-                butSendSetting.visble = true;
+                butSave.Visible = true;
                 butSave.Visible = false;
             }
             if (this.Type == Type.Change)
             {
-                butSendSetting.visble = false;
+                butSave.Visible = false;
                 butSave.Visible = true;
             }
-            */
-            //this.cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
+
+            this.cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
         }
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)

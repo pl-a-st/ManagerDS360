@@ -10,10 +10,8 @@ using System.Windows.Forms;
 using LibDevicesManager;
 
 namespace ManagerDS360 {
-   
-    public partial class frmManagerDS360 : Form {
-        
-
+    public partial class frmManagerDS360 : Form 
+    {
         public frmManagerDS360() 
         {
             InitializeComponent();
@@ -41,7 +39,6 @@ namespace ManagerDS360 {
         private void butDefaultGenerator_Click(object sender, EventArgs e)
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
-            frmDefaultGenerator.Type = Type.Control;
             frmDefaultGenerator.ShowDialog();
         }
 
@@ -75,6 +72,7 @@ namespace ManagerDS360 {
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            editingSettings.Type = Type.Control;
             editingSettings.ShowDialog();
         }
 
@@ -92,8 +90,7 @@ namespace ManagerDS360 {
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,
           MessageBoxDefaultButton.Button1,
-          MessageBoxOptions.ServiceNotification);
-
+          MessageBoxOptions.DefaultDesktopOnly);
         }
 
      
@@ -139,6 +136,11 @@ namespace ManagerDS360 {
         }
 
         private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void frmManagerDS360_Load_1(object sender, EventArgs e)
         {
 
         }

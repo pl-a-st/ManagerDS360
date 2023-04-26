@@ -32,10 +32,10 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo("E:\\0000SteamLibrary");
+            DirectoryInfo directoryInfo = new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
             if (!directoryInfo.Exists)
             {
-                MessageBox.Show("Нет данных о созданных маршрутах!"); 
+                MessageBox.Show("Нет данных о созданных маршрутах!", "Внимание"); 
                 return;
             }
 
@@ -56,7 +56,8 @@ namespace ManagerDS360
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
         {
-
+            //удаление маршрута файлом
+            //File.Delete(Path.Combine(folderPath, filename));
         }
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)
@@ -76,7 +77,7 @@ namespace ManagerDS360
 
         private void butSaveRoutes_Click(object sender, EventArgs e)
         {
-
+            //сохранить список маршрутов и их порядок
         }
 
         private void butCreateRoutes_Click(object sender, EventArgs e)
@@ -93,6 +94,11 @@ namespace ManagerDS360
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
             //редактирование маршрута
+        }
+
+        private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            //список сохранённых маршрутов
         }
     }
 }

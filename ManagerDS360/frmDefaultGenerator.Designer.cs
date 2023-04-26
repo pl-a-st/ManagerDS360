@@ -90,12 +90,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 238);
+            this.ClientSize = new System.Drawing.Size(419, 238);
             this.Controls.Add(this.cboListComPorts);
             this.Controls.Add(this.butFindGenerator);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblLisеComPorts);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(435, 277);
+            this.MinimumSize = new System.Drawing.Size(435, 277);
             this.Name = "frmManagerRoutse";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно назначения генератора по умолчанию";

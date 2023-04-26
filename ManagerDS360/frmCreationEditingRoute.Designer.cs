@@ -145,6 +145,7 @@
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.Size = new System.Drawing.Size(436, 274);
             this.treRouteTree.TabIndex = 11;
+            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
             // frmCreationEditingRoute
             // 
@@ -162,6 +163,7 @@
             this.Controls.Add(this.lblRouteTree);
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(816, 489);
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "frmCreationEditingRoute";

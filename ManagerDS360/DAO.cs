@@ -24,7 +24,7 @@ namespace ManagerDS360
         //получение пути:
         public static string TakeUserPath(string fileName)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Time schedule\\";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\DS360\\Настройки маршрутов\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

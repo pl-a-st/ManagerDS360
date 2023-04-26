@@ -33,12 +33,12 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo();  //"W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
-            if (!directoryInfo.Exists)
-            {
-                MessageBox.Show("Нет данных о созданных маршрутах!", "Внимание"); 
-                return;
-            }
+            //DirectoryInfo directoryInfo = new DirectoryInfo();  //"W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
+            //if (!directoryInfo.Exists)
+            //{
+            //    MessageBox.Show("Нет данных о созданных маршрутах!", "Внимание"); 
+            //    return;
+            //}
 
                 //listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
             //listRoutesFiles.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#").GetFiles());

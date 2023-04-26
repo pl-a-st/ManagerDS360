@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace ManagerDS360
 {
     public partial class frmEditingRoutes : Form
@@ -32,7 +33,7 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
+            DirectoryInfo directoryInfo = new DirectoryInfo();  //"W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
             if (!directoryInfo.Exists)
             {
                 MessageBox.Show("Нет данных о созданных маршрутах!", "Внимание"); 

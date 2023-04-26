@@ -127,17 +127,17 @@ namespace ManagerDS360 {
 
         private void lstRouteSettings_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            //список параметров в маршруте
         }
 
         private void sbrVerticalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
         {
-
+            //скролл вертикаль
         }
 
         private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
         {
-
+            //скролл горизонт
         }
 
         private void frmManagerDS360_Load_1(object sender, EventArgs e)

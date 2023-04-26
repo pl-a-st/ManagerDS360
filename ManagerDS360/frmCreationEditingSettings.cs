@@ -37,7 +37,7 @@ namespace ManagerDS360
             cboSetValue.Items.Add("м/с2");
             cboSetValue.Items.Add("мм/с");
             cboSetValue.Items.Add("мкм");
-            cboSetValue.Items.Add("дюйм");
+            cboSetValue.Items.Add("U");
             cboSetValue.Items.Add("G");
 
             //добавление в комбобокс вид. сигнала

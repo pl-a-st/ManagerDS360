@@ -31,10 +31,11 @@ namespace ManagerDS360
             }
             return path + fileName;
         }
-        public static string GetFolderNameDialog()
+        public static string GetFolderNameDialog(string TitleDiolog)
         {
             CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();
             FolderDialog.IsFolderPicker = true;
+            FolderDialog.Title = TitleDiolog;
 
             string path = "";
             if (FolderDialog.ShowDialog() == CommonFileDialogResult.Ok)

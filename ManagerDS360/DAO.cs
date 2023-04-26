@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 
 namespace ManagerDS360
@@ -29,6 +30,18 @@ namespace ManagerDS360
                 Directory.CreateDirectory(path);
             }
             return path + fileName;
+        }
+        public static string GetFolderNameDialog()
+        {
+            CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();
+            FolderDialog.IsFolderPicker = true;
+
+            string path = "";
+            if (FolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                path = FolderDialog.FileName;
+            }
+            return path;
         }
     }
 }

@@ -81,7 +81,9 @@ namespace ManagerDS360
 
         private void butCreateRoutes_Click(object sender, EventArgs e)
         {
+            string path = DAO.GetFolderNameDialog();
             //создание нового маршрута
+
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
             newfrmCreationEditingRoute.ShowDialog();
 

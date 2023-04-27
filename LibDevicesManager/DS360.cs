@@ -28,27 +28,38 @@ namespace LibDevicesManager
     }
     public class DS360Setting
     {
-        public static string ComPortDefaultName {get; set;}
+        public static string ComPortDefaultName { get; set; }
         public string ComPortName { get; set; }
         public DeviceModel Model { get { return DeviceModel.DS360; } }
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
         public string SerialNumber { get; }
         public FunctionType FunctionType { get; set; }
-        public double Frequency { get; set; }
+        public ToneBFunctionType FunctionBType { get; set; }
         public double AmplitudeRMS { get; set; }
+        public double AmplitudeRMSToneB { get; set; }
+        public double Frequency { get; set; }
+        public double FrequencyB { get; set; }
         public double Offset { get; set; }
 
+
         //
-        private static string comPortDefault;
-
-
+        private static string comPortDefaultName;
+        private string comPortName;
+        private string serialNumber;
+        private FunctionType functionType;
+        private FunctionType functionTypeB;
+        private double amplitudeRMS;
+        private double amplitudeRMSToneB;
+        private double frequency;
+        private double frequencyB;
+        private double offset;
         //Конструкторы для SingleSignal
         public DS360Setting() { }
         public DS360Setting(double amplitudeRMS, double frequency) { }
         public DS360Setting(string portName, double amplitudeRMS, double frequency) { }
         public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency) { }
         public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency) { }
-        public DS360Setting(double amplitudeRMS, double  frequency, double offset) { }
+        public DS360Setting(double amplitudeRMS, double frequency, double offset) { }
         public DS360Setting(string portName, double amplitudeRMS, double frequency, double offset) { }
         public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency, double offset) { }
         public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency, double offset) { }
@@ -58,7 +69,33 @@ namespace LibDevicesManager
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) { }
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
 
-        public void SetComPortAsDefault (string portName) { }
+        public Result SetComPortDefaultName(string portName)
+        {
+            //...
+            return Result.Success;
+        }
+        private string SetComPortName(string portName)
+        {
+            if (Array.IndexOf(GetDevicesArray(), portName) > 0)
+            {
+                return portName;
+            }
+            return string.Empty; //Дописать
+        }
+        private string GetComPortName()
+        {
+            
+            return string.Empty; //Дописать
+        }
+        public string GetComPortDefaultName(string portName)
+        {
+            if (Array.IndexOf(GetDevicesArray(), portName) > 0)
+            {
+                return portName;
+            }
+            //...
+            return portName;
+        }
         public static List<string> GetComPortList()
         {
             List<string> portsNamesList = ComPort.PortsNamesList;
@@ -74,5 +111,34 @@ namespace LibDevicesManager
             }
             return devices;
         }
+        public Result SendDS360Setting(DS360Setting setting)
+        {
+            return Result.Success;
+        }
+        //Методы ниже перевести в приват
+        private string GetSerialNumber()
+        {
+            string serialNumber = string.Empty;
+            //...
+            return serialNumber;
+        }
+
+        #region SetGeneratorsSetting
+        private void SendFrequency(double frequency)
+        {
+            //...
+        }
+        private double ReceiveFrequency()
+        {
+            double frequency = 0;
+            //...
+            return frequency;
+        }
+        private Result SetGeneratorsFrequency(double frequency)
+        {
+            //...
+            return Result.Success;
+        }
+        #endregion SetGeneratorsSetting
     }
 }

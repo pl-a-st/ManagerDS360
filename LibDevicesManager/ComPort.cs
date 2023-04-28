@@ -39,6 +39,38 @@ namespace LibDevicesManager
                 return devicesNameList;
             }
         }
+        public static bool IsPortNameCorrect(string portName)
+        {
+            if (portName == null || portName == string.Empty || !portName.StartsWith("COM"))
+            {
+                return false;
+            }
+            string number = string.Empty;
+            char[] chars = portName.ToCharArray();
+            int firstDigitPosition = 3;
+            int lastDigitPosition = 6;
+            if (lastDigitPosition < (chars.Length - 1))
+            {
+                lastDigitPosition = chars.Length - 1;
+            }
+            if (firstDigitPosition < lastDigitPosition)
+            {
+                return false;
+            }
+            for (int i = 4; i<7; i++)
+            {
+                if (Char.IsDigit(chars[i]))
+                {
+                    number += chars[i];
+                }
+            }
+            Int32.TryParse(number, out int num);
+            if (num < 1 || num > 256)
+            {
+                return false;
+            }
+            return true;
+        }
         private static List<string> SetAllComPortList()
         {
             if (portsNamesList == null)
@@ -69,31 +101,21 @@ namespace LibDevicesManager
             List<string> ports = PortsNamesList;
             foreach (string port in ports)
             {
-                if (port == "COM1111") //ToDEL
-                {
-                    devicesNameList.Add("NONE");
-                    continue;
-                }
-                // /*
                 result = IsComPortDS360Emulator(port);
                 if (result == Result.Success)
                 {
                     devicesNameList.Add("DS360-Emulator");
                     continue;
                 }
-                //*/
                 result = IsComPortDS360(port);
                 if (result == Result.Success)
                 {
                     devicesNameList.Add("DS360");
                     continue;
                 }
-
-
                 // ToNEXT: добавить другие известные устройства
                 devicesNameList.Add("Unknoun");
             }
-
             return devicesNameList;
         }
         public static List<string> GetAllGeneratorsPorts()
@@ -222,14 +244,6 @@ namespace LibDevicesManager
             return receivedMessage;
         }
         */
-        public static void TestARD(SerialPort port) //ToDEL
-        {
-            SetupPortDS360Emulator(port);
-            port.Open();
-            Send(port, "151");
-            string message = Receive(port);
-            Console.WriteLine(message);
-        }
         private static Result SetupPortDS360(SerialPort port)
         {
             try

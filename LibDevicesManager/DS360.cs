@@ -69,11 +69,7 @@ namespace LibDevicesManager
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) { }
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
 
-        public Result SetComPortDefaultName(string portName)
-        {
-            //...
-            return Result.Success;
-        }
+        
         private string SetComPortName(string portName)
         {
             if (Array.IndexOf(GetDevicesArray(), portName) > 0)
@@ -86,6 +82,26 @@ namespace LibDevicesManager
         {
             
             return string.Empty; //Дописать
+        }
+        private string SetGeneratorsPortAsDefaultComPort()
+        {
+            string portName = string.Empty;
+            string[] devices = GetDevicesArray();
+            foreach (string device in devices)
+            {
+                if (device.Contains("DS360")) //ToNEXT: Добавить другие типы генераторов
+                {
+                    portName = device;
+                    break;
+                }
+            }
+            return portName;
+        }
+        public Result SetComPortDefaultName(string portName)
+        {
+
+            //...
+            return Result.Success;
         }
         public string GetComPortDefaultName(string portName)
         {

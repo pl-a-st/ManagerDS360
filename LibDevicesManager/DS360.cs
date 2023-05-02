@@ -26,13 +26,48 @@ namespace LibDevicesManager
     {
         Sine, Square
     }
+    [Serializable]
     public class DS360Setting
     {
-        public static string ComPortDefaultName { get; set; }
-        public string ComPortName { get; set; }
+        public static string ComPortDefaultName
+        {
+            get
+            {
+                if (comPortDefaultName == null || comPortDefaultName == string.Empty)
+                {
+                    SetGeneratorsPortAsDefaultComPort();
+                }
+                return comPortDefaultName;
+            }
+            set
+            {
+                if (ComPort.IsPortNameCorrect(value))
+                {
+                    comPortDefaultName = value;
+                }
+            }
+        }
+        public string ComPortName
+        {
+            get
+            {
+                if (comPortName == null || comPortName == string.Empty)
+                {
+                    return ComPortDefaultName;
+                }
+                return comPortName;
+            }
+            set
+            {
+                if (ComPort.IsPortNameCorrect(value))
+                {
+                    comPortName = value;
+                }
+            }
+        }
         public DeviceModel Model { get { return DeviceModel.DS360; } }
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
-        public string SerialNumber { get; }
+        public string SerialNumber { get; } //Прописать получение серийного номера
         public FunctionType FunctionType { get; set; }
         public ToneBFunctionType FunctionBType { get; set; }
         public double AmplitudeRMS { get; set; }
@@ -53,6 +88,7 @@ namespace LibDevicesManager
         private double frequency;
         private double frequencyB;
         private double offset;
+        #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting() { }
         public DS360Setting(double amplitudeRMS, double frequency) { }
@@ -68,22 +104,9 @@ namespace LibDevicesManager
         public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) { }
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
+        #endregion Constructors
 
-        
-        private string SetComPortName(string portName)
-        {
-            if (Array.IndexOf(GetDevicesArray(), portName) > 0)
-            {
-                return portName;
-            }
-            return string.Empty; //Дописать
-        }
-        private string GetComPortName()
-        {
-            
-            return string.Empty; //Дописать
-        }
-        private string SetGeneratorsPortAsDefaultComPort()
+        private static string SetGeneratorsPortAsDefaultComPort()
         {
             string portName = string.Empty;
             string[] devices = GetDevicesArray();
@@ -97,11 +120,28 @@ namespace LibDevicesManager
             }
             return portName;
         }
-        public Result SetComPortDefaultName(string portName)
+        private string SetComPortName(string portName)
+        {
+            if (Array.IndexOf(GetDevicesArray(), portName) >= 0)
+            {
+                return portName;
+            }
+            return string.Empty; //Дописать
+        }
+        private string GetComPortName()
         {
 
-            //...
-            return Result.Success;
+            return string.Empty; //Дописать
+        }
+
+        public Result SetComPortDefaultName(string portName)
+        {
+            if (ComPort.IsPortNameCorrect(portName))
+            {
+                comPortDefaultName = portName;
+                return Result.Success;
+            }
+            return Result.ParamError;
         }
         public string GetComPortDefaultName(string portName)
         {

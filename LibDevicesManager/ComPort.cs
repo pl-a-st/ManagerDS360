@@ -282,7 +282,7 @@ namespace LibDevicesManager
         private static Result IsComPortDS360(string portName)
         {
             Result result = Result.Success;
-            if (portName == null || portName == string.Empty || !portName.StartsWith("COM"))
+            if (!IsPortNameCorrect(portName))
             {
                 return Result.ParamError;
             }
@@ -333,7 +333,7 @@ namespace LibDevicesManager
         {
 
             Result result = Result.Success;
-            if (portName == null || portName == string.Empty || !portName.StartsWith("COM"))
+            if (!IsPortNameCorrect(portName))
             {
                 return Result.ParamError;
             }

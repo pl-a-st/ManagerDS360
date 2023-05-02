@@ -33,7 +33,7 @@ namespace ManagerDS360
 
         private void butAddFolder_Click(object sender, EventArgs e)
         {
-
+            //кнопка добавить папку
         }
 
         private void lblRouteName_Click(object sender, EventArgs e)
@@ -43,12 +43,13 @@ namespace ManagerDS360
 
         private void txtNameRoute_TextChanged(object sender, EventArgs e)
         {
-
+            //название маршрута
         }
 
         private void butAddSetting_Click(object sender, EventArgs e)
         {
             frmCreationEditingSettings newfrmCreationEditingSettings = new frmCreationEditingSettings();
+            newfrmCreationEditingSettings.Type = Type.Change;
             newfrmCreationEditingSettings.ShowDialog();
         }
 
@@ -75,7 +76,8 @@ namespace ManagerDS360
 
         private void butDelete_Click(object sender, EventArgs e)
         {
-            //удалить строку
+            //удалить строку-настройку из файла с маршрутами
+
         }
 
         private void lstRouteTree_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,6 +87,12 @@ namespace ManagerDS360
 
         private void lblRouteTree_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            //дерево маршрутов со строками
 
         }
     }

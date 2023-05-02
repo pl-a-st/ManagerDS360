@@ -57,8 +57,8 @@ namespace ManagerDS360
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
         {
-            //удаление маршрута файлом
-            //File.Delete(Path.Combine(folderPath, filename));
+            //удаление маршрута-строки из листа
+
         }
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)
@@ -83,13 +83,9 @@ namespace ManagerDS360
 
         private void butCreateRoutes_Click(object sender, EventArgs e)
         {
-            
             //создание нового маршрута
-
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
             newfrmCreationEditingRoute.ShowDialog();
-
-
         }
 
         private void butEditingRoute_Click(object sender, EventArgs e)

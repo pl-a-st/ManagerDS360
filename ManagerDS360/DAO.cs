@@ -15,8 +15,8 @@ namespace ManagerDS360
 
         public DAO()
         {
-            //RouteFileInfoList.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя").GetFiles());
-            
+            //RouteFileInfoList.AddRange(new DirectoryInfo(fileName).GetFiles());
+
 
         }
 
@@ -24,7 +24,7 @@ namespace ManagerDS360
         //получение пути:
         public static string TakeUserPath(string fileName)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\DS360\\Настройки маршрутов\\";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Маршруты\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -36,7 +36,6 @@ namespace ManagerDS360
             CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();
             FolderDialog.IsFolderPicker = true;
             FolderDialog.Title = TitleDiolog;
-
             string path = "";
             if (FolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {

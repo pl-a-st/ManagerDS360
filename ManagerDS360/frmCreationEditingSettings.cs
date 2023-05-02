@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LibDevicesManager;
 
 namespace ManagerDS360
 {
@@ -139,14 +138,9 @@ namespace ManagerDS360
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void butSend_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void lblTypeSignal2_Click(object sender, EventArgs e)
-        {
-
+            //отправить параметры в генератор
         }
     }
 }

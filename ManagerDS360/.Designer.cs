@@ -161,6 +161,7 @@ namespace ManagerDS360 {
             this.lblDefaultGenerator.Size = new System.Drawing.Size(134, 13);
             this.lblDefaultGenerator.TabIndex = 14;
             this.lblDefaultGenerator.Text = "Генератор по умолчанию";
+            this.lblDefaultGenerator.Click += new System.EventHandler(this.lblDefaultGenerator_Click);
             // 
             // frmManagerDS360
             // 

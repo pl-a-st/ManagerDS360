@@ -70,8 +70,8 @@ namespace ManagerDS360
 
         private void butSave_Click(object sender, EventArgs e)
         {
-            string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
-            //записать файл
+            //string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
+            //записать файл с именем и настройками
         }
 
         private void butDelete_Click(object sender, EventArgs e)

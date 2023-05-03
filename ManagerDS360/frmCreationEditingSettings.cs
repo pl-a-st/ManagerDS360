@@ -120,5 +120,15 @@ namespace ManagerDS360
         {
             this.Close();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTypeSignal2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

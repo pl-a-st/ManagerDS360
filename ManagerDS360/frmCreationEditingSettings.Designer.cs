@@ -46,6 +46,12 @@
             this.lblOffset = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
             this.butSend = new System.Windows.Forms.Button();
+            this.lblTypeSignal2 = new System.Windows.Forms.Label();
+            this.lblFrequency2 = new System.Windows.Forms.Label();
+            this.cboDetector2 = new System.Windows.Forms.ComboBox();
+            this.lblDetector2 = new System.Windows.Forms.Label();
+            this.cboTypeSignal2 = new System.Windows.Forms.ComboBox();
+            this.txtFrequency2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
@@ -129,7 +135,7 @@
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
-            this.lblConversionFactor.Location = new System.Drawing.Point(24, 133);
+            this.lblConversionFactor.Location = new System.Drawing.Point(24, 125);
             this.lblConversionFactor.Name = "lblConversionFactor";
             this.lblConversionFactor.Size = new System.Drawing.Size(143, 26);
             this.lblConversionFactor.TabIndex = 8;
@@ -222,8 +228,10 @@
             this.butSend.UseVisualStyleBackColor = true;
             this.butSend.Click += new System.EventHandler(this.butSend_Click);
             // 
+            // lblTypeSignal2
+            // 
             this.lblTypeSignal2.AutoSize = true;
-            this.lblTypeSignal2.Location = new System.Drawing.Point(15, 125);
+            this.lblTypeSignal2.Location = new System.Drawing.Point(571, 124);
             this.lblTypeSignal2.Name = "lblTypeSignal2";
             this.lblTypeSignal2.Size = new System.Drawing.Size(90, 13);
             this.lblTypeSignal2.TabIndex = 21;
@@ -233,7 +241,7 @@
             // lblFrequency2
             // 
             this.lblFrequency2.AutoSize = true;
-            this.lblFrequency2.Location = new System.Drawing.Point(399, 132);
+            this.lblFrequency2.Location = new System.Drawing.Point(197, 216);
             this.lblFrequency2.Name = "lblFrequency2";
             this.lblFrequency2.Size = new System.Drawing.Size(78, 13);
             this.lblFrequency2.TabIndex = 22;
@@ -242,7 +250,7 @@
             // cboDetector2
             // 
             this.cboDetector2.FormattingEnabled = true;
-            this.cboDetector2.Location = new System.Drawing.Point(571, 143);
+            this.cboDetector2.Location = new System.Drawing.Point(571, 89);
             this.cboDetector2.Name = "cboDetector2";
             this.cboDetector2.Size = new System.Drawing.Size(141, 21);
             this.cboDetector2.TabIndex = 23;
@@ -250,7 +258,7 @@
             // lblDetector2
             // 
             this.lblDetector2.AutoSize = true;
-            this.lblDetector2.Location = new System.Drawing.Point(571, 125);
+            this.lblDetector2.Location = new System.Drawing.Point(571, 71);
             this.lblDetector2.Name = "lblDetector2";
             this.lblDetector2.Size = new System.Drawing.Size(115, 13);
             this.lblDetector2.TabIndex = 24;
@@ -259,16 +267,24 @@
             // cboTypeSignal2
             // 
             this.cboTypeSignal2.FormattingEnabled = true;
-            this.cboTypeSignal2.Location = new System.Drawing.Point(18, 141);
+            this.cboTypeSignal2.Location = new System.Drawing.Point(571, 140);
             this.cboTypeSignal2.Name = "cboTypeSignal2";
             this.cboTypeSignal2.Size = new System.Drawing.Size(145, 21);
             this.cboTypeSignal2.TabIndex = 25;
+            // 
+            // txtFrequency2
+            // 
+            this.txtFrequency2.Location = new System.Drawing.Point(199, 232);
+            this.txtFrequency2.Name = "txtFrequency2";
+            this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
+            this.txtFrequency2.TabIndex = 26;
             // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 339);
+            this.ClientSize = new System.Drawing.Size(905, 339);
+            this.Controls.Add(this.txtFrequency2);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.cboDetector);
             this.Controls.Add(this.lblOffset);
@@ -287,8 +303,12 @@
             this.Controls.Add(this.lblComPort);
             this.Controls.Add(this.cboComPort);
             this.Controls.Add(this.chcDefaultGenerator);
+            this.Controls.Add(this.lblTypeSignal2);
+            this.Controls.Add(this.lblFrequency2);
+            this.Controls.Add(this.cboDetector2);
+            this.Controls.Add(this.lblDetector2);
+            this.Controls.Add(this.cboTypeSignal2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(566, 378);
             this.MinimumSize = new System.Drawing.Size(566, 378);
             this.Name = "frmCreationEditingSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -319,5 +339,11 @@
         private System.Windows.Forms.Label lblOffset;
         private System.Windows.Forms.ComboBox cboDetector;
         private System.Windows.Forms.Button butSend;
+        private System.Windows.Forms.Label lblTypeSignal2;
+        private System.Windows.Forms.Label lblFrequency2;
+        private System.Windows.Forms.ComboBox cboDetector2;
+        private System.Windows.Forms.Label lblDetector2;
+        private System.Windows.Forms.ComboBox cboTypeSignal2;
+        private System.Windows.Forms.TextBox txtFrequency2;
     }
 }

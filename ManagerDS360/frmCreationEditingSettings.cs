@@ -215,5 +215,10 @@ namespace ManagerDS360
         {
             //выбор детектора
         }
+        private void lblTypeSignal2_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

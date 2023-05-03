@@ -222,6 +222,48 @@
             this.butSend.UseVisualStyleBackColor = true;
             this.butSend.Click += new System.EventHandler(this.butSend_Click);
             // 
+            this.lblTypeSignal2.AutoSize = true;
+            this.lblTypeSignal2.Location = new System.Drawing.Point(15, 125);
+            this.lblTypeSignal2.Name = "lblTypeSignal2";
+            this.lblTypeSignal2.Size = new System.Drawing.Size(90, 13);
+            this.lblTypeSignal2.TabIndex = 21;
+            this.lblTypeSignal2.Text = "Вид сигнала (2т)";
+            this.lblTypeSignal2.Click += new System.EventHandler(this.lblTypeSignal2_Click);
+            // 
+            // lblFrequency2
+            // 
+            this.lblFrequency2.AutoSize = true;
+            this.lblFrequency2.Location = new System.Drawing.Point(399, 132);
+            this.lblFrequency2.Name = "lblFrequency2";
+            this.lblFrequency2.Size = new System.Drawing.Size(78, 13);
+            this.lblFrequency2.TabIndex = 22;
+            this.lblFrequency2.Text = "Частота Гц 2т";
+            // 
+            // cboDetector2
+            // 
+            this.cboDetector2.FormattingEnabled = true;
+            this.cboDetector2.Location = new System.Drawing.Point(571, 143);
+            this.cboDetector2.Name = "cboDetector2";
+            this.cboDetector2.Size = new System.Drawing.Size(141, 21);
+            this.cboDetector2.TabIndex = 23;
+            // 
+            // lblDetector2
+            // 
+            this.lblDetector2.AutoSize = true;
+            this.lblDetector2.Location = new System.Drawing.Point(571, 125);
+            this.lblDetector2.Name = "lblDetector2";
+            this.lblDetector2.Size = new System.Drawing.Size(115, 13);
+            this.lblDetector2.TabIndex = 24;
+            this.lblDetector2.Text = "Выбор детектора (2т)";
+            // 
+            // cboTypeSignal2
+            // 
+            this.cboTypeSignal2.FormattingEnabled = true;
+            this.cboTypeSignal2.Location = new System.Drawing.Point(18, 141);
+            this.cboTypeSignal2.Name = "cboTypeSignal2";
+            this.cboTypeSignal2.Size = new System.Drawing.Size(145, 21);
+            this.cboTypeSignal2.TabIndex = 25;
+            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

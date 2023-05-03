@@ -79,9 +79,7 @@ namespace ManagerDS360 {
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
             //передача настройки в генератор
-            frmCreationEditingSettings newfrmCreationEditingSettings = new frmCreationEditingSettings();
-            newfrmCreationEditingSettings.Type = Type.Control;
-            newfrmCreationEditingSettings.ShowDialog();
+
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)
@@ -116,6 +114,7 @@ namespace ManagerDS360 {
         private void frmManagerDS360_Load(object sender, EventArgs e)
         {
             PushListBox();
+            butBroadcastSettingsGenerator.Enabled = false;
             butNextSetup.Enabled = false;
         }
 

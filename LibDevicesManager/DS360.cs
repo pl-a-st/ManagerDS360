@@ -68,13 +68,83 @@ namespace LibDevicesManager
         public DeviceModel Model { get { return DeviceModel.DS360; } }
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
         public string SerialNumber { get; } //Прописать получение серийного номера
-        public FunctionType FunctionType { get; set; }
-        public ToneBFunctionType FunctionBType { get; set; }
-        public double AmplitudeRMS { get; set; }
-        public double AmplitudeRMSToneB { get; set; }
-        public double Frequency { get; set; }
-        public double FrequencyB { get; set; }
-        public double Offset { get; set; }
+        public FunctionType FunctionType
+        {
+            get
+            {
+                return functionType;
+            }
+            set
+            {
+                functionType = value;
+            }
+        }
+        public ToneBFunctionType FunctionBType
+        {
+            get
+            {
+                return functionTypeB;
+            }
+            set
+            {
+                functionTypeB = value;
+            }
+        }
+        public double AmplitudeRMS
+        {
+            get
+            {
+                return amplitudeRMS;
+            }
+            set
+            {
+                amplitudeRMS = value;
+            }
+        }
+        public double AmplitudeRMSToneB
+        {
+            get
+            {
+                return amplitudeRMSToneB;
+            }
+            set
+            {
+                amplitudeRMSToneB = value;
+            }
+        }
+        public double Frequency
+        {
+            get
+            {
+                return frequency;
+            }
+            set
+            {
+                frequency = value;
+            }
+        }
+        public double FrequencyB
+        {
+            get
+            {
+                return frequencyB;
+            }
+            set
+            {
+                frequencyB = value;
+            }
+        }
+        public double Offset
+        {
+            get
+            {
+                return offset;
+            }
+            set
+            {
+                offset = value;
+            }
+        }
 
 
         //
@@ -82,7 +152,7 @@ namespace LibDevicesManager
         private string comPortName;
         private string serialNumber;
         private FunctionType functionType;
-        private FunctionType functionTypeB;
+        private ToneBFunctionType functionTypeB;
         private double amplitudeRMS;
         private double amplitudeRMSToneB;
         private double frequency;

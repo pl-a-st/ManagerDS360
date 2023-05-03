@@ -160,22 +160,153 @@ namespace LibDevicesManager
         private double frequency;
         private double frequencyB;
         private double offset;
+
         #region Constructors
         //Конструкторы для SingleSignal
-        public DS360Setting() { }
-        public DS360Setting(double amplitudeRMS, double frequency) { }
-        public DS360Setting(string portName, double amplitudeRMS, double frequency) { }
-        public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency) { }
-        public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency) { }
-        public DS360Setting(double amplitudeRMS, double frequency, double offset) { }
-        public DS360Setting(string portName, double amplitudeRMS, double frequency, double offset) { }
-        public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency, double offset) { }
-        public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency, double offset) { }
+        public DS360Setting() 
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = 0;
+            this.frequency = 0;
+            this.offset = 0;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(double amplitudeRMS, double frequency)
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = 0;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, double amplitudeRMS, double frequency)
+        {
+            this.comPortName = portName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = 0;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency)
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = functionType;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = 0;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency)
+        {
+            this.comPortName = portName;
+            this.functionType = functionType;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = 0;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(double amplitudeRMS, double frequency, double offset)
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = offset;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, double amplitudeRMS, double frequency, double offset)
+        {
+            this.comPortName = portName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = offset;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency, double offset)
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = functionType;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = offset;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency, double offset)
+        {
+            this.comPortName = portName;
+            this.functionType = functionType;
+            this.amplitudeRMS = amplitudeRMS;
+            this.frequency = frequency;
+            this.offset = offset;
+            this.frequencyB = 0;
+            this.amplitudeRMSToneB = 0;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
         //Конструкторы для TwoTone
-        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) { }
-        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
-        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) { }
-        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) { }
+        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) 
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS_A;
+            this.frequency = frequency_A;
+            this.offset = 0;
+            this.frequencyB = frequency_B;
+            this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) 
+        {
+            this.comPortName = ComPortDefaultName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS_A;
+            this.frequency = frequency_A;
+            this.offset = 0;
+            this.frequencyB = frequency_B;
+            this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B) 
+        {
+            this.comPortName = portName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS_A;
+            this.frequency = frequency_A;
+            this.offset = 0;
+            this.frequencyB = frequency_B;
+            this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.functionTypeB = ToneBFunctionType.Sine;
+        }
+        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionTypeB) 
+        {
+            this.comPortName = portName;
+            this.functionType = FunctionType.Sine;
+            this.amplitudeRMS = amplitudeRMS_A;
+            this.frequency = frequency_A;
+            this.offset = 0;
+            this.frequencyB = frequency_B;
+            this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.functionTypeB = functionTypeB;
+        }
         #endregion Constructors
 
         private static string SetGeneratorsPortAsDefaultComPort()

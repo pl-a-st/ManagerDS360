@@ -46,18 +46,14 @@
             this.lblOffset = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
             this.butSend = new System.Windows.Forms.Button();
-            this.txtFrequency2 = new System.Windows.Forms.TextBox();
-            this.lblTypeSignal2 = new System.Windows.Forms.Label();
-            this.lblFrequency2 = new System.Windows.Forms.Label();
-            this.cboDetector2 = new System.Windows.Forms.ComboBox();
-            this.lblDetector2 = new System.Windows.Forms.Label();
-            this.cboTypeSignal2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
             // 
             this.chcDefaultGenerator.AutoSize = true;
-            this.chcDefaultGenerator.Location = new System.Drawing.Point(14, 25);
+            this.chcDefaultGenerator.Checked = true;
+            this.chcDefaultGenerator.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chcDefaultGenerator.Location = new System.Drawing.Point(24, 38);
             this.chcDefaultGenerator.Name = "chcDefaultGenerator";
             this.chcDefaultGenerator.Size = new System.Drawing.Size(153, 17);
             this.chcDefaultGenerator.TabIndex = 0;
@@ -68,7 +64,7 @@
             // cboComPort
             // 
             this.cboComPort.FormattingEnabled = true;
-            this.cboComPort.Location = new System.Drawing.Point(200, 25);
+            this.cboComPort.Location = new System.Drawing.Point(24, 89);
             this.cboComPort.Name = "cboComPort";
             this.cboComPort.Size = new System.Drawing.Size(143, 21);
             this.cboComPort.TabIndex = 1;
@@ -77,7 +73,7 @@
             // lblComPort
             // 
             this.lblComPort.AutoSize = true;
-            this.lblComPort.Location = new System.Drawing.Point(197, 9);
+            this.lblComPort.Location = new System.Drawing.Point(21, 73);
             this.lblComPort.Name = "lblComPort";
             this.lblComPort.Size = new System.Drawing.Size(54, 13);
             this.lblComPort.TabIndex = 2;
@@ -87,7 +83,7 @@
             // cboTypeSignal
             // 
             this.cboTypeSignal.FormattingEnabled = true;
-            this.cboTypeSignal.Location = new System.Drawing.Point(18, 88);
+            this.cboTypeSignal.Location = new System.Drawing.Point(200, 89);
             this.cboTypeSignal.Name = "cboTypeSignal";
             this.cboTypeSignal.Size = new System.Drawing.Size(143, 21);
             this.cboTypeSignal.TabIndex = 3;
@@ -96,7 +92,7 @@
             // lblTypeSignal
             // 
             this.lblTypeSignal.AutoSize = true;
-            this.lblTypeSignal.Location = new System.Drawing.Point(18, 70);
+            this.lblTypeSignal.Location = new System.Drawing.Point(197, 70);
             this.lblTypeSignal.Name = "lblTypeSignal";
             this.lblTypeSignal.Size = new System.Drawing.Size(70, 13);
             this.lblTypeSignal.TabIndex = 4;
@@ -106,7 +102,7 @@
             // cboSetValue
             // 
             this.cboSetValue.FormattingEnabled = true;
-            this.cboSetValue.Location = new System.Drawing.Point(381, 25);
+            this.cboSetValue.Location = new System.Drawing.Point(388, 89);
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(143, 21);
             this.cboSetValue.TabIndex = 5;
@@ -115,7 +111,7 @@
             // lblSetValue
             // 
             this.lblSetValue.AutoSize = true;
-            this.lblSetValue.Location = new System.Drawing.Point(378, 9);
+            this.lblSetValue.Location = new System.Drawing.Point(385, 73);
             this.lblSetValue.Name = "lblSetValue";
             this.lblSetValue.Size = new System.Drawing.Size(120, 13);
             this.lblSetValue.TabIndex = 6;
@@ -124,7 +120,7 @@
             // 
             // txtConversionFactor
             // 
-            this.txtConversionFactor.Location = new System.Drawing.Point(200, 90);
+            this.txtConversionFactor.Location = new System.Drawing.Point(24, 164);
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
             this.txtConversionFactor.TabIndex = 7;
@@ -133,7 +129,7 @@
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
-            this.lblConversionFactor.Location = new System.Drawing.Point(200, 59);
+            this.lblConversionFactor.Location = new System.Drawing.Point(24, 133);
             this.lblConversionFactor.Name = "lblConversionFactor";
             this.lblConversionFactor.Size = new System.Drawing.Size(143, 26);
             this.lblConversionFactor.TabIndex = 8;
@@ -153,7 +149,7 @@
             // 
             // butCancel
             // 
-            this.butCancel.Location = new System.Drawing.Point(623, 300);
+            this.butCancel.Location = new System.Drawing.Point(422, 300);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(109, 27);
             this.butCancel.TabIndex = 10;
@@ -163,7 +159,7 @@
             // 
             // txtFrequency
             // 
-            this.txtFrequency.Location = new System.Drawing.Point(394, 89);
+            this.txtFrequency.Location = new System.Drawing.Point(200, 164);
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(143, 20);
             this.txtFrequency.TabIndex = 11;
@@ -172,7 +168,7 @@
             // lblFrequency
             // 
             this.lblFrequency.AutoSize = true;
-            this.lblFrequency.Location = new System.Drawing.Point(391, 73);
+            this.lblFrequency.Location = new System.Drawing.Point(197, 148);
             this.lblFrequency.Name = "lblFrequency";
             this.lblFrequency.Size = new System.Drawing.Size(64, 13);
             this.lblFrequency.TabIndex = 12;
@@ -182,7 +178,7 @@
             // lblDetector
             // 
             this.lblDetector.AutoSize = true;
-            this.lblDetector.Location = new System.Drawing.Point(570, 74);
+            this.lblDetector.Location = new System.Drawing.Point(21, 212);
             this.lblDetector.Name = "lblDetector";
             this.lblDetector.Size = new System.Drawing.Size(95, 13);
             this.lblDetector.TabIndex = 14;
@@ -191,7 +187,7 @@
             // 
             // txtOffset
             // 
-            this.txtOffset.Location = new System.Drawing.Point(573, 26);
+            this.txtOffset.Location = new System.Drawing.Point(388, 164);
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(143, 20);
             this.txtOffset.TabIndex = 15;
@@ -200,7 +196,7 @@
             // lblOffset
             // 
             this.lblOffset.AutoSize = true;
-            this.lblOffset.Location = new System.Drawing.Point(571, 12);
+            this.lblOffset.Location = new System.Drawing.Point(386, 150);
             this.lblOffset.Name = "lblOffset";
             this.lblOffset.Size = new System.Drawing.Size(61, 13);
             this.lblOffset.TabIndex = 16;
@@ -210,14 +206,15 @@
             // cboDetector
             // 
             this.cboDetector.FormattingEnabled = true;
-            this.cboDetector.Location = new System.Drawing.Point(570, 90);
+            this.cboDetector.Location = new System.Drawing.Point(21, 228);
             this.cboDetector.Name = "cboDetector";
             this.cboDetector.Size = new System.Drawing.Size(146, 21);
             this.cboDetector.TabIndex = 17;
+            this.cboDetector.SelectedIndexChanged += new System.EventHandler(this.cboDetector_SelectedIndexChanged);
             // 
             // butSend
             // 
-            this.butSend.Location = new System.Drawing.Point(319, 301);
+            this.butSend.Location = new System.Drawing.Point(228, 300);
             this.butSend.Name = "butSend";
             this.butSend.Size = new System.Drawing.Size(102, 26);
             this.butSend.TabIndex = 18;
@@ -225,68 +222,11 @@
             this.butSend.UseVisualStyleBackColor = true;
             this.butSend.Click += new System.EventHandler(this.butSend_Click);
             // 
-            // txtFrequency2
-            // 
-            this.txtFrequency2.Location = new System.Drawing.Point(394, 150);
-            this.txtFrequency2.Name = "txtFrequency2";
-            this.txtFrequency2.Size = new System.Drawing.Size(147, 20);
-            this.txtFrequency2.TabIndex = 19;
-            // 
-            // lblTypeSignal2
-            // 
-            this.lblTypeSignal2.AutoSize = true;
-            this.lblTypeSignal2.Location = new System.Drawing.Point(15, 125);
-            this.lblTypeSignal2.Name = "lblTypeSignal2";
-            this.lblTypeSignal2.Size = new System.Drawing.Size(90, 13);
-            this.lblTypeSignal2.TabIndex = 21;
-            this.lblTypeSignal2.Text = "Вид сигнала (2т)";
-            this.lblTypeSignal2.Click += new System.EventHandler(this.lblTypeSignal2_Click);
-            // 
-            // lblFrequency2
-            // 
-            this.lblFrequency2.AutoSize = true;
-            this.lblFrequency2.Location = new System.Drawing.Point(399, 132);
-            this.lblFrequency2.Name = "lblFrequency2";
-            this.lblFrequency2.Size = new System.Drawing.Size(84, 13);
-            this.lblFrequency2.TabIndex = 22;
-            this.lblFrequency2.Text = "Частота Гц (2т)";
-            // 
-            // cboDetector2
-            // 
-            this.cboDetector2.FormattingEnabled = true;
-            this.cboDetector2.Location = new System.Drawing.Point(571, 143);
-            this.cboDetector2.Name = "cboDetector2";
-            this.cboDetector2.Size = new System.Drawing.Size(141, 21);
-            this.cboDetector2.TabIndex = 23;
-            // 
-            // lblDetector2
-            // 
-            this.lblDetector2.AutoSize = true;
-            this.lblDetector2.Location = new System.Drawing.Point(571, 125);
-            this.lblDetector2.Name = "lblDetector2";
-            this.lblDetector2.Size = new System.Drawing.Size(115, 13);
-            this.lblDetector2.TabIndex = 24;
-            this.lblDetector2.Text = "Выбор детектора (2т)";
-            // 
-            // cboTypeSignal2
-            // 
-            this.cboTypeSignal2.FormattingEnabled = true;
-            this.cboTypeSignal2.Location = new System.Drawing.Point(18, 141);
-            this.cboTypeSignal2.Name = "cboTypeSignal2";
-            this.cboTypeSignal2.Size = new System.Drawing.Size(145, 21);
-            this.cboTypeSignal2.TabIndex = 25;
-            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 339);
-            this.Controls.Add(this.cboTypeSignal2);
-            this.Controls.Add(this.lblDetector2);
-            this.Controls.Add(this.cboDetector2);
-            this.Controls.Add(this.lblFrequency2);
-            this.Controls.Add(this.lblTypeSignal2);
-            this.Controls.Add(this.txtFrequency2);
+            this.ClientSize = new System.Drawing.Size(550, 339);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.cboDetector);
             this.Controls.Add(this.lblOffset);
@@ -337,11 +277,5 @@
         private System.Windows.Forms.Label lblOffset;
         private System.Windows.Forms.ComboBox cboDetector;
         private System.Windows.Forms.Button butSend;
-        private System.Windows.Forms.TextBox txtFrequency2;
-        private System.Windows.Forms.Label lblTypeSignal2;
-        private System.Windows.Forms.Label lblFrequency2;
-        private System.Windows.Forms.ComboBox cboDetector2;
-        private System.Windows.Forms.Label lblDetector2;
-        private System.Windows.Forms.ComboBox cboTypeSignal2;
     }
 }

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.InteropServices;
+
 
 namespace ManagerDS360
 {
@@ -20,9 +25,33 @@ namespace ManagerDS360
 
         }
 
+        //сохранение объекта в bin
+        internal void SerializeObject(string fileName, object obj)
+        {
+            FileStream fstream = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            binaryFormatter.Serialize(fstream, obj);
+            fstream.Close();
+        }
+        //извлечение из bin
+        internal object DeserializeObject(string fileName)
+        {
+            object obj = null;
+            FileStream fstream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            obj = (object)binaryFormatter.Deserialize(fstream);
+            fstream.Close();
+            return obj;
+        }
 
-        //получение пути:
-        public static string TakeUserPath(string fileName)
+        [Serializable]
+        internal class SerializableObject
+        {
+            public SerializableObject() { }
+        }
+
+            //получение пути для сохранения настроек:
+            public static string TakeUserPath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Маршруты\\";
             if (!Directory.Exists(path))
@@ -31,6 +60,7 @@ namespace ManagerDS360
             }
             return path + fileName;
         }
+        //получение пути для сохранения маршрута: 
         public static string GetFolderNameDialog(string TitleDiolog)
         {
             CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();

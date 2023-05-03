@@ -46,8 +46,23 @@ namespace ManagerDS360
             {
                 //lstSaveRoutes.Items.Add(info);
             }
-            
 
+            butUpRoute.Enabled = false;
+            butDownRoute.Enabled = false;
+
+            butDeleteRoute.Enabled = false;
+            butEditingRoute.Enabled = false;
+            //butSaveRoutes.Enabled = false;
+ 
+        }
+        //выбор элемента treeView
+        private void TreeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode node = e.Node;
+            if (node == null)
+            {
+                return;
+            }
         }
 
         private void lstsaveroutes_SelectedIndexChanged(object sender, EventArgs e)

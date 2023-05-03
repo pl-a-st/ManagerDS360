@@ -44,12 +44,12 @@ namespace ManagerDS360 {
 
         private void lblRoute_Click(object sender, EventArgs e)
         {
-
+            //лейбл Маршрут
         }
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)
         {
-
+            //ничего не надо
         }
 
         //private void button4_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace ManagerDS360 {
         {
             //появление messageBox
             MessageBox.Show(
-         "Мanager DS360. Версия ПО 0.001.\n  Технический отдел - лучший! ",
+         "Мanager DS360. Версия ПО 0.001.\n  Год разработки - 2023. ",
          "О программе",
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,
@@ -97,13 +97,12 @@ namespace ManagerDS360 {
     
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //загрузить выпадающий список сохранённых маршрутов
+            //загрузить выпадающий список сохранённых маршрутов из листа
         }
 
         private void txtNameGenerator_TextChanged(object sender, EventArgs e)
         {
             //отображение в окошке наименования генератора
-            //txtNameGenerator.Text = "cboListComPorts_SelectedIndexChanged";
         }
 
         private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -114,6 +113,8 @@ namespace ManagerDS360 {
         private void frmManagerDS360_Load(object sender, EventArgs e)
         {
             PushListBox();
+            butBroadcastSettingsGenerator.Enabled = false;
+            butNextSetup.Enabled = false;
         }
 
         private void PushListBox()
@@ -143,6 +144,11 @@ namespace ManagerDS360 {
         private void frmManagerDS360_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void lblDefaultGenerator_Click(object sender, EventArgs e)
+        {
+            //наименование генератора по умолчанию
         }
     }
 }

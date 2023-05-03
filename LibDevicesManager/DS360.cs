@@ -146,6 +146,8 @@ namespace LibDevicesManager
             }
         }
 
+        //добавление имени
+        public string Name { get; set; }
 
         //
         private static string comPortDefaultName;

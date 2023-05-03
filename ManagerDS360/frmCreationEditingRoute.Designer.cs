@@ -141,6 +141,7 @@
             // 
             // treRouteTree
             // 
+            this.treRouteTree.CheckBoxes = true;
             this.treRouteTree.Location = new System.Drawing.Point(295, 42);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.Size = new System.Drawing.Size(436, 274);

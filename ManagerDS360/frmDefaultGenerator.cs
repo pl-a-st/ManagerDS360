@@ -28,6 +28,7 @@ namespace ManagerDS360
 
             //this.cboListComPorts.Items.AddRange ( DS360Setting.GetComPortList().ToArray());
             this.cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
+            cboListComPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
         }
 
         private void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)

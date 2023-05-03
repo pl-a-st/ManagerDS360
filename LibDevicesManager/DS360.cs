@@ -36,7 +36,8 @@ namespace LibDevicesManager
             {
                 if (comPortDefaultName == null || comPortDefaultName == string.Empty)
                 {
-                    SetGeneratorsPortAsDefaultComPort();
+                    //SetGeneratorsPortAsDefaultComPort();
+                    comPortDefaultName = "NONE";
                 }
                 return comPortDefaultName;
             }

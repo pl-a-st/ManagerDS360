@@ -127,6 +127,7 @@
             // txtConversionFactor
             // 
             this.txtConversionFactor.Location = new System.Drawing.Point(24, 164);
+            this.txtConversionFactor.MaxLength = 5;
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
             this.txtConversionFactor.TabIndex = 7;
@@ -166,10 +167,12 @@
             // txtFrequency
             // 
             this.txtFrequency.Location = new System.Drawing.Point(200, 164);
+            this.txtFrequency.MaxLength = 5;
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(143, 20);
             this.txtFrequency.TabIndex = 11;
             this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
+            this.txtFrequency.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFrequency_KeyPress);
             // 
             // lblFrequency
             // 
@@ -194,6 +197,7 @@
             // txtOffset
             // 
             this.txtOffset.Location = new System.Drawing.Point(388, 164);
+            this.txtOffset.MaxLength = 5;
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(143, 20);
             this.txtOffset.TabIndex = 15;

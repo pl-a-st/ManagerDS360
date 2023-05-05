@@ -36,6 +36,7 @@
             this.butSaveRoutes = new System.Windows.Forms.Button();
             this.butDeleteRoute = new System.Windows.Forms.Button();
             this.treSaveRoutes = new System.Windows.Forms.TreeView();
+            this.lblSaveRoutes = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblSavedRoutes
@@ -116,11 +117,24 @@
             this.treSaveRoutes.TabIndex = 8;
             this.treSaveRoutes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treSaveRoutes_AfterSelect);
             // 
+            // lblSaveRoutes
+            // 
+            this.lblSaveRoutes.AutoSize = true;
+            this.lblSaveRoutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSaveRoutes.ForeColor = System.Drawing.Color.Green;
+            this.lblSaveRoutes.Location = new System.Drawing.Point(290, 368);
+            this.lblSaveRoutes.Name = "lblSaveRoutes";
+            this.lblSaveRoutes.Size = new System.Drawing.Size(77, 13);
+            this.lblSaveRoutes.TabIndex = 9;
+            this.lblSaveRoutes.Text = "  Сохранить";
+            this.lblSaveRoutes.Visible = false;
+            // 
             // frmEditingRoutes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblSaveRoutes);
             this.Controls.Add(this.treSaveRoutes);
             this.Controls.Add(this.butDeleteRoute);
             this.Controls.Add(this.butSaveRoutes);
@@ -150,5 +164,6 @@
         private System.Windows.Forms.Button butSaveRoutes;
         private System.Windows.Forms.Button butDeleteRoute;
         private System.Windows.Forms.TreeView treSaveRoutes;
+        private System.Windows.Forms.Label lblSaveRoutes;
     }
 }

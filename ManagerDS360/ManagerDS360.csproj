@@ -131,6 +131,12 @@
     <Compile Include="frmCreationEditingSettings.Designer.cs">
       <DependentUpon>frmCreationEditingSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInputName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInputName.Designer.cs">
+      <DependentUpon>frmInputName.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRoutse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,7 @@
     <Compile Include="frmDefaultGenerator.Designer.cs">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
     </Compile>
+    <Compile Include="TreeNodeWithSetup.cs" />
     <EmbeddedResource Include="frmCreationEditingRoute.resx">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDefaultGenerator.resx">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInputName.resx">
+      <DependentUpon>frmInputName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRoutse.resx">
       <DependentUpon>frmRoutse.cs</DependentUpon>

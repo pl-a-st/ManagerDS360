@@ -14,6 +14,11 @@ using System.Runtime.InteropServices;
 
 namespace ManagerDS360
 {
+    public enum MethodResultStatus
+    {
+        Ok,
+        Fault
+    }
     public class DAO
     {
         List<FileInfo> RouteFileInfoList = new List<FileInfo>();
@@ -25,33 +30,48 @@ namespace ManagerDS360
 
         }
 
-        //сохранение объекта в bin
-        internal void SerializeObject(string fileName, object obj)
+        //сохранение объекта/сериализация
+        public static class Serializable
         {
-            FileStream fstream = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.None);
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(fstream, obj);
-            fstream.Close();
-        }
-        //извлечение из bin
-        internal object DeserializeObject(string fileName)
-        {
-            object obj = null;
-            FileStream fstream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            obj = (object)binaryFormatter.Deserialize(fstream);
-            fstream.Close();
-            return obj;
+            public static MethodResultStatus binWriteObjectToFile<Type>(Type serObject, string fileName)
+            {
+                try
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    using (FileStream stream = new FileStream(fileName, FileMode.Create))
+                    {
+                        bf.Serialize(stream, serObject);
+                    }
+                    return MethodResultStatus.Ok;
+                }
+                catch (Exception ex)
+                {
+                }
+                return MethodResultStatus.Fault;
+            }
+
+            //извлечение/десериализация
+            public static Type binReadFileToObject<Type>(Type serObject, string fullPathFileName, out MethodResultStatus methodResultStatus)
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                try
+                {
+                    using (FileStream stream = new FileStream(fullPathFileName, FileMode.Open))
+                    {
+                        serObject = (Type)bf.Deserialize(stream);
+                    }
+                    methodResultStatus = MethodResultStatus.Ok;
+                }
+                catch (Exception ex)
+                {
+                    methodResultStatus = MethodResultStatus.Fault;
+                }
+                return serObject;
+            }
         }
 
-        [Serializable]
-        internal class SerializableObject
-        {
-            public SerializableObject() { }
-        }
-
-            //получение пути для сохранения настроек:
-            public static string TakeUserPath(string fileName)
+        //получение пути для сохранения настроек:
+        public static string TakeUserPath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Маршруты\\";
             if (!Directory.Exists(path))

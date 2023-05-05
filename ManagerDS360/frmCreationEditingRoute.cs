@@ -11,11 +11,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ManagerDS360;
 using System.Runtime.Serialization;
+using System.Reflection.Emit;
 
 namespace ManagerDS360
 {
+    public enum SaveName
+    {
+        SaveName,
+        Cancel
+    }
     public partial class frmCreationEditingRoute : Form
     {
+        public SaveName SaveName;
+
         List<TreeNode> checkedNodes = new List<TreeNode>();
         public frmCreationEditingRoute()
         {
@@ -27,8 +35,10 @@ namespace ManagerDS360
             PushListBox();
             butUp.Enabled = false;
             butDown.Enabled = false;
+            lblSave.Visible = false;
 
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
+
         }
 
         private void PushListBox()
@@ -43,8 +53,39 @@ namespace ManagerDS360
         private void butAddFolder_Click(object sender, EventArgs e)
         {
             //кнопка добавить папку
-            treRouteTree.Nodes.Add(new TreeNode("Настройка Х"));
+            //SaveName = SaveName.Cancel;
+            frmInputName frmInputName = new frmInputName();
+            frmInputName.ShowDialog();
+
+            if (frmInputName.SaveName == SaveName.SaveName)
+            {
+                
+                string nameSet = frmInputName.txtNameSet.Text;
+                TreeNodeWithSetup treeNodeWithSetup = new TreeNodeWithSetup(nameSet);
+                
+                if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+                {
+                    treRouteTree.Nodes.Add(treeNodeWithSetup);
+                    
+                    return;
+                }
+                TreeNodeWithSetup SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetup;
+                SelectedNodeWithSetup.Nodes.Add(treeNodeWithSetup);
+                SelectedNodeWithSetup.Expand();
+
+                //treeNodeWithSetup. = true;
+            }
         }
+
+        //internal void SetNameSetting(frmInputName frmInputName)
+        //{
+        //    if (this.SaveName == SaveName.SaveName)
+        //    {
+        //        string nameSet = frmInputName.txtNameSet.Text;
+        //        treRouteTree.Nodes.Add(new TreeNode(nameSet));
+        //    }
+        //    return;
+        //}
 
         private void lblRouteName_Click(object sender, EventArgs e)
         {
@@ -56,11 +97,36 @@ namespace ManagerDS360
             //название маршрута
         }
 
-        private void butAddSetting_Click(object sender, EventArgs e)
+        internal void butAddSetting_Click(object sender, EventArgs e)
         {
             frmCreationEditingSettings newfrmCreationEditingSettings = new frmCreationEditingSettings();
+
             newfrmCreationEditingSettings.Type = Type.Change;
             newfrmCreationEditingSettings.ShowDialog();
+            DS360Setting dS360Setting = new DS360Setting();
+            double freq1 = double.Parse(newfrmCreationEditingSettings.txtFrequency.Text);
+            //double freq2 = double.Parse(newfrmCreationEditingSettings.txtFrequency2.Text);
+            double voltage = newfrmCreationEditingSettings.Voltage;
+
+            //if (newfrmCreationEditingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
+            //{
+            //    //ветка для двух тонов
+            //}
+            //else //ветка для одного тона
+            //{
+            //    if (newfrmCreationEditingSettings.chcDefaultGenerator.IsCheck)
+            //    {
+            //        dS360Setting = new DS360Setting(voltage);
+            //    }
+            //}
+
+
+            //TreeNode treeNode = new TreeNode();
+            //treeNode.setup = dS360Setting;
+            //treRouteTree.Nodes.Add(treeNode);
+            //newfrmCreationEditingSettings.cbo
+
+            ///*treRouteTree*/.Nodes.Add()
         }
 
         private void butEditSetting_Click(object sender, EventArgs e)
@@ -84,8 +150,10 @@ namespace ManagerDS360
         {
             string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
             //записать файл с именем и настройками
-            
+
             //DAO.SerializeObject obj = new SerializeObject();
+            List<TreeNode> treeNodes = new List<TreeNode>();
+            //treeNodes.AddRange(treRouteTree.Nodes.)
 
 
 
@@ -101,22 +169,12 @@ namespace ManagerDS360
         //удаление из treeView выделенных объектов
         void RemoveCheckedNodes(TreeNodeCollection nodes)
         {
-            TreeNode selectedNode = treRouteTree.SelectedNode;
-            foreach (TreeNode node in nodes)
+
+            if (treRouteTree.SelectedNode == null)
             {
-                if (node.Checked)
-                {
-                    checkedNodes.Add(node);
-                }
-                else
-                {
-                    RemoveCheckedNodes(node.Nodes);
-                }
+                return;
             }
-            foreach (TreeNode checkedNode in checkedNodes)
-            {
-                nodes.Remove(checkedNode);
-            }
+            treRouteTree.Nodes.Remove(treRouteTree.SelectedNode);
         }
         //выбор элемента в treeView
         private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -135,6 +193,11 @@ namespace ManagerDS360
         private void lblRouteTree_Click(object sender, EventArgs e)
         {
 
+        }
+
+        internal void lblSave_Click(object sender, EventArgs e)
+        {
+            //лейбл успешного сохранения
         }
     }
 }

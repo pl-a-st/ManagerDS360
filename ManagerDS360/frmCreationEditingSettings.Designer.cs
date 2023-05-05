@@ -240,7 +240,7 @@
             this.lblTypeSignal2.Size = new System.Drawing.Size(90, 13);
             this.lblTypeSignal2.TabIndex = 21;
             this.lblTypeSignal2.Text = "Вид сигнала (2т)";
-            this.lblTypeSignal2.Click += new System.EventHandler(this.lblTypeSignal2_Click);
+            this.lblTypeSignal2.Click += new System.EventHandler(this.lblTypeSignal_Click);
             // 
             // lblFrequency2
             // 
@@ -275,6 +275,7 @@
             this.cboTypeSignal2.Name = "cboTypeSignal2";
             this.cboTypeSignal2.Size = new System.Drawing.Size(145, 21);
             this.cboTypeSignal2.TabIndex = 25;
+            this.cboTypeSignal2.SelectedIndexChanged += new System.EventHandler(this.cboTypeSignal2_SelectedIndexChanged);
             // 
             // txtFrequency2
             // 
@@ -325,29 +326,29 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox chcDefaultGenerator;
-        private System.Windows.Forms.ComboBox cboComPort;
-        private System.Windows.Forms.Label lblComPort;
-        private System.Windows.Forms.ComboBox cboTypeSignal;
-        private System.Windows.Forms.Label lblTypeSignal;
-        private System.Windows.Forms.ComboBox cboSetValue;
-        private System.Windows.Forms.Label lblSetValue;
-        private System.Windows.Forms.TextBox txtConversionFactor;
-        private System.Windows.Forms.Label lblConversionFactor;
-        private System.Windows.Forms.Button butSave;
-        private System.Windows.Forms.Button butCancel;
-        private System.Windows.Forms.TextBox txtFrequency;
-        private System.Windows.Forms.Label lblFrequency;
-        private System.Windows.Forms.Label lblDetector;
-        private System.Windows.Forms.TextBox txtOffset;
-        private System.Windows.Forms.Label lblOffset;
-        private System.Windows.Forms.ComboBox cboDetector;
-        private System.Windows.Forms.Button butSend;
-        private System.Windows.Forms.Label lblTypeSignal2;
-        private System.Windows.Forms.Label lblFrequency2;
-        private System.Windows.Forms.ComboBox cboDetector2;
-        private System.Windows.Forms.Label lblDetector2;
-        private System.Windows.Forms.ComboBox cboTypeSignal2;
-        private System.Windows.Forms.TextBox txtFrequency2;
+        internal System.Windows.Forms.CheckBox chcDefaultGenerator;
+        internal System.Windows.Forms.ComboBox cboComPort;
+        internal System.Windows.Forms.Label lblComPort;
+        internal System.Windows.Forms.ComboBox cboTypeSignal;
+        internal System.Windows.Forms.Label lblTypeSignal;
+        internal System.Windows.Forms.ComboBox cboSetValue;
+        internal System.Windows.Forms.Label lblSetValue;
+        internal System.Windows.Forms.TextBox txtConversionFactor;
+        internal System.Windows.Forms.Label lblConversionFactor;
+        internal System.Windows.Forms.Button butSave;
+        internal System.Windows.Forms.Button butCancel;
+        internal System.Windows.Forms.TextBox txtFrequency;
+        internal System.Windows.Forms.Label lblFrequency;
+        internal System.Windows.Forms.Label lblDetector;
+        internal System.Windows.Forms.TextBox txtOffset;
+        internal System.Windows.Forms.Label lblOffset;
+        internal System.Windows.Forms.ComboBox cboDetector;
+        internal System.Windows.Forms.Button butSend;
+        internal System.Windows.Forms.Label lblTypeSignal2;
+        internal System.Windows.Forms.Label lblFrequency2;
+        internal System.Windows.Forms.ComboBox cboDetector2;
+        internal System.Windows.Forms.Label lblDetector2;
+        internal System.Windows.Forms.ComboBox cboTypeSignal2;
+        internal System.Windows.Forms.TextBox txtFrequency2;
     }
 }

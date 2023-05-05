@@ -265,5 +265,10 @@ namespace ManagerDS360
                 
             }
         }
+
+        private void cboTypeSignal2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

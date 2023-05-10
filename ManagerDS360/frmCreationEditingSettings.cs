@@ -50,7 +50,34 @@ namespace ManagerDS360
             InitializeComponent();
             InitializecboSetValue();
             InitializecboTypeSignal();
+            InitializecboTypeSignal2();
             InitializecboDetector();
+            InitializecboDetector2();
+            InitializechcboComPort();
+        }
+        //переключение вкл-выкл у выпадающего ком-порт
+        internal void InitializechcboComPort()
+        {
+            //if (chcDefaultGenerator.Checked == false)
+            //{
+            //    cboComPort.Enabled = true;
+            //}
+            //if (chcDefaultGenerator.Checked == true) 
+            //{
+            //    cboComPort.Enabled = false;
+            //}
+        }
+        internal void InitializecboDetector2()
+        {
+            //добавление в комбобокс детектора
+            cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+
+            string[] enumElements = Enum.GetNames(typeof(Detector));
+            foreach (var item in enumElements)
+            {
+                cboDetector2.Items.Add(item.Replace("_", " - "));
+            }
+            cboDetector2.SelectedIndex = (int)Detector.СКЗ;
         }
 
         internal void InitializecboDetector()
@@ -67,7 +94,14 @@ namespace ManagerDS360
             }
             cboDetector.SelectedIndex = (int)Detector.СКЗ;
         }
+        internal void InitializecboTypeSignal2()
+        {
+            //добавление в комбобокс типов сигналов
+            cboTypeSignal2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
+            cboTypeSignal2.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
+            cboTypeSignal2.SelectedIndex = (int)FunctionType.Sine;
+        }
         internal void InitializecboTypeSignal()
         {
             //добавление в комбобокс типов сигналов
@@ -100,7 +134,7 @@ namespace ManagerDS360
             //}
 
 
-            Voltage = 5; /*= VibroMth.GetVolt();*/
+            //Voltage = 5; /*= VibroMth.GetVolt();*/
             //DS360Setting dS360Setting = new DS360Setting();
             //TreeNode treeNode = new TreeNode();
             //treeNode.Setup = dS360Setting;
@@ -119,14 +153,17 @@ namespace ManagerDS360
             //dS360Setting.amplitudeRMS_B = cboDetector2.Items[0].ToString();
             //dS360Setting.functionType = cboTypeSignal.SelectedIndex;
 
+            
             //dS360Setting.Name = cboComPort.Items + txtFrequency.Text + cboDetector.Items;
-            this.SaveStatus = SaveStatus.Save;
-            frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-            frmCreationEditingRoute.lblSave.Visible = true;
-            timer.Enabled = true;
+
+            //статус сохранения и запуск таймера
+            //this.SaveStatus = SaveStatus.Save;
+            //frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
+            //frmCreationEditingRoute.lblSave.Visible = true;
+            //timer.Enabled = true;
             this.Close();
         }
-
+        //таймер для сохранения
         internal void timeTick(object sender, EventArgs e)
         {
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
@@ -154,24 +191,35 @@ namespace ManagerDS360
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
             InitializeComponent();
-            timer = new Timer();
-            timer.Interval = 5000;
-            timer.Tick += timeTick;
+
+
+
+            //timer = new Timer();
+            //timer.Interval = 5000;
+            //timer.Tick += timeTick;
         }
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)
         {
             //галочка, чтобы взять генератор по умолч. 
+            if (chcDefaultGenerator.Checked == false)
+            {
+                cboComPort.Enabled = true;
+            }
+            if (chcDefaultGenerator.Checked == true)
+            {
+                cboComPort.Enabled = false;
+            }
         }
 
         private void cboComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //падающее меню ком - портов
         }
 
         internal void cboTypeSignal_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //вид сигнала 1
         }
 
         private void lblComPort_Click(object sender, EventArgs e)
@@ -244,7 +292,7 @@ namespace ManagerDS360
         {
             //отправить параметры в генератор
             this.Close();
-            MessageBox.Show("Otpravleno");
+            //MessageBox.Show("Otpravleno");
         }
 
         private void cboDetector_SelectedIndexChanged(object sender, EventArgs e)
@@ -255,18 +303,31 @@ namespace ManagerDS360
         //проверка частоты на буквы и символы
         private void txtFrequency_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char number = e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8) // цифры и клавиша BackSpace
-            {
-                e.Handled = true;
-            }
-            if (String.IsNullOrEmpty(txtFrequency.Text))
-            {
-                
-            }
+            ////char number = e.KeyChar;
+            //if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | e.KeyChar == '\b')
+            //{
+            //    return;
+            //}
+            //else
+            //    e.Handled = true;
         }
 
         private void cboTypeSignal2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //вид сигнала 2
+        }
+
+        private void txtFrequency2_TextChanged(object sender, EventArgs e)
+        {
+            //ввод второй частоты
+        }
+
+        private void cboDetector2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //выбор второго детектора
+        }
+
+        private void txtFrequency_TextChanged(object sender, EventArgs e)
         {
 
         }

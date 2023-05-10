@@ -39,7 +39,6 @@
             this.lblConversionFactor = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
-            this.txtFrequency = new System.Windows.Forms.TextBox();
             this.lblFrequency = new System.Windows.Forms.Label();
             this.lblDetector = new System.Windows.Forms.Label();
             this.txtOffset = new System.Windows.Forms.TextBox();
@@ -52,13 +51,12 @@
             this.lblDetector2 = new System.Windows.Forms.Label();
             this.cboTypeSignal2 = new System.Windows.Forms.ComboBox();
             this.txtFrequency2 = new System.Windows.Forms.TextBox();
+            this.txtFrequency = new LibControls.ModifiedTextBox();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
             // 
             this.chcDefaultGenerator.AutoSize = true;
-            this.chcDefaultGenerator.Checked = true;
-            this.chcDefaultGenerator.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chcDefaultGenerator.Location = new System.Drawing.Point(24, 38);
             this.chcDefaultGenerator.Name = "chcDefaultGenerator";
             this.chcDefaultGenerator.Size = new System.Drawing.Size(153, 17);
@@ -69,6 +67,7 @@
             // 
             // cboComPort
             // 
+            this.cboComPort.Enabled = false;
             this.cboComPort.FormattingEnabled = true;
             this.cboComPort.Location = new System.Drawing.Point(24, 89);
             this.cboComPort.Name = "cboComPort";
@@ -164,16 +163,6 @@
             this.butCancel.UseVisualStyleBackColor = true;
             this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
             // 
-            // txtFrequency
-            // 
-            this.txtFrequency.Location = new System.Drawing.Point(200, 164);
-            this.txtFrequency.MaxLength = 5;
-            this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency.TabIndex = 11;
-            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
-            this.txtFrequency.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFrequency_KeyPress);
-            // 
             // lblFrequency
             // 
             this.lblFrequency.AutoSize = true;
@@ -230,6 +219,7 @@
             this.butSend.TabIndex = 18;
             this.butSend.Text = "Отправить";
             this.butSend.UseVisualStyleBackColor = true;
+            this.butSend.Visible = false;
             this.butSend.Click += new System.EventHandler(this.butSend_Click);
             // 
             // lblTypeSignal2
@@ -258,6 +248,7 @@
             this.cboDetector2.Name = "cboDetector2";
             this.cboDetector2.Size = new System.Drawing.Size(141, 21);
             this.cboDetector2.TabIndex = 23;
+            this.cboDetector2.SelectedIndexChanged += new System.EventHandler(this.cboDetector2_SelectedIndexChanged);
             // 
             // lblDetector2
             // 
@@ -283,12 +274,22 @@
             this.txtFrequency2.Name = "txtFrequency2";
             this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
             this.txtFrequency2.TabIndex = 26;
+            this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
+            // 
+            // txtFrequency
+            // 
+            this.txtFrequency.Location = new System.Drawing.Point(199, 164);
+            this.txtFrequency.Name = "txtFrequency";
+            this.txtFrequency.Size = new System.Drawing.Size(100, 20);
+            this.txtFrequency.TabIndex = 27;
+            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
             // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(905, 339);
+            this.Controls.Add(this.txtFrequency);
             this.Controls.Add(this.txtFrequency2);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.cboDetector);
@@ -296,7 +297,6 @@
             this.Controls.Add(this.txtOffset);
             this.Controls.Add(this.lblDetector);
             this.Controls.Add(this.lblFrequency);
-            this.Controls.Add(this.txtFrequency);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblConversionFactor);
@@ -337,7 +337,6 @@
         internal System.Windows.Forms.Label lblConversionFactor;
         internal System.Windows.Forms.Button butSave;
         internal System.Windows.Forms.Button butCancel;
-        internal System.Windows.Forms.TextBox txtFrequency;
         internal System.Windows.Forms.Label lblFrequency;
         internal System.Windows.Forms.Label lblDetector;
         internal System.Windows.Forms.TextBox txtOffset;
@@ -350,5 +349,6 @@
         internal System.Windows.Forms.Label lblDetector2;
         internal System.Windows.Forms.ComboBox cboTypeSignal2;
         internal System.Windows.Forms.TextBox txtFrequency2;
+        internal LibControls.ModifiedTextBox txtFrequency;
     }
 }

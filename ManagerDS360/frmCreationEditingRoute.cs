@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using ManagerDS360;
 using System.Runtime.Serialization;
 using System.Reflection.Emit;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ManagerDS360
 {
@@ -59,14 +60,14 @@ namespace ManagerDS360
 
             if (frmInputName.SaveName == SaveName.SaveName)
             {
-                
+
                 string nameSet = frmInputName.txtNameSet.Text;
                 TreeNodeWithSetup treeNodeWithSetup = new TreeNodeWithSetup(nameSet);
-                
+
                 if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
                 {
                     treRouteTree.Nodes.Add(treeNodeWithSetup);
-                    
+
                     return;
                 }
                 TreeNodeWithSetup SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetup;
@@ -99,14 +100,37 @@ namespace ManagerDS360
 
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
-            frmCreationEditingSettings newfrmCreationEditingSettings = new frmCreationEditingSettings();
+            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            editingSettings.Type = Type.Change;
+            editingSettings.ShowDialog();
 
-            newfrmCreationEditingSettings.Type = Type.Change;
-            newfrmCreationEditingSettings.ShowDialog();
             DS360Setting dS360Setting = new DS360Setting();
-            double freq1 = double.Parse(newfrmCreationEditingSettings.txtFrequency.Text);
-            //double freq2 = double.Parse(newfrmCreationEditingSettings.txtFrequency2.Text);
-            double voltage = newfrmCreationEditingSettings.Voltage;
+            //double freq1 = Convert.ToDouble(editingSettings.txtFrequency.Text);
+
+            double freq1;
+
+
+            if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
+            {
+                MessageBox.Show("Не удалось преобразовать в double");
+                editingSettings.ShowDialog();
+            }
+
+            //try
+            //{
+            //    //freq1 = Convert.ToDouble(editingSettings.txtFrequency.Text);
+            //    //freq1 = double.Parse(editingSettings.txtFrequency.Text);
+            //    double freq1 = double.TryParse(editingSettings.txtFrequency.Text);
+            //    double freq2 = double.TryParse(editingSettings.txtFrequency2.Text);
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Не удалось преобразовать в double");
+            //}
+
+            //double freq1 = double.Parse(editingSettings.txtFrequency.Text);
+            //double freq2 = double.Parse(editingSettings.txtFrequency2.Text);
+            //double voltage = editingSettings.Voltage;
 
             //if (newfrmCreationEditingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
             //{

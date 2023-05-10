@@ -35,13 +35,11 @@
             this.lblTypeSignal = new System.Windows.Forms.Label();
             this.cboSetValue = new System.Windows.Forms.ComboBox();
             this.lblSetValue = new System.Windows.Forms.Label();
-            this.txtConversionFactor = new System.Windows.Forms.TextBox();
             this.lblConversionFactor = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
             this.lblFrequency = new System.Windows.Forms.Label();
             this.lblDetector = new System.Windows.Forms.Label();
-            this.txtOffset = new System.Windows.Forms.TextBox();
             this.lblOffset = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
             this.butSend = new System.Windows.Forms.Button();
@@ -50,8 +48,10 @@
             this.cboDetector2 = new System.Windows.Forms.ComboBox();
             this.lblDetector2 = new System.Windows.Forms.Label();
             this.cboTypeSignal2 = new System.Windows.Forms.ComboBox();
-            this.txtFrequency2 = new System.Windows.Forms.TextBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
+            this.txtFrequency2 = new LibControls.ModifiedTextBox();
+            this.txtOffset = new LibControls.ModifiedTextBox();
+            this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
@@ -123,15 +123,6 @@
             this.lblSetValue.Text = "Задаваемая величина";
             this.lblSetValue.Click += new System.EventHandler(this.lblSetValue_Click);
             // 
-            // txtConversionFactor
-            // 
-            this.txtConversionFactor.Location = new System.Drawing.Point(24, 164);
-            this.txtConversionFactor.MaxLength = 5;
-            this.txtConversionFactor.Name = "txtConversionFactor";
-            this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
-            this.txtConversionFactor.TabIndex = 7;
-            this.txtConversionFactor.TextChanged += new System.EventHandler(this.txtConversionFactor_TextChanged);
-            // 
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
@@ -182,15 +173,6 @@
             this.lblDetector.TabIndex = 14;
             this.lblDetector.Text = "Выбор детектора";
             this.lblDetector.Click += new System.EventHandler(this.lblDetector_Click);
-            // 
-            // txtOffset
-            // 
-            this.txtOffset.Location = new System.Drawing.Point(388, 164);
-            this.txtOffset.MaxLength = 5;
-            this.txtOffset.Name = "txtOffset";
-            this.txtOffset.Size = new System.Drawing.Size(143, 20);
-            this.txtOffset.TabIndex = 15;
-            this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
             // lblOffset
             // 
@@ -268,39 +250,55 @@
             this.cboTypeSignal2.TabIndex = 25;
             this.cboTypeSignal2.SelectedIndexChanged += new System.EventHandler(this.cboTypeSignal2_SelectedIndexChanged);
             // 
-            // txtFrequency2
-            // 
-            this.txtFrequency2.Location = new System.Drawing.Point(199, 232);
-            this.txtFrequency2.Name = "txtFrequency2";
-            this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency2.TabIndex = 26;
-            this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
-            // 
             // txtFrequency
             // 
             this.txtFrequency.Location = new System.Drawing.Point(199, 164);
             this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(100, 20);
+            this.txtFrequency.Size = new System.Drawing.Size(131, 20);
             this.txtFrequency.TabIndex = 27;
             this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
+            // 
+            // txtFrequency2
+            // 
+            this.txtFrequency2.Location = new System.Drawing.Point(199, 232);
+            this.txtFrequency2.Name = "txtFrequency2";
+            this.txtFrequency2.Size = new System.Drawing.Size(131, 20);
+            this.txtFrequency2.TabIndex = 28;
+            this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
+            // 
+            // txtOffset
+            // 
+            this.txtOffset.Location = new System.Drawing.Point(388, 166);
+            this.txtOffset.Name = "txtOffset";
+            this.txtOffset.Size = new System.Drawing.Size(143, 20);
+            this.txtOffset.TabIndex = 29;
+            this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
+            // 
+            // txtConversionFactor
+            // 
+            this.txtConversionFactor.Location = new System.Drawing.Point(24, 164);
+            this.txtConversionFactor.Name = "txtConversionFactor";
+            this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
+            this.txtConversionFactor.TabIndex = 30;
+            this.txtConversionFactor.TextChanged += new System.EventHandler(this.txtConversionFactor_TextChanged);
             // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(905, 339);
-            this.Controls.Add(this.txtFrequency);
+            this.Controls.Add(this.txtConversionFactor);
+            this.Controls.Add(this.txtOffset);
             this.Controls.Add(this.txtFrequency2);
+            this.Controls.Add(this.txtFrequency);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.cboDetector);
             this.Controls.Add(this.lblOffset);
-            this.Controls.Add(this.txtOffset);
             this.Controls.Add(this.lblDetector);
             this.Controls.Add(this.lblFrequency);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblConversionFactor);
-            this.Controls.Add(this.txtConversionFactor);
             this.Controls.Add(this.lblSetValue);
             this.Controls.Add(this.cboSetValue);
             this.Controls.Add(this.lblTypeSignal);
@@ -333,13 +331,11 @@
         internal System.Windows.Forms.Label lblTypeSignal;
         internal System.Windows.Forms.ComboBox cboSetValue;
         internal System.Windows.Forms.Label lblSetValue;
-        internal System.Windows.Forms.TextBox txtConversionFactor;
         internal System.Windows.Forms.Label lblConversionFactor;
         internal System.Windows.Forms.Button butSave;
         internal System.Windows.Forms.Button butCancel;
         internal System.Windows.Forms.Label lblFrequency;
         internal System.Windows.Forms.Label lblDetector;
-        internal System.Windows.Forms.TextBox txtOffset;
         internal System.Windows.Forms.Label lblOffset;
         internal System.Windows.Forms.ComboBox cboDetector;
         internal System.Windows.Forms.Button butSend;
@@ -348,7 +344,9 @@
         internal System.Windows.Forms.ComboBox cboDetector2;
         internal System.Windows.Forms.Label lblDetector2;
         internal System.Windows.Forms.ComboBox cboTypeSignal2;
-        internal System.Windows.Forms.TextBox txtFrequency2;
         internal LibControls.ModifiedTextBox txtFrequency;
+        internal LibControls.ModifiedTextBox txtFrequency2;
+        internal LibControls.ModifiedTextBox txtOffset;
+        internal LibControls.ModifiedTextBox txtConversionFactor;
     }
 }

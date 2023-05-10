@@ -326,10 +326,5 @@ namespace ManagerDS360
         {
             //выбор второго детектора
         }
-
-        private void txtFrequency_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

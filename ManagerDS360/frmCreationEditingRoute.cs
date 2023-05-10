@@ -102,10 +102,22 @@ namespace ManagerDS360
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
+            NewMethod(editingSettings);
+
+            //TreeNode treeNode = new TreeNode();
+            //treeNode.setup = dS360Setting;
+            //treRouteTree.Nodes.Add(treeNode);
+            //newfrmCreationEditingSettings.cbo
+
+            ///*treRouteTree*/.Nodes.Add()
+        }
+
+        private static void NewMethod(frmCreationEditingSettings editingSettings)
+        {
             editingSettings.ShowDialog();
 
             DS360Setting dS360Setting = new DS360Setting();
-            
+
 
             double freq1;
             double freq2;
@@ -116,40 +128,35 @@ namespace ManagerDS360
 
                 if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
                 {
-                    MessageBox.Show("Не удалось преобразовать в double");
-                    editingSettings.ShowDialog();
+                    MessageBox.Show("частота 1 ");
+                    NewMethod(editingSettings);
+                    return;
                 }
                 if (!double.TryParse(editingSettings.txtFrequency2.Text, out freq2))
                 {
-                    MessageBox.Show("Не удалось преобразовать в double");
-                    editingSettings.ShowDialog();
+                    MessageBox.Show("частота 2");
+                    NewMethod(editingSettings);
+                    return;
                 }
 
+
+                //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
+                //{
+                //    //ветка для двух тонов
+                //}
+                //else //ветка для одного тона
+                //{
+                //    if (editingSettings.chcDefaultGenerator.IsCheck)
+                //    {
+                //        dS360Setting = new DS360Setting(voltage);
+                //    }
+
+                //    if (!editingSettings.chcDefaultGenerator.IsCheck)
+                //    {
+                //        dS360Setting = new DS360Setting(voltage);
+                //    }
+                //}
             }
-            //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
-            //{
-            //    //ветка для двух тонов
-            //}
-            //else //ветка для одного тона
-            //{
-            //    if (editingSettings.chcDefaultGenerator.IsCheck)
-            //    {
-            //        dS360Setting = new DS360Setting(voltage);
-            //    }
-
-            //    if (!editingSettings.chcDefaultGenerator.IsCheck)
-            //    {
-            //        dS360Setting = new DS360Setting(voltage);
-            //    }
-            //}
-
-
-                //TreeNode treeNode = new TreeNode();
-                //treeNode.setup = dS360Setting;
-                //treRouteTree.Nodes.Add(treeNode);
-                //newfrmCreationEditingSettings.cbo
-
-                ///*treRouteTree*/.Nodes.Add()
         }
 
         private void butEditSetting_Click(object sender, EventArgs e)

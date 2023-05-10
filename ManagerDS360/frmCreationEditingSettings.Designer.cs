@@ -344,9 +344,9 @@
         internal System.Windows.Forms.ComboBox cboDetector2;
         internal System.Windows.Forms.Label lblDetector2;
         internal System.Windows.Forms.ComboBox cboTypeSignal2;
-        internal LibControls.ModifiedTextBox txtFrequency;
         internal LibControls.ModifiedTextBox txtFrequency2;
         internal LibControls.ModifiedTextBox txtOffset;
         internal LibControls.ModifiedTextBox txtConversionFactor;
+        public LibControls.ModifiedTextBox txtFrequency;
     }
 }

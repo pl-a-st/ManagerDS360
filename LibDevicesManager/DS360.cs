@@ -148,9 +148,6 @@ namespace LibDevicesManager
             }
         }
 
-        //добавление имени
-        public string Name { get; set; }
-
         //
         private static string comPortDefaultName;
         private string comPortName;
@@ -374,6 +371,7 @@ namespace LibDevicesManager
         }
         public Result SendDS360Setting(DS360Setting setting)
         {
+            //Прописать проверку корректности параметров setting
             return Result.Success;
         }
         //Методы ниже перевести в приват

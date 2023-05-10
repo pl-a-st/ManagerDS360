@@ -144,7 +144,7 @@ namespace ManagerDS360
 
 
             //создание экземпляра
-            //DS360Setting dS360Setting = new DS360Setting(;
+          
 
             //dS360Setting.frequency_A = double.Parse(txtFrequency.Text);
             //dS360Setting.portName = cboComPort.Items;
@@ -157,7 +157,7 @@ namespace ManagerDS360
             //dS360Setting.Name = cboComPort.Items + txtFrequency.Text + cboDetector.Items;
 
             //статус сохранения и запуск таймера
-            //this.SaveStatus = SaveStatus.Save;
+            this.SaveStatus = SaveStatus.Save;
             //frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
             //frmCreationEditingRoute.lblSave.Visible = true;
             //timer.Enabled = true;
@@ -285,6 +285,7 @@ namespace ManagerDS360
 
         private void butCancel_Click(object sender, EventArgs e)
         {
+            this.SaveStatus = SaveStatus.Cancel;
             this.Close();
         }
 

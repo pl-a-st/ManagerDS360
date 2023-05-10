@@ -105,57 +105,56 @@ namespace ManagerDS360
             editingSettings.ShowDialog();
 
             DS360Setting dS360Setting = new DS360Setting();
-            //double freq1 = Convert.ToDouble(editingSettings.txtFrequency.Text);
+            
 
             double freq1;
+            double freq2;
+            double voltage = editingSettings.Voltage;
 
-
-            if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
+            if (editingSettings.SaveStatus == SaveStatus.Save)
             {
-                MessageBox.Show("Не удалось преобразовать в double");
-                editingSettings.ShowDialog();
+
+                if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
+                {
+                    MessageBox.Show("Не удалось преобразовать в double");
+                    editingSettings.ShowDialog();
+                }
+                if (!double.TryParse(editingSettings.txtFrequency2.Text, out freq2))
+                {
+                    MessageBox.Show("Не удалось преобразовать в double");
+                    editingSettings.ShowDialog();
+                }
+
             }
-
-            //try
-            //{
-            //    //freq1 = Convert.ToDouble(editingSettings.txtFrequency.Text);
-            //    //freq1 = double.Parse(editingSettings.txtFrequency.Text);
-            //    double freq1 = double.TryParse(editingSettings.txtFrequency.Text);
-            //    double freq2 = double.TryParse(editingSettings.txtFrequency2.Text);
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Не удалось преобразовать в double");
-            //}
-
-            //double freq1 = double.Parse(editingSettings.txtFrequency.Text);
-            //double freq2 = double.Parse(editingSettings.txtFrequency2.Text);
-            //double voltage = editingSettings.Voltage;
-
-            //if (newfrmCreationEditingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
+            //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
             //{
             //    //ветка для двух тонов
             //}
             //else //ветка для одного тона
             //{
-            //    if (newfrmCreationEditingSettings.chcDefaultGenerator.IsCheck)
+            //    if (editingSettings.chcDefaultGenerator.IsCheck)
+            //    {
+            //        dS360Setting = new DS360Setting(voltage);
+            //    }
+
+            //    if (!editingSettings.chcDefaultGenerator.IsCheck)
             //    {
             //        dS360Setting = new DS360Setting(voltage);
             //    }
             //}
 
 
-            //TreeNode treeNode = new TreeNode();
-            //treeNode.setup = dS360Setting;
-            //treRouteTree.Nodes.Add(treeNode);
-            //newfrmCreationEditingSettings.cbo
+                //TreeNode treeNode = new TreeNode();
+                //treeNode.setup = dS360Setting;
+                //treRouteTree.Nodes.Add(treeNode);
+                //newfrmCreationEditingSettings.cbo
 
-            ///*treRouteTree*/.Nodes.Add()
+                ///*treRouteTree*/.Nodes.Add()
         }
 
         private void butEditSetting_Click(object sender, EventArgs e)
         {
-            //редактировать строку
+            //редактировать строку c настройкой
         }
 
         private void butUp_Click(object sender, EventArgs e)

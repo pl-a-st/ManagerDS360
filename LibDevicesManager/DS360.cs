@@ -21,7 +21,7 @@ namespace LibDevicesManager
     }
     public enum FunctionType
     {
-        Sine, Square, SineSine, SineSquare, WhiteNoise, PinkNoise
+        Sine, Square, SineSine, SineSquare //ToNEXT: , WhiteNoise, PinkNoise
     }
     public enum ToneBFunctionType
     {
@@ -319,6 +319,58 @@ namespace LibDevicesManager
         }
         #endregion Constructors
 
+        public static string[] GetDevicesArray()
+        {
+            List<string> ports = ComPort.PortsNamesList;
+            string[] devices = new string[ports.Count];
+            for (int i = 0; i < ports.Count; i++)
+            {
+                devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
+            }
+            return devices;
+        }
+        public Result SendDS360Setting(DS360Setting setting)
+        {
+            //Прописать проверку корректности параметров setting
+            return Result.Success;
+        }
+        //Методы ниже перевести в приват
+        private string GetSerialNumber()
+        {
+            string serialNumber = string.Empty;
+            //...
+            return serialNumber;
+        }
+
+        #region SetGeneratorsSetting
+        private void SendFrequency(double frequency)
+        {
+            //...
+        }
+        private double ReceiveFrequency()
+        {
+            double frequency = 0;
+            //...
+            return frequency;
+        }
+        private Result SetGeneratorsFrequency(double frequency)
+        {
+            //...
+            return Result.Success;
+        }
+        #endregion SetGeneratorsSetting
+
+        private bool IsFrequencyCorrect (double value)
+        {
+            //Вписать округление до значащих?
+            //...
+            if (value< 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        #region UnUsed
         private static string SetGeneratorsPortAsDefaultComPort()
         {
             string portName = string.Empty;
@@ -370,45 +422,6 @@ namespace LibDevicesManager
             List<string> portsNamesList = ComPort.PortsNamesList;
             return portsNamesList;
         }
-        public static string[] GetDevicesArray()
-        {
-            List<string> ports = ComPort.PortsNamesList;
-            string[] devices = new string[ports.Count];
-            for (int i = 0; i < ports.Count; i++)
-            {
-                devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
-            }
-            return devices;
-        }
-        public Result SendDS360Setting(DS360Setting setting)
-        {
-            //Прописать проверку корректности параметров setting
-            return Result.Success;
-        }
-        //Методы ниже перевести в приват
-        private string GetSerialNumber()
-        {
-            string serialNumber = string.Empty;
-            //...
-            return serialNumber;
-        }
-
-        #region SetGeneratorsSetting
-        private void SendFrequency(double frequency)
-        {
-            //...
-        }
-        private double ReceiveFrequency()
-        {
-            double frequency = 0;
-            //...
-            return frequency;
-        }
-        private Result SetGeneratorsFrequency(double frequency)
-        {
-            //...
-            return Result.Success;
-        }
-        #endregion SetGeneratorsSetting
+        #endregion UnUsed
     }
 }

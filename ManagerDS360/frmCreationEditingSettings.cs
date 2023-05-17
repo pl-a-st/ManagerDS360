@@ -151,6 +151,7 @@ namespace ManagerDS360
             }
             else //ветка для одного тона
             {
+
                 //if (editingSettings.chcDefaultGenerator.IsCheck)
                 //{
                 //    dS360Setting = new DS360Setting(voltage);
@@ -324,6 +325,12 @@ namespace ManagerDS360
         private void butSend_Click(object sender, EventArgs e)
         {
             //отправить параметры в генератор
+            DS360Setting setting = new DS360Setting();
+            Result sendingResult = DS360Setting.SendDS360Setting(setting);
+            if (sendingResult == Result.Success)
+            {
+                //успешно
+            }
             this.Close();
             //MessageBox.Show("Otpravleno");
         }

@@ -329,7 +329,7 @@ namespace LibDevicesManager
             }
             return devices;
         }
-        public Result CheckS360Setting(DS360Setting setting, out string message)
+        public Result CheckDS360Setting(DS360Setting setting, out string message)
         {
             double frequencyMin = 0.01;
             double frequencyMax = 200 * 1000;

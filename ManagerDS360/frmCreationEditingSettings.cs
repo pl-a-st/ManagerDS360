@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using VibroMath;
 
 namespace ManagerDS360
 {
@@ -44,6 +45,7 @@ namespace ManagerDS360
         public PhysicalQuantity PhysicalQuantity;
         public SaveStatus SaveStatus;
         public double Voltage;
+        public DS360Setting DS360Setting;
         Timer timer;
         public frmCreationEditingSettings()
         {
@@ -55,17 +57,10 @@ namespace ManagerDS360
             InitializecboDetector2();
             InitializechcboComPort();
         }
-        //переключение вкл-выкл у выпадающего ком-порт
+
         internal void InitializechcboComPort()
         {
-            //if (chcDefaultGenerator.Checked == false)
-            //{
-            //    cboComPort.Enabled = true;
-            //}
-            //if (chcDefaultGenerator.Checked == true) 
-            //{
-            //    cboComPort.Enabled = false;
-            //}
+            //переключение вкл-выкл у выпадающего ком-порт
         }
         internal void InitializecboDetector2()
         {
@@ -97,16 +92,15 @@ namespace ManagerDS360
         internal void InitializecboTypeSignal2()
         {
             //добавление в комбобокс типов сигналов
-            cboTypeSignal2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            //cboTypeSignal2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
-            cboTypeSignal2.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
-            cboTypeSignal2.SelectedIndex = (int)FunctionType.Sine;
+            //cboTypeSignal2.Items.AddRange(Enum.GetNames(typeof(ToneBFunctionType)));
+            //cboTypeSignal2.SelectedIndex = (int)ToneBFunctionType.Sine;
         }
         internal void InitializecboTypeSignal()
         {
             //добавление в комбобокс типов сигналов
             cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-
             cboTypeSignal.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
             cboTypeSignal.SelectedIndex = (int)FunctionType.Sine;
         }
@@ -128,29 +122,59 @@ namespace ManagerDS360
 
         internal void butSave_Click(object sender, EventArgs e)
         {
-            //if (txtFrequency.Text == null)
-            //{
-            //    txtFrequency.Text = "Введите число!";
-            //}
 
+            double freq_A;
+            double freq_B;
+            double voltage = Voltage;
+            double amplitudeRMS_A;
+            double amplitudeRMS_B;
+            string portName;
+
+        
+            if (!double.TryParse(txtFrequency.Text, out freq_A))
+            {
+                MessageBox.Show("Введите частоту 1.");
+                //NewMethod(editingSettings);
+                return;
+            }
+            if (!double.TryParse(txtFrequency2.Text, out freq_B))
+            {
+                MessageBox.Show("Введите частоту 2.");
+                //NewMethod(editingSettings);
+                return;
+            }
+
+
+            if (cboTypeSignal.Items == cboTypeSignal.Items)
+            {
+                //ветка для двух тонов
+            }
+            else //ветка для одного тона
+            {
+                //if (editingSettings.chcDefaultGenerator.IsCheck)
+                //{
+                //    dS360Setting = new DS360Setting(voltage);
+                //}
+
+                //if (!editingSettings.chcDefaultGenerator.IsCheck)
+                //{
+                //    dS360Setting = new DS360Setting(voltage);
+                //}
+            }
 
             //Voltage = 5; /*= VibroMth.GetVolt();*/
-            //DS360Setting dS360Setting = new DS360Setting();
+            DS360Setting = new DS360Setting();
             //TreeNode treeNode = new TreeNode();
             //treeNode.Setup = dS360Setting;
             //treRouteTree
 
             //сохранить настройки в 
 
-
             //создание экземпляра
           
-
             //dS360Setting.frequency_A = double.Parse(txtFrequency.Text);
             //dS360Setting.portName = cboComPort.Items;
             //dS360Setting.frequency_B = double.Parse(txtFrequency2.Text);
-            //dS360Setting.amplitudeRMS_A = cboDetector.Items;
-            //dS360Setting.amplitudeRMS_B = cboDetector2.Items[0].ToString();
             //dS360Setting.functionType = cboTypeSignal.SelectedIndex;
 
             
@@ -163,6 +187,15 @@ namespace ManagerDS360
             //timer.Enabled = true;
             this.Close();
         }
+
+        internal static void NewMethod(frmCreationEditingSettings editingSettings)
+        {
+            //editingSettings.ShowDialog();
+
+            //DS360Setting dS360Setting = new DS360Setting();
+
+        }
+        
         //таймер для сохранения
         internal void timeTick(object sender, EventArgs e)
         {
@@ -187,12 +220,11 @@ namespace ManagerDS360
                 butSend.Visible = false;
             }
 
-            this.cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
+            cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-            InitializeComponent();
 
-
+            chcDefaultGenerator.Checked = true;
 
             //timer = new Timer();
             //timer.Interval = 5000;
@@ -301,17 +333,10 @@ namespace ManagerDS360
             //выбор детектора
         }
 
-        //проверка частоты на буквы и символы
-        private void txtFrequency_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            ////char number = e.KeyChar;
-            //if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | e.KeyChar == '\b')
-            //{
-            //    return;
-            //}
-            //else
-            //    e.Handled = true;
-        }
+        //private void txtFrequency_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+
+        //}
 
         private void cboTypeSignal2_SelectedIndexChanged(object sender, EventArgs e)
         {

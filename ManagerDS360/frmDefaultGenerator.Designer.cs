@@ -49,7 +49,7 @@
             // 
             this.butSave.Location = new System.Drawing.Point(12, 203);
             this.butSave.Name = "butSave";
-            this.butSave.Size = new System.Drawing.Size(113, 23);
+            this.butSave.Size = new System.Drawing.Size(109, 27);
             this.butSave.TabIndex = 3;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
@@ -69,9 +69,9 @@
             // 
             // butFindGenerator
             // 
-            this.butFindGenerator.Location = new System.Drawing.Point(280, 27);
+            this.butFindGenerator.Location = new System.Drawing.Point(280, 25);
             this.butFindGenerator.Name = "butFindGenerator";
-            this.butFindGenerator.Size = new System.Drawing.Size(113, 23);
+            this.butFindGenerator.Size = new System.Drawing.Size(109, 23);
             this.butFindGenerator.TabIndex = 5;
             this.butFindGenerator.Text = "Найти генератор";
             this.butFindGenerator.UseVisualStyleBackColor = true;

@@ -102,7 +102,7 @@ namespace ManagerDS360
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
-            NewMethod(editingSettings);
+            editingSettings.ShowDialog();
 
             //TreeNode treeNode = new TreeNode();
             //treeNode.setup = dS360Setting;
@@ -112,52 +112,50 @@ namespace ManagerDS360
             ///*treRouteTree*/.Nodes.Add()
         }
 
-        private static void NewMethod(frmCreationEditingSettings editingSettings)
-        {
-            editingSettings.ShowDialog();
+        //private static void NewMethod(frmCreationEditingSettings editingSettings)
+        //{
+        //    editingSettings.ShowDialog();
 
-            DS360Setting dS360Setting = new DS360Setting();
-
-
-            double freq1;
-            double freq2;
-            double voltage = editingSettings.Voltage;
-
-            if (editingSettings.SaveStatus == SaveStatus.Save)
-            {
-
-                if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
-                {
-                    MessageBox.Show("частота 1 ");
-                    NewMethod(editingSettings);
-                    return;
-                }
-                if (!double.TryParse(editingSettings.txtFrequency2.Text, out freq2))
-                {
-                    MessageBox.Show("частота 2");
-                    NewMethod(editingSettings);
-                    return;
-                }
+        //    DS360Setting dS360Setting = new DS360Setting();
 
 
-                //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
-                //{
-                //    //ветка для двух тонов
-                //}
-                //else //ветка для одного тона
-                //{
-                //    if (editingSettings.chcDefaultGenerator.IsCheck)
-                //    {
-                //        dS360Setting = new DS360Setting(voltage);
-                //    }
 
-                //    if (!editingSettings.chcDefaultGenerator.IsCheck)
-                //    {
-                //        dS360Setting = new DS360Setting(voltage);
-                //    }
-                //}
-            }
-        }
+
+        //    if (editingSettings.SaveStatus == SaveStatus.Save)
+        //    {
+
+        //        //if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
+        //        //{
+        //        //    MessageBox.Show("частота 1 ");
+        //        //    NewMethod(editingSettings);
+        //        //    return;
+        //        //}
+        //        //if (!double.TryParse(editingSettings.txtFrequency2.Text, out freq2))
+        //        //{
+        //        //    MessageBox.Show("частота 2");
+        //        //    NewMethod(editingSettings);
+        //        //    return;
+        //        //}
+
+
+        //        //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
+        //        //{
+        //        //    //ветка для двух тонов
+        //        //}
+        //        //else //ветка для одного тона
+        //        //{
+        //        //    if (editingSettings.chcDefaultGenerator.IsCheck)
+        //        //    {
+        //        //        dS360Setting = new DS360Setting(voltage);
+        //        //    }
+
+        //        //    if (!editingSettings.chcDefaultGenerator.IsCheck)
+        //        //    {
+        //        //        dS360Setting = new DS360Setting(voltage);
+        //        //    }
+        //        //}
+        //    }
+        //}
 
         private void butEditSetting_Click(object sender, EventArgs e)
         {
@@ -179,7 +177,9 @@ namespace ManagerDS360
         internal void butSave_Click(object sender, EventArgs e)
         {
             string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
-            //записать файл с именем и настройками
+            //записать маршрут в файл (имена и настройки)
+
+
 
             //DAO.SerializeObject obj = new SerializeObject();
             List<TreeNode> treeNodes = new List<TreeNode>();

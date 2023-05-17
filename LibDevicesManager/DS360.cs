@@ -162,7 +162,7 @@ namespace LibDevicesManager
 
         #region Constructors
         //Конструкторы для SingleSignal
-        public DS360Setting() 
+        public DS360Setting()
         {
             this.comPortName = ComPortDefaultName;
             this.functionType = FunctionType.Sine;
@@ -294,8 +294,8 @@ namespace LibDevicesManager
             this.amplitudeRMSToneB = amplitudeRMS_B;
         }
         //Конструкторы для TwoTone (неиспользуемые)
-        
-        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType) 
+
+        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType)
         {
             this.comPortName = ComPortDefaultName;
             this.functionType = FunctionType.Sine;
@@ -306,7 +306,7 @@ namespace LibDevicesManager
             this.amplitudeRMSToneB = amplitudeRMS_B;
             this.functionTypeB = ToneBFunctionType.Sine;
         }
-        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionTypeB) 
+        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionTypeB)
         {
             this.comPortName = portName;
             this.functionType = FunctionType.Sine;
@@ -329,11 +329,72 @@ namespace LibDevicesManager
             }
             return devices;
         }
+        public Result CheckS360Setting(DS360Setting setting, out string message)
+        {
+            double frequencyMin = 0.01;
+            double frequencyMax = 200 * 1000;
+            double frequencyBMin = 0.1;
+            double frequencyBMax = 5 * 1000;
+            //Проверка на корректность параметров
+            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine|| setting.FunctionType == FunctionType.SineSquare)
+            {
+                if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
+                {
+                    message = "\nЧастота должна быть в пределах 0,01 Гц ... 200,000 кГц";
+                    return Result.ParamError;
+                }
+            }
+            if (setting.FunctionType == FunctionType.SineSquare)
+            {
+                if(setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
+                {
+                    message = "\nЧастота второго сигнала должна быть в пределах 0,1 Гц ... 5,0 кГц";
+                    return Result.ParamError;
+                }
+            }
+            
+
+            message = "Успешно";
+            return Result.Success;
+        }
         public Result SendDS360Setting(DS360Setting setting)
         {
             //Прописать проверку корректности параметров setting
+            //Прописать отправку настроек
+            //прописать считывание с генератора настроек и сравнение с переданными значениями
+            //дать команду на включение сигнала.
             return Result.Success;
         }
+        private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)
+        {
+            string resultString = string.Empty;
+            double digits = Math.Pow(10, significantDigits - Math.Ceiling(Math.Log10(volume)));
+            int zeros = digits.ToString().Length - 1;
+            double res = Math.Round(volume * digits) / digits;
+            if (digits > 1)
+            {
+                if (zeros > maxDecimalPlaces)
+                {
+                    resultString = res.ToString($"F{maxDecimalPlaces}");
+                }
+                if (zeros <= maxDecimalPlaces)
+                {
+                    resultString = res.ToString($"F{zeros}");
+                }
+            }
+            if (digits <= 1)
+            {
+                resultString = Convert.ToString(res);
+            }
+            return resultString;
+        }
+        private static double AgRoundToDouble(double volume, int significantDigits, int maxDecimalPlaces)
+        {
+            string resultString = AgRoundTostring(volume, significantDigits, maxDecimalPlaces);
+            Double.TryParse(resultString, out double result);
+            return result;
+        }
+
         //Методы ниже перевести в приват
         private string GetSerialNumber()
         {
@@ -360,11 +421,11 @@ namespace LibDevicesManager
         }
         #endregion SetGeneratorsSetting
 
-        private bool IsFrequencyCorrect (double value)
+        private bool IsFrequencyCorrect(double value)
         {
             //Вписать округление до значащих?
             //...
-            if (value< 0)
+            if (value < 0)
             {
                 return false;
             }

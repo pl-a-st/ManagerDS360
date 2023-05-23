@@ -27,6 +27,14 @@ namespace LibDevicesManager
     {
         Sine, Square
     }
+    public enum OutputType
+    {
+        Balanced, Unbalanced
+    }
+    public enum OutputImpedance
+    {
+        HiZ
+    }
     [Serializable]
     public class DS360Setting
     {
@@ -147,7 +155,28 @@ namespace LibDevicesManager
                 offset = value;
             }
         }
-
+        public OutputType OutputType
+        {
+            get
+            {
+                return outputType;
+            }
+            set
+            {
+                outputType = value;
+            }
+        }
+        public OutputImpedance OutputImpedance
+        {
+            get
+            {
+                return outputImpedance;
+            }
+            set
+            {
+                outputImpedance = value;
+            }
+        }
         //
         private static string comPortDefaultName;
         private string comPortName;
@@ -159,7 +188,10 @@ namespace LibDevicesManager
         private double frequency;
         private double frequencyB;
         private double offset;
+        private OutputType outputType;
+        private OutputImpedance outputImpedance;
 
+        //Добавить Оффсет в двухтоновый конструктор
         #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting()
@@ -171,6 +203,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(double amplitudeRMS, double frequency)
         {
@@ -181,6 +215,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, double amplitudeRMS, double frequency)
         {
@@ -191,6 +227,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency)
         {
@@ -201,6 +239,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency)
         {
@@ -211,6 +251,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(double amplitudeRMS, double frequency, double offset)
         {
@@ -221,6 +263,8 @@ namespace LibDevicesManager
             this.offset = offset;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, double amplitudeRMS, double frequency, double offset)
         {
@@ -231,6 +275,8 @@ namespace LibDevicesManager
             this.offset = offset;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(FunctionType functionType, double amplitudeRMS, double frequency, double offset)
         {
@@ -241,6 +287,8 @@ namespace LibDevicesManager
             this.offset = offset;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, FunctionType functionType, double amplitudeRMS, double frequency, double offset)
         {
@@ -251,6 +299,8 @@ namespace LibDevicesManager
             this.offset = offset;
             this.frequencyB = 0;
             this.amplitudeRMSToneB = 0;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         //Новые конструкторы для TwoTone
         public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B)
@@ -262,6 +312,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = frequency_B;
             this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(FunctionType functionType, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B)
         {
@@ -272,6 +324,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = frequency_B;
             this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B)
         {
@@ -282,6 +336,8 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = frequency_B;
             this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         public DS360Setting(string portName, FunctionType functionType, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B)
         {
@@ -292,30 +348,20 @@ namespace LibDevicesManager
             this.offset = 0;
             this.frequencyB = frequency_B;
             this.amplitudeRMSToneB = amplitudeRMS_B;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
-        //Конструкторы для TwoTone (неиспользуемые)
-
-        public DS360Setting(double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionType)
-        {
-            this.comPortName = ComPortDefaultName;
-            this.functionType = FunctionType.Sine;
-            this.amplitudeRMS = amplitudeRMS_A;
-            this.frequency = frequency_A;
-            this.offset = 0;
-            this.frequencyB = frequency_B;
-            this.amplitudeRMSToneB = amplitudeRMS_B;
-            this.functionTypeB = ToneBFunctionType.Sine;
-        }
-        public DS360Setting(string portName, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, ToneBFunctionType functionTypeB)
+        public DS360Setting(string portName, FunctionType functionType, double frequency_A, double amplitudeRMS_A, double frequency_B, double amplitudeRMS_B, double offset)
         {
             this.comPortName = portName;
-            this.functionType = FunctionType.Sine;
+            this.functionType = functionType;
             this.amplitudeRMS = amplitudeRMS_A;
             this.frequency = frequency_A;
-            this.offset = 0;
+            this.offset = offset;
             this.frequencyB = frequency_B;
             this.amplitudeRMSToneB = amplitudeRMS_B;
-            this.functionTypeB = functionTypeB;
+            this.outputType = OutputType.Unbalanced;
+            this.outputImpedance = OutputImpedance.HiZ;
         }
         #endregion Constructors
 
@@ -336,7 +382,7 @@ namespace LibDevicesManager
             double frequencyBMin = 0.1;
             double frequencyBMax = 5 * 1000;
             //Проверка на корректность параметров
-            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine|| setting.FunctionType == FunctionType.SineSquare)
+            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare)
             {
                 if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
                 {
@@ -346,13 +392,13 @@ namespace LibDevicesManager
             }
             if (setting.FunctionType == FunctionType.SineSquare)
             {
-                if(setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
+                if (setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
                 {
                     message = "\nЧастота второго сигнала должна быть в пределах 0,1 Гц ... 5,0 кГц";
                     return Result.ParamError;
                 }
             }
-            
+
 
             message = "Успешно";
             return Result.Success;

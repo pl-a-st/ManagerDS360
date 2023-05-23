@@ -29,7 +29,7 @@ namespace LibDevicesManager
     }
     public enum OutputType
     {
-        Balanced, Unbalanced
+        Unbalanced
     }
     public enum OutputImpedance
     {
@@ -386,7 +386,7 @@ namespace LibDevicesManager
             {
                 if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
                 {
-                    message = "\nЧастота должна быть в пределах 0,01 Гц ... 200,000 кГц";
+                    message = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
                     return Result.ParamError;
                 }
             }
@@ -394,10 +394,49 @@ namespace LibDevicesManager
             {
                 if (setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
                 {
-                    message = "\nЧастота второго сигнала должна быть в пределах 0,1 Гц ... 5,0 кГц";
+                    message = "\nЧастота второго сигнала должна быть в пределах 0,1 ... 5000 Гц";
                     return Result.ParamError;
                 }
             }
+            //Амплитуда
+            FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
+            double[] minVoltageRMS = new double[] { 4, 5, 3, 3 };
+            double[] maxVoltageRMS = new double[] { 14.14, 20.00, 14.14, 14.14 };
+            for (int i = 0; i < minVoltageRMS.Length; i++)
+            {
+                minVoltageRMS[i] /= 1000000;
+            }
+            if (setting.outputType == OutputType.Unbalanced && setting.OutputImpedance == OutputImpedance.HiZ)
+            {
+                for (int i = 0; i < functionTypeArray.Length; i++)
+                {
+                    if (setting.FunctionType == functionTypeArray[i])
+                    {
+                        if (setting.AmplitudeRMS < minVoltageRMS[i] || setting.AmplitudeRMS > maxVoltageRMS[i])
+                        {
+                            message = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                            return Result.ParamError;
+                        }
+                        if (setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare)
+                        {
+                            if (setting.AmplitudeRMSToneB < minVoltageRMS[i] || setting.AmplitudeRMSToneB > maxVoltageRMS[i])
+                            {
+                                message = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                return Result.ParamError;
+                            }
+                            if ((setting.AmplitudeRMS + setting.AmplitudeRMSToneB) > maxVoltageRMS[i])
+                            {
+                                message = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                return Result.ParamError;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            //Дописать для других значений OutputType и OutputImpedance
+
+            //Смещение
 
 
             message = "Успешно";

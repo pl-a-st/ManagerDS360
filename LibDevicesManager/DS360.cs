@@ -377,12 +377,16 @@ namespace LibDevicesManager
         }
         public Result CheckDS360Setting(DS360Setting setting, out string messageResult)
         {
+            
+            // Верин: Очень похоже на глобальные константы, точно можно вынести в приватные поля класса
             double frequencyMin = 0.01;
             double frequencyMax = 200 * 1000;
             double frequencyBMin = 0.1;
             double frequencyBMax = 5 * 1000;
+
             //Проверка на корректность параметров
-            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare)
+            // Верин: эти два If лучше вынести в метод CheckFrequency
+            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare) // Верин: длинные условия лучше выносить в приватный метод. Здесь читаемость повысится если вынести в метод IsSignalPeriodical
             {
                 if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
                 {
@@ -390,7 +394,7 @@ namespace LibDevicesManager
                     return Result.ParamError;
                 }
             }
-            if (setting.FunctionType == FunctionType.SineSquare)
+            if (setting.FunctionType == FunctionType.SineSquare)// Верин: Для FunctionType.SineSine тоже вроде должно применяться, тогда можно условие вынести в метод IsTwoTone
             {
                 if (setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
                 {
@@ -398,16 +402,20 @@ namespace LibDevicesManager
                     return Result.ParamError;
                 }
             }
+
             //Амплитуда
+            // Верин: этот if лучше вынести в метод CheckVoltage /
             if (setting.outputType == OutputType.Unbalanced && setting.OutputImpedance == OutputImpedance.HiZ)
             {
                 FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
                 double[] minVoltageRMS = new double[] { 4, 5, 3, 3 };
                 double[] maxVoltageRMS = new double[] { 14.14, 20.00, 14.14, 14.14 };
+                // Верин: этот for лучше вынести в метод Calculate minVoltagesRMS
                 for (int i = 0; i < minVoltageRMS.Length; i++)
                 {
                     minVoltageRMS[i] /= 1000000;
                 }
+
                 for (int i = 0; i < functionTypeArray.Length; i++)
                 {
                     if (setting.FunctionType == functionTypeArray[i])

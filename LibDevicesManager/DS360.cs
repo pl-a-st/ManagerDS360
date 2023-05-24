@@ -198,11 +198,11 @@ namespace LibDevicesManager
         {
             this.comPortName = ComPortDefaultName;
             this.functionType = FunctionType.Sine;
-            this.amplitudeRMS = 0;
-            this.frequency = 0;
+            this.amplitudeRMS = 1.000;
+            this.frequency = 1000;
             this.offset = 0;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -213,8 +213,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = 0;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -225,8 +225,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = 0;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -237,8 +237,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = 0;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -249,8 +249,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = 0;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -261,8 +261,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = offset;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -273,8 +273,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = offset;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -285,8 +285,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = offset;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -297,8 +297,8 @@ namespace LibDevicesManager
             this.amplitudeRMS = amplitudeRMS;
             this.frequency = frequency;
             this.offset = offset;
-            this.frequencyB = 0;
-            this.amplitudeRMSToneB = 0;
+            this.frequencyB = 10000;
+            this.amplitudeRMSToneB = 1;
             this.outputType = OutputType.Unbalanced;
             this.outputImpedance = OutputImpedance.HiZ;
         }
@@ -479,13 +479,11 @@ namespace LibDevicesManager
         }
         public Result SendDS360Setting(DS360Setting setting, out string messageResult)
         {
-            //Прописать проверку корректности параметров setting
             Result result = CheckDS360Setting(setting, out messageResult);
             if (result != Result.Success)
             {
                 return result;
             }
-            
             //Прописать отправку настроек
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.

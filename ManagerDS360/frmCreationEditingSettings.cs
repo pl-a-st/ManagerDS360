@@ -388,11 +388,15 @@ namespace ManagerDS360
         {
             //отправить параметры в генератор
             DS360Setting setting = new DS360Setting();
-            Result sendingResult = DS360Setting.SendDS360Setting(setting);
+            Result sendingResult = DS360Setting.SendDS360Setting(setting, out string message);
             if (sendingResult == Result.Success)
             {
                 //успешно
                 MessageBox.Show("Otpravleno");
+            }
+            if (sendingResult != Result.Success)
+            {
+                MessageBox.Show(message);
             }
             Close();
         }

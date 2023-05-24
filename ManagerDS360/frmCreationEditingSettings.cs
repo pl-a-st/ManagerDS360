@@ -43,9 +43,9 @@ namespace ManagerDS360
     }
     public enum Detector
     {
-        СКЗ,
-        Пик,
-        Пик_пик
+        СКЗ = SignalParametrType.RMS,
+        Пик = SignalParametrType.PIK,
+        Пик_пик = SignalParametrType.PIK_PIK
     }
 
     public partial class frmCreationEditingSettings : Form
@@ -236,11 +236,12 @@ namespace ManagerDS360
 
             VibroCalc.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
+            
             if (cboSetValue.Text == @"мм/с")
             {
-                VibroCalc.Velocity.SetRMS(double.Parse(txtValue.Text));
+                VibroCalc.CalcAll(new Velocity(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
             }
-
+            
             
         }
 

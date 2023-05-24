@@ -18,12 +18,14 @@ namespace ManagerDS360
 {
     public enum SaveName
     {
-        SaveName,
-        Cancel
+        Cancel,
+        SaveName
     }
     public partial class frmCreationEditingRoute : Form
     {
         public SaveName SaveName;
+
+        Timer timer;
 
         List<TreeNode> checkedNodes = new List<TreeNode>();
         public frmCreationEditingRoute()
@@ -36,8 +38,6 @@ namespace ManagerDS360
             PushListBox();
             butUp.Enabled = false;
             butDown.Enabled = false;
-            lblSave.Visible = false;
-
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
 
         }
@@ -54,7 +54,6 @@ namespace ManagerDS360
         private void butAddFolder_Click(object sender, EventArgs e)
         {
             //кнопка добавить папку
-            //SaveName = SaveName.Cancel;
             frmInputName frmInputName = new frmInputName();
             frmInputName.ShowDialog();
 
@@ -73,9 +72,29 @@ namespace ManagerDS360
                 TreeNodeWithSetup SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetup;
                 SelectedNodeWithSetup.Nodes.Add(treeNodeWithSetup);
                 SelectedNodeWithSetup.Expand();
-
-                //treeNodeWithSetup. = true;
             }
+        }
+        //обновление окна CreationEditingRoute
+        void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            if (editingSettings.SaveStatus == SaveStatus.Save)
+            {
+                lblSave.Visible = true;
+                timer = new Timer();
+                timer.Interval = 2000;
+                timer.Enabled = true;
+                timer.Tick += timeTick;
+                editingSettings.SaveStatus = SaveStatus.Cancel;
+            }
+            this.Refresh();
+        }
+
+        //таймер для сохранения
+        internal void timeTick(object sender, EventArgs e)
+        {
+            lblSave.Visible = false;
+            timer.Enabled = false;
         }
 
         //internal void SetNameSetting(frmInputName frmInputName)
@@ -102,6 +121,8 @@ namespace ManagerDS360
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
+            editingSettings.SaveStatus = SaveStatus.Cancel;
+            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.ShowDialog();
 
             //TreeNode treeNode = new TreeNode();
@@ -112,51 +133,6 @@ namespace ManagerDS360
             ///*treRouteTree*/.Nodes.Add()
         }
 
-        //private static void NewMethod(frmCreationEditingSettings editingSettings)
-        //{
-        //    editingSettings.ShowDialog();
-
-        //    DS360Setting dS360Setting = new DS360Setting();
-
-
-
-
-        //    if (editingSettings.SaveStatus == SaveStatus.Save)
-        //    {
-
-        //        //if (!double.TryParse(editingSettings.txtFrequency.Text, out freq1))
-        //        //{
-        //        //    MessageBox.Show("частота 1 ");
-        //        //    NewMethod(editingSettings);
-        //        //    return;
-        //        //}
-        //        //if (!double.TryParse(editingSettings.txtFrequency2.Text, out freq2))
-        //        //{
-        //        //    MessageBox.Show("частота 2");
-        //        //    NewMethod(editingSettings);
-        //        //    return;
-        //        //}
-
-
-        //        //if (editingSettings.cboTypeSignal.Items == cboTypeSignal.Items.TwoTone)
-        //        //{
-        //        //    //ветка для двух тонов
-        //        //}
-        //        //else //ветка для одного тона
-        //        //{
-        //        //    if (editingSettings.chcDefaultGenerator.IsCheck)
-        //        //    {
-        //        //        dS360Setting = new DS360Setting(voltage);
-        //        //    }
-
-        //        //    if (!editingSettings.chcDefaultGenerator.IsCheck)
-        //        //    {
-        //        //        dS360Setting = new DS360Setting(voltage);
-        //        //    }
-        //        //}
-        //    }
-        //}
-
         private void butEditSetting_Click(object sender, EventArgs e)
         {
             //редактировать строку c настройкой
@@ -164,13 +140,13 @@ namespace ManagerDS360
 
         private void butUp_Click(object sender, EventArgs e)
         {
-            //переместить вверх по списку
+            //переместить настройку вверх по списку
 
         }
 
         private void butDown_Click(object sender, EventArgs e)
         {
-            //переместить вниз по списку
+            //переместить настройку вниз по списку
 
         }
 
@@ -192,14 +168,12 @@ namespace ManagerDS360
         private void butDelete_Click(object sender, EventArgs e)
         {
             //удалить строку-настройку из файла с маршрутами
-            //treRouteTree.Nodes.Clear();
             RemoveCheckedNodes(treRouteTree.Nodes);
         }
 
         //удаление из treeView выделенных объектов
         void RemoveCheckedNodes(TreeNodeCollection nodes)
         {
-
             if (treRouteTree.SelectedNode == null)
             {
                 return;
@@ -209,11 +183,12 @@ namespace ManagerDS360
         //выбор элемента в treeView
         private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode node = e.Node;
-            if (node == null)
+            TreeNode rootNodeRoute = e.Node;
+            if (rootNodeRoute == null)
             {
                 return;
             }
+
         }
         private void lstRouteTree_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -228,6 +203,12 @@ namespace ManagerDS360
         internal void lblSave_Click(object sender, EventArgs e)
         {
             //лейбл успешного сохранения
+        }
+
+        private void butAllDelete_Click(object sender, EventArgs e)
+        {
+            //удалить всё
+            treRouteTree.Nodes.Clear();
         }
     }
 }

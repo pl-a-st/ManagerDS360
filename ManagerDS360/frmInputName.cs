@@ -20,15 +20,15 @@ namespace ManagerDS360
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.SaveName = SaveName.Cancel;
-            this.Close();
+            SaveName = SaveName.Cancel;
+            Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.SaveName = SaveName.SaveName;
+            SaveName = SaveName.SaveName;
 
-            this.Close();
+            Close();
         }
 
         private void frmInputName_Load(object sender, EventArgs e)

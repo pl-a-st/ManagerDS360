@@ -41,11 +41,12 @@
             this.treRouteTree = new System.Windows.Forms.TreeView();
             this.lblSave = new System.Windows.Forms.Label();
             this.lblSaveRoute = new System.Windows.Forms.Label();
+            this.butAllDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtNameRoute
             // 
-            this.txtNameRoute.Location = new System.Drawing.Point(12, 40);
+            this.txtNameRoute.Location = new System.Drawing.Point(19, 40);
             this.txtNameRoute.Name = "txtNameRoute";
             this.txtNameRoute.Size = new System.Drawing.Size(222, 20);
             this.txtNameRoute.TabIndex = 0;
@@ -54,7 +55,7 @@
             // lblRouteName
             // 
             this.lblRouteName.AutoSize = true;
-            this.lblRouteName.Location = new System.Drawing.Point(12, 26);
+            this.lblRouteName.Location = new System.Drawing.Point(19, 26);
             this.lblRouteName.Name = "lblRouteName";
             this.lblRouteName.Size = new System.Drawing.Size(110, 13);
             this.lblRouteName.TabIndex = 1;
@@ -73,7 +74,7 @@
             // 
             // butAddFolder
             // 
-            this.butAddFolder.Location = new System.Drawing.Point(12, 97);
+            this.butAddFolder.Location = new System.Drawing.Point(19, 94);
             this.butAddFolder.Name = "butAddFolder";
             this.butAddFolder.Size = new System.Drawing.Size(144, 42);
             this.butAddFolder.TabIndex = 4;
@@ -83,7 +84,7 @@
             // 
             // butAddSetting
             // 
-            this.butAddSetting.Location = new System.Drawing.Point(12, 145);
+            this.butAddSetting.Location = new System.Drawing.Point(19, 142);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(144, 42);
             this.butAddSetting.TabIndex = 5;
@@ -93,7 +94,7 @@
             // 
             // butEditSetting
             // 
-            this.butEditSetting.Location = new System.Drawing.Point(12, 234);
+            this.butEditSetting.Location = new System.Drawing.Point(19, 226);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(144, 42);
             this.butEditSetting.TabIndex = 6;
@@ -103,9 +104,11 @@
             // 
             // butDelete
             // 
-            this.butDelete.Location = new System.Drawing.Point(635, 333);
+            this.butDelete.Location = new System.Drawing.Point(607, 384);
+            this.butDelete.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butDelete.MinimumSize = new System.Drawing.Size(110, 27);
             this.butDelete.Name = "butDelete";
-            this.butDelete.Size = new System.Drawing.Size(96, 25);
+            this.butDelete.Size = new System.Drawing.Size(110, 27);
             this.butDelete.TabIndex = 7;
             this.butDelete.Text = "Удалить";
             this.butDelete.UseVisualStyleBackColor = true;
@@ -113,9 +116,11 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(295, 333);
+            this.butSave.Location = new System.Drawing.Point(295, 384);
+            this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
-            this.butSave.Size = new System.Drawing.Size(96, 25);
+            this.butSave.Size = new System.Drawing.Size(110, 27);
             this.butSave.TabIndex = 8;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
@@ -123,7 +128,7 @@
             // 
             // butUp
             // 
-            this.butUp.Location = new System.Drawing.Point(204, 115);
+            this.butUp.Location = new System.Drawing.Point(202, 151);
             this.butUp.Name = "butUp";
             this.butUp.Size = new System.Drawing.Size(85, 33);
             this.butUp.TabIndex = 9;
@@ -133,7 +138,7 @@
             // 
             // butDown
             // 
-            this.butDown.Location = new System.Drawing.Point(204, 190);
+            this.butDown.Location = new System.Drawing.Point(202, 226);
             this.butDown.Name = "butDown";
             this.butDown.Size = new System.Drawing.Size(85, 33);
             this.butDown.TabIndex = 10;
@@ -146,7 +151,7 @@
             this.treRouteTree.LabelEdit = true;
             this.treRouteTree.Location = new System.Drawing.Point(295, 42);
             this.treRouteTree.Name = "treRouteTree";
-            this.treRouteTree.Size = new System.Drawing.Size(436, 274);
+            this.treRouteTree.Size = new System.Drawing.Size(463, 329);
             this.treRouteTree.TabIndex = 11;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
@@ -156,7 +161,7 @@
             this.lblSave.BackColor = System.Drawing.SystemColors.Menu;
             this.lblSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSave.ForeColor = System.Drawing.Color.Green;
-            this.lblSave.Location = new System.Drawing.Point(49, 200);
+            this.lblSave.Location = new System.Drawing.Point(56, 191);
             this.lblSave.Name = "lblSave";
             this.lblSave.Size = new System.Drawing.Size(70, 13);
             this.lblSave.TabIndex = 12;
@@ -170,18 +175,29 @@
             this.lblSaveRoute.AutoSize = true;
             this.lblSaveRoute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSaveRoute.ForeColor = System.Drawing.Color.Green;
-            this.lblSaveRoute.Location = new System.Drawing.Point(309, 370);
+            this.lblSaveRoute.Location = new System.Drawing.Point(315, 416);
             this.lblSaveRoute.Name = "lblSaveRoute";
             this.lblSaveRoute.Size = new System.Drawing.Size(70, 13);
             this.lblSaveRoute.TabIndex = 13;
             this.lblSaveRoute.Text = "Сохранено";
             this.lblSaveRoute.Visible = false;
             // 
+            // butAllDelete
+            // 
+            this.butAllDelete.Location = new System.Drawing.Point(723, 384);
+            this.butAllDelete.Name = "butAllDelete";
+            this.butAllDelete.Size = new System.Drawing.Size(35, 27);
+            this.butAllDelete.TabIndex = 14;
+            this.butAllDelete.Text = "AD";
+            this.butAllDelete.UseVisualStyleBackColor = true;
+            this.butAllDelete.Click += new System.EventHandler(this.butAllDelete_Click);
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.butAllDelete);
             this.Controls.Add(this.lblSaveRoute);
             this.Controls.Add(this.lblSave);
             this.Controls.Add(this.treRouteTree);
@@ -222,5 +238,6 @@
         internal System.Windows.Forms.TreeView treRouteTree;
         internal System.Windows.Forms.Label lblSave;
         private System.Windows.Forms.Label lblSaveRoute;
+        private System.Windows.Forms.Button butAllDelete;
     }
 }

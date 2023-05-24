@@ -112,5 +112,10 @@ namespace ManagerDS360
         {
             //список сохранённых маршрутов
         }
+
+        private void lblSaveRoutes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

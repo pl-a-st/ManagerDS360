@@ -16,24 +16,25 @@ namespace ManagerDS360
         public frmManagerRoutse()
         {
             InitializeComponent();
+            //cboListComPorts.Text = nameGenerator;
         }
 
         private void lblLisеComPorts_Click(object sender, EventArgs e)
         {
-            //ничего не надо
         }
 
-        private void frmDefaultGenerator_Load(object sender, EventArgs e)
+        internal void frmDefaultGenerator_Load(object sender, EventArgs e)
         {
 
             //this.cboListComPorts.Items.AddRange ( DS360Setting.GetComPortList().ToArray());
-            this.cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
+            cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
             cboListComPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
         }
 
-        private void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
+        internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //комбобокс с выбором вариантов
+            //string nameGenerator = cboListComPorts.Text;
         }
 
         private void butFindGenerator_Click(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace ManagerDS360
 
         private void butCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

@@ -73,7 +73,7 @@ namespace ManagerDS360 {
             // 
             this.lstRouteSettings.Location = new System.Drawing.Point(254, 42);
             this.lstRouteSettings.Name = "lstRouteSettings";
-            this.lstRouteSettings.Size = new System.Drawing.Size(494, 440);
+            this.lstRouteSettings.Size = new System.Drawing.Size(539, 515);
             this.lstRouteSettings.TabIndex = 3;
             this.lstRouteSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.lstRouteSettings_AfterSelect);
             // 
@@ -90,7 +90,7 @@ namespace ManagerDS360 {
             // cboSavedRoutes
             // 
             this.cboSavedRoutes.FormattingEnabled = true;
-            this.cboSavedRoutes.Location = new System.Drawing.Point(815, 42);
+            this.cboSavedRoutes.Location = new System.Drawing.Point(809, 42);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
             this.cboSavedRoutes.Size = new System.Drawing.Size(186, 21);
             this.cboSavedRoutes.TabIndex = 6;
@@ -99,7 +99,7 @@ namespace ManagerDS360 {
             // lblSavedRoutes
             // 
             this.lblSavedRoutes.AutoSize = true;
-            this.lblSavedRoutes.Location = new System.Drawing.Point(812, 26);
+            this.lblSavedRoutes.Location = new System.Drawing.Point(806, 26);
             this.lblSavedRoutes.Name = "lblSavedRoutes";
             this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
             this.lblSavedRoutes.TabIndex = 7;
@@ -128,17 +128,17 @@ namespace ManagerDS360 {
             // 
             // sbrVerticalFieldКouteЕree
             // 
-            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(730, 42);
+            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(774, 43);
             this.sbrVerticalFieldКouteЕree.Name = "sbrVerticalFieldКouteЕree";
-            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(18, 422);
+            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(18, 494);
             this.sbrVerticalFieldКouteЕree.TabIndex = 10;
             this.sbrVerticalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrVerticalFieldКouteЕree_Scroll);
             // 
             // sbrHorizontalFieldКouteЕree
             // 
-            this.sbrHorizontalFieldКouteЕree.Location = new System.Drawing.Point(254, 464);
+            this.sbrHorizontalFieldКouteЕree.Location = new System.Drawing.Point(255, 537);
             this.sbrHorizontalFieldКouteЕree.Name = "sbrHorizontalFieldКouteЕree";
-            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(494, 18);
+            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(537, 18);
             this.sbrHorizontalFieldКouteЕree.TabIndex = 11;
             this.sbrHorizontalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrHorizontalFieldКouteЕree_Scroll);
             // 

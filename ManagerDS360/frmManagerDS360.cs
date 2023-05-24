@@ -15,25 +15,27 @@ namespace ManagerDS360 {
         public frmManagerDS360() 
         {
             InitializeComponent();
+            //lblDefaultGenerator.Text = nameGenerator;
         }
 
         //по крестику спрашивает, закрыть или нет окно
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialog = MessageBox.Show(
-             "Вы действительно хотите выйти из программы?",
-             "Завершение программы",
-             MessageBoxButtons.YesNo,
-             MessageBoxIcon.Warning);
+            //проверка на выходе из ПО
+            //DialogResult dialog = MessageBox.Show(
+            // "Вы действительно хотите выйти из программы?",
+            // "Завершение программы",
+            // MessageBoxButtons.YesNo,
+            // MessageBoxIcon.Warning);
 
-            if (dialog == DialogResult.Yes)
-            {
-                e.Cancel = false;
-            }
-            else
-            {
-                e.Cancel = true;
-            }
+            //if (dialog == DialogResult.Yes)
+            //{
+            //    e.Cancel = false;
+            //}
+            //else
+            //{
+            //    e.Cancel = true;
+            //}
         }
 
         private void butDefaultGenerator_Click(object sender, EventArgs e)
@@ -86,7 +88,7 @@ namespace ManagerDS360 {
         {
             //появление messageBox
             MessageBox.Show(
-         "Мanager DS360. Версия ПО 0.001.\n  Год разработки - 2023. ",
+         "Мanager DS360. Версия ПО 0.003.\n  Год разработки - 2023. ",
          "О программе",
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditingRoutes));
             this.lblSavedRoutes = new System.Windows.Forms.Label();
             this.butCreateRoutes = new System.Windows.Forms.Button();
             this.butEditingRoute = new System.Windows.Forms.Button();
@@ -37,23 +38,27 @@
             this.butDeleteRoute = new System.Windows.Forms.Button();
             this.treSaveRoutes = new System.Windows.Forms.TreeView();
             this.lblSaveRoutes = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblSavedRoutes
             // 
             this.lblSavedRoutes.AutoSize = true;
-            this.lblSavedRoutes.Location = new System.Drawing.Point(18, 13);
+            this.lblSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSavedRoutes.Location = new System.Drawing.Point(18, 10);
             this.lblSavedRoutes.Name = "lblSavedRoutes";
-            this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
+            this.lblSavedRoutes.Size = new System.Drawing.Size(166, 14);
             this.lblSavedRoutes.TabIndex = 1;
             this.lblSavedRoutes.Text = "Сохраненные маршруты";
             this.lblSavedRoutes.Click += new System.EventHandler(this.lblSavedRoutes_Click);
             // 
             // butCreateRoutes
             // 
+            this.butCreateRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butCreateRoutes.Location = new System.Drawing.Point(391, 29);
             this.butCreateRoutes.Name = "butCreateRoutes";
-            this.butCreateRoutes.Size = new System.Drawing.Size(132, 34);
+            this.butCreateRoutes.Size = new System.Drawing.Size(132, 45);
             this.butCreateRoutes.TabIndex = 2;
             this.butCreateRoutes.Text = "Создать маршрут";
             this.butCreateRoutes.UseVisualStyleBackColor = true;
@@ -61,9 +66,10 @@
             // 
             // butEditingRoute
             // 
-            this.butEditingRoute.Location = new System.Drawing.Point(391, 74);
+            this.butEditingRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butEditingRoute.Location = new System.Drawing.Point(391, 82);
             this.butEditingRoute.Name = "butEditingRoute";
-            this.butEditingRoute.Size = new System.Drawing.Size(132, 34);
+            this.butEditingRoute.Size = new System.Drawing.Size(132, 45);
             this.butEditingRoute.TabIndex = 3;
             this.butEditingRoute.Text = "Редактировать маршрут";
             this.butEditingRoute.UseVisualStyleBackColor = true;
@@ -71,7 +77,8 @@
             // 
             // butUpRoute
             // 
-            this.butUpRoute.Location = new System.Drawing.Point(391, 139);
+            this.butUpRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butUpRoute.Location = new System.Drawing.Point(391, 151);
             this.butUpRoute.Name = "butUpRoute";
             this.butUpRoute.Size = new System.Drawing.Size(132, 34);
             this.butUpRoute.TabIndex = 4;
@@ -81,7 +88,8 @@
             // 
             // butDownRoute
             // 
-            this.butDownRoute.Location = new System.Drawing.Point(391, 186);
+            this.butDownRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butDownRoute.Location = new System.Drawing.Point(391, 198);
             this.butDownRoute.Name = "butDownRoute";
             this.butDownRoute.Size = new System.Drawing.Size(132, 34);
             this.butDownRoute.TabIndex = 5;
@@ -91,9 +99,10 @@
             // 
             // butSaveRoutes
             // 
-            this.butSaveRoutes.Location = new System.Drawing.Point(293, 322);
+            this.butSaveRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butSaveRoutes.Location = new System.Drawing.Point(282, 373);
             this.butSaveRoutes.Name = "butSaveRoutes";
-            this.butSaveRoutes.Size = new System.Drawing.Size(79, 34);
+            this.butSaveRoutes.Size = new System.Drawing.Size(86, 34);
             this.butSaveRoutes.TabIndex = 6;
             this.butSaveRoutes.Text = "Сохранить";
             this.butSaveRoutes.UseVisualStyleBackColor = true;
@@ -101,9 +110,10 @@
             // 
             // butDeleteRoute
             // 
-            this.butDeleteRoute.Location = new System.Drawing.Point(21, 322);
+            this.butDeleteRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butDeleteRoute.Location = new System.Drawing.Point(17, 373);
             this.butDeleteRoute.Name = "butDeleteRoute";
-            this.butDeleteRoute.Size = new System.Drawing.Size(79, 34);
+            this.butDeleteRoute.Size = new System.Drawing.Size(84, 34);
             this.butDeleteRoute.TabIndex = 7;
             this.butDeleteRoute.Text = "Удалить";
             this.butDeleteRoute.UseVisualStyleBackColor = true;
@@ -113,7 +123,7 @@
             // 
             this.treSaveRoutes.Location = new System.Drawing.Point(12, 29);
             this.treSaveRoutes.Name = "treSaveRoutes";
-            this.treSaveRoutes.Size = new System.Drawing.Size(360, 266);
+            this.treSaveRoutes.Size = new System.Drawing.Size(360, 324);
             this.treSaveRoutes.TabIndex = 8;
             this.treSaveRoutes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treSaveRoutes_AfterSelect);
             // 
@@ -122,18 +132,29 @@
             this.lblSaveRoutes.AutoSize = true;
             this.lblSaveRoutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSaveRoutes.ForeColor = System.Drawing.Color.Green;
-            this.lblSaveRoutes.Location = new System.Drawing.Point(290, 368);
+            this.lblSaveRoutes.Location = new System.Drawing.Point(291, 416);
             this.lblSaveRoutes.Name = "lblSaveRoutes";
-            this.lblSaveRoutes.Size = new System.Drawing.Size(77, 13);
+            this.lblSaveRoutes.Size = new System.Drawing.Size(70, 13);
             this.lblSaveRoutes.TabIndex = 9;
-            this.lblSaveRoutes.Text = "  Сохранить";
+            this.lblSaveRoutes.Text = "Сохранено";
             this.lblSaveRoutes.Visible = false;
+            this.lblSaveRoutes.Click += new System.EventHandler(this.lblSaveRoutes_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(546, 29);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(259, 378);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // frmEditingRoutes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSaveRoutes);
             this.Controls.Add(this.treSaveRoutes);
             this.Controls.Add(this.butDeleteRoute);
@@ -150,6 +171,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно редактирования сохраненных маршрутов";
             this.Load += new System.EventHandler(this.frmEditingRoutes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,5 +187,6 @@
         private System.Windows.Forms.Button butDeleteRoute;
         private System.Windows.Forms.TreeView treSaveRoutes;
         private System.Windows.Forms.Label lblSaveRoutes;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

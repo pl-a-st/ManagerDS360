@@ -375,7 +375,7 @@ namespace LibDevicesManager
             }
             return devices;
         }
-        public Result CheckDS360Setting(DS360Setting setting, out string message)
+        public Result CheckDS360Setting(DS360Setting setting, out string messageResult)
         {
             double frequencyMin = 0.01;
             double frequencyMax = 200 * 1000;
@@ -386,7 +386,7 @@ namespace LibDevicesManager
             {
                 if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
                 {
-                    message = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
+                    messageResult = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
                     return Result.ParamError;
                 }
             }
@@ -394,7 +394,7 @@ namespace LibDevicesManager
             {
                 if (setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
                 {
-                    message = "\nЧастота второго сигнала должна быть в пределах 0,1 ... 5000 Гц";
+                    messageResult = "\nЧастота второго сигнала должна быть в пределах 0,1 ... 5000 Гц";
                     return Result.ParamError;
                 }
             }
@@ -414,19 +414,19 @@ namespace LibDevicesManager
                     {
                         if (setting.AmplitudeRMS < minVoltageRMS[i] || setting.AmplitudeRMS > maxVoltageRMS[i])
                         {
-                            message = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                            messageResult = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                             return Result.ParamError;
                         }
                         if (setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare)
                         {
                             if (setting.AmplitudeRMSToneB < minVoltageRMS[i] || setting.AmplitudeRMSToneB > maxVoltageRMS[i])
                             {
-                                message = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                messageResult = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                                 return Result.ParamError;
                             }
                             if ((setting.AmplitudeRMS + setting.AmplitudeRMSToneB) > maxVoltageRMS[i])
                             {
-                                message = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                messageResult = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                                 return Result.ParamError;
                             }
                             double valueToneA = setting.AmplitudeRMS * Math.Sqrt(2);
@@ -439,7 +439,7 @@ namespace LibDevicesManager
                             }
                             if (valueToneA/valueToneB< minProportion || valueToneA/valueToneB > maxProportion)
                             {
-                                message = $"\nСоотношение амплитуд Тона 1 и Тона 2 должно быть в пределах {minProportion} ... {maxProportion}";
+                                messageResult = $"\nСоотношение амплитуд Тона 1 и Тона 2 должно быть в пределах {minProportion} ... {maxProportion}";
                                 return Result.ParamError;
                             }
                         }
@@ -461,12 +461,12 @@ namespace LibDevicesManager
                         double offsetAbs = Math.Abs(setting.Offset);
                         if ((voltage + offsetAbs) > maxVoltage)
                         {
-                            message = $"\nСумма пика сигнала и смещения не должно превышать {maxVoltage} Вольт";
+                            messageResult = $"\nСумма пика сигнала и смещения не должно превышать {maxVoltage} Вольт";
                             return Result.ParamError;
                         }
                         if (offsetAbs > maxOffsetRange)
                         {
-                            message = $"\nПри заданной амплитуде сигнала абсолютное значение смещения не должно превышать {maxOffsetRange} Вольт";
+                            messageResult = $"\nПри заданной амплитуде сигнала абсолютное значение смещения не должно превышать {maxOffsetRange} Вольт";
                             return Result.ParamError;
                         }
                         break;
@@ -474,15 +474,22 @@ namespace LibDevicesManager
                 }
             }
             //Дописать для других значений OutputType и OutputImpedance
-            message = "Успешно";
+            messageResult = "Успешно";
             return Result.Success;
         }
-        public Result SendDS360Setting(DS360Setting setting)
+        public Result SendDS360Setting(DS360Setting setting, out string messageResult)
         {
             //Прописать проверку корректности параметров setting
+            Result result = CheckDS360Setting(setting, out messageResult);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            
             //Прописать отправку настроек
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.
+            messageResult = "Успешно";
             return Result.Success;
         }
         private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)

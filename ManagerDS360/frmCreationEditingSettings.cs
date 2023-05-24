@@ -57,7 +57,7 @@ namespace ManagerDS360
         public FunctionTypeSignal FunctionTypeSignal;
 
         public double Voltage;
-        public DS360Setting DS360Setting;
+        public DS360Setting DS360Setting = new DS360Setting();
         public frmCreationEditingSettings()
         {
             InitializeComponent();
@@ -102,19 +102,30 @@ namespace ManagerDS360
 
         internal void InitializecboTypeSignal()
         {
-            //добавление в комбобокс типов сигналов
-            cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            //cboTypeSignal.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
-            //cboTypeSignal.SelectedIndex = (int)FunctionType.Sine;
+            ////добавление в комбобокс типов сигналов
+            //cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            ////cboTypeSignal.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
+            ////cboTypeSignal.SelectedIndex = (int)FunctionType.Sine;
 
-            string[] enumElements = Enum.GetNames(typeof(FunctionTypeSignal));
-            foreach (var item in enumElements)
+            //string[] enumElements = Enum.GetNames(typeof(FunctionTypeSignal));
+            //foreach (var item in enumElements)
+            //{
+            //    cboTypeSignal.Items.Add(item.Replace("_", " - "));
+            //}
+            //cboTypeSignal.SelectedIndex = (int)FunctionTypeSignal.Синус;
+
+            ////строку в Енам
+            //Enum.Parse(typeof(Race), cBxRace.Text, true);
+
+            ////преобр в комбобокс
+            foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
             {
-                cboTypeSignal.Items.Add(item.Replace("_", " - "));
-            }
-            cboTypeSignal.SelectedIndex = (int)FunctionTypeSignal.Синус;
-        }
 
+                cboTypeSignal.Items.Add((FunctionTypeSignal)element);
+
+
+            }
+        }
         internal void InitializecboSetValue()
         {
             //добавление в комбобокс физ.величин
@@ -188,10 +199,11 @@ namespace ManagerDS360
                 return;
             }
 
+           
 
-            //Enum.Parse(typeof(Race), cBxRace.Text, true);
 
-            //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
+                ////синхрон Енам
+                //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
 
              //ветви для приёма значений
              //ветка для двух тонов
@@ -388,6 +400,7 @@ namespace ManagerDS360
         {
             DS360Setting setting = new DS360Setting();
             Result sendingResult = DS360Setting.SendDS360Setting(setting, out string message);
+            //
             if (sendingResult == Result.Success)
             {
                 MessageBox.Show("Настройка успешно передана в генератор");

@@ -120,12 +120,16 @@ namespace ManagerDS360
             ////преобр в комбобокс
             foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
             {
-
-                cboTypeSignal.Items.Add((FunctionTypeSignal)element);
-
-
+                cboTypeSignal.Items.Add(TypeSignalToString(element));
             }
         }
+
+        private static string TypeSignalToString(int element)
+        {
+            return ((FunctionTypeSignal)element).ToString().Replace("_", " - ");
+        }
+
+
         internal void InitializecboSetValue()
         {
             //добавление в комбобокс физ.величин
@@ -134,7 +138,7 @@ namespace ManagerDS360
             //cboSetValue.Items.AddRange(Enum.GetNames(typeof(PhysicalQuantity)));
 
             string[] enumElements = Enum.GetNames(typeof(PhysicalQuantity));
-            foreach ( var item in enumElements )
+            foreach (var item in enumElements)
             {
                 cboSetValue.Items.Add(item.Replace("_", "/"));
             }
@@ -162,68 +166,51 @@ namespace ManagerDS360
             }
             DS360Setting = new DS360Setting();
 
-            //проверки на ввод значений
-
-            if (!double.TryParse(txtValue.Text, out amplitudeRMS_A))
+            if (CheckFormsParameters() != Result.Success)
             {
-                MessageBox.Show("Введите значение 1.");
-                //NewMethod(editingSettings);
-                return;
-            }
-            if (!double.TryParse(txtFrequency.Text, out frequency_A))
-            {
-                MessageBox.Show("Введите частоту 1.");
-                return;
-            }
-            if (cboTypeSignal.Text == "Синус - Квадрат" | cboTypeSignal.Text == "Синус - Синус" & !double.TryParse(txtValue2.Text, out amplitudeRMS_B))
-            {
-                MessageBox.Show("Введите значение 2.");
-                return;
-            }
-            if (cboTypeSignal.Text == "Синус - Квадрат" | cboTypeSignal.Text == "Синус - Синус" & !double.TryParse(txtFrequency2.Text, out frequency_B))
-            {
-                MessageBox.Show("Введите частоту 2.");
-                return;
-            }
-            
-
-            if (cboTypeSignal.Text == "Синус" & cboTypeSignal.Text == "Квадрат" &  !double.TryParse(txtOffset.Text, out offset))
-            {
-                MessageBox.Show("Введите значение смещения.");
-                return;
-            }
-            if (!double.TryParse(txtConversionFactor.Text, out conversionFactor))
-            {
-                MessageBox.Show("Введите значение коэффициента.");
-                //NewMethod(editingSettings);
                 return;
             }
 
-           
 
 
-                ////синхрон Енам
-                //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
 
-             //ветви для приёма значений
-             //ветка для двух тонов
-            if (cboTypeSignal.Text == "Синус - Синус" | cboTypeSignal.Text == "Синус - Квадрат")
+
+
+
+            ////синхрон Енам
+            //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
+
+            //ветви для приёма значений
+            //ветка для двух тонов
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус)
             {
-                //DS360Setting = new DS360Setting(portName, functionType, frequency_A, amplitudeRMS_A, frequency_B, amplitudeRMS_B);
+                DS360Setting.FunctionType = FunctionType.SineSine;
+                DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
             }
-            else //ветка для одного тона
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат)
             {
-
-                if (chcDefaultGenerator.Checked)
-                {
-                    //DS360Setting = new DS360Setting(functionType, amplitudeRMS_A(voltage), frequency_A, offset);
-                }
-
-                if (!chcDefaultGenerator.Checked)
-                {
-                    //DS360Setting = new DS360Setting(portName, functionType, amplitudeRMS_A(voltage), frequency_A, offset);
-                }
+                DS360Setting.FunctionType = FunctionType.SineSquare;
+                DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
             }
+            DS360Setting.Frequency = double.Parse(txtFrequency.Text);
+            DS360Setting.Offset = double.Parse(txtOffset.Text);
+
+            SetVibroCalcl();
+            DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
+
+            //else //ветка для одного тона
+            //{
+
+            //    if (chcDefaultGenerator.Checked)
+            //    {
+            //        //DS360Setting = new DS360Setting(functionType, amplitudeRMS_A(voltage), frequency_A, offset);
+            //    }
+
+            //    if (!chcDefaultGenerator.Checked)
+            //    {
+            //        //DS360Setting = new DS360Setting(portName, functionType, amplitudeRMS_A(voltage), frequency_A, offset);
+            //    }
+            //}
 
             //Voltage = 5; /*= VibroMth.GetVolt();*/
 
@@ -237,11 +224,67 @@ namespace ManagerDS360
             //создание экземпляра
             //dS360Setting.functionType = cboTypeSignal.SelectedIndex;
 
-            
+
             //dS360Setting.Name = cboComPort.Items + txtFrequency.Text + cboDetector.Items;
 
 
             this.Close();
+        }
+
+        private void SetVibroCalcl()
+        {
+
+            VibroCalc.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
+            VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
+            if (cboSetValue.Text == @"мм/с")
+            {
+                VibroCalc.Velocity.SetRMS(double.Parse(txtValue.Text));
+            }
+            
+        }
+
+        private Result CheckFormsParameters()
+        {
+            if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
+            {
+                MessageBox.Show("Введите значение 1.");
+                return Result.Failure;
+            }
+            if (!double.TryParse(txtFrequency.Text, out double frequency_A))
+            {
+                MessageBox.Show("Введите частоту 1.");
+                return Result.Failure;
+            }
+            if (IsTwoTone() & !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
+            {
+                MessageBox.Show("Введите значение 2.");
+                return Result.Failure;
+            }
+            if (cboTypeSignal.Text == "Синус - Квадрат" | cboTypeSignal.Text == "Синус - Синус" & !double.TryParse(txtFrequency2.Text, out double frequency_B))
+            {
+                MessageBox.Show("Введите частоту 2.");
+                return Result.Failure;
+            }
+            if (cboTypeSignal.Text == "Синус" & cboTypeSignal.Text == "Квадрат" & !double.TryParse(txtOffset.Text, out double offset))
+            {
+                MessageBox.Show("Введите значение смещения.");
+                return Result.Failure;
+            }
+            if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
+            {
+                MessageBox.Show("Введите значение коэффициента.");
+                //NewMethod(editingSettings);
+                return Result.Failure;
+            }
+
+            return Result.Success;
+        }
+
+        private bool IsTwoTone()
+        {
+            return (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус
+                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат
+;
         }
 
         internal static void NewMethod(frmCreationEditingSettings editingSettings)

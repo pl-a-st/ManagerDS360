@@ -384,21 +384,18 @@ namespace ManagerDS360
             Close();
         }
 
-        private void butSend_Click(object sender, EventArgs e)
+        private void butSendSetting_Click(object sender, EventArgs e)
         {
-            //отправить параметры в генератор
             DS360Setting setting = new DS360Setting();
             Result sendingResult = DS360Setting.SendDS360Setting(setting, out string message);
             if (sendingResult == Result.Success)
             {
-                //успешно
-                MessageBox.Show("Otpravleno");
+                MessageBox.Show("Настройка успешно передана в генератор");
             }
             if (sendingResult != Result.Success)
             {
                 MessageBox.Show(message);
             }
-            Close();
         }
 
         private void cboDetector_SelectedIndexChanged(object sender, EventArgs e)

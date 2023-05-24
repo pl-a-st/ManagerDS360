@@ -207,7 +207,7 @@
             this.butSend.TabIndex = 18;
             this.butSend.Text = "Отправить";
             this.butSend.UseVisualStyleBackColor = true;
-            this.butSend.Click += new System.EventHandler(this.butSend_Click);
+            this.butSend.Click += new System.EventHandler(this.butSendSetting_Click);
             // 
             // lblFrequency2
             // 

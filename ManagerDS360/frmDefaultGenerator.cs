@@ -45,6 +45,7 @@ namespace ManagerDS360
         private void butSave_Click(object sender, EventArgs e)
         {
             //сохранить выбранный генератор как по умолчанию и отправить имя на главную страницу в лейбл 
+
         }
 
         private void butCancel_Click(object sender, EventArgs e)

@@ -69,5 +69,28 @@ namespace ManagerDS360.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;doc&gt;
+        ///    &lt;assembly&gt;
+        ///        &lt;name&gt;VibroMath&lt;/name&gt;
+        ///    &lt;/assembly&gt;
+        ///    &lt;members&gt;
+        ///        &lt;member name=&quot;T:VibroMath.VibroCalc&quot;&gt;
+        ///            &lt;summary&gt;
+        ///            Предоставляет:
+        ///            поля - параметры синусоидальной вибрации, находящиеся в математической зависимости;
+        ///            метод - вызывающий пересчет полей в зависимости от типа задаваемого параметра и его значения.
+        ///            &lt;/summary&gt;
+        ///        &lt;/member&gt;
+        ///        &lt;member name=&quot;P:VibroMath.VibroCalc.Voltage&quot;&gt;
+        ///   [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string VibroMath {
+            get {
+                return ResourceManager.GetString("VibroMath", resourceCulture);
+            }
+        }
     }
 }

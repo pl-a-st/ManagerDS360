@@ -240,6 +240,7 @@ namespace ManagerDS360
             {
                 VibroCalc.Velocity.SetRMS(double.Parse(txtValue.Text));
             }
+
             
         }
 

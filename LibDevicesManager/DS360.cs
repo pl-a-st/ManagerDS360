@@ -399,15 +399,15 @@ namespace LibDevicesManager
                 }
             }
             //Амплитуда
-            FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
-            double[] minVoltageRMS = new double[] { 4, 5, 3, 3 };
-            double[] maxVoltageRMS = new double[] { 14.14, 20.00, 14.14, 14.14 };
-            for (int i = 0; i < minVoltageRMS.Length; i++)
-            {
-                minVoltageRMS[i] /= 1000000;
-            }
             if (setting.outputType == OutputType.Unbalanced && setting.OutputImpedance == OutputImpedance.HiZ)
             {
+                FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
+                double[] minVoltageRMS = new double[] { 4, 5, 3, 3 };
+                double[] maxVoltageRMS = new double[] { 14.14, 20.00, 14.14, 14.14 };
+                for (int i = 0; i < minVoltageRMS.Length; i++)
+                {
+                    minVoltageRMS[i] /= 1000000;
+                }
                 for (int i = 0; i < functionTypeArray.Length; i++)
                 {
                     if (setting.FunctionType == functionTypeArray[i])
@@ -429,16 +429,51 @@ namespace LibDevicesManager
                                 message = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                                 return Result.ParamError;
                             }
+                            double valueToneA = setting.AmplitudeRMS * Math.Sqrt(2);
+                            double valueToneB = setting.AmplitudeRMSToneB;
+                            double minProportion = 0.001;
+                            double maxProportion = 1000;
+                            if (setting.FunctionType == FunctionType.SineSine)
+                            {
+                                valueToneB *= Math.Sqrt(2);
+                            }
+                            if (valueToneA/valueToneB< minProportion || valueToneA/valueToneB > maxProportion)
+                            {
+                                message = $"\nСоотношение амплитуд Тона 1 и Тона 2 должно быть в пределах {minProportion} ... {maxProportion}";
+                                return Result.ParamError;
+                            }
+                        }
+                        double voltage = setting.AmplitudeRMS;
+                        if (setting.FunctionType == FunctionType.Sine)
+                        {
+                            voltage *=  Math.Sqrt(2);
+                        }
+                        if (setting.FunctionType == FunctionType.SineSine)
+                        {
+                            voltage = voltage * Math.Sqrt(2) + setting.AmplitudeRMSToneB * Math.Sqrt(2);
+                        }
+                        if (setting.FunctionType == FunctionType.SineSquare)
+                        {
+                            voltage = voltage * Math.Sqrt(2) + setting.AmplitudeRMSToneB;
+                        }
+                        double maxVoltage = 20;
+                        double maxOffsetRange = 200 * voltage;
+                        double offsetAbs = Math.Abs(setting.Offset);
+                        if ((voltage + offsetAbs) > maxVoltage)
+                        {
+                            message = $"\nСумма пика сигнала и смещения не должно превышать {maxVoltage} Вольт";
+                            return Result.ParamError;
+                        }
+                        if (offsetAbs > maxOffsetRange)
+                        {
+                            message = $"\nПри заданной амплитуде сигнала абсолютное значение смещения не должно превышать {maxOffsetRange} Вольт";
+                            return Result.ParamError;
                         }
                         break;
                     }
                 }
             }
             //Дописать для других значений OutputType и OutputImpedance
-
-            //Смещение
-
-
             message = "Успешно";
             return Result.Success;
         }

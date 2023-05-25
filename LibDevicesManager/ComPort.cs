@@ -53,11 +53,11 @@ namespace LibDevicesManager
             {
                 lastDigitPosition = chars.Length - 1;
             }
-            if (firstDigitPosition < lastDigitPosition)
+            if (lastDigitPosition > firstDigitPosition) //Здесь проверить!
             {
                 return false;
             }
-            for (int i = 4; i<7; i++)
+            for (int i = firstDigitPosition-1; i< lastDigitPosition; i++)
             {
                 if (Char.IsDigit(chars[i]))
                 {

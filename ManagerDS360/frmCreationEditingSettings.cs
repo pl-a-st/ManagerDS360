@@ -444,7 +444,15 @@ namespace ManagerDS360
         private void butSendSetting_Click(object sender, EventArgs e)
         {
             DS360Setting setting = new DS360Setting();
-            Result sendingResult = DS360Setting.SendDS360Setting();
+            //Result sendingResult = DS360Setting.SendDS360Setting(setting); //AAS: так вызывать нельзя
+            //AAS: эту часть заполнять из формы. (для тестирования ввёл вручную)
+            setting.ComPortName = "COM5: ";
+            setting.FunctionType = FunctionType.Sine;
+            setting.Frequency = 2000000;
+            setting.AmplitudeRMS = 21;
+            setting.Offset = -1;
+            //
+            Result sendingResult = setting.SendDS360Setting();
             //
             if (sendingResult == Result.Success)
             {

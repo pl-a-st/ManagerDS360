@@ -209,7 +209,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.VScrollBar sbrVerticalFieldКouteЕree;
         private System.Windows.Forms.HScrollBar sbrHorizontalFieldКouteЕree;
         private System.Windows.Forms.Button butAboutProgram;
-        private System.Windows.Forms.Label lblDefaultGenerator;
+        internal System.Windows.Forms.Label lblDefaultGenerator;
     }
 }
 

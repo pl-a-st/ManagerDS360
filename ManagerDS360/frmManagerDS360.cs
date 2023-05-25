@@ -16,7 +16,7 @@ namespace ManagerDS360
         public frmManagerDS360()
         {
             InitializeComponent();
-            //lblDefaultGenerator.Text = nameGenerator;
+
         }
 
         //по крестику спрашивает, закрыть или нет окно
@@ -42,9 +42,15 @@ namespace ManagerDS360
         private void butDefaultGenerator_Click(object sender, EventArgs e)
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
+            //frmDefaultGenerator.FormClosed += new FormClosedEventHandler(frmDefaultGenerator_FormClosed);
             frmDefaultGenerator.ShowDialog();
+ 
         }
+        void frmDefaultGenerator_FormClosed(object sender, FormClosedEventArgs e)
+        {
 
+            Refresh();
+        }
         private void lblRoute_Click(object sender, EventArgs e)
         {
             //лейбл Маршрут
@@ -158,7 +164,7 @@ namespace ManagerDS360
 
         }
 
-        private void lblDefaultGenerator_Click(object sender, EventArgs e)
+        internal void lblDefaultGenerator_Click(object sender, EventArgs e)
         {
             //наименование генератора по умолчанию
         }

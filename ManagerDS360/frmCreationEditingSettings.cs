@@ -122,6 +122,7 @@ namespace ManagerDS360
             {
                 cboTypeSignal.Items.Add(TypeSignalToString(element));
             }
+            cboTypeSignal.SelectedIndex = 0;
         }
 
         private static string TypeSignalToString(int element)

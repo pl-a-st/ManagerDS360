@@ -444,7 +444,7 @@ namespace ManagerDS360
         private void butSendSetting_Click(object sender, EventArgs e)
         {
             DS360Setting setting = new DS360Setting();
-            Result sendingResult = DS360Setting.SendDS360Setting(setting, out string message);
+            Result sendingResult = DS360Setting.SendDS360Setting();
             //
             if (sendingResult == Result.Success)
             {
@@ -452,7 +452,7 @@ namespace ManagerDS360
             }
             if (sendingResult != Result.Success)
             {
-                MessageBox.Show(message);
+                MessageBox.Show(setting.ResultMessage);
             }
         }
 

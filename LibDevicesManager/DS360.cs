@@ -89,17 +89,6 @@ namespace LibDevicesManager
                 functionType = value;
             }
         }
-        private ToneBFunctionType FunctionBType
-        {
-            get
-            {
-                return functionTypeB;
-            }
-            set
-            {
-                functionTypeB = value;
-            }
-        }
         public double AmplitudeRMS
         {
             get
@@ -177,6 +166,24 @@ namespace LibDevicesManager
                 outputImpedance = value;
             }
         }
+        public string ResultMessage
+        {
+            get
+            {
+                return resultMessage;
+            }
+        }
+        private ToneBFunctionType FunctionBType
+        {
+            get
+            {
+                return functionTypeB;
+            }
+            set
+            {
+                functionTypeB = value;
+            }
+        }
         //
         private static string comPortDefaultName;
         private string comPortName;
@@ -190,6 +197,7 @@ namespace LibDevicesManager
         private double offset;
         private OutputType outputType;
         private OutputImpedance outputImpedance;
+        private string resultMessage;
 
         //Добавить Оффсет в двухтоновый конструктор
         #region Constructors
@@ -375,9 +383,9 @@ namespace LibDevicesManager
             }
             return devices;
         }
-        public Result CheckDS360Setting(DS360Setting setting, out string messageResult)
+        public Result CheckDS360Setting()
         {
-            
+
             // Верин: Очень похоже на глобальные константы, точно можно вынести в приватные поля класса
             double frequencyMin = 0.01;
             double frequencyMax = 200 * 1000;
@@ -386,26 +394,26 @@ namespace LibDevicesManager
 
             //Проверка на корректность параметров
             // Верин: эти два If лучше вынести в метод CheckFrequency
-            if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare) // Верин: длинные условия лучше выносить в приватный метод. Здесь читаемость повысится если вынести в метод IsSignalPeriodical
+            if (FunctionType == FunctionType.Sine || FunctionType == FunctionType.Square || FunctionType == FunctionType.SineSine || FunctionType == FunctionType.SineSquare) // Верин: длинные условия лучше выносить в приватный метод. Здесь читаемость повысится если вынести в метод IsSignalPeriodical
             {
-                if (this.Frequency < frequencyMin || setting.Frequency > frequencyMax)
+                if (Frequency < frequencyMin || Frequency > frequencyMax)
                 {
-                    messageResult = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
+                    resultMessage = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
                     return Result.ParamError;
                 }
             }
-            if (setting.FunctionType == FunctionType.SineSquare)// Верин: Для FunctionType.SineSine тоже вроде должно применяться, тогда можно условие вынести в метод IsTwoTone
+            if (FunctionType == FunctionType.SineSquare)// Верин: Для FunctionType.SineSine тоже вроде должно применяться, тогда можно условие вынести в метод IsTwoTone
             {
-                if (setting.FrequencyB < frequencyBMin || setting.FrequencyB > frequencyBMax)
+                if (FrequencyB < frequencyBMin || FrequencyB > frequencyBMax)
                 {
-                    messageResult = "\nЧастота второго сигнала должна быть в пределах 0,1 ... 5000 Гц";
+                    resultMessage = "\nЧастота второго сигнала должна быть в пределах 0,1 ... 5000 Гц";
                     return Result.ParamError;
                 }
             }
 
             //Амплитуда
             // Верин: этот if лучше вынести в метод CheckVoltage /
-            if (setting.outputType == OutputType.Unbalanced && setting.OutputImpedance == OutputImpedance.HiZ)
+            if (OutputType == OutputType.Unbalanced && OutputImpedance == OutputImpedance.HiZ)
             {
                 FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
                 double[] minVoltageRMS = new double[] { 4, 5, 3, 3 };
@@ -418,63 +426,63 @@ namespace LibDevicesManager
 
                 for (int i = 0; i < functionTypeArray.Length; i++)
                 {
-                    if (setting.FunctionType == functionTypeArray[i])
+                    if (FunctionType == functionTypeArray[i])
                     {
-                        if (setting.AmplitudeRMS < minVoltageRMS[i] || setting.AmplitudeRMS > maxVoltageRMS[i])
+                        if (AmplitudeRMS < minVoltageRMS[i] || AmplitudeRMS > maxVoltageRMS[i])
                         {
-                            messageResult = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                            resultMessage = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                             return Result.ParamError;
                         }
-                        if (setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare)
+                        if (FunctionType == FunctionType.SineSine || FunctionType == FunctionType.SineSquare)
                         {
-                            if (setting.AmplitudeRMSToneB < minVoltageRMS[i] || setting.AmplitudeRMSToneB > maxVoltageRMS[i])
+                            if (AmplitudeRMSToneB < minVoltageRMS[i] || AmplitudeRMSToneB > maxVoltageRMS[i])
                             {
-                                messageResult = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                resultMessage = $"\nАмплитуда должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                                 return Result.ParamError;
                             }
-                            if ((setting.AmplitudeRMS + setting.AmplitudeRMSToneB) > maxVoltageRMS[i])
+                            if ((AmplitudeRMS + AmplitudeRMSToneB) > maxVoltageRMS[i])
                             {
-                                messageResult = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
+                                resultMessage = $"\nСумма амплитуд должна быть в пределах {minVoltageRMS[i]} ... {maxVoltageRMS[i]} Вольт";
                                 return Result.ParamError;
                             }
-                            double valueToneA = setting.AmplitudeRMS * Math.Sqrt(2);
-                            double valueToneB = setting.AmplitudeRMSToneB;
+                            double valueToneA = AmplitudeRMS * Math.Sqrt(2);
+                            double valueToneB = AmplitudeRMSToneB;
                             double minProportion = 0.001;
                             double maxProportion = 1000;
-                            if (setting.FunctionType == FunctionType.SineSine)
+                            if (FunctionType == FunctionType.SineSine)
                             {
                                 valueToneB *= Math.Sqrt(2);
                             }
-                            if (valueToneA/valueToneB< minProportion || valueToneA/valueToneB > maxProportion)
+                            if (valueToneA / valueToneB < minProportion || valueToneA / valueToneB > maxProportion)
                             {
-                                messageResult = $"\nСоотношение амплитуд Тона 1 и Тона 2 должно быть в пределах {minProportion} ... {maxProportion}";
+                                resultMessage = $"\nСоотношение амплитуд Тона 1 и Тона 2 должно быть в пределах {minProportion} ... {maxProportion}";
                                 return Result.ParamError;
                             }
                         }
-                        double voltage = setting.AmplitudeRMS;
-                        if (setting.FunctionType == FunctionType.Sine)
+                        double voltage = AmplitudeRMS;
+                        if (FunctionType == FunctionType.Sine)
                         {
-                            voltage *=  Math.Sqrt(2);
+                            voltage *= Math.Sqrt(2);
                         }
-                        if (setting.FunctionType == FunctionType.SineSine)
+                        if (FunctionType == FunctionType.SineSine)
                         {
-                            voltage = voltage * Math.Sqrt(2) + setting.AmplitudeRMSToneB * Math.Sqrt(2);
+                            voltage = voltage * Math.Sqrt(2) + AmplitudeRMSToneB * Math.Sqrt(2);
                         }
-                        if (setting.FunctionType == FunctionType.SineSquare)
+                        if (FunctionType == FunctionType.SineSquare)
                         {
-                            voltage = voltage * Math.Sqrt(2) + setting.AmplitudeRMSToneB;
+                            voltage = voltage * Math.Sqrt(2) + AmplitudeRMSToneB;
                         }
                         double maxVoltage = 20;
                         double maxOffsetRange = 200 * voltage;
-                        double offsetAbs = Math.Abs(setting.Offset);
+                        double offsetAbs = Math.Abs(Offset);
                         if ((voltage + offsetAbs) > maxVoltage)
                         {
-                            messageResult = $"\nСумма пика сигнала и смещения не должно превышать {maxVoltage} Вольт";
+                            resultMessage = $"\nСумма пика сигнала и смещения не должно превышать {maxVoltage} Вольт";
                             return Result.ParamError;
                         }
                         if (offsetAbs > maxOffsetRange)
                         {
-                            messageResult = $"\nПри заданной амплитуде сигнала абсолютное значение смещения не должно превышать {maxOffsetRange} Вольт";
+                            resultMessage = $"\nПри заданной амплитуде сигнала абсолютное значение смещения не должно превышать {maxOffsetRange} Вольт";
                             return Result.ParamError;
                         }
                         break;
@@ -482,12 +490,12 @@ namespace LibDevicesManager
                 }
             }
             //Дописать для других значений OutputType и OutputImpedance
-            messageResult = "Успешно";
+            resultMessage = "Успешно";
             return Result.Success;
         }
-        public Result SendDS360Setting(DS360Setting setting, out string messageResult)
+        public Result SendDS360Setting()
         {
-            Result result = CheckDS360Setting(setting, out messageResult);
+            Result result = CheckDS360Setting();
             if (result != Result.Success)
             {
                 return result;
@@ -495,7 +503,7 @@ namespace LibDevicesManager
             //Прописать отправку настроек
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.
-            messageResult = "Отсутствует связь с генератором";
+            resultMessage = "\nОтсутствует связь с генератором";
             return Result.Failure;
         }
 

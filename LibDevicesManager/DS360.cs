@@ -89,7 +89,7 @@ namespace LibDevicesManager
                 functionType = value;
             }
         }
-        public ToneBFunctionType FunctionBType
+        private ToneBFunctionType FunctionBType
         {
             get
             {
@@ -388,7 +388,7 @@ namespace LibDevicesManager
             // Верин: эти два If лучше вынести в метод CheckFrequency
             if (setting.FunctionType == FunctionType.Sine || setting.FunctionType == FunctionType.Square || setting.FunctionType == FunctionType.SineSine || setting.FunctionType == FunctionType.SineSquare) // Верин: длинные условия лучше выносить в приватный метод. Здесь читаемость повысится если вынести в метод IsSignalPeriodical
             {
-                if (setting.Frequency < frequencyMin || setting.Frequency > frequencyMax)
+                if (this.Frequency < frequencyMin || setting.Frequency > frequencyMax)
                 {
                     messageResult = "\nЧастота должна быть в пределах 0.01 ... 200000 Гц";
                     return Result.ParamError;
@@ -495,9 +495,10 @@ namespace LibDevicesManager
             //Прописать отправку настроек
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.
-            messageResult = "Успешно";
-            return Result.Success;
+            messageResult = "Отсутствует связь с генератором";
+            return Result.Failure;
         }
+
         private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)
         {
             string resultString = string.Empty;

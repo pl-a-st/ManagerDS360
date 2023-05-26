@@ -16,6 +16,12 @@ namespace LibDevicesManager
     }
     public static class ComPort
     {
+        private static int baudRate = 9600;
+        private static Parity parity = Parity.None;
+        private static StopBits stopBits = StopBits.Two;
+        private static bool dtrEnable = true;
+        private static int readTimeout = 100;
+        private static int writeTimeout = 100;
         private static List<string> portsNamesList;
         private static List<string> devicesNameList;
 
@@ -102,18 +108,22 @@ namespace LibDevicesManager
             List<string> ports = PortsNamesList;
             foreach (string port in ports)
             {
+                /*
                 result = IsComPortDS360Emulator(port);
                 if (result == Result.Success)
                 {
                     devicesNameList.Add("DS360-Emulator");
                     continue;
                 }
+                */
+                /*
                 result = IsComPortDS360(port);
                 if (result == Result.Success)
                 {
                     devicesNameList.Add("DS360");
                     continue;
                 }
+                */
                 // ToNEXT: добавить другие известные устройства
                 devicesNameList.Add("Unknoun");
             }
@@ -138,13 +148,60 @@ namespace LibDevicesManager
             if (result == Result.Success)
             {
                 return "DS360-Emulator";
-            }
+            }            
             result = IsComPortDS360(portName);
             if (result == Result.Success)
             {
                 return "DS360";
             }
             return "Unknown";
+        }
+        public static Result PortOpen(string portName, out SerialPort port)
+        {
+            Result result = Result.Success;
+            port = new SerialPort();
+            int portNumber = GetPortNumberFromPortName(portName);
+            if (portNumber == 0)
+            {
+                return Result.ParamError;
+            }
+            string comPortName = "COM" + portNumber;
+            port.PortName = comPortName;
+            result = SetupPort(port);
+            if (result != Result.Success)
+            {
+                return Result.Exception;
+            }
+            try
+            {
+                port.Open();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                result = Result.AcsessError;
+            }
+            catch (IOException ex)
+            {
+                result = Result.Exception;
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = Result.Exception;
+            }
+            return result;
+        }
+        public static Result PortClose(SerialPort port)
+        {
+            Result result = Result.Success;
+            try
+            {
+                port.Close();
+            }
+            catch (IOException ex) //ToNEXT: возможно надо обработать
+            {
+                result = Result.Exception;
+            }
+            return result;
         }
         private static Result Send(SerialPort port, string message)
         {
@@ -185,19 +242,23 @@ namespace LibDevicesManager
                     //ExceptionMessage = "Ошибка времени получения пакета. " + ex.Message;
                     return "Ошибка времени получения пакета";
                 }
+                catch (InvalidOperationException ex)
+                {
+                    return "InvalidOperationException";
+                }
             }
             return receivedMessage;
         }
-        private static Result SetupPortDS360(SerialPort port)
+        private static Result SetupPort(SerialPort port)
         {
             try
             {
-                port.BaudRate = 9600;
-                port.Parity = Parity.None;
-                port.StopBits = StopBits.Two;
-                port.DtrEnable = true;
-                port.ReadTimeout = 100;
-                port.WriteTimeout = 100;
+                port.BaudRate = baudRate;
+                port.Parity = parity;
+                port.StopBits = stopBits;
+                port.DtrEnable = dtrEnable;
+                port.ReadTimeout = readTimeout;
+                port.WriteTimeout = writeTimeout;
                 return Result.Success;
             }
             catch (IOException ex)
@@ -205,113 +266,70 @@ namespace LibDevicesManager
                 return Result.Exception;
             }
         }
-        private static Result SetupPortDS360Emulator(SerialPort port)
+        private static void SetupPortDS360()
         {
-            try
-            {
-                port.BaudRate = 9600;
-                port.Parity = Parity.None;
-                port.StopBits = StopBits.One;
-                port.DtrEnable = true;
-                port.ReadTimeout = 100;
-                port.WriteTimeout = 100;
-                return Result.Success;
-            }
-            catch (IOException ex)
-            {
-                return Result.Exception;
-            }
+            baudRate = 9600;
+            parity = Parity.None;
+            stopBits = StopBits.Two;
+            dtrEnable = true;
+            readTimeout = 100;
+            writeTimeout = 100;
+        }
+        private static void SetupPortDS360Emulator()
+        {
+            baudRate = 9600;
+            parity = Parity.None;
+            stopBits = StopBits.One;
+            dtrEnable = true;
+            readTimeout = 100;
+            writeTimeout = 100;
         }
         private static Result IsComPortDS360(string portName)
         {
             Result result = Result.Success;
-            SerialPort port = new SerialPort();
-            result = PortOpen(portName, out port);
-            /*
-            if (!IsPortNameCorrect(portName))
-            {
-                return Result.ParamError;
-            }
-
-            if (SetupPortDS360(port) != Result.Success)
-            {
-                return Result.Exception;
-            }
-            try
-            {
-                port.Open();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                result = Result.AcsessError;
-            }
-            catch (IOException ex)
-            {
-                result = Result.Exception;
-            }
-            catch (InvalidOperationException ex)
-            {
-                result = Result.Exception;
-            }
-            */
+            SetupPortDS360();
+            result = PortOpen(portName, out SerialPort port);
             if (result != Result.Success)
             {
                 port.Dispose();
                 return result;
             }
-            //
             result = Send(port, "*IDN?");
             if (result == Result.Success)
             {
                 string receivedMessage = Receive(port);
-                //Console.WriteLine(receivedMessage);
                 if (!receivedMessage.Contains("DS360"))
                 {
+                    PortClose(port);
                     result = Result.Failure;
+                    return result;
                 }
             }
-            try
-            {
-                port.Close();
-            }
-            catch (IOException ex) { } //ToNEXT: возможно надо обработать
+            result = PortClose(port);
             return result;
         }
-        public static Result PortOpen(string portName, out SerialPort port)
+        private static Result IsComPortDS360Emulator(string portName)
         {
             Result result = Result.Success;
-            port = new SerialPort();
-            int portNumber = GetPortNumberFromPortName(portName);
-            if (portNumber == 0)
-            {
-                return Result.ParamError;
-            }
-            string comPortName = "COM" + portNumber;
-            port.PortName = comPortName;
-            if (SetupPortDS360(port) != Result.Success)
-            {
-                return Result.Exception;
-            }
-            try
-            {
-                port.Open();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                result = Result.AcsessError;
-            }
-            catch (IOException ex)
-            {
-                result = Result.Exception;
-            }
-            catch (InvalidOperationException ex)
-            {
-                result = Result.Exception;
-            }
+            SetupPortDS360Emulator();
+            result = PortOpen(portName, out SerialPort port);
             if (result != Result.Success)
             {
-                //port.Dispose();
+                port.Dispose();
+                return result;
             }
+            result = Send(port, "*IDN?");
+            if (result == Result.Success)
+            {
+                string receivedMessage = Receive(port);
+                if (!receivedMessage.Contains("emu"))
+                {
+                    PortClose(port);
+                    result = Result.Failure;
+                    return result;
+                }
+            }
+            result = PortClose(port);
             return result;
         }
         private static int GetPortNumberFromPortName(string portName)
@@ -334,67 +352,6 @@ namespace LibDevicesManager
             }
             Int32.TryParse(portName, out portNumber);
             return portNumber;
-        }
-        private static Result IsComPortDS360Emulator(string portName)
-        {
-
-            Result result = Result.Success;
-            if (!IsPortNameCorrect(portName))
-            {
-                return Result.ParamError;
-            }
-            SerialPort port = new SerialPort(portName);
-            result = SetupPortDS360Emulator(port);
-            if (result != Result.Success)
-            {
-                return Result.Exception;
-            }
-            try
-            {
-                port.Open();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                //Console.WriteLine(ex.Message);
-                result = Result.AcsessError;
-            }
-            catch (IOException ex)
-            {
-                result = Result.Exception;
-            }
-            catch (InvalidOperationException ex)
-            {
-                result = Result.Exception;
-            }
-            if (result != Result.Success)
-            {
-                port.Dispose();
-                return result;
-            }
-            result = Send(port, "*IDN?");
-            if (result == Result.Success)
-            {
-                string receivedMessage = Receive(port);
-                //Console.WriteLine(receivedMessage);             //ToDEL
-                if (!receivedMessage.Contains("emu"))
-                {
-                    result = Result.Failure;
-                    if (receivedMessage.Contains("Ошибка"))
-                    {
-                        result = Result.Exception;
-                    }
-                }
-            }
-            try
-            {
-                port.Close();
-            }
-            catch (IOException ex) //ToNEXT: возможно надо обработать
-            {
-                result = Result.Exception;
-                port.Dispose();
-            }
-            return result;
         }
         /*
         private static Result _Send(SerialPort port, string message)

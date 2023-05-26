@@ -48,16 +48,16 @@ namespace LibDevicesManager
             string number = string.Empty;
             char[] chars = portName.ToCharArray();
             int firstDigitPosition = 3;
-            int lastDigitPosition = 6;
-            if (lastDigitPosition < (chars.Length - 1))
+            int lastDigitPosition = 5;
+            if (lastDigitPosition > (chars.Length - 1))
             {
                 lastDigitPosition = chars.Length - 1;
             }
-            if (lastDigitPosition > firstDigitPosition) //Здесь проверить!
+            if (lastDigitPosition < firstDigitPosition) //Здесь проверить!
             {
                 return false;
             }
-            for (int i = firstDigitPosition-1; i< lastDigitPosition; i++)
+            for (int i = firstDigitPosition; i<= lastDigitPosition; i++)
             {
                 if (Char.IsDigit(chars[i]))
                 {

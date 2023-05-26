@@ -212,7 +212,7 @@ namespace LibDevicesManager
         private FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
         private double[] minVoltageRMSUnbalancedHiZ = new double[] { 4, 5, 3, 3 };
         private double[] maxVoltageRMSUnbalancedHiZ = new double[] { 14.14, 20.00, 14.14, 14.14 };
-        private const double minVoltagePikUnbalancedHiZ = 0.00005;
+        private const double minVoltagePikUnbalancedHiZ = 0.000005;
         private const double maxVoltagePikUnbalancedHiZ = 20;
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
@@ -500,14 +500,14 @@ namespace LibDevicesManager
                 return result;
             }
             double absOffset = Math.Abs(Offset);
-            double maxOffset = maxVoltagePikUnbalancedHiZ - amplitudePik;
-            if (maxOffset > 200 * amplitudePik)
+            double maxOffset = Math.Abs(maxVoltagePikUnbalancedHiZ - amplitudePik);
+            if (maxOffset > 200 * Math.Abs(amplitudePik))
             {
-                maxOffset = 200 * amplitudePik;
+                maxOffset = 200 * Math.Abs(amplitudePik);
             }
             if (absOffset > (maxOffset))
             {
-                resultMessage += $"\nПри заданной амплитуде абсолютное значение смещения сигнала не может превышать {maxOffset} Вольт";
+                resultMessage += $"\nПри заданной амплитуде абсолютное значение смещения сигнала не может превышать {AgRoundToDouble(maxOffset, 3, 6)} В";
                 result = Result.ParamError;
             }
             return result;
@@ -524,7 +524,7 @@ namespace LibDevicesManager
             {
                 if (amplitudePik > maxVoltagePikUnbalancedHiZ || amplitudePik < minVoltagePikUnbalancedHiZ)
                 {
-                    resultMessage += $"\nАмплитуда сигнала (ПИК) должна быть в пределах {maxVoltagePikUnbalancedHiZ} ... {minVoltagePikUnbalancedHiZ} Вольт";
+                    resultMessage += $"\nАмплитуда сигнала (ПИК) должна быть в пределах {minVoltagePikUnbalancedHiZ:F6} ... {maxVoltagePikUnbalancedHiZ} В";
                     result = Result.ParamError;
                 }
             }
@@ -542,13 +542,11 @@ namespace LibDevicesManager
             {
                 result = Result.ParamError;
             }
-            /* Найти ошибку
             if (!ComPort.IsPortNameCorrect(ComPortName))
             {
                 resultMessage += "\nЗадано некорректное имя Com-порта";
                 result = Result.ParamError;
             }
-            */
             if (result == Result.Success)
             {
                 resultMessage = "\nВсе парараметры корректны";

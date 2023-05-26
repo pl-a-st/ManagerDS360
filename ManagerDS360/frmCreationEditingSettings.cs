@@ -448,9 +448,9 @@ namespace ManagerDS360
             //AAS: эту часть заполнять из формы. (для тестирования ввёл вручную)
             setting.ComPortName = "COM5: ";
             setting.FunctionType = FunctionType.Sine;
-            setting.Frequency = 2000000;
+            setting.Frequency = 200001;
             setting.AmplitudeRMS = 21;
-            setting.Offset = -1;
+            setting.Offset = -10;
             //
             Result sendingResult = setting.SendDS360Setting();
             //

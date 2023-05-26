@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace LibDevicesManager
 {
@@ -57,7 +58,7 @@ namespace LibDevicesManager
             {
                 return false;
             }
-            for (int i = firstDigitPosition; i<= lastDigitPosition; i++)
+            for (int i = firstDigitPosition; i <= lastDigitPosition; i++)
             {
                 if (Char.IsDigit(chars[i]))
                 {
@@ -168,33 +169,6 @@ namespace LibDevicesManager
             }
             return Result.AcsessError;
         }
-        /*
-        private static Result _Send(SerialPort port, string message)
-        {
-            if (message == null)
-            {
-                return Result.ParamError;
-            }
-            if (port != null && port.IsOpen)
-            {
-                message += "\n";
-                char[] chars = message.ToCharArray();
-                try
-                {
-                    //port.WriteLine(message);
-                    port.Write(chars, 0, chars.Length);
-                    return Result.Success;
-                }
-                catch (TimeoutException ex)
-                {
-                    //Обработать ошибку передачи
-                    //ExceptionMessage = "Ошибка времени отправки пакета. " + ex.Message;
-                    return Result.Exception;
-                }
-            }
-            return Result.AcsessError;
-        }
-        */
         private static string Receive(SerialPort port)
         {
             string receivedMessage = string.Empty;
@@ -214,36 +188,6 @@ namespace LibDevicesManager
             }
             return receivedMessage;
         }
-        /*
-        private static string _Receive(SerialPort port)
-        {
-            string receivedMessage = string.Empty;
-            char charToRead;
-            if (port != null && port.IsOpen)
-            {
-                try
-                {
-                    //receivedMessage = port.ReadLine();
-                    //receivedMessage = port.ReadExisting();
-                    while (port.BytesToRead> 0)
-                    {
-                        charToRead = (char)port.ReadChar();
-                        if (charToRead == '\n')
-                        {
-                            return receivedMessage;
-                        }
-                        receivedMessage += charToRead;
-                    }
-                }
-                catch (TimeoutException ex)
-                {
-                    //ExceptionMessage = "Ошибка времени получения пакета. " + ex.Message;
-                    return "Ошибка времени получения пакета";
-                }
-            }
-            return receivedMessage;
-        }
-        */
         private static Result SetupPortDS360(SerialPort port)
         {
             try
@@ -261,7 +205,6 @@ namespace LibDevicesManager
                 return Result.Exception;
             }
         }
-
         private static Result SetupPortDS360Emulator(SerialPort port)
         {
             try
@@ -282,11 +225,69 @@ namespace LibDevicesManager
         private static Result IsComPortDS360(string portName)
         {
             Result result = Result.Success;
+            SerialPort port = new SerialPort();
+            result = PortOpen(portName, out port);
+            /*
             if (!IsPortNameCorrect(portName))
             {
                 return Result.ParamError;
             }
-            SerialPort port = new SerialPort(portName);
+
+            if (SetupPortDS360(port) != Result.Success)
+            {
+                return Result.Exception;
+            }
+            try
+            {
+                port.Open();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                result = Result.AcsessError;
+            }
+            catch (IOException ex)
+            {
+                result = Result.Exception;
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = Result.Exception;
+            }
+            */
+            if (result != Result.Success)
+            {
+                port.Dispose();
+                return result;
+            }
+            //
+            result = Send(port, "*IDN?");
+            if (result == Result.Success)
+            {
+                string receivedMessage = Receive(port);
+                //Console.WriteLine(receivedMessage);
+                if (!receivedMessage.Contains("DS360"))
+                {
+                    result = Result.Failure;
+                }
+            }
+            try
+            {
+                port.Close();
+            }
+            catch (IOException ex) { } //ToNEXT: возможно надо обработать
+            return result;
+        }
+        public static Result PortOpen(string portName, out SerialPort port)
+        {
+            Result result = Result.Success;
+            port = new SerialPort();
+            int portNumber = GetPortNumberFromPortName(portName);
+            if (portNumber == 0)
+            {
+                return Result.ParamError;
+            }
+            string comPortName = "COM" + portNumber;
+            port.PortName = comPortName;
             if (SetupPortDS360(port) != Result.Success)
             {
                 return Result.Exception;
@@ -309,25 +310,30 @@ namespace LibDevicesManager
             }
             if (result != Result.Success)
             {
-                port.Dispose();
-                return result;
+                //port.Dispose();
             }
-            result = Send(port, "*IDN?");
-            if (result == Result.Success)
-            {
-                string receivedMessage = Receive(port);
-                //Console.WriteLine(receivedMessage);
-                if (!receivedMessage.Contains("DS360"))
-                {
-                    result = Result.Failure;
-                }
-            }
-            try
-            {
-                port.Close();
-            }
-            catch (IOException ex) { } //ToNEXT: возможно надо обработать
             return result;
+        }
+        private static int GetPortNumberFromPortName(string portName)
+        {
+            int portNumber = 0;
+            if (!IsPortNameCorrect(portName))
+            {
+                return portNumber;
+            }
+            int firstDigitPosition = 3;
+            int numberDigits = 3;
+            if (firstDigitPosition + numberDigits > (portName.Length - 1))
+            {
+                numberDigits = portName.Length - firstDigitPosition;
+            }
+            portName = portName.Substring(firstDigitPosition, numberDigits);
+            while (!Char.IsDigit(portName[portName.Length - 1]))
+            {
+                portName = portName.Substring(0, portName.Length - 1);
+            }
+            Int32.TryParse(portName, out portNumber);
+            return portNumber;
         }
         private static Result IsComPortDS360Emulator(string portName)
         {
@@ -390,5 +396,62 @@ namespace LibDevicesManager
             }
             return result;
         }
+        /*
+        private static Result _Send(SerialPort port, string message)
+        {
+            if (message == null)
+            {
+                return Result.ParamError;
+            }
+            if (port != null && port.IsOpen)
+            {
+                message += "\n";
+                char[] chars = message.ToCharArray();
+                try
+                {
+                    //port.WriteLine(message);
+                    port.Write(chars, 0, chars.Length);
+                    return Result.Success;
+                }
+                catch (TimeoutException ex)
+                {
+                    //Обработать ошибку передачи
+                    //ExceptionMessage = "Ошибка времени отправки пакета. " + ex.Message;
+                    return Result.Exception;
+                }
+            }
+            return Result.AcsessError;
+        }
+        */
+        /*
+        private static string _Receive(SerialPort port)
+        {
+            string receivedMessage = string.Empty;
+            char charToRead;
+            if (port != null && port.IsOpen)
+            {
+                try
+                {
+                    //receivedMessage = port.ReadLine();
+                    //receivedMessage = port.ReadExisting();
+                    while (port.BytesToRead> 0)
+                    {
+                        charToRead = (char)port.ReadChar();
+                        if (charToRead == '\n')
+                        {
+                            return receivedMessage;
+                        }
+                        receivedMessage += charToRead;
+                    }
+                }
+                catch (TimeoutException ex)
+                {
+                    //ExceptionMessage = "Ошибка времени получения пакета. " + ex.Message;
+                    return "Ошибка времени получения пакета";
+                }
+            }
+            return receivedMessage;
+        }
+        */
     }
 }

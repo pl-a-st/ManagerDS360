@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibDevicesManager;
 
-namespace ManagerDS360 {
-    public partial class frmManagerDS360 : Form 
+namespace ManagerDS360
+{
+    public partial class frmManagerDS360 : Form
     {
-        public frmManagerDS360() 
+        public frmManagerDS360()
         {
             InitializeComponent();
             //lblDefaultGenerator.Text = nameGenerator;
@@ -92,12 +93,13 @@ namespace ManagerDS360 {
          "О программе",
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,
-          MessageBoxDefaultButton.Button1,
-          MessageBoxOptions.DefaultDesktopOnly);
+          MessageBoxDefaultButton.Button1);
+            //MessageBoxDefaultButton.Button1,
+            //MessageBoxOptions.DefaultDesktopOnly);
         }
 
-     
-    
+
+
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
             //загрузить выпадающий список сохранённых маршрутов из листа

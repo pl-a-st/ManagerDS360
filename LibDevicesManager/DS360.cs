@@ -537,6 +537,7 @@ namespace LibDevicesManager
         }
         public Result CheckDS360Setting()
         {
+            resultMessage = string.Empty;
             Result result = CheckFrequency();
             if (CheckVoltage() != Result.Success)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -205,13 +206,13 @@ namespace LibDevicesManager
         private OutputImpedance outputImpedance;
         private string resultMessage;
         // Верин: Очень похоже на глобальные константы, точно можно вынести в приватные поля класса
-        private double frequencyMin = 0.01;
-        private double frequencyMax = 200 * 1000;
-        private double frequencyBMin = 0.1;
-        private double frequencyBMax = 5 * 1000;
-        private FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
-        private double[] minVoltageRMSUnbalancedHiZ = new double[] { 4, 5, 3, 3 };
-        private double[] maxVoltageRMSUnbalancedHiZ = new double[] { 14.14, 20.00, 14.14, 14.14 };
+        private const double frequencyMin = 0.01;
+        private const double frequencyMax = 200 * 1000;
+        private const double frequencyBMin = 0.1;
+        private const double frequencyBMax = 5 * 1000;
+        //private FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
+        //private double[] minVoltageRMSUnbalancedHiZ = new double[] { 4, 5, 3, 3 };
+        //private double[] maxVoltageRMSUnbalancedHiZ = new double[] { 14.14, 20.00, 14.14, 14.14 };
         private const double minVoltagePikUnbalancedHiZ = 0.000005;
         private const double maxVoltagePikUnbalancedHiZ = 20;
         private const double minTwoToneRatio = 0.001;
@@ -604,10 +605,68 @@ namespace LibDevicesManager
         private string GetSerialNumber()
         {
             string serialNumber = string.Empty;
+            SerialPort port;
             //...
             return serialNumber;
         }
-
+        public string GetIdentificationString()
+        {
+            string identificationString = string.Empty;
+            string command = "*IDN?";
+            Result result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            identificationString = ReceiveMessageFromeDS360(port);
+            ComPort.PortClose(port);
+            return identificationString;
+        }
+        private Result SendCommandToDS360(SerialPort port, string command)
+        {
+            Result result = Result.Failure;
+            if (port == null || !port.IsOpen)
+            {
+                return Result.ParamError;
+            }
+            result = ComPort.Send(port, command);
+            return result;
+        }
+        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue)
+        {
+            Result result = Result.Failure;
+            if (port == null || !port.IsOpen)
+            {
+                return Result.ParamError;
+            }
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            string receivedMessage = ComPort.Receive(port);
+            if (receivedMessage != checkValue)
+            {
+                result = Result.Failure;
+            }
+            return result;
+        }
+        private string ReceiveMessageFromeDS360(SerialPort port)
+        {
+            if (port == null || !port.IsOpen)
+            {
+                return string.Empty;
+            }
+            string receivedMessage = ComPort.Receive(port);
+            return receivedMessage;
+        }
         #region SetGeneratorsSetting
         private void SendFrequency(double frequency)
         {

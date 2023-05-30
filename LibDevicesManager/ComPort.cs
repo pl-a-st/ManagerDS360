@@ -203,7 +203,7 @@ namespace LibDevicesManager
             }
             return result;
         }
-        private static Result Send(SerialPort port, string message)
+        public static Result Send(SerialPort port, string message)
         {
             if (message == null)
             {
@@ -226,7 +226,7 @@ namespace LibDevicesManager
             }
             return Result.AcsessError;
         }
-        private static string Receive(SerialPort port)
+        public static string Receive(SerialPort port)
         {
             string receivedMessage = string.Empty;
             if (port != null && port.IsOpen)

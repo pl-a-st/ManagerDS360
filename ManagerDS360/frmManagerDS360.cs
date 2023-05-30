@@ -96,6 +96,13 @@ namespace ManagerDS360
           MessageBoxDefaultButton.Button1);
             //MessageBoxDefaultButton.Button1,
             //MessageBoxOptions.DefaultDesktopOnly);
+
+            //Эту часть кода ААС использует для тестирования библиотеки
+
+            DS360Setting generator = new DS360Setting();
+            generator.ComPortName = "COM5";
+            string str = generator.GetIdentificationString();
+            MessageBox.Show(str, "", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
 

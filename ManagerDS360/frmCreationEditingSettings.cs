@@ -168,26 +168,28 @@ namespace ManagerDS360
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclToTone(txtValue, cboDetector);
+                SetVibroCalclToTone(txtValue, cboDetector,txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-                SetVibroCalclToTone(txtValue2, cboDetector2);
+                SetVibroCalclToTone(txtValue2, cboDetector2, txtFrequency2);
                 DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.SineSquare;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclToTone(txtValue, cboDetector);
+                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
+
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
+                DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус)
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
-                SetVibroCalclToTone(txtValue, cboDetector);
+                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Квадрат)
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
@@ -233,26 +235,26 @@ namespace ManagerDS360
             return value1;
         }
 
-        internal void SetVibroCalclToTone(TextBox txt, ComboBox cboDet)
+        internal void SetVibroCalclToTone(TextBox txtVal, ComboBox cboDet, TextBox txtFreq)
         {
-            VibroCalc.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
+            VibroCalc.Frequency.Set_Hz(double.Parse(txtFreq.Text));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
 
             if (cboSetValue.Text == @"мм / с")
             {
-                VibroCalc.CalcAll(new Velocity(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                VibroCalc.CalcAll(new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"мкм")
             {
-                VibroCalc.CalcAll(new Displacement(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                VibroCalc.CalcAll(new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"м/с2")
             {
-                VibroCalc.CalcAll(new Acceleration(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                VibroCalc.CalcAll(new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"U")
             {
-                VibroCalc.CalcAll(new Voltage(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                VibroCalc.CalcAll(new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
 
         }

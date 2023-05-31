@@ -123,6 +123,7 @@ namespace ManagerDS360
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
+            editingSettings.Text = "Конструирование настройки";
             editingSettings.ShowDialog();
 
             //TreeNode treeNode = new TreeNode();

@@ -30,11 +30,13 @@ namespace ManagerDS360
             cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
             cboListComPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cboListComPorts.SelectedIndex = 0;
+
         }
 
         internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
             //комбобокс с выбором вариантов
+
         }
 
         private void butFindGenerator_Click(object sender, EventArgs e)
@@ -46,7 +48,9 @@ namespace ManagerDS360
         {
             //сохранить выбранный генератор как по умолчанию и отправить имя на главную страницу в лейбл 
             frmManagerDS360 frmManagerDS360 = new frmManagerDS360();
-            frmManagerDS360.lblDefaultGenerator.Text = Convert.ToString(cboListComPorts.SelectedItem);
+
+            string nameGen = cboListComPorts.SelectedItem.ToString();
+            frmManagerDS360.lblDefaultGenerator.Text = nameGen;
             Close();
         }
 

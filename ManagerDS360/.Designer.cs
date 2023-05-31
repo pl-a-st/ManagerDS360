@@ -41,6 +41,7 @@ namespace ManagerDS360 {
             // 
             // butBroadcastSettingsGenerator
             // 
+            this.butBroadcastSettingsGenerator.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butBroadcastSettingsGenerator.Location = new System.Drawing.Point(12, 151);
             this.butBroadcastSettingsGenerator.Name = "butBroadcastSettingsGenerator";
             this.butBroadcastSettingsGenerator.Size = new System.Drawing.Size(222, 31);
@@ -51,6 +52,7 @@ namespace ManagerDS360 {
             // 
             // butNextSetup
             // 
+            this.butNextSetup.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butNextSetup.Location = new System.Drawing.Point(12, 226);
             this.butNextSetup.Name = "butNextSetup";
             this.butNextSetup.Size = new System.Drawing.Size(222, 31);
@@ -61,6 +63,7 @@ namespace ManagerDS360 {
             // 
             // butDefaultGenerator
             // 
+            this.butDefaultGenerator.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butDefaultGenerator.Location = new System.Drawing.Point(12, 42);
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(222, 31);
@@ -73,16 +76,17 @@ namespace ManagerDS360 {
             // 
             this.lstRouteSettings.Location = new System.Drawing.Point(254, 42);
             this.lstRouteSettings.Name = "lstRouteSettings";
-            this.lstRouteSettings.Size = new System.Drawing.Size(539, 515);
+            this.lstRouteSettings.Size = new System.Drawing.Size(549, 515);
             this.lstRouteSettings.TabIndex = 3;
             this.lstRouteSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.lstRouteSettings_AfterSelect);
             // 
             // lblRoute
             // 
             this.lblRoute.AutoSize = true;
-            this.lblRoute.Location = new System.Drawing.Point(254, 26);
+            this.lblRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRoute.Location = new System.Drawing.Point(484, 21);
             this.lblRoute.Name = "lblRoute";
-            this.lblRoute.Size = new System.Drawing.Size(52, 13);
+            this.lblRoute.Size = new System.Drawing.Size(66, 14);
             this.lblRoute.TabIndex = 4;
             this.lblRoute.Text = "Маршрут";
             this.lblRoute.Click += new System.EventHandler(this.lblRoute_Click);
@@ -90,7 +94,7 @@ namespace ManagerDS360 {
             // cboSavedRoutes
             // 
             this.cboSavedRoutes.FormattingEnabled = true;
-            this.cboSavedRoutes.Location = new System.Drawing.Point(809, 42);
+            this.cboSavedRoutes.Location = new System.Drawing.Point(821, 42);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
             this.cboSavedRoutes.Size = new System.Drawing.Size(186, 21);
             this.cboSavedRoutes.TabIndex = 6;
@@ -99,15 +103,17 @@ namespace ManagerDS360 {
             // lblSavedRoutes
             // 
             this.lblSavedRoutes.AutoSize = true;
-            this.lblSavedRoutes.Location = new System.Drawing.Point(806, 26);
+            this.lblSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSavedRoutes.Location = new System.Drawing.Point(831, 21);
             this.lblSavedRoutes.Name = "lblSavedRoutes";
-            this.lblSavedRoutes.Size = new System.Drawing.Size(130, 13);
+            this.lblSavedRoutes.Size = new System.Drawing.Size(166, 14);
             this.lblSavedRoutes.TabIndex = 7;
             this.lblSavedRoutes.Text = "Сохраненные маршруты";
             this.lblSavedRoutes.Click += new System.EventHandler(this.lblSavedRoutes_Click);
             // 
             // butEditingRoute
             // 
+            this.butEditingRoute.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butEditingRoute.Location = new System.Drawing.Point(12, 279);
             this.butEditingRoute.Name = "butEditingRoute";
             this.butEditingRoute.Size = new System.Drawing.Size(222, 31);
@@ -118,6 +124,7 @@ namespace ManagerDS360 {
             // 
             // butGeneratorControl
             // 
+            this.butGeneratorControl.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butGeneratorControl.Location = new System.Drawing.Point(12, 91);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(222, 31);
@@ -128,23 +135,27 @@ namespace ManagerDS360 {
             // 
             // sbrVerticalFieldКouteЕree
             // 
-            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(774, 43);
+            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(784, 43);
             this.sbrVerticalFieldКouteЕree.Name = "sbrVerticalFieldКouteЕree";
-            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(18, 494);
+            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(19, 494);
             this.sbrVerticalFieldКouteЕree.TabIndex = 10;
+            this.sbrVerticalFieldКouteЕree.Visible = false;
             this.sbrVerticalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrVerticalFieldКouteЕree_Scroll);
             // 
             // sbrHorizontalFieldКouteЕree
             // 
             this.sbrHorizontalFieldКouteЕree.Location = new System.Drawing.Point(255, 537);
             this.sbrHorizontalFieldКouteЕree.Name = "sbrHorizontalFieldКouteЕree";
-            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(537, 18);
+            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(548, 20);
             this.sbrHorizontalFieldКouteЕree.TabIndex = 11;
+            this.sbrHorizontalFieldКouteЕree.Visible = false;
             this.sbrHorizontalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrHorizontalFieldКouteЕree_Scroll);
             // 
             // butAboutProgram
             // 
+            this.butAboutProgram.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
             this.butAboutProgram.DialogResult = System.Windows.Forms.DialogResult.Ignore;
+            this.butAboutProgram.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.butAboutProgram.Location = new System.Drawing.Point(12, 589);
             this.butAboutProgram.Name = "butAboutProgram";
             this.butAboutProgram.Size = new System.Drawing.Size(157, 26);
@@ -156,9 +167,10 @@ namespace ManagerDS360 {
             // lblDefaultGenerator
             // 
             this.lblDefaultGenerator.AutoSize = true;
-            this.lblDefaultGenerator.Location = new System.Drawing.Point(9, 9);
+            this.lblDefaultGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblDefaultGenerator.Location = new System.Drawing.Point(35, 20);
             this.lblDefaultGenerator.Name = "lblDefaultGenerator";
-            this.lblDefaultGenerator.Size = new System.Drawing.Size(134, 13);
+            this.lblDefaultGenerator.Size = new System.Drawing.Size(174, 14);
             this.lblDefaultGenerator.TabIndex = 14;
             this.lblDefaultGenerator.Text = "Генератор по умолчанию";
             this.lblDefaultGenerator.Click += new System.EventHandler(this.lblDefaultGenerator_Click);
@@ -167,7 +179,8 @@ namespace ManagerDS360 {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 627);
+            this.BackgroundImage = global::ManagerDS360.Properties.Resources.kletka_siniy_razmetka;
+            this.ClientSize = new System.Drawing.Size(1020, 627);
             this.Controls.Add(this.lblDefaultGenerator);
             this.Controls.Add(this.butAboutProgram);
             this.Controls.Add(this.sbrHorizontalFieldКouteЕree);
@@ -183,8 +196,8 @@ namespace ManagerDS360 {
             this.Controls.Add(this.butBroadcastSettingsGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1022, 666);
-            this.MinimumSize = new System.Drawing.Size(1022, 666);
+            this.MaximumSize = new System.Drawing.Size(1036, 666);
+            this.MinimumSize = new System.Drawing.Size(1036, 666);
             this.Name = "frmManagerDS360";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DS360";

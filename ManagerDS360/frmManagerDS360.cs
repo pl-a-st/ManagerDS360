@@ -82,6 +82,7 @@ namespace ManagerDS360
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Control;
+            editingSettings.Text = "Отправка шифровки в генератор";
             editingSettings.ShowDialog();
         }
 
@@ -95,7 +96,7 @@ namespace ManagerDS360
         {
             //появление messageBox
             MessageBox.Show(
-         "Мanager DS360. Версия ПО 0.003.\n  Год разработки - 2023. ",
+         "Мanager DS360. Версия ПО 0.004.\n  Год разработки - 2023.",
          "О программе",
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,
@@ -133,6 +134,7 @@ namespace ManagerDS360
             PushListBox();
             butBroadcastSettingsGenerator.Enabled = false;
             butNextSetup.Enabled = false;
+
         }
 
         private void PushListBox()

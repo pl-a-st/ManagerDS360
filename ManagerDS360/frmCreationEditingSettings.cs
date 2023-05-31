@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using VibroMath;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace ManagerDS360
 {
@@ -102,22 +103,11 @@ namespace ManagerDS360
 
         internal void InitializecboTypeSignal()
         {
-            ////добавление в комбобокс типов сигналов
-            //cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            ////cboTypeSignal.Items.AddRange(Enum.GetNames(typeof(FunctionType)));
-            ////cboTypeSignal.SelectedIndex = (int)FunctionType.Sine;
-
-            //string[] enumElements = Enum.GetNames(typeof(FunctionTypeSignal));
-            //foreach (var item in enumElements)
-            //{
-            //    cboTypeSignal.Items.Add(item.Replace("_", " - "));
-            //}
-            //cboTypeSignal.SelectedIndex = (int)FunctionTypeSignal.Синус;
-
+            //добавление в комбобокс типов сигналов
+            cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
             ////строку в Енам
             //Enum.Parse(typeof(Race), cBxRace.Text, true);
 
-            ////преобр в комбобокс
             foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
             {
                 cboTypeSignal.Items.Add(TypeSignalToString(element));
@@ -130,20 +120,19 @@ namespace ManagerDS360
             return ((FunctionTypeSignal)element).ToString().Replace("_", " - ");
         }
 
-
         internal void InitializecboSetValue()
         {
             //добавление в комбобокс физ.величин
-            cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-
-            //cboSetValue.Items.AddRange(Enum.GetNames(typeof(PhysicalQuantity)));
-
-            string[] enumElements = Enum.GetNames(typeof(PhysicalQuantity));
-            foreach (var item in enumElements)
+            cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
+            foreach (int element in Enum.GetValues(typeof(PhysicalQuantity)))
             {
-                cboSetValue.Items.Add(item.Replace("_", "/"));
+                cboSetValue.Items.Add(SetValueToString(element));
             }
-            cboSetValue.SelectedIndex = (int)PhysicalQuantity.U;
+            cboSetValue.SelectedIndex = 0;
+        }
+        private static string SetValueToString(int element)
+        {
+            return ((PhysicalQuantity)element).ToString().Replace("_", " / ");
         }
 
         internal void butSave_Click(object sender, EventArgs e)
@@ -174,14 +163,9 @@ namespace ManagerDS360
 
 
 
-
-
-
-
-            ////синхрон Енам
+            //синхрон Енам
             //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
 
-            //ветви для приёма значений
             //ветка для двух тонов
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус)
             {
@@ -195,17 +179,23 @@ namespace ManagerDS360
             }
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
-
+            //DS360Setting.ComPortName = portName;
             SetVibroCalcl();
             DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
 
-            //else //ветка для одного тона
-            //{
+            //ветка для одного тона
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус)
+            {
+                DS360Setting.FunctionType = FunctionType.Sine;
 
-            //    if (chcDefaultGenerator.Checked)
-            //    {
-            //        //DS360Setting = new DS360Setting(functionType, amplitudeRMS_A(voltage), frequency_A, offset);
-            //    }
+            }
+            if ((FunctionTypeSignal) Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Квадрат)
+            {
+                DS360Setting.FunctionType = FunctionType.Square;
+            }
+
+          
+
 
             //    if (!chcDefaultGenerator.Checked)
             //    {
@@ -232,7 +222,7 @@ namespace ManagerDS360
             this.Close();
         }
 
-        private void SetVibroCalcl()
+        internal void SetVibroCalcl()
         {
 
             VibroCalc.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
@@ -242,8 +232,19 @@ namespace ManagerDS360
             {
                 VibroCalc.CalcAll(new Velocity(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
             }
-            
-            
+            if (cboSetValue.Text == @"мкм")
+            {
+                VibroCalc.CalcAll(new Displacement(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+            }
+            if (cboSetValue.Text == @"м/с2")
+            {
+                VibroCalc.CalcAll(new Acceleration(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+            }
+            if (cboSetValue.Text == @"U")
+            {
+                VibroCalc.CalcAll(new Voltage(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+            }
+
         }
 
         private Result CheckFormsParameters()
@@ -283,11 +284,10 @@ namespace ManagerDS360
             return Result.Success;
         }
 
-        private bool IsTwoTone()
+        internal bool IsTwoTone()
         {
             return (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус
-                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат
-;
+                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат;
         }
 
         internal static void NewMethod(frmCreationEditingSettings editingSettings)
@@ -300,22 +300,22 @@ namespace ManagerDS360
         public void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
             //взять енам из ds360.сs FunctionType
-
             if (this.Type == Type.Control)
             {
-                butSave.Enabled = false;
-                butSend.Enabled = true;
+                butSave.Visible = false;
+                butSend.Visible = true;
+                butSend.Location = new Point(53, 404);
             }
             if (this.Type == Type.Change)
             {
-                butSave.Enabled = true;
-                butSend.Enabled = false;
+                butSave.Visible = true;
+                butSave.Location = new Point (53, 404) ;
+                butSend.Visible = false;
             }
 
             cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-
             chcDefaultGenerator.Checked = true;
         }
 
@@ -339,27 +339,14 @@ namespace ManagerDS360
 
         internal void cboTypeSignal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FunctionTypeSignal = FunctionTypeSignal.Квадрат;
+            //FunctionTypeSignal = FunctionTypeSignal.Квадрат;
             //FunctionTypeSignal = cboTypeSignal.SelectedIndex;
             //FunctionTypeSignal = typeof(cboTypeSignal.Items[cboTypeSignal.SelectedIndex].Replace("_", " - "));
             //if (cboTypeSignal.Items[cboTypeSignal.SelectedIndex] == FunctionTypeSignal.Синус||cboTypeSignal.SelectedItem == FunctionTypeSignal.Квадрат)
-            //вид сигнала!!!
-            //int index = cboTypeSignal.SelectedIndex;
-            //string str1 = cboTypeSignal.Items[index].ToString().Replace(" - ", "_");
+            //вид сигнала!
 
             //FunctionTypeSignal = FunctionTypeSignal[cboTypeSignal.SelectedIndex];
-            /*
-            if (FunctionTypeSignal == FunctionTypeSignal.Синус_Синус | FunctionTypeSignal == FunctionTypeSignal.Синус_Квадрат)
-            {
-                txtConversionFactor.Enabled = txtOffset.Enabled = false;
-                txtValue2.Enabled = txtFrequency2.Enabled = cboDetector2.Enabled = true;
-            }
-            if (FunctionTypeSignal == FunctionTypeSignal.Синус | this.FunctionTypeSignal == FunctionTypeSignal.Квадрат)
-            {
-                txtValue2.Enabled = txtFrequency2.Enabled = cboDetector2.Enabled = false;
-                txtConversionFactor.Enabled = txtOffset.Enabled = true;
-            }
-            */
+            
             string strSinSin = FunctionTypeSignal.Синус_Синус.ToString().Replace("_", " - ");
             if (cboTypeSignal.Text == strSinSin | cboTypeSignal.Text == "Синус - Квадрат")
             {
@@ -375,17 +362,14 @@ namespace ManagerDS360
 
         private void lblComPort_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblTypeSignal_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblSetValue_Click(object sender, EventArgs e)
         {
-
         }
 
         private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
@@ -395,7 +379,6 @@ namespace ManagerDS360
 
         private void lblConversionFactor_Click(object sender, EventArgs e)
         {
-
         }
 
         private void txtConversionFactor_TextChanged(object sender, EventArgs e)
@@ -412,12 +395,10 @@ namespace ManagerDS360
 
         private void lblFrequency_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblOffset_Click(object sender, EventArgs e)
         {
-
         }
 
         private void txtOffset_TextChanged(object sender, EventArgs e)
@@ -428,7 +409,6 @@ namespace ManagerDS360
 
         private void lblDetector_Click(object sender, EventArgs e)
         {
-
         }
 
         //private void txtDetector_TextChanged(object sender, EventArgs e)

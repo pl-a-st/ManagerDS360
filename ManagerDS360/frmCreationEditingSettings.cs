@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using VibroMath;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
@@ -160,41 +160,42 @@ namespace ManagerDS360
             {
                 return;
             }
-
-
-
             //синхрон Енам
             //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
 
             //ветка для двух тонов
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус)
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Синус)
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
+                SetVibroCalclToTone(txtValue, cboDetector);
+                DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
+                SetVibroCalclToTone(txtValue2, cboDetector2);
+                DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат)
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.SineSquare;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
+                SetVibroCalclToTone(txtValue, cboDetector);
+                DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
+                DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
             }
-            DS360Setting.Frequency = double.Parse(txtFrequency.Text);
-            DS360Setting.Offset = double.Parse(txtOffset.Text);
-            //DS360Setting.ComPortName = portName;
-            SetVibroCalcl();
-            DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-
-            //ветка для одного тона
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
-
+                SetVibroCalclToTone(txtValue, cboDetector);
+                DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
-            if ((FunctionTypeSignal) Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Квадрат)
+            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
+                DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
+            DS360Setting.Frequency = double.Parse(txtFrequency.Text);
+            DS360Setting.Offset = double.Parse(txtOffset.Text);
 
-          
+
 
 
             //    if (!chcDefaultGenerator.Checked)
@@ -222,27 +223,36 @@ namespace ManagerDS360
             this.Close();
         }
 
-        internal void SetVibroCalcl()
+        private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
         {
+            double value1 = double.Parse(txt.Text);
+            if ((Detector)Enum.Parse(typeof(FunctionTypeSignal), cbo.Text, true) == Detector.Пик_пик)
+            {
+                value1 = value1 / 2;
+            }
+            return value1;
+        }
 
+        internal void SetVibroCalclToTone(TextBox txt, ComboBox cboDet)
+        {
             VibroCalc.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
-            
-            if (cboSetValue.Text == @"мм/с")
+
+            if (cboSetValue.Text == @"мм / с")
             {
-                VibroCalc.CalcAll(new Velocity(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+                VibroCalc.CalcAll(new Velocity(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"мкм")
             {
-                VibroCalc.CalcAll(new Displacement(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+                VibroCalc.CalcAll(new Displacement(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"м/с2")
             {
-                VibroCalc.CalcAll(new Acceleration(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+                VibroCalc.CalcAll(new Acceleration(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
             if (cboSetValue.Text == @"U")
             {
-                VibroCalc.CalcAll(new Voltage(double.Parse(txtValue.Text), (SignalParametrType)Detector.СКЗ));
+                VibroCalc.CalcAll(new Voltage(double.Parse(txt.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
 
         }
@@ -286,8 +296,8 @@ namespace ManagerDS360
 
         internal bool IsTwoTone()
         {
-            return (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Синус
-                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text, true) == FunctionTypeSignal.Синус_Квадрат;
+            return (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Синус
+                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Квадрат;
         }
 
         internal static void NewMethod(frmCreationEditingSettings editingSettings)
@@ -309,7 +319,7 @@ namespace ManagerDS360
             if (this.Type == Type.Change)
             {
                 butSave.Visible = true;
-                butSave.Location = new Point (53, 404) ;
+                butSave.Location = new Point(53, 404);
                 butSend.Visible = false;
             }
 
@@ -346,7 +356,7 @@ namespace ManagerDS360
             //вид сигнала!
 
             //FunctionTypeSignal = FunctionTypeSignal[cboTypeSignal.SelectedIndex];
-            
+
             string strSinSin = FunctionTypeSignal.Синус_Синус.ToString().Replace("_", " - ");
             if (cboTypeSignal.Text == strSinSin | cboTypeSignal.Text == "Синус - Квадрат")
             {

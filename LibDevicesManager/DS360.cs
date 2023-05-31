@@ -78,7 +78,13 @@ namespace LibDevicesManager
         }
         public DeviceModel Model { get { return DeviceModel.DS360; } }
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
-        public string SerialNumber { get; } //Прописать получение серийного номера
+        public string SerialNumber
+        {
+            get
+            {
+                return GetSerialNumber();
+            }
+        }
         public FunctionType FunctionType
         {
             get
@@ -194,7 +200,7 @@ namespace LibDevicesManager
         //
         private static string comPortDefaultName;
         private string comPortName;
-        private string serialNumber;
+        //private string serialNumber;
         private FunctionType functionType;
         //private ToneBFunctionType functionTypeB;
         private double amplitudeRMS;
@@ -560,15 +566,31 @@ namespace LibDevicesManager
             Result result = this.CheckDS360Setting();
             if (result != Result.Success)
             {
-                //resultMessage += "\nПараметры верны";
                 return result;
             }
             //Прописать отправку настроек
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.
-            //FunctionType = FunctionType.SineSine;
             resultMessage += "\nОтсутствует связь с генератором";
             return Result.Failure;
+        }
+        private Result SendFrequency(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(Frequency, 6, 2).ToString();
+            string command = "FREQ" + value;
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            command = "FREQ?";
+            string receivedValue = ReceiveMessageFromeDS360(port);
+            if (receivedValue != value)
+            {
+                result = Result.Failure;
+            }
+            return result;
         }
 
         private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)
@@ -604,9 +626,13 @@ namespace LibDevicesManager
         //Методы ниже перевести в приват
         private string GetSerialNumber()
         {
-            string serialNumber = string.Empty;
-            SerialPort port;
-            //...
+            string identificationString = GetIdentificationString();
+            if (identificationString == string.Empty && identificationString == null)
+            {
+                return string.Empty;
+            }
+            string[] subString = identificationString.Split(',');
+            string serialNumber = subString[2];
             return serialNumber;
         }
         public string GetIdentificationString()

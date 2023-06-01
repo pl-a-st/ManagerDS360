@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 //Тестовое обновление
 
 namespace LibDevicesManager
@@ -223,6 +224,7 @@ namespace LibDevicesManager
         private const double maxVoltagePikUnbalancedHiZ = 20;
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
+        private string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting()
@@ -563,16 +565,60 @@ namespace LibDevicesManager
         }
         public Result SendDS360Setting()
         {
-            Result result = this.CheckDS360Setting();
+            Result result = CheckDS360Setting();
             if (result != Result.Success)
             {
                 return result;
             }
+            result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\nОтсутствует связь с генератором";
+                return result;
+            }
+            result = SetOutputSignalEnable(port, false);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\n......."; //добавить описание ошибки
+                return result;
+            }
             //Прописать отправку настроек
+            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            {
+                result = SendDS360SettingForSingleSignale(port);
+            }
+            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            {
+
+            }
+
             //прописать считывание с генератора настроек и сравнение с переданными значениями
             //дать команду на включение сигнала.
-            resultMessage += "\nОтсутствует связь с генератором";
-            return Result.Failure;
+            //result = SetOutputSignalEnable(port, true);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\n......."; //добавить описание ошибки
+                return result;
+            }
+            ComPort.PortClose(port);
+
+            return result;
+        }
+        private Result SendDS360SettingForSingleSignale(SerialPort port)
+        {
+            Result result = Result.Failure;
+            result = SendFrequency(port);
+            return result;
+        }
+        private Result SendDS360SettingForTwoToneSignale(SerialPort port)
+        {
+            Result result = Result.Failure;
+            result = SendFrequency(port);
+            //...
+            return result;
         }
         private Result SendFrequency(SerialPort port)
         {
@@ -585,14 +631,69 @@ namespace LibDevicesManager
                 return result;
             }
             command = "FREQ?";
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
             string receivedValue = ReceiveMessageFromeDS360(port);
-            if (receivedValue != value)
+            DebugMessage(receivedValue, value);
+            if (!CompareValues(receivedValue, value))
             {
                 result = Result.Failure;
             }
             return result;
         }
+        private Result SetOutputSignalEnable(SerialPort port, bool outputEnable = true)
+        {
+            Result result = Result.Failure;
+            string value = "1";
+            if (outputEnable == false)
+            {
+                value = "0";
+            }
+            string command = "OUTE" + value;
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            command = "OUTE?";
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            string receivedValue = ReceiveMessageFromeDS360(port);
+            if (receivedValue != value)
+            {
+                result = Result.Failure;
+            }
 
+            return result;
+        }
+        private void DebugMessage(string str1, string str2)
+        {
+            MessageBox.Show(str1, str2, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+        private bool CompareValues(string value1, string value2)
+        {
+            value1 = value1.Replace(".", decimalSeparator);
+            value2 = value2.Replace(".", decimalSeparator);
+            if (!Double.TryParse(value1, out double double1))
+            {
+                return false;
+            }
+            if (!Double.TryParse(value1, out double double2))
+            {
+                return false;
+            }
+            if (double1 == double2)
+            {
+                return true;
+            }
+            return false;
+        }
         private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)
         {
             string resultString = string.Empty;
@@ -614,11 +715,13 @@ namespace LibDevicesManager
             {
                 resultString = Convert.ToString(res);
             }
+            resultString = resultString.Replace(',', '.');
             return resultString;
         }
         private static double AgRoundToDouble(double volume, int significantDigits, int maxDecimalPlaces)
         {
             string resultString = AgRoundTostring(volume, significantDigits, maxDecimalPlaces);
+            resultString = resultString.Replace(',', '.');
             Double.TryParse(resultString, out double result);
             return result;
         }
@@ -665,7 +768,7 @@ namespace LibDevicesManager
             result = ComPort.Send(port, command);
             return result;
         }
-        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue)
+        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue) //плохое решение
         {
             Result result = Result.Failure;
             if (port == null || !port.IsOpen)
@@ -691,6 +794,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             string receivedMessage = ComPort.Receive(port);
+            receivedMessage = receivedMessage.Substring(0,receivedMessage.Length - 1);
             return receivedMessage;
         }
         #region SetGeneratorsSetting

@@ -108,9 +108,11 @@ namespace ManagerDS360
 
             DS360Setting generator = new DS360Setting();
             generator.ComPortName = "COM5";
-            string str = generator.GetIdentificationString();
+            generator.Frequency = 199.5555;
+            generator.SendDS360Setting();
+            //string str = generator.GetIdentificationString();
             //string str2 = "S/n: " + generator.GetSerialNumber();
-            MessageBox.Show(str, "", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            //MessageBox.Show(str, "", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
 

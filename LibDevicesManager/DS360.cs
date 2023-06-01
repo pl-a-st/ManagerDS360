@@ -593,24 +593,36 @@ namespace LibDevicesManager
             {
 
             }
-
-            //прописать считывание с генератора настроек и сравнение с переданными значениями
-            //дать команду на включение сигнала.
-            //result = SetOutputSignalEnable(port, true);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
                 resultMessage += "\n......."; //добавить описание ошибки
                 return result;
             }
+            //result = SetOutputSignalEnable(port, true);
+            //дать команду на включение сигнала.
             ComPort.PortClose(port);
 
             return result;
         }
         private Result SendDS360SettingForSingleSignale(SerialPort port)
         {
-            Result result = Result.Failure;
-            result = SendFrequency(port);
+            Result result = Result.Success;
+            if (SendFunctionType(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи типа сигнала";
+            }
+            if (SendFrequency(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи частоты сигнала";
+            }
+            if (SendAmplitudeRMS(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи амплитуды сигнала";
+            }
             return result;
         }
         private Result SendDS360SettingForTwoToneSignale(SerialPort port)
@@ -623,25 +635,37 @@ namespace LibDevicesManager
         private Result SendFrequency(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 2).ToString();
+            string value = AgRoundTostring(Frequency, 6, 3); //TEST
             string command = "FREQ" + value;
-            result = SendCommandToDS360(port, command);
-            if (result != Result.Success)
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendFunctionType(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = string.Empty;
+            if (FunctionType == FunctionType.Sine)
             {
-                return result;
+                value = "0";
             }
-            command = "FREQ?";
-            result = SendCommandToDS360(port, command);
-            if (result != Result.Success)
+            if (FunctionType == FunctionType.Square)
             {
-                return result;
+                value = "1";
             }
-            string receivedValue = ReceiveMessageFromeDS360(port);
-            DebugMessage(receivedValue, value);
-            if (!CompareValues(receivedValue, value))
+            if (IsTwoToneSignal())
             {
-                result = Result.Failure;
+                value = "4";
             }
+            string command = "FUNC" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendAmplitudeRMS(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(AmplitudeRMS, 4, 6); //TEST
+            string command = "AMPL" + value + "VR";
+            result = SendOutputControlCommand(port, command);
             return result;
         }
         private Result SetOutputSignalEnable(SerialPort port, bool outputEnable = true)
@@ -653,23 +677,34 @@ namespace LibDevicesManager
                 value = "0";
             }
             string command = "OUTE" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendOutputControlCommand(SerialPort port, string command)
+        {
+            Result result = Result.Failure;
+            string value = command.Substring(4, command.Length - 4);
+            string query = command.Substring(0, 4) + "?";
+            if (query == "AMPL?")
+            {
+                query += "VR";
+                value = value.Substring(0, value.Length - 2);
+            }
             result = SendCommandToDS360(port, command);
             if (result != Result.Success)
             {
                 return result;
             }
-            command = "OUTE?";
-            result = SendCommandToDS360(port, command);
+            result = SendCommandToDS360(port, query);
             if (result != Result.Success)
             {
                 return result;
             }
             string receivedValue = ReceiveMessageFromeDS360(port);
-            if (receivedValue != value)
+            if (!CompareValues(receivedValue, value))
             {
                 result = Result.Failure;
             }
-
             return result;
         }
         private void DebugMessage(string str1, string str2)
@@ -684,7 +719,7 @@ namespace LibDevicesManager
             {
                 return false;
             }
-            if (!Double.TryParse(value1, out double double2))
+            if (!Double.TryParse(value2, out double double2))
             {
                 return false;
             }
@@ -794,7 +829,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             string receivedMessage = ComPort.Receive(port);
-            receivedMessage = receivedMessage.Substring(0,receivedMessage.Length - 1);
+            receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
             return receivedMessage;
         }
         #region SetGeneratorsSetting

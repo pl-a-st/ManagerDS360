@@ -224,7 +224,7 @@ namespace LibDevicesManager
         private const double maxVoltagePikUnbalancedHiZ = 20;
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
-        private string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+        private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting()
@@ -584,6 +584,7 @@ namespace LibDevicesManager
                 resultMessage += "\nОшибка передачи параметра в генератор";
                 return result;
             }
+            //Прописать выставление дефолтных настроек!!! (Unbalanced, Hi-Z и т.п.)
             //Прописать отправку настроек (до конца)
             if (IsSignalPeriodical() && !IsTwoToneSignal())
             {
@@ -591,7 +592,7 @@ namespace LibDevicesManager
             }
             if (IsSignalPeriodical() && IsTwoToneSignal())
             {
-
+                result = SendDS360SettingForTwoToneSignale(port);
             }
             if (result != Result.Success)
             {
@@ -680,43 +681,6 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
-        private string AgRoundOffsetTostring()
-        {
-            string value = AgRoundTostring(Offset, 3, 5);
-            string amplString = AgRoundTostring(AmplitudeRMS, 4, 6); //!ЗАМЕНИТЬ . на ,
-            AgTryParse(amplString, out double amplitude);
-            //Добавить перевод в ПИК
-            AgTryParse(value, out double offset);
-            if (amplitude + Math.Abs(offset) > 0.01259)
-            {
-                value = AgRoundTostring(offset, 3, 4);
-                AgTryParse(value, out offset);
-            }
-            if (amplitude + Math.Abs(offset) > 0.1259)
-            {
-                value = AgRoundTostring(offset, 3, 3);
-                AgTryParse(value, out offset);
-            }
-            if (amplitude + Math.Abs(offset) > 1.259)
-            {
-                value = AgRoundTostring(offset, 3, 2);
-                AgTryParse(value, out offset);
-            }
-            return value;
-        }
-        private bool AgTryParse(string stringValue, out double value)
-        {
-            if (double.TryParse(stringValue, out value))
-            {
-                return true;
-            }
-            stringValue = stringValue.Replace(".", decimalSeparator);
-            if (double.TryParse(stringValue, out value))
-            {
-                return true;
-            }
-            return false;
-        }
         private Result SetOutputSignalEnable(SerialPort port, bool outputEnable = true)
         {
             Result result = Result.Failure;
@@ -770,17 +734,30 @@ namespace LibDevicesManager
         }
         private bool CompareValues(string value1, string value2)
         {
-            value1 = value1.Replace(".", decimalSeparator);
-            value2 = value2.Replace(".", decimalSeparator);
-            if (!Double.TryParse(value1, out double double1))
+            //value1 = value1.Replace(".", decimalSeparator);
+            //value2 = value2.Replace(".", decimalSeparator);
+            if (!AgTryParse(value1, out double double1))
             {
                 return false;
             }
-            if (!Double.TryParse(value2, out double double2))
+            if (!AgTryParse(value2, out double double2))
             {
                 return false;
             }
             if (double1 == double2)
+            {
+                return true;
+            }
+            return false;
+        }
+        private static bool AgTryParse(string stringValue, out double value)
+        {
+            if (double.TryParse(stringValue, out value))
+            {
+                return true;
+            }
+            stringValue = stringValue.Replace(".", decimalSeparator);
+            if (double.TryParse(stringValue, out value))
             {
                 return true;
             }
@@ -810,13 +787,38 @@ namespace LibDevicesManager
             resultString = resultString.Replace(',', '.');
             return resultString;
         }
+        private string AgRoundOffsetTostring()
+        {
+            string value = AgRoundTostring(Offset, 3, 5);
+            double amplitudePik = GetPikSignal();
+            string amplString = AgRoundTostring(amplitudePik, 4, 6);
+            AgTryParse(amplString, out double amplitude);
+            AgTryParse(value, out double offset);
+            if (amplitude + Math.Abs(offset) > 0.01259)
+            {
+                value = AgRoundTostring(offset, 3, 4);
+                AgTryParse(value, out offset);
+            }
+            if (amplitude + Math.Abs(offset) > 0.1259)
+            {
+                value = AgRoundTostring(offset, 3, 3);
+                AgTryParse(value, out offset);
+            }
+            if (amplitude + Math.Abs(offset) > 1.259)
+            {
+                value = AgRoundTostring(offset, 3, 2);
+                AgTryParse(value, out offset);
+            }
+            return value;
+        }
         private static double AgRoundToDouble(double volume, int significantDigits, int maxDecimalPlaces)
         {
             string resultString = AgRoundTostring(volume, significantDigits, maxDecimalPlaces);
             resultString = resultString.Replace(',', '.');
-            Double.TryParse(resultString, out double result);
+            AgTryParse(resultString, out double result);
             return result;
         }
+
 
         //Методы ниже перевести в приват
         private string GetSerialNumber()
@@ -830,7 +832,7 @@ namespace LibDevicesManager
             string serialNumber = subString[2];
             return serialNumber;
         }
-        public string GetIdentificationString()
+        private string GetIdentificationString()
         {
             string identificationString = string.Empty;
             string command = "*IDN?";
@@ -860,25 +862,6 @@ namespace LibDevicesManager
             result = ComPort.Send(port, command);
             return result;
         }
-        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue) //плохое решение
-        {
-            Result result = Result.Failure;
-            if (port == null || !port.IsOpen)
-            {
-                return Result.ParamError;
-            }
-            result = SendCommandToDS360(port, command);
-            if (result != Result.Success)
-            {
-                return result;
-            }
-            string receivedMessage = ComPort.Receive(port);
-            if (receivedMessage != checkValue)
-            {
-                result = Result.Failure;
-            }
-            return result;
-        }
         private string ReceiveMessageFromeDS360(SerialPort port)
         {
             if (port == null || !port.IsOpen)
@@ -906,7 +889,27 @@ namespace LibDevicesManager
             return Result.Success;
         }
         #endregion SetGeneratorsSetting
+        #region UnUsed
 
+        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue) //плохое решение
+        {
+            Result result = Result.Failure;
+            if (port == null || !port.IsOpen)
+            {
+                return Result.ParamError;
+            }
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            string receivedMessage = ComPort.Receive(port);
+            if (receivedMessage != checkValue)
+            {
+                result = Result.Failure;
+            }
+            return result;
+        }
         private bool IsFrequencyCorrect(double value)
         {
             //Вписать округление до значащих?
@@ -917,7 +920,7 @@ namespace LibDevicesManager
             }
             return true;
         }
-        #region UnUsed
+
         private static string SetGeneratorsPortAsDefaultComPort()
         {
             string portName = string.Empty;

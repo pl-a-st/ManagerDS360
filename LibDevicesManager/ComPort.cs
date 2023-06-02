@@ -211,7 +211,7 @@ namespace LibDevicesManager
             }
             if (port != null && port.IsOpen)
             {
-                Thread.Sleep(300);
+                //Thread.Sleep(300);
                 try
                 {
                     port.WriteLine(message);
@@ -231,7 +231,7 @@ namespace LibDevicesManager
             string receivedMessage = string.Empty;
             if (port != null && port.IsOpen)
             {
-                Thread.Sleep(300);
+                //Thread.Sleep(300);
                 try
                 {
                     receivedMessage = port.ReadLine();

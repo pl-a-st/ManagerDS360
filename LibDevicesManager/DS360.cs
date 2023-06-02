@@ -581,28 +581,27 @@ namespace LibDevicesManager
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
-                resultMessage += "\n......."; //добавить описание ошибки
+                resultMessage += "\nОшибка передачи параметра в генератор";
                 return result;
             }
-            //Прописать отправку настроек
+            //Прописать отправку настроек (до конца)
             if (IsSignalPeriodical() && !IsTwoToneSignal())
             {
                 result = SendDS360SettingForSingleSignale(port);
             }
-            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            if (IsSignalPeriodical() && IsTwoToneSignal())
             {
 
             }
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
-                resultMessage += "\n......."; //добавить описание ошибки
+                resultMessage += "\nОшибка передачи параметра в генератор";
                 return result;
             }
             //result = SetOutputSignalEnable(port, true);
             //дать команду на включение сигнала.
             ComPort.PortClose(port);
-
             return result;
         }
         private Result SendDS360SettingForSingleSignale(SerialPort port)
@@ -623,6 +622,11 @@ namespace LibDevicesManager
                 result = Result.Failure;
                 resultMessage += "\nОшибка передачи амплитуды сигнала";
             }
+            if (SendOffset(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи смещения сигнала";
+            }
             return result;
         }
         private Result SendDS360SettingForTwoToneSignale(SerialPort port)
@@ -630,14 +634,6 @@ namespace LibDevicesManager
             Result result = Result.Failure;
             result = SendFrequency(port);
             //...
-            return result;
-        }
-        private Result SendFrequency(SerialPort port)
-        {
-            Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 3); //TEST
-            string command = "FREQ" + value;
-            result = SendOutputControlCommand(port, command);
             return result;
         }
         private Result SendFunctionType(SerialPort port)
@@ -660,13 +656,66 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
+        private Result SendFrequency(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(Frequency, 6, 3); //TEST
+            string command = "FREQ" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
         private Result SendAmplitudeRMS(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(AmplitudeRMS, 4, 6); //TEST
+            string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "AMPL" + value + "VR";
             result = SendOutputControlCommand(port, command);
             return result;
+        }
+        private Result SendOffset(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundOffsetTostring(); //TEST
+            string command = "OFFS" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private string AgRoundOffsetTostring()
+        {
+            string value = AgRoundTostring(Offset, 3, 5);
+            string amplString = AgRoundTostring(AmplitudeRMS, 4, 6); //!ЗАМЕНИТЬ . на ,
+            AgTryParse(amplString, out double amplitude);
+            //Добавить перевод в ПИК
+            AgTryParse(value, out double offset);
+            if (amplitude + Math.Abs(offset) > 0.01259)
+            {
+                value = AgRoundTostring(offset, 3, 4);
+                AgTryParse(value, out offset);
+            }
+            if (amplitude + Math.Abs(offset) > 0.1259)
+            {
+                value = AgRoundTostring(offset, 3, 3);
+                AgTryParse(value, out offset);
+            }
+            if (amplitude + Math.Abs(offset) > 1.259)
+            {
+                value = AgRoundTostring(offset, 3, 2);
+                AgTryParse(value, out offset);
+            }
+            return value;
+        }
+        private bool AgTryParse(string stringValue, out double value)
+        {
+            if (double.TryParse(stringValue, out value))
+            {
+                return true;
+            }
+            stringValue = stringValue.Replace(".", decimalSeparator);
+            if (double.TryParse(stringValue, out value))
+            {
+                return true;
+            }
+            return false;
         }
         private Result SetOutputSignalEnable(SerialPort port, bool outputEnable = true)
         {
@@ -705,6 +754,14 @@ namespace LibDevicesManager
             {
                 result = Result.Failure;
             }
+            //test
+            if (query == "OFFS?")
+            {
+                string title = (result == Result.Success) ? "Успешно" : "Ошибка";
+                string message = $"Offset\nSend: {value}\nReceive: {receivedValue}";
+                DebugMessage(message, title);
+            }
+            //test
             return result;
         }
         private void DebugMessage(string str1, string str2)

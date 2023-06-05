@@ -633,8 +633,41 @@ namespace LibDevicesManager
         private Result SendDS360SettingForTwoToneSignale(SerialPort port)
         {
             Result result = Result.Failure;
-            result = SendFrequency(port);
-            //...
+            if (SendFunctionType(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи типа сигнала";
+            }
+            if (SendTwoToneMode(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи режима двухтонального сигнала";
+            }
+            if (SendFrequencyToneA(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи частоты 1-го тона сигнала";
+            }
+            if (SendFrequencyToneB(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи частоты 2-го тона сигнала";
+            }
+            if (SendAmplitudeToneA(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи амплитуды 1-го тона сигнала";
+            }
+            if (SendAmplitudeToneB(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи амплитуды 2-го тона сигнала";
+            }
+            if (SendOffset(port) != Result.Success)
+            {
+                result = Result.Failure;
+                resultMessage += "\nОшибка передачи смещения сигнала";
+            }
             return result;
         }
         private Result SendFunctionType(SerialPort port)
@@ -657,11 +690,47 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
+        private Result SendTwoToneMode(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = string.Empty;
+            if (FunctionType == FunctionType.SineSine)
+            {
+                value = "0";
+            }
+            if (FunctionType == FunctionType.SineSquare)
+            {
+                value = "1";
+            }
+            if (!IsTwoToneSignal())
+            {
+                return Result.ParamError;
+            }
+            string command = "TTMD" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
         private Result SendFrequency(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 3); //TEST
+            string value = AgRoundTostring(Frequency, 6, 3);
             string command = "FREQ" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendFrequencyToneA(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(Frequency, 6, 3); //ПРОВЕРИТЬ!
+            string command = "TTAF" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendFrequencyToneB(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(Frequency, 6, 3); //ПРОВЕРИТЬ!
+            string command = "TTBF" + value;
             result = SendOutputControlCommand(port, command);
             return result;
         }
@@ -670,6 +739,22 @@ namespace LibDevicesManager
             Result result = Result.Failure;
             string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "AMPL" + value + "VR";
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendAmplitudeToneA(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(AmplitudeRMS, 4, 6);
+            string command = "TTAA" + value + "VR";
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SendAmplitudeToneB(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = AgRoundTostring(AmplitudeRMS, 4, 6);
+            string command = "TTBA" + value + "VR";
             result = SendOutputControlCommand(port, command);
             return result;
         }

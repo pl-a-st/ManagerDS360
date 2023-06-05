@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -429,6 +430,47 @@ namespace LibDevicesManager
                 return true;
             return false;
         }
+        private double GetPikSignal()
+        {
+            double volumePik = AmplitudeRMS;
+            if (FunctionType == FunctionType.Sine)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2);
+            }
+            if (FunctionType == FunctionType.Square)
+            {
+                volumePik = AmplitudeRMS;
+            }
+            if (FunctionType == FunctionType.SineSine)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB * Math.Sqrt(2);
+            }
+            if (FunctionType == FunctionType.SineSquare)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB;
+            }
+            return volumePik;
+        }
+        #region SetGeneratorsSetting
+        public Result CheckDS360Setting()
+        {
+            resultMessage = string.Empty;
+            Result result = CheckFrequency();
+            if (CheckVoltage() != Result.Success)
+            {
+                result = Result.ParamError;
+            }
+            if (!ComPort.IsPortNameCorrect(ComPortName))
+            {
+                resultMessage += "\nЗадано некорректное имя Com-порта";
+                result = Result.ParamError;
+            }
+            if (result == Result.Success)
+            {
+                resultMessage = "\nВсе парараметры корректны";
+            }
+            return result;
+        }
         private Result CheckFrequency()
         {
 
@@ -459,26 +501,28 @@ namespace LibDevicesManager
             }
             return result;
         }
-        private double GetPikSignal()
+        private Result CheckVoltage()
         {
-            double volumePik = AmplitudeRMS;
-            if (FunctionType == FunctionType.Sine)
+            Result result = Result.Success;
+            if (IsTwoToneSignal())
             {
-                volumePik = AmplitudeRMS * Math.Sqrt(2);
+                result = CheckTwoToneRatio();
             }
-            if (FunctionType == FunctionType.Square)
+            double amplitudePik = GetPikSignal();
+            if (OutputType == OutputType.Unbalanced && OutputImpedance == OutputImpedance.HiZ)
             {
-                volumePik = AmplitudeRMS;
+                if (amplitudePik > maxVoltagePikUnbalancedHiZ || amplitudePik < minVoltagePikUnbalancedHiZ)
+                {
+                    resultMessage += $"\nАмплитуда сигнала (ПИК) должна быть в пределах {minVoltagePikUnbalancedHiZ:F6} ... {maxVoltagePikUnbalancedHiZ} В";
+                    result = Result.ParamError;
+                }
             }
-            if (FunctionType == FunctionType.SineSine)
+            //Дописать для других значений OutputType и OutputImpedance
+            if (CheckOffset(amplitudePik) != Result.Success)
             {
-                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB * Math.Sqrt(2);
+                result = Result.ParamError;
             }
-            if (FunctionType == FunctionType.SineSquare)
-            {
-                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB;
-            }
-            return volumePik;
+            return result;
         }
         private Result CheckTwoToneRatio()
         {
@@ -521,48 +565,6 @@ namespace LibDevicesManager
             }
             return result;
         }
-        private Result CheckVoltage()
-        {
-            Result result = Result.Success;
-            if (IsTwoToneSignal())
-            {
-                result = CheckTwoToneRatio();
-            }
-            double amplitudePik = GetPikSignal();
-            if (OutputType == OutputType.Unbalanced && OutputImpedance == OutputImpedance.HiZ)
-            {
-                if (amplitudePik > maxVoltagePikUnbalancedHiZ || amplitudePik < minVoltagePikUnbalancedHiZ)
-                {
-                    resultMessage += $"\nАмплитуда сигнала (ПИК) должна быть в пределах {minVoltagePikUnbalancedHiZ:F6} ... {maxVoltagePikUnbalancedHiZ} В";
-                    result = Result.ParamError;
-                }
-            }
-            //Дописать для других значений OutputType и OutputImpedance
-            if (CheckOffset(amplitudePik) != Result.Success)
-            {
-                result = Result.ParamError;
-            }
-            return result;
-        }
-        public Result CheckDS360Setting()
-        {
-            resultMessage = string.Empty;
-            Result result = CheckFrequency();
-            if (CheckVoltage() != Result.Success)
-            {
-                result = Result.ParamError;
-            }
-            if (!ComPort.IsPortNameCorrect(ComPortName))
-            {
-                resultMessage += "\nЗадано некорректное имя Com-порта";
-                result = Result.ParamError;
-            }
-            if (result == Result.Success)
-            {
-                resultMessage = "\nВсе парараметры корректны";
-            }
-            return result;
-        }
         public Result SendDS360Setting()
         {
             Result result = CheckDS360Setting();
@@ -577,6 +579,7 @@ namespace LibDevicesManager
                 resultMessage += "\nОтсутствует связь с генератором";
                 return result;
             }
+            //ПОСЛЕ открытия порта нужна пауза!!!! 
             result = SetOutputSignalEnable(port, false);
             if (result != Result.Success)
             {
@@ -600,6 +603,7 @@ namespace LibDevicesManager
                 resultMessage += "\nОшибка передачи параметра в генератор";
                 return result;
             }
+            resultMessage = "\nПараметры успешно переданы в генератор";
             //result = SetOutputSignalEnable(port, true);
             //дать команду на включение сигнала.
             ComPort.PortClose(port);
@@ -632,7 +636,7 @@ namespace LibDevicesManager
         }
         private Result SendDS360SettingForTwoToneSignale(SerialPort port)
         {
-            Result result = Result.Failure;
+            Result result = Result.Success;
             if (SendFunctionType(port) != Result.Success)
             {
                 result = Result.Failure;
@@ -721,7 +725,7 @@ namespace LibDevicesManager
         private Result SendFrequencyToneA(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 3); //ПРОВЕРИТЬ!
+            string value = AgRoundTostring(Frequency, 6, 3); 
             string command = "TTAF" + value;
             result = SendOutputControlCommand(port, command);
             return result;
@@ -729,7 +733,11 @@ namespace LibDevicesManager
         private Result SendFrequencyToneB(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 3); //ПРОВЕРИТЬ!
+            string value = AgRoundTostring(FrequencyB, 6, 3); 
+            if (FunctionType == FunctionType.SineSquare)
+            {
+                value = AgRoundTostring(FrequencyB, 2, 3);
+            }
             string command = "TTBF" + value;
             result = SendOutputControlCommand(port, command);
             return result;
@@ -753,7 +761,7 @@ namespace LibDevicesManager
         private Result SendAmplitudeToneB(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(AmplitudeRMS, 4, 6);
+            string value = AgRoundTostring(AmplitudeRMSToneB, 4, 6);
             string command = "TTBA" + value + "VR";
             result = SendOutputControlCommand(port, command);
             return result;
@@ -778,12 +786,13 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
+        #endregion SetGeneratorsSetting
         private Result SendOutputControlCommand(SerialPort port, string command)
         {
             Result result = Result.Failure;
             string value = command.Substring(4, command.Length - 4);
             string query = command.Substring(0, 4) + "?";
-            if (query == "AMPL?")
+            if (query == "AMPL?" || query == "TTAA?" || query == "TTBA?")
             {
                 query += "VR";
                 value = value.Substring(0, value.Length - 2);
@@ -804,18 +813,57 @@ namespace LibDevicesManager
                 result = Result.Failure;
             }
             //test
-            if (query == "OFFS?")
-            {
-                string title = (result == Result.Success) ? "Успешно" : "Ошибка";
-                string message = $"Offset\nSend: {value}\nReceive: {receivedValue}";
-                DebugMessage(message, title);
-            }
+            DebugCompareMissage(query, result, value, receivedValue);
             //test
             return result;
+        }
+        private Result SendCommandToDS360(SerialPort port, string command)
+        {
+            Result result = Result.Failure;
+            if (port == null || !port.IsOpen)
+            {
+                return Result.ParamError;
+            }
+            result = ComPort.Send(port, command);
+            return result;
+        }
+        private string ReceiveMessageFromeDS360(SerialPort port)
+        {
+            if (port == null || !port.IsOpen)
+            {
+                return string.Empty;
+            }
+            string receivedMessage = ComPort.Receive(port);
+            receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
+            return receivedMessage;
         }
         private void DebugMessage(string str1, string str2)
         {
             MessageBox.Show(str1, str2, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+        private void DebugCompareMissage(string query, Result result, string value, string receivedValue)
+        {
+            //test
+            string paramName = query;
+            string title = (result == Result.Success) ? "Успешно" : "Ошибка";
+            if (query == "OFFS?")
+            {  
+            }
+            if (query == "TTAF?")
+            {
+            }
+            if (query == "TTBF?")
+            {
+            }
+            if (query == "TTAA?VR")
+            {
+            }
+            if (query == "TTBA?VR")
+            {
+            }
+            string message = $"{paramName}\nSend: {value}\nReceive: {receivedValue}";
+            DebugMessage(message, title);
+            //--test
         }
         private bool CompareValues(string value1, string value2)
         {
@@ -850,24 +898,37 @@ namespace LibDevicesManager
         }
         private static string AgRoundTostring(double volume, int significantDigits, int maxDecimalPlaces)
         {
+            if (volume == 0)
+            {
+
+            }
             string resultString = string.Empty;
-            double digits = Math.Pow(10, significantDigits - Math.Ceiling(Math.Log10(volume)));
+            double dig = 0;
+            if (volume != 0)
+            {
+                dig = Math.Ceiling(Math.Log10(volume));
+            }
+            double digits = Math.Pow(10, significantDigits - dig);
+            double result = 0;
+            if (digits != 0)
+            {
+                result = Math.Round(volume * digits) / digits;
+            }
             int zeros = digits.ToString().Length - 1;
-            double res = Math.Round(volume * digits) / digits;
             if (digits > 1)
             {
                 if (zeros > maxDecimalPlaces)
                 {
-                    resultString = res.ToString($"F{maxDecimalPlaces}");
+                    resultString = result.ToString($"F{maxDecimalPlaces}");
                 }
                 if (zeros <= maxDecimalPlaces)
                 {
-                    resultString = res.ToString($"F{zeros}");
+                    resultString = result.ToString($"F{zeros}");
                 }
             }
             if (digits <= 1)
             {
-                resultString = Convert.ToString(res);
+                resultString = Convert.ToString(result);
             }
             resultString = resultString.Replace(',', '.');
             return resultString;
@@ -903,9 +964,6 @@ namespace LibDevicesManager
             AgTryParse(resultString, out double result);
             return result;
         }
-
-
-        //Методы ниже перевести в приват
         private string GetSerialNumber()
         {
             string identificationString = GetIdentificationString();
@@ -937,43 +995,8 @@ namespace LibDevicesManager
             ComPort.PortClose(port);
             return identificationString;
         }
-        private Result SendCommandToDS360(SerialPort port, string command)
-        {
-            Result result = Result.Failure;
-            if (port == null || !port.IsOpen)
-            {
-                return Result.ParamError;
-            }
-            result = ComPort.Send(port, command);
-            return result;
-        }
-        private string ReceiveMessageFromeDS360(SerialPort port)
-        {
-            if (port == null || !port.IsOpen)
-            {
-                return string.Empty;
-            }
-            string receivedMessage = ComPort.Receive(port);
-            receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
-            return receivedMessage;
-        }
-        #region SetGeneratorsSetting
-        private void SendFrequency(double frequency)
-        {
-            //...
-        }
-        private double ReceiveFrequency()
-        {
-            double frequency = 0;
-            //...
-            return frequency;
-        }
-        private Result SetGeneratorsFrequency(double frequency)
-        {
-            //...
-            return Result.Success;
-        }
-        #endregion SetGeneratorsSetting
+
+
         #region UnUsed
 
         private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue) //плохое решение

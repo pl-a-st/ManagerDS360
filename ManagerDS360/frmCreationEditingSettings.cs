@@ -166,7 +166,7 @@ namespace ManagerDS360
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclToTone(txtValue, cboDetector,txtFrequency);
+                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
                 SetVibroCalclToTone(txtValue2, cboDetector2, txtFrequency2);
                 DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
@@ -259,57 +259,56 @@ namespace ManagerDS360
 
         private Result CheckFormsParameters()
         {
-            try 
-            { 
-            string amplA = "";
-            string freqA = "";
-            string amplB = "";
-            string sq = "";
-            string s = "";
-            string conv = "";
+            string message = string.Empty;
+            Result result = Result.Success;
             if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
             {
                 //MessageBox.Show("Введите значение 1.");
                 //return Result.Failure;
-                amplA = "\nВведите значение 1";
+                message += "\nВведите значение 1";
+                result = Result.Failure;
             }
             if (!double.TryParse(txtFrequency.Text, out double frequency_A))
             {
                 //MessageBox.Show("Введите частоту 1.");
                 //return Result.Failure;
-                freqA = "\nВведите частоту 1";
+                message += "\nВведите частоту 1";
+                result = Result.Failure;
             }
-            if (IsTwoTone() & !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
+            if (IsTwoTone() && !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
             {
                 //MessageBox.Show("Введите значение 2.");
                 //return Result.Failure;
-                amplB = "\nВведите значение 2.";
+                message += "\nВведите значение 2.";
+                result = Result.Failure;
             }
-            if (cboTypeSignal.Text == "Синус - Квадрат" | cboTypeSignal.Text == "Синус - Синус" & !double.TryParse(txtFrequency2.Text, out double frequency_B))
+            if (IsTwoTone() && !double.TryParse(txtFrequency2.Text, out double frequency_B))
             {
                 //MessageBox.Show("Введите частоту 2.");
                 //return Result.Failure;
-                sq = "\nВведите частоту 2.";
+                message += "\nВведите частоту 2.";
+                result = Result.Failure;
             }
-            if (cboTypeSignal.Text == "Синус" & cboTypeSignal.Text == "Квадрат" & !double.TryParse(txtOffset.Text, out double offset))
+            if (!IsTwoTone() && !double.TryParse(txtOffset.Text, out double offset))
             {
                 //MessageBox.Show("Введите значение смещения.");
                 //return Result.Failure;
-                s = "\nВведите значение смещения.";
+                message += "\nВведите значение смещения.";
+                result = Result.Failure;
             }
             if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
             {
                 //MessageBox.Show("Введите значение коэффициента.");
                 //return Result.Failure;
-                conv = "\nВведите значение коэффициента.";
+                message += "\nВведите значение коэффициента.";
+                result = Result.Failure;
             }
-            MessageBox.Show(amplA + freqA + amplB + sq + s + conv);
-            return Result.Failure;
-            }
-            catch
+            if (result != Result.Success)
             {
-                return Result.Success;
+                MessageBox.Show(message);
             }
+            return result;
+
         }
 
         internal bool IsTwoTone()
@@ -405,7 +404,7 @@ namespace ManagerDS360
         private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             //физическая величина
-            if(cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм")
+            if (cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм")
             {
                 //содать новый выпадающий список?
                 //нельзя исп. квадрат и синус-квадрат

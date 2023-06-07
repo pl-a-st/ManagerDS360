@@ -243,6 +243,7 @@
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
             this.txtConversionFactor.TabIndex = 30;
+            this.txtConversionFactor.Text = "100";
             this.txtConversionFactor.TextChanged += new System.EventHandler(this.txtConversionFactor_TextChanged);
             // 
             // txtOffset

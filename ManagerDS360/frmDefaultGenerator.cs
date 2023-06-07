@@ -16,7 +16,6 @@ namespace ManagerDS360
         public frmManagerRoutse()
         {
             InitializeComponent();
-            //cboListComPorts.Text = nameGenerator;
         }
 
         private void lblLisеComPorts_Click(object sender, EventArgs e)
@@ -47,10 +46,8 @@ namespace ManagerDS360
         private void butSave_Click(object sender, EventArgs e)
         {
             //сохранить выбранный генератор как по умолчанию и отправить имя на главную страницу в лейбл 
-            frmManagerDS360 frmManagerDS360 = new frmManagerDS360();
-
-            string nameGen = cboListComPorts.SelectedItem.ToString();
-            frmManagerDS360.lblDefaultGenerator.Text = nameGen;
+            frmManagerDS360 frmManagerDS360 = (frmManagerDS360)Application.OpenForms["frmManagerDS360"];
+            frmManagerDS360.lblDefaultGenerator.Text = cboListComPorts.SelectedItem.ToString();
             Close();
         }
 

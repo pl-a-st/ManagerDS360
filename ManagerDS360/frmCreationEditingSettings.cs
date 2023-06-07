@@ -75,8 +75,7 @@ namespace ManagerDS360
         }
         internal void InitializecboDetector2()
         {
-            //добавление в комбобокс детектора
-            cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;  //добавление в комбобокс детектора
 
             string[] enumElements = Enum.GetNames(typeof(Detector));
             foreach (var item in enumElements)
@@ -88,8 +87,7 @@ namespace ManagerDS360
 
         internal void InitializecboDetector()
         {
-            //добавление в комбобокс детектора
-            cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;   //добавление в комбобокс детектора
 
             //cboDetector.Items.AddRange(Enum.GetNames(typeof(Detector)));
 
@@ -138,13 +136,13 @@ namespace ManagerDS360
         internal void butSave_Click(object sender, EventArgs e)
         {
             //объявление переменных
-            double frequency_A;
-            double frequency_B;
-            double voltage = Voltage;
-            double amplitudeRMS_A;
-            double amplitudeRMS_B;
-            double offset;
-            double conversionFactor;
+            //double frequency_A;
+            //double frequency_B;
+            //double voltage = Voltage;
+            //double amplitudeRMS_A;
+            //double amplitudeRMS_B;
+            //double offset;
+            //double conversionFactor;
             string portName;
             if (chcDefaultGenerator.Checked)
             {
@@ -183,6 +181,7 @@ namespace ManagerDS360
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
             }
+
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
@@ -248,7 +247,7 @@ namespace ManagerDS360
             {
                 VibroCalc.CalcAll(new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
-            if (cboSetValue.Text == @"м/с2")
+            if (cboSetValue.Text == @"м / с2")
             {
                 VibroCalc.CalcAll(new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
@@ -256,44 +255,61 @@ namespace ManagerDS360
             {
                 VibroCalc.CalcAll(new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
             }
-
         }
 
         private Result CheckFormsParameters()
         {
+            try 
+            { 
+            string amplA = "";
+            string freqA = "";
+            string amplB = "";
+            string sq = "";
+            string s = "";
+            string conv = "";
             if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
             {
-                MessageBox.Show("Введите значение 1.");
-                return Result.Failure;
+                //MessageBox.Show("Введите значение 1.");
+                //return Result.Failure;
+                amplA = "\nВведите значение 1";
             }
             if (!double.TryParse(txtFrequency.Text, out double frequency_A))
             {
-                MessageBox.Show("Введите частоту 1.");
-                return Result.Failure;
+                //MessageBox.Show("Введите частоту 1.");
+                //return Result.Failure;
+                freqA = "\nВведите частоту 1";
             }
             if (IsTwoTone() & !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
             {
-                MessageBox.Show("Введите значение 2.");
-                return Result.Failure;
+                //MessageBox.Show("Введите значение 2.");
+                //return Result.Failure;
+                amplB = "\nВведите значение 2.";
             }
             if (cboTypeSignal.Text == "Синус - Квадрат" | cboTypeSignal.Text == "Синус - Синус" & !double.TryParse(txtFrequency2.Text, out double frequency_B))
             {
-                MessageBox.Show("Введите частоту 2.");
-                return Result.Failure;
+                //MessageBox.Show("Введите частоту 2.");
+                //return Result.Failure;
+                sq = "\nВведите частоту 2.";
             }
             if (cboTypeSignal.Text == "Синус" & cboTypeSignal.Text == "Квадрат" & !double.TryParse(txtOffset.Text, out double offset))
             {
-                MessageBox.Show("Введите значение смещения.");
-                return Result.Failure;
+                //MessageBox.Show("Введите значение смещения.");
+                //return Result.Failure;
+                s = "\nВведите значение смещения.";
             }
             if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
             {
-                MessageBox.Show("Введите значение коэффициента.");
-                //NewMethod(editingSettings);
-                return Result.Failure;
+                //MessageBox.Show("Введите значение коэффициента.");
+                //return Result.Failure;
+                conv = "\nВведите значение коэффициента.";
             }
-
-            return Result.Success;
+            MessageBox.Show(amplA + freqA + amplB + sq + s + conv);
+            return Result.Failure;
+            }
+            catch
+            {
+                return Result.Success;
+            }
         }
 
         internal bool IsTwoTone()
@@ -305,7 +321,6 @@ namespace ManagerDS360
         internal static void NewMethod(frmCreationEditingSettings editingSettings)
         {
             //editingSettings.ShowDialog();
-
             //DS360Setting dS360Setting = new DS360Setting();
         }
 
@@ -360,12 +375,15 @@ namespace ManagerDS360
             //FunctionTypeSignal = FunctionTypeSignal[cboTypeSignal.SelectedIndex];
 
             string strSinSin = FunctionTypeSignal.Синус_Синус.ToString().Replace("_", " - ");
-            if (cboTypeSignal.Text == strSinSin | cboTypeSignal.Text == "Синус - Квадрат")
+            string strSinSquare = FunctionTypeSignal.Синус_Квадрат.ToString().Replace("_", " - ");
+            string strSin = FunctionTypeSignal.Синус.ToString();
+            string strSquare = FunctionTypeSignal.Квадрат.ToString();
+            if (cboTypeSignal.Text == strSinSin | cboTypeSignal.Text == strSinSquare)
             {
                 txtOffset.Enabled = true;
                 txtValue2.Enabled = txtFrequency2.Enabled = cboDetector2.Enabled = true;
             }
-            else if (cboTypeSignal.Text == "Синус" | cboTypeSignal.Text == "Квадрат")
+            else if (cboTypeSignal.Text == strSin | cboTypeSignal.Text == strSquare)
             {
                 txtValue2.Enabled = txtFrequency2.Enabled = cboDetector2.Enabled = false;
                 txtConversionFactor.Enabled = txtOffset.Enabled = true;
@@ -387,6 +405,12 @@ namespace ManagerDS360
         private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             //физическая величина
+            if(cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм")
+            {
+                //содать новый выпадающий список?
+                //нельзя исп. квадрат и синус-квадрат
+                //нельзя исп. пик и пик-пик
+            }
         }
 
         private void lblConversionFactor_Click(object sender, EventArgs e)
@@ -397,6 +421,7 @@ namespace ManagerDS360
         {
             //ввод коэф. преобразования
             txtConversionFactor.Enabled = true;
+            //txtConversionFactor = 100;
         }
 
         internal void txtFrequency_TextChanged(object sender, EventArgs e)
@@ -425,7 +450,6 @@ namespace ManagerDS360
 
         //private void txtDetector_TextChanged(object sender, EventArgs e)
         //{
-
         //}
 
         private void butCancel_Click(object sender, EventArgs e)

@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibDevicesManager;
+
+
 
 namespace LibControls
 {
@@ -53,5 +56,16 @@ namespace LibControls
             }
             base.OnKeyPress(e);
         }
+       
+    }
+    [Serializable]
+    public class TreeNodeWithSeting : TreeNode
+    {
+        public DS360Setting DS360Setting = new DS360Setting();
+    }
+    [Serializable]
+    public class TreeWi : TreeNode
+    {
+        public DS360Setting DS360Setting = new DS360Setting();
     }
 }

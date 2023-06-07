@@ -7,16 +7,13 @@ using System.Windows.Forms;
 
 namespace ManagerDS360
 {
-    public class TreeNodeWithSeting: TreeNode
-    {
-       public TextBox TextBox;
-    }
+   
     public class TexBoxForDouble : TextBox
     {
         void CreateTreeNode()
         {
-            TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
-            treeNode.TextBox.Text = "";
+            //TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
+            //treeNode.TextBox.Text = "";
         }
     }
 }

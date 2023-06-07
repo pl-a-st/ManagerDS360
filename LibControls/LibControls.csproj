@@ -52,5 +52,11 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibDevicesManager\LibDevicesManager.csproj">
+      <Project>{9218dbe7-4e88-43a2-95c6-14af64495214}</Project>
+      <Name>LibDevicesManager</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

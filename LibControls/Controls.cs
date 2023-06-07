@@ -62,10 +62,11 @@ namespace LibControls
     public class TreeNodeWithSeting : TreeNode
     {
         public DS360Setting DS360Setting = new DS360Setting();
+       
     }
     [Serializable]
-    public class TreeWi : TreeNode
+    public class TreeViewWithSeting : TreeView
     {
-        public DS360Setting DS360Setting = new DS360Setting();
+        public TreeNodeWithSeting CopyTreeNodeWithSetup = new TreeNodeWithSeting();
     }
 }

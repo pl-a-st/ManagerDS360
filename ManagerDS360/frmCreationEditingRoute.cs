@@ -60,14 +60,11 @@ namespace ManagerDS360
 
             if (frmInputName.SaveName == SaveName.SaveName)
             {
-
                 string nameSet = frmInputName.txtNameSet.Text;
                 TreeNodeWithSetup treeNodeWithSetup = new TreeNodeWithSetup(nameSet);
-
                 if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
                 {
                     treRouteTree.Nodes.Add(treeNodeWithSetup);
-
                     return;
                 }
                 TreeNodeWithSetup SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetup;
@@ -133,6 +130,9 @@ namespace ManagerDS360
             TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
             
             treeNode.DS360Setting= editingSettings.DS360Setting;
+            treeNode.Name = "Заглушка";
+            treeNode.Text = "Текст заглушка";
+            treRouteTree.Nodes.Add(treeNode);
             
             //treRouteTree.Nodes.Add(treeNode);
             //newfrmCreationEditingSettings.cbo

@@ -38,10 +38,10 @@
             this.butSave = new System.Windows.Forms.Button();
             this.butUp = new System.Windows.Forms.Button();
             this.butDown = new System.Windows.Forms.Button();
-            this.treRouteTree = new System.Windows.Forms.TreeView();
             this.lblSave = new System.Windows.Forms.Label();
             this.lblSaveRoute = new System.Windows.Forms.Label();
             this.butAllDelete = new System.Windows.Forms.Button();
+            this.treRouteTree = new LibControls.TreeViewWithSeting();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -146,15 +146,6 @@
             this.butDown.UseVisualStyleBackColor = true;
             this.butDown.Click += new System.EventHandler(this.butDown_Click);
             // 
-            // treRouteTree
-            // 
-            this.treRouteTree.LabelEdit = true;
-            this.treRouteTree.Location = new System.Drawing.Point(295, 42);
-            this.treRouteTree.Name = "treRouteTree";
-            this.treRouteTree.Size = new System.Drawing.Size(463, 329);
-            this.treRouteTree.TabIndex = 11;
-            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
-            // 
             // lblSave
             // 
             this.lblSave.AutoSize = true;
@@ -192,15 +183,22 @@
             this.butAllDelete.UseVisualStyleBackColor = true;
             this.butAllDelete.Click += new System.EventHandler(this.butAllDelete_Click);
             // 
+            // treRouteTree
+            // 
+            this.treRouteTree.Location = new System.Drawing.Point(299, 42);
+            this.treRouteTree.Name = "treRouteTree";
+            this.treRouteTree.Size = new System.Drawing.Size(459, 336);
+            this.treRouteTree.TabIndex = 15;
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.treRouteTree);
             this.Controls.Add(this.butAllDelete);
             this.Controls.Add(this.lblSaveRoute);
             this.Controls.Add(this.lblSave);
-            this.Controls.Add(this.treRouteTree);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.butSave);
@@ -235,9 +233,9 @@
         internal System.Windows.Forms.Button butSave;
         internal System.Windows.Forms.Button butUp;
         internal System.Windows.Forms.Button butDown;
-        internal System.Windows.Forms.TreeView treRouteTree;
         internal System.Windows.Forms.Label lblSave;
         private System.Windows.Forms.Label lblSaveRoute;
         private System.Windows.Forms.Button butAllDelete;
+        private LibControls.TreeViewWithSeting treRouteTree;
     }
 }

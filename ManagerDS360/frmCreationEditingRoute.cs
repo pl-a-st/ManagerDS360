@@ -13,6 +13,7 @@ using ManagerDS360;
 using System.Runtime.Serialization;
 using System.Reflection.Emit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using LibControls;
 
 namespace ManagerDS360
 {
@@ -125,9 +126,14 @@ namespace ManagerDS360
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
             editingSettings.ShowDialog();
-
-            //TreeNode treeNode = new TreeNode();
-            //treeNode.setup = dS360Setting;
+            if (editingSettings.SaveStatus != SaveStatus.Save)
+            {
+                return;
+            }
+            TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
+            
+            treeNode.DS360Setting= editingSettings.DS360Setting;
+            
             //treRouteTree.Nodes.Add(treeNode);
             //newfrmCreationEditingSettings.cbo
 

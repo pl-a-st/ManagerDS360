@@ -62,11 +62,32 @@ namespace ManagerDS360
         public frmCreationEditingSettings()
         {
             InitializeComponent();
+        }
+        public void frmCreationEditingSettings_Load(object sender, EventArgs e)
+        {
             InitializecboSetValue();
             InitializecboTypeSignal();
             InitializecboDetector();
             InitializecboDetector2();
             InitializechcboComPort();
+            //взять енам из ds360.сs FunctionType
+            if (this.Type == Type.Control)
+            {
+                butSave.Visible = false;
+                butSend.Visible = true;
+                butSend.Location = new Point(53, 404);
+            }
+            if (this.Type == Type.Change)
+            {
+                butSave.Visible = true;
+                butSave.Location = new Point(53, 404);
+                butSend.Visible = false;
+            }
+
+            cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
+            cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
+            chcDefaultGenerator.Checked = true;
         }
 
         internal void InitializechcboComPort()
@@ -105,9 +126,14 @@ namespace ManagerDS360
             cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
             ////строку в Енам
             //Enum.Parse(typeof(Race), cBxRace.Text, true);
-
+            cboTypeSignal.Items.Clear();
             foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
             {
+                if (TypeSignalToString(element).Contains("Квадрат")&(
+                    cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм"))
+                {
+                    continue;
+                }
                 cboTypeSignal.Items.Add(TypeSignalToString(element));
             }
             cboTypeSignal.SelectedIndex = 0;
@@ -195,7 +221,7 @@ namespace ManagerDS360
             }
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
-
+            SaveStatus = SaveStatus.Save;
 
 
 
@@ -323,27 +349,6 @@ namespace ManagerDS360
             //DS360Setting dS360Setting = new DS360Setting();
         }
 
-        public void frmCreationEditingSettings_Load(object sender, EventArgs e)
-        {
-            //взять енам из ds360.сs FunctionType
-            if (this.Type == Type.Control)
-            {
-                butSave.Visible = false;
-                butSend.Visible = true;
-                butSend.Location = new Point(53, 404);
-            }
-            if (this.Type == Type.Change)
-            {
-                butSave.Visible = true;
-                butSave.Location = new Point(53, 404);
-                butSend.Visible = false;
-            }
-
-            cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
-            cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-            chcDefaultGenerator.Checked = true;
-        }
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)
         {
@@ -403,13 +408,9 @@ namespace ManagerDS360
 
         private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
         {
+            InitializecboTypeSignal();
             //физическая величина
-            if (cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм")
-            {
-                //содать новый выпадающий список?
-                //нельзя исп. квадрат и синус-квадрат
-                //нельзя исп. пик и пик-пик
-            }
+
         }
 
         private void lblConversionFactor_Click(object sender, EventArgs e)

@@ -88,7 +88,7 @@ namespace LibDevicesManager
         {
             get
             {
-                return GetSerialNumber();
+                return GetSerialNumber(ComPortName);
             }
         }
         public FunctionType FunctionType
@@ -402,6 +402,29 @@ namespace LibDevicesManager
                 devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
             }
             return devices;
+        }
+        public static string[] GetGeneratorsArray()
+        {
+            List<string> ports = ComPort.PortsNamesList;
+            List<string> generatorsList = new List<string>();
+            string deviceName = string.Empty;
+            //
+            
+            for (int i = 0; i < ports.Count; i++)
+            {
+                deviceName = ComPort.GetDeviceModel(ports[i]);
+                if (IsItGenerator(deviceName))
+                {
+                    deviceName += $" s/n{GetSerialNumber(ports[i])}";
+                    generatorsList.Add(deviceName);
+                }
+            }
+            string[] generators = new string[generatorsList.Count];
+            for (int i=0; i < generatorsList.Count; i++)
+            {
+                generators[i] = generatorsList[i];
+            }
+            return generators;
         }
         public Result CheckDS360Setting()
         {
@@ -815,9 +838,9 @@ namespace LibDevicesManager
             receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
             return receivedMessage;
         }
-        private string GetSerialNumber()
+        private static string GetSerialNumber(string portName)
         {
-            string identificationString = GetIdentificationString();
+            string identificationString = GetIdentificationString(portName);
             if (identificationString == string.Empty && identificationString == null)
             {
                 return string.Empty;
@@ -826,23 +849,23 @@ namespace LibDevicesManager
             string serialNumber = subString[2];
             return serialNumber;
         }
-        private string GetIdentificationString()
+        private static string GetIdentificationString(string comPortName)
         {
-            string identificationString = string.Empty;
             string command = "*IDN?";
-            Result result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            Result result = ComPort.PortOpen(comPortName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
                 return string.Empty;
             }
-            result = SendCommandToDS360(port, command);
+            result = ComPort.Send(port, command); ;
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
                 return string.Empty;
             }
-            identificationString = ReceiveMessageFromeDS360(port);
+            string identificationString = ComPort.Receive(port);
+            identificationString = identificationString.Substring(0, identificationString.Length - 1);
             ComPort.PortClose(port);
             return identificationString;
         }
@@ -1022,6 +1045,14 @@ namespace LibDevicesManager
             resultString = resultString.Replace(',', '.');
             AgTryParse(resultString, out double result);
             return result;
+        }
+        private static bool IsItGenerator(string deviceModel)
+        {
+            if (deviceModel == "DS360" || deviceModel == "DS360-Emulator")
+            {
+                return true;
+            }
+            return false;
         }
 
         #region UnUsed

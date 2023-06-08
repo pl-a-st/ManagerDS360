@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace LibDevicesManager
 {
+    #region Enums
     enum DS360Errors
     {
 
@@ -38,26 +39,21 @@ namespace LibDevicesManager
     {
         HiZ
     }
+    #endregion Enums
     [Serializable]
     public class DS360Setting
     {
+        //Добавить описание публичных полей
+        #region PublicFields
         public static string ComPortDefaultName
         {
             get
             {
-                if (comPortDefaultName == null || comPortDefaultName == string.Empty)
-                {
-                    //SetGeneratorsPortAsDefaultComPort();
-                    comPortDefaultName = "NONE";
-                }
-                return comPortDefaultName;
+                return GetComPortDefaultName();
             }
             set
             {
-                if (ComPort.IsPortNameCorrect(value))
-                {
-                    comPortDefaultName = value;
-                }
+                SetComPortDefaultName(value);
             }
         }
         public string ComPortName
@@ -186,25 +182,12 @@ namespace LibDevicesManager
                 resultMessage = value;
             }
         }
-        /*
-        private ToneBFunctionType FunctionBType
-        {
-            get
-            {
-                return functionTypeB;
-            }
-            set
-            {
-                functionTypeB = value;
-            }
-        }
-        */
-        //
+        #endregion PublicFields
+
+        #region PrivateFields
         private static string comPortDefaultName;
         private string comPortName;
-        //private string serialNumber;
         private FunctionType functionType;
-        //private ToneBFunctionType functionTypeB;
         private double amplitudeRMS;
         private double amplitudeRMSToneB;
         private double frequency;
@@ -213,19 +196,18 @@ namespace LibDevicesManager
         private OutputType outputType;
         private OutputImpedance outputImpedance;
         private string resultMessage;
-        // Верин: Очень похоже на глобальные константы, точно можно вынести в приватные поля класса
         private const double frequencyMin = 0.01;
         private const double frequencyMax = 200 * 1000;
         private const double frequencyBMin = 0.1;
         private const double frequencyBMax = 5 * 1000;
-        //private FunctionType[] functionTypeArray = new FunctionType[] { FunctionType.Sine, FunctionType.Square, FunctionType.SineSine, FunctionType.SineSquare };
-        //private double[] minVoltageRMSUnbalancedHiZ = new double[] { 4, 5, 3, 3 };
-        //private double[] maxVoltageRMSUnbalancedHiZ = new double[] { 14.14, 20.00, 14.14, 14.14 };
         private const double minVoltagePikUnbalancedHiZ = 0.000005;
         private const double maxVoltagePikUnbalancedHiZ = 20;
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+        #endregion PrivateFields
+
+        //Исправить на заполнение автополей
         #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting()
@@ -400,6 +382,8 @@ namespace LibDevicesManager
         }
         #endregion Constructors
 
+        //Добавить описание методов
+        #region PublicMethods
         public static string[] GetDevicesArray()
         {
             List<string> ports = ComPort.PortsNamesList;
@@ -410,48 +394,6 @@ namespace LibDevicesManager
             }
             return devices;
         }
-        private bool IsSignalPeriodical()
-        {
-            if (FunctionType == FunctionType.Sine)
-                return true;
-            if (FunctionType == FunctionType.Square)
-                return true;
-            if (FunctionType == FunctionType.SineSine)
-                return true;
-            if (FunctionType == FunctionType.SineSquare)
-                return true;
-            return false;
-        }
-        private bool IsTwoToneSignal()
-        {
-            if (FunctionType == FunctionType.SineSine)
-                return true;
-            if (FunctionType == FunctionType.SineSquare)
-                return true;
-            return false;
-        }
-        private double GetPikSignal()
-        {
-            double volumePik = AmplitudeRMS;
-            if (FunctionType == FunctionType.Sine)
-            {
-                volumePik = AmplitudeRMS * Math.Sqrt(2);
-            }
-            if (FunctionType == FunctionType.Square)
-            {
-                volumePik = AmplitudeRMS;
-            }
-            if (FunctionType == FunctionType.SineSine)
-            {
-                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB * Math.Sqrt(2);
-            }
-            if (FunctionType == FunctionType.SineSquare)
-            {
-                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB;
-            }
-            return volumePik;
-        }
-        #region SetGeneratorsSetting
         public Result CheckDS360Setting()
         {
             resultMessage = string.Empty;
@@ -471,6 +413,71 @@ namespace LibDevicesManager
             }
             return result;
         }
+        public Result SendDS360Setting()
+        {
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\nОтсутствует связь с генератором";
+                return result;
+            }
+            //ПОСЛЕ открытия порта нужна пауза!!!! 
+            result = SetOutputSignalEnable(port, false);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\nОшибка передачи параметра в генератор";
+                return result;
+            }
+            //Прописать выставление дефолтных настроек!!! (Unbalanced, Hi-Z и т.п.)
+            //Прописать отправку настроек (до конца)
+            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            {
+                result = SendDS360SettingForSingleSignale(port);
+            }
+            if (IsSignalPeriodical() && IsTwoToneSignal())
+            {
+                result = SendDS360SettingForTwoToneSignale(port);
+            }
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage += "\nОшибка передачи параметра в генератор";
+                return result;
+            }
+            resultMessage = "\nПараметры успешно переданы в генератор";
+            //result = SetOutputSignalEnable(port, true);
+            //дать команду на включение сигнала.
+            ComPort.PortClose(port);
+            return result;
+        }
+        public static Result SetComPortDefaultName(string portName)
+        {
+            if (ComPort.IsPortNameCorrect(portName))
+            {
+                comPortDefaultName = portName;
+                return Result.Success;
+            }
+            //comPortDefaultName = "NONE";
+            return Result.ParamError;
+        }
+        public static string GetComPortDefaultName()
+        {
+            if (comPortDefaultName == null || comPortDefaultName == string.Empty)
+            {
+                comPortDefaultName = "NONE";
+            }
+            return comPortDefaultName;
+        }
+        #endregion PublicMethods
+
+        #region SetGeneratorsSetting
         private Result CheckFrequency()
         {
 
@@ -563,50 +570,6 @@ namespace LibDevicesManager
                 resultMessage += $"\nПри заданной амплитуде абсолютное значение смещения сигнала не может превышать {AgRoundToDouble(maxOffset, 3, 6)} В";
                 result = Result.ParamError;
             }
-            return result;
-        }
-        public Result SendDS360Setting()
-        {
-            Result result = CheckDS360Setting();
-            if (result != Result.Success)
-            {
-                return result;
-            }
-            result = ComPort.PortOpen(ComPortName, out SerialPort port);
-            if (result != Result.Success)
-            {
-                ComPort.PortClose(port);
-                resultMessage += "\nОтсутствует связь с генератором";
-                return result;
-            }
-            //ПОСЛЕ открытия порта нужна пауза!!!! 
-            result = SetOutputSignalEnable(port, false);
-            if (result != Result.Success)
-            {
-                ComPort.PortClose(port);
-                resultMessage += "\nОшибка передачи параметра в генератор";
-                return result;
-            }
-            //Прописать выставление дефолтных настроек!!! (Unbalanced, Hi-Z и т.п.)
-            //Прописать отправку настроек (до конца)
-            if (IsSignalPeriodical() && !IsTwoToneSignal())
-            {
-                result = SendDS360SettingForSingleSignale(port);
-            }
-            if (IsSignalPeriodical() && IsTwoToneSignal())
-            {
-                result = SendDS360SettingForTwoToneSignale(port);
-            }
-            if (result != Result.Success)
-            {
-                ComPort.PortClose(port);
-                resultMessage += "\nОшибка передачи параметра в генератор";
-                return result;
-            }
-            resultMessage = "\nПараметры успешно переданы в генератор";
-            //result = SetOutputSignalEnable(port, true);
-            //дать команду на включение сигнала.
-            ComPort.PortClose(port);
             return result;
         }
         private Result SendDS360SettingForSingleSignale(SerialPort port)
@@ -725,7 +688,7 @@ namespace LibDevicesManager
         private Result SendFrequencyToneA(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(Frequency, 6, 3); 
+            string value = AgRoundTostring(Frequency, 6, 3);
             string command = "TTAF" + value;
             result = SendOutputControlCommand(port, command);
             return result;
@@ -733,7 +696,7 @@ namespace LibDevicesManager
         private Result SendFrequencyToneB(SerialPort port)
         {
             Result result = Result.Failure;
-            string value = AgRoundTostring(FrequencyB, 6, 3); 
+            string value = AgRoundTostring(FrequencyB, 6, 3);
             if (FunctionType == FunctionType.SineSquare)
             {
                 value = AgRoundTostring(FrequencyB, 2, 3);
@@ -787,6 +750,8 @@ namespace LibDevicesManager
             return result;
         }
         #endregion SetGeneratorsSetting
+
+        #region CommunicateWithDS360
         private Result SendOutputControlCommand(SerialPort port, string command)
         {
             Result result = Result.Failure;
@@ -837,6 +802,80 @@ namespace LibDevicesManager
             receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
             return receivedMessage;
         }
+        private string GetSerialNumber()
+        {
+            string identificationString = GetIdentificationString();
+            if (identificationString == string.Empty && identificationString == null)
+            {
+                return string.Empty;
+            }
+            string[] subString = identificationString.Split(',');
+            string serialNumber = subString[2];
+            return serialNumber;
+        }
+        private string GetIdentificationString()
+        {
+            string identificationString = string.Empty;
+            string command = "*IDN?";
+            Result result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            result = SendCommandToDS360(port, command);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            identificationString = ReceiveMessageFromeDS360(port);
+            ComPort.PortClose(port);
+            return identificationString;
+        }
+        #endregion CommunicateWithDS360
+
+        private bool IsSignalPeriodical()
+        {
+            if (FunctionType == FunctionType.Sine)
+                return true;
+            if (FunctionType == FunctionType.Square)
+                return true;
+            if (FunctionType == FunctionType.SineSine)
+                return true;
+            if (FunctionType == FunctionType.SineSquare)
+                return true;
+            return false;
+        }
+        private bool IsTwoToneSignal()
+        {
+            if (FunctionType == FunctionType.SineSine)
+                return true;
+            if (FunctionType == FunctionType.SineSquare)
+                return true;
+            return false;
+        }
+        private double GetPikSignal()
+        {
+            double volumePik = AmplitudeRMS;
+            if (FunctionType == FunctionType.Sine)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2);
+            }
+            if (FunctionType == FunctionType.Square)
+            {
+                volumePik = AmplitudeRMS;
+            }
+            if (FunctionType == FunctionType.SineSine)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB * Math.Sqrt(2);
+            }
+            if (FunctionType == FunctionType.SineSquare)
+            {
+                volumePik = AmplitudeRMS * Math.Sqrt(2) + AmplitudeRMSToneB;
+            }
+            return volumePik;
+        }
         private void DebugMessage(string str1, string str2)
         {
             MessageBox.Show(str1, str2, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
@@ -847,7 +886,7 @@ namespace LibDevicesManager
             string paramName = query;
             string title = (result == Result.Success) ? "Успешно" : "Ошибка";
             if (query == "OFFS?")
-            {  
+            {
             }
             if (query == "TTAF?")
             {
@@ -964,71 +1003,8 @@ namespace LibDevicesManager
             AgTryParse(resultString, out double result);
             return result;
         }
-        private string GetSerialNumber()
-        {
-            string identificationString = GetIdentificationString();
-            if (identificationString == string.Empty && identificationString == null)
-            {
-                return string.Empty;
-            }
-            string[] subString = identificationString.Split(',');
-            string serialNumber = subString[2];
-            return serialNumber;
-        }
-        private string GetIdentificationString()
-        {
-            string identificationString = string.Empty;
-            string command = "*IDN?";
-            Result result = ComPort.PortOpen(ComPortName, out SerialPort port);
-            if (result != Result.Success)
-            {
-                ComPort.PortClose(port);
-                return string.Empty;
-            }
-            result = SendCommandToDS360(port, command);
-            if (result != Result.Success)
-            {
-                ComPort.PortClose(port);
-                return string.Empty;
-            }
-            identificationString = ReceiveMessageFromeDS360(port);
-            ComPort.PortClose(port);
-            return identificationString;
-        }
-
 
         #region UnUsed
-
-        private Result SendCommandWithCheckToDS360(SerialPort port, string command, string checkValue) //плохое решение
-        {
-            Result result = Result.Failure;
-            if (port == null || !port.IsOpen)
-            {
-                return Result.ParamError;
-            }
-            result = SendCommandToDS360(port, command);
-            if (result != Result.Success)
-            {
-                return result;
-            }
-            string receivedMessage = ComPort.Receive(port);
-            if (receivedMessage != checkValue)
-            {
-                result = Result.Failure;
-            }
-            return result;
-        }
-        private bool IsFrequencyCorrect(double value)
-        {
-            //Вписать округление до значащих?
-            //...
-            if (value < 0)
-            {
-                return false;
-            }
-            return true;
-        }
-
         private static string SetGeneratorsPortAsDefaultComPort()
         {
             string portName = string.Empty;
@@ -1057,25 +1033,7 @@ namespace LibDevicesManager
             return string.Empty; //Дописать
         }
 
-        public Result SetComPortDefaultName(string portName)
-        {
-            if (ComPort.IsPortNameCorrect(portName))
-            {
-                comPortDefaultName = portName;
-                return Result.Success;
-            }
-            return Result.ParamError;
-        }
-        public string GetComPortDefaultName(string portName)
-        {
-            if (Array.IndexOf(GetDevicesArray(), portName) > 0)
-            {
-                return portName;
-            }
-            //...
-            return portName;
-        }
-        public static List<string> GetComPortList()
+        private static List<string> GetComPortList()
         {
             List<string> portsNamesList = ComPort.PortsNamesList;
             return portsNamesList;

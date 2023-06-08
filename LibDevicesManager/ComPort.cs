@@ -60,18 +60,18 @@ namespace LibDevicesManager
             {
                 lastDigitPosition = chars.Length - 1;
             }
-            if (lastDigitPosition < firstDigitPosition) //Здесь проверить!
+            if (lastDigitPosition < firstDigitPosition)
             {
                 return false;
             }
             for (int i = firstDigitPosition; i <= lastDigitPosition; i++)
             {
-                if (Char.IsDigit(chars[i]))
+                if (char.IsDigit(chars[i]))
                 {
                     number += chars[i];
                 }
             }
-            Int32.TryParse(number, out int num);
+            int.TryParse(number, out int num);
             if (num < 1 || num > 256)
             {
                 return false;
@@ -235,7 +235,6 @@ namespace LibDevicesManager
                 try
                 {
                     receivedMessage = port.ReadLine();
-                    //receivedMessage = port.ReadExisting();
                 }
                 catch (TimeoutException ex)
                 {
@@ -280,7 +279,7 @@ namespace LibDevicesManager
             baudRate = 9600;
             parity = Parity.None;
             stopBits = StopBits.One;
-            dtrEnable = true;
+            dtrEnable = false;
             readTimeout = 100;
             writeTimeout = 100;
         }

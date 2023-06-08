@@ -156,7 +156,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TexBoxForDouble.cs" />
+    <Compile Include="TexBoxForDouble.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="frmDefaultGenerator.cs">
       <SubType>Form</SubType>
     </Compile>

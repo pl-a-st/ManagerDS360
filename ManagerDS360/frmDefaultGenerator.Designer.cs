@@ -78,7 +78,7 @@
             this.butFindGenerator.Name = "butFindGenerator";
             this.butFindGenerator.Size = new System.Drawing.Size(110, 27);
             this.butFindGenerator.TabIndex = 5;
-            this.butFindGenerator.Text = "Найти генератор";
+            this.butFindGenerator.Text = "Найти генераторы";
             this.butFindGenerator.UseVisualStyleBackColor = true;
             this.butFindGenerator.Click += new System.EventHandler(this.butFindGenerator_Click);
             // 

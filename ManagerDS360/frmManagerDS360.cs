@@ -43,7 +43,13 @@ namespace ManagerDS360
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
             frmDefaultGenerator.ShowDialog();
-            butDefaultGenerator.Text = "Генератор " + DS360Setting.ComPortDefaultName;
+            //butDefaultGenerator.Text = "Генератор " + DS360Setting.ComPortDefaultName;
+            string name = DS360Setting.ComPortDefaultName;
+            if (name == "NONE")
+            {
+                name = "не выбран";
+            }
+            butDefaultGenerator.Text = $"Генератор {name}";
         }
         private void lblRoute_Click(object sender, EventArgs e)
         {
@@ -130,7 +136,12 @@ namespace ManagerDS360
             PushListBox();
             butBroadcastSettingsGenerator.Enabled = false;
             butNextSetup.Enabled = false;
-
+            string name = DS360Setting.ComPortDefaultName;
+            if (name == "NONE")
+            {
+                name = "не выбран";
+            }
+            butDefaultGenerator.Text = $"Генератор {name}";
         }
 
         private void PushListBox()

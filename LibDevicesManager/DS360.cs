@@ -415,7 +415,7 @@ namespace LibDevicesManager
                 deviceName = ComPort.GetDeviceModel(ports[i]);
                 if (IsItGenerator(deviceName))
                 {
-                    deviceName += $" s/n{GetSerialNumber(ports[i])}";
+                    deviceName = $"{ports[i]}: {deviceName} s/n{GetSerialNumber(ports[i])}";
                     generatorsList.Add(deviceName);
                 }
             }

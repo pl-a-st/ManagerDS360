@@ -14,6 +14,7 @@ using System.Runtime.Serialization;
 using System.Reflection.Emit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using LibControls;
+using System.Runtime.InteropServices;
 
 namespace ManagerDS360
 {
@@ -25,7 +26,6 @@ namespace ManagerDS360
     public partial class frmCreationEditingRoute : Form
     {
         public SaveName SaveName;
-
         Timer timer;
 
         List<TreeNode> checkedNodes = new List<TreeNode>();
@@ -115,6 +115,12 @@ namespace ManagerDS360
             //название маршрута
         }
 
+        public static class StaticData
+        {
+            //Статическая переменная, выступающая как буфер данных для имени настройки
+            public static String nameBuffer = String.Empty;
+        }
+
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
@@ -130,8 +136,8 @@ namespace ManagerDS360
             TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
             
             treeNode.DS360Setting= editingSettings.DS360Setting;
-            treeNode.Name = "Заглушка";
-            treeNode.Text = "Текст заглушка";
+            //treeNode.Name = "Заглушка";
+            treeNode.Text = StaticData.nameBuffer;
             treRouteTree.Nodes.Add(treeNode);
             
             //treRouteTree.Nodes.Add(treeNode);
@@ -142,7 +148,13 @@ namespace ManagerDS360
 
         private void butEditSetting_Click(object sender, EventArgs e)
         {
-            //редактировать строку c настройкой
+            //редактирование настройки
+            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            editingSettings.Type = Type.Change;
+            editingSettings.SaveStatus = SaveStatus.Cancel;
+            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
+            editingSettings.Text = "Конструирование настройки";
+            editingSettings.ShowDialog();
         }
 
         private void butUp_Click(object sender, EventArgs e)

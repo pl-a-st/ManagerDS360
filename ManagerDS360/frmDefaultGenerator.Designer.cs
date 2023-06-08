@@ -38,9 +38,10 @@
             // lblLisеComPorts
             // 
             this.lblLisеComPorts.AutoSize = true;
-            this.lblLisеComPorts.Location = new System.Drawing.Point(19, 12);
+            this.lblLisеComPorts.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblLisеComPorts.Location = new System.Drawing.Point(19, 30);
             this.lblLisеComPorts.Name = "lblLisеComPorts";
-            this.lblLisеComPorts.Size = new System.Drawing.Size(105, 13);
+            this.lblLisеComPorts.Size = new System.Drawing.Size(132, 14);
             this.lblLisеComPorts.TabIndex = 1;
             this.lblLisеComPorts.Text = "Список com портов";
             this.lblLisеComPorts.Click += new System.EventHandler(this.lblLisеComPorts_Click);
@@ -71,7 +72,7 @@
             // 
             // butFindGenerator
             // 
-            this.butFindGenerator.Location = new System.Drawing.Point(277, 29);
+            this.butFindGenerator.Location = new System.Drawing.Point(277, 47);
             this.butFindGenerator.MaximumSize = new System.Drawing.Size(110, 27);
             this.butFindGenerator.MinimumSize = new System.Drawing.Size(110, 27);
             this.butFindGenerator.Name = "butFindGenerator";
@@ -84,7 +85,7 @@
             // cboListComPorts
             // 
             this.cboListComPorts.FormattingEnabled = true;
-            this.cboListComPorts.Location = new System.Drawing.Point(22, 31);
+            this.cboListComPorts.Location = new System.Drawing.Point(22, 49);
             this.cboListComPorts.Name = "cboListComPorts";
             this.cboListComPorts.Size = new System.Drawing.Size(160, 21);
             this.cboListComPorts.TabIndex = 6;

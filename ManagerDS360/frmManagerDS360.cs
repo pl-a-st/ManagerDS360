@@ -43,7 +43,7 @@ namespace ManagerDS360
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
             frmDefaultGenerator.ShowDialog();
- 
+            butDefaultGenerator.Text = "Генератор " + DS360Setting.ComPortDefaultName;
         }
         private void lblRoute_Click(object sender, EventArgs e)
         {

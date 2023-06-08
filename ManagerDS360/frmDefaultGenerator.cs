@@ -40,11 +40,12 @@ namespace ManagerDS360
 
         }
 
-        private void butSave_Click(object sender, EventArgs e)
+        internal void butSave_Click(object sender, EventArgs e)
         {
             //сохранить выбранный генератор как по умолчанию и отправить имя на главную страницу в лейбл 
             frmManagerDS360 frmManagerDS360 = (frmManagerDS360)Application.OpenForms["frmManagerDS360"];
             frmManagerDS360.lblDefaultGenerator.Text = cboListComPorts.SelectedItem.ToString();
+            DS360Setting.ComPortDefaultName = cboListComPorts.SelectedItem.ToString();
             Close();
         }
 

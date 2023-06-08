@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using VibroMath;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using static ManagerDS360.frmCreationEditingRoute;
 
 namespace ManagerDS360
 {
@@ -30,8 +31,8 @@ namespace ManagerDS360
     }
     public enum SaveStatus
     {
-        Save,
-        Cancel
+        Cancel,
+        Save
     }
 
     public enum PhysicalQuantity
@@ -71,6 +72,7 @@ namespace ManagerDS360
             InitializecboDetector2();
             InitializechcboComPort();
             //взять енам из ds360.сs FunctionType
+
             if (this.Type == Type.Control)
             {
                 butSave.Visible = false;
@@ -85,9 +87,11 @@ namespace ManagerDS360
             }
 
             cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
+            //cboComPort.SelectedIndex = DS360Setting.ComPortDefaultName;  //генер. по умолч. поставить в ячейку комбобокса
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
             chcDefaultGenerator.Checked = true;
+
         }
 
         internal void InitializechcboComPort()
@@ -162,13 +166,6 @@ namespace ManagerDS360
         internal void butSave_Click(object sender, EventArgs e)
         {
             //объявление переменных
-            //double frequency_A;
-            //double frequency_B;
-            //double voltage = Voltage;
-            //double amplitudeRMS_A;
-            //double amplitudeRMS_B;
-            //double offset;
-            //double conversionFactor;
             string portName;
             if (chcDefaultGenerator.Checked)
             {
@@ -184,9 +181,6 @@ namespace ManagerDS360
             {
                 return;
             }
-            //синхрон Енам
-            //(Race)Enum.Parse(typeof(RaceInRussian), cBxRace.Text, true)
-
             //ветка для двух тонов
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Синус)
             {
@@ -224,28 +218,13 @@ namespace ManagerDS360
             SaveStatus = SaveStatus.Save;
 
 
-
-            //    if (!chcDefaultGenerator.Checked)
-            //    {
-            //        //DS360Setting = new DS360Setting(portName, functionType, amplitudeRMS_A(voltage), frequency_A, offset);
-            //    }
-            //}
-
-            //Voltage = 5; /*= VibroMth.GetVolt();*/
-
             //TreeNode treeNode = new TreeNode();
             //treeNode.Setup = dS360Setting;
             //treRouteTree
 
-            //сохранить настройки в 
 
-
-            //создание экземпляра
-            //dS360Setting.functionType = cboTypeSignal.SelectedIndex;
-
-
-            //dS360Setting.Name = cboComPort.Items + txtFrequency.Text + cboDetector.Items;
-
+            //продумать конфигурацию имени для настройки 
+            StaticData.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
 
             this.Close();
         }

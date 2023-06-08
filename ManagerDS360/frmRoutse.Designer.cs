@@ -36,9 +36,9 @@
             this.butDownRoute = new System.Windows.Forms.Button();
             this.butSaveRoutes = new System.Windows.Forms.Button();
             this.butDeleteRoute = new System.Windows.Forms.Button();
-            this.treSaveRoutes = new System.Windows.Forms.TreeView();
             this.lblSaveRoutes = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.treSaveRoutes = new LibControls.TreeViewWithSeting();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,14 +119,6 @@
             this.butDeleteRoute.UseVisualStyleBackColor = true;
             this.butDeleteRoute.Click += new System.EventHandler(this.butDeleteRoute_Click);
             // 
-            // treSaveRoutes
-            // 
-            this.treSaveRoutes.Location = new System.Drawing.Point(12, 29);
-            this.treSaveRoutes.Name = "treSaveRoutes";
-            this.treSaveRoutes.Size = new System.Drawing.Size(360, 324);
-            this.treSaveRoutes.TabIndex = 8;
-            this.treSaveRoutes.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treSaveRoutes_AfterSelect);
-            // 
             // lblSaveRoutes
             // 
             this.lblSaveRoutes.AutoSize = true;
@@ -149,14 +141,21 @@
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
+            // treSaveRoutes
+            // 
+            this.treSaveRoutes.Location = new System.Drawing.Point(21, 29);
+            this.treSaveRoutes.Name = "treSaveRoutes";
+            this.treSaveRoutes.Size = new System.Drawing.Size(347, 338);
+            this.treSaveRoutes.TabIndex = 11;
+            // 
             // frmEditingRoutes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.treSaveRoutes);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSaveRoutes);
-            this.Controls.Add(this.treSaveRoutes);
             this.Controls.Add(this.butDeleteRoute);
             this.Controls.Add(this.butSaveRoutes);
             this.Controls.Add(this.butDownRoute);
@@ -185,8 +184,8 @@
         private System.Windows.Forms.Button butDownRoute;
         private System.Windows.Forms.Button butSaveRoutes;
         private System.Windows.Forms.Button butDeleteRoute;
-        private System.Windows.Forms.TreeView treSaveRoutes;
         private System.Windows.Forms.Label lblSaveRoutes;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private LibControls.TreeViewWithSeting treSaveRoutes;
     }
 }

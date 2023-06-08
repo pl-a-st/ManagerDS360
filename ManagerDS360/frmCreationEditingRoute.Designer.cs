@@ -74,7 +74,7 @@
             // 
             // butAddFolder
             // 
-            this.butAddFolder.Location = new System.Drawing.Point(19, 94);
+            this.butAddFolder.Location = new System.Drawing.Point(22, 195);
             this.butAddFolder.Name = "butAddFolder";
             this.butAddFolder.Size = new System.Drawing.Size(144, 42);
             this.butAddFolder.TabIndex = 4;
@@ -84,7 +84,8 @@
             // 
             // butAddSetting
             // 
-            this.butAddSetting.Location = new System.Drawing.Point(19, 142);
+            this.butAddSetting.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butAddSetting.Location = new System.Drawing.Point(19, 94);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(144, 42);
             this.butAddSetting.TabIndex = 5;
@@ -94,7 +95,7 @@
             // 
             // butEditSetting
             // 
-            this.butEditSetting.Location = new System.Drawing.Point(19, 226);
+            this.butEditSetting.Location = new System.Drawing.Point(22, 252);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(144, 42);
             this.butEditSetting.TabIndex = 6;
@@ -152,7 +153,7 @@
             this.lblSave.BackColor = System.Drawing.SystemColors.Menu;
             this.lblSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSave.ForeColor = System.Drawing.Color.Green;
-            this.lblSave.Location = new System.Drawing.Point(56, 191);
+            this.lblSave.Location = new System.Drawing.Point(56, 143);
             this.lblSave.Name = "lblSave";
             this.lblSave.Size = new System.Drawing.Size(70, 13);
             this.lblSave.TabIndex = 12;

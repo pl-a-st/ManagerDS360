@@ -23,9 +23,6 @@ namespace ManagerDS360
             //тестовая строка
         }
     }
-
-
-
 }
 
 

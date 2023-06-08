@@ -71,7 +71,15 @@ namespace LibDevicesManager
                 if (ComPort.IsPortNameCorrect(value))
                 {
                     comPortName = value;
+                    comPortNumber = (ComPort.GetPortNumberFromPortName(value));
                 }
+            }
+        }
+        public int ComPortNumber
+        {
+            set
+            {
+                SetComPortNumber(value);
             }
         }
         public DeviceModel Model { get { return DeviceModel.DS360; } }
@@ -187,6 +195,7 @@ namespace LibDevicesManager
         #region PrivateFields
         private static string comPortDefaultName;
         private string comPortName;
+        private int comPortNumber;
         private FunctionType functionType;
         private double amplitudeRMS;
         private double amplitudeRMSToneB;
@@ -456,6 +465,10 @@ namespace LibDevicesManager
             //дать команду на включение сигнала.
             ComPort.PortClose(port);
             return result;
+        }
+        public void SetComPortNameToDefault()
+        {
+            ComPortName = ComPortDefaultName;
         }
         public static Result SetComPortDefaultName(string portName)
         {
@@ -835,6 +848,13 @@ namespace LibDevicesManager
         }
         #endregion CommunicateWithDS360
 
+        private void SetComPortNumber(int comPortNumber)
+        {
+            if (comPortNumber < 1 || comPortNumber > 256)
+                return;
+            this.comPortNumber = comPortNumber;
+            this.comPortName = $"COM{comPortNumber}";
+        }
         private bool IsSignalPeriodical()
         {
             if (FunctionType == FunctionType.Sine)

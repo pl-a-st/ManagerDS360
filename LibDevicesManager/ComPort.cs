@@ -331,7 +331,7 @@ namespace LibDevicesManager
             result = PortClose(port);
             return result;
         }
-        private static int GetPortNumberFromPortName(string portName)
+        public static int GetPortNumberFromPortName(string portName)
         {
             int portNumber = 0;
             if (!IsPortNameCorrect(portName))
@@ -345,11 +345,11 @@ namespace LibDevicesManager
                 numberDigits = portName.Length - firstDigitPosition;
             }
             portName = portName.Substring(firstDigitPosition, numberDigits);
-            while (!Char.IsDigit(portName[portName.Length - 1]))
+            while (!char.IsDigit(portName[portName.Length - 1]))
             {
                 portName = portName.Substring(0, portName.Length - 1);
             }
-            Int32.TryParse(portName, out portNumber);
+            int.TryParse(portName, out portNumber);
             return portNumber;
         }
         /*

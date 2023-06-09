@@ -132,6 +132,7 @@ namespace ManagerDS360
             cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             butBroadcastSettingsGenerator.Enabled = false;
             butNextSetup.Enabled = false;
+            DS360Setting.FindAllDS360();
             string name = DS360Setting.ComPortDefaultName;
             if (name == "NONE")
             {

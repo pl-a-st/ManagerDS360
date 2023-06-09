@@ -41,9 +41,9 @@
             this.lblLisеComPorts.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblLisеComPorts.Location = new System.Drawing.Point(19, 30);
             this.lblLisеComPorts.Name = "lblLisеComPorts";
-            this.lblLisеComPorts.Size = new System.Drawing.Size(132, 14);
+            this.lblLisеComPorts.Size = new System.Drawing.Size(141, 14);
             this.lblLisеComPorts.TabIndex = 1;
-            this.lblLisеComPorts.Text = "Список com портов";
+            this.lblLisеComPorts.Text = "Список генераторов";
             this.lblLisеComPorts.Click += new System.EventHandler(this.lblLisеComPorts_Click);
             // 
             // butSave
@@ -78,7 +78,7 @@
             this.butFindGenerator.Name = "butFindGenerator";
             this.butFindGenerator.Size = new System.Drawing.Size(110, 27);
             this.butFindGenerator.TabIndex = 5;
-            this.butFindGenerator.Text = "Найти генераторы";
+            this.butFindGenerator.Text = "Обновить список";
             this.butFindGenerator.UseVisualStyleBackColor = true;
             this.butFindGenerator.Click += new System.EventHandler(this.butFindGenerator_Click);
             // 

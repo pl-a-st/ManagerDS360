@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 //Тестовое обновление
@@ -14,14 +16,6 @@ namespace LibDevicesManager
     enum DS360Errors
     {
 
-    }
-    public enum DeviceType
-    {
-        Generator
-    }
-    public enum DeviceModel
-    {
-        DS360, DS360Emulator, Agilent
     }
     public enum FunctionType
     {
@@ -82,15 +76,8 @@ namespace LibDevicesManager
                 SetComPortNumber(value);
             }
         }
-        public DeviceModel Model { get { return DeviceModel.DS360; } }
+        public DeviceModel DeviceModel { get { return DeviceModel.DS360; } }
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
-        public string SerialNumber
-        {
-            get
-            {
-                return GetSerialNumber(ComPortName);
-            }
-        }
         public FunctionType FunctionType
         {
             get
@@ -205,6 +192,7 @@ namespace LibDevicesManager
         private OutputType outputType;
         private OutputImpedance outputImpedance;
         private string resultMessage;
+        private static List<string> generatorsList;
         private const double frequencyMin = 0.01;
         private const double frequencyMax = 200 * 1000;
         private const double frequencyBMin = 0.1;
@@ -393,37 +381,57 @@ namespace LibDevicesManager
 
         //Добавить описание методов
         #region PublicMethods
-        public static string[] GetDevicesArray()
+        public static string[] FindAllDS360(bool needRefreshGeneratorsList = false)
         {
-            List<string> ports = ComPort.PortsNamesList;
-            string[] devices = new string[ports.Count];
-            for (int i = 0; i < ports.Count; i++)
+            if (generatorsList == null)
             {
-                devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
+                generatorsList = new List<string>();
             }
-            return devices;
-        }
-        public static string[] GetGeneratorsArray()
-        {
+            string[] generators;
+            if (needRefreshGeneratorsList)
+            {
+                generatorsList.Clear();
+            }
+            if (generatorsList.Count!= 0)
+            {
+                generators = new string[generatorsList.Count];
+                for (int i = 0; i < generatorsList.Count; i++)
+                {
+                    generators[i] = generatorsList[i];
+                }
+                //comPortDefaultName = generators[0];
+                return generators;
+            }
             List<string> ports = ComPort.PortsNamesList;
-            List<string> generatorsList = new List<string>();
             string deviceName = string.Empty;
-            //
-            
+            string identificationString = string.Empty;
             for (int i = 0; i < ports.Count; i++)
             {
-                deviceName = ComPort.GetDeviceModel(ports[i]);
-                if (IsItGenerator(deviceName))
+                identificationString = GetDS360IdentificationString(ports[i]);
+                if (IsItDS360(identificationString))
                 {
-                    deviceName = $"{ports[i]}: {deviceName} s/n{GetSerialNumber(ports[i])}";
+                    deviceName = $"{ports[i]}: DS360, s/n{GetSerialNumber(identificationString)}";
                     generatorsList.Add(deviceName);
                 }
+                //ForTest
+                identificationString = GetDS360EIdentificationString(ports[i]);
+                if (IsItDS360E(identificationString))
+                {
+                    deviceName = $"{ports[i]}: DS360E, s/n{GetSerialNumber(identificationString)}";
+                    generatorsList.Add(deviceName);
+                }
+                //--ForTest
             }
-            string[] generators = new string[generatorsList.Count];
-            for (int i=0; i < generatorsList.Count; i++)
+            if (generatorsList.Count == 0)
+            {
+                generatorsList.Add("Генераторы не обнаружены");
+            }
+            generators = new string[generatorsList.Count];
+            for (int i = 0; i < generatorsList.Count; i++)
             {
                 generators[i] = generatorsList[i];
             }
+            comPortDefaultName = generators[0];
             return generators;
         }
         public Result CheckDS360Setting()
@@ -452,7 +460,7 @@ namespace LibDevicesManager
             {
                 return result;
             }
-            result = ComPort.PortOpen(ComPortName, out SerialPort port);
+            result = ComPort.PortOpen(DeviceModel, ComPortName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -460,6 +468,7 @@ namespace LibDevicesManager
                 return result;
             }
             //ПОСЛЕ открытия порта нужна пауза!!!! 
+            //Нужна очистка входного буффера!!!!
             result = SetOutputSignalEnable(port, false);
             if (result != Result.Success)
             {
@@ -493,7 +502,7 @@ namespace LibDevicesManager
         {
             ComPortName = ComPortDefaultName;
         }
-        public static Result SetComPortDefaultName(string portName)
+        private static Result SetComPortDefaultName(string portName)
         {
             if (ComPort.IsPortNameCorrect(portName))
             {
@@ -505,7 +514,7 @@ namespace LibDevicesManager
         }
         public static string GetComPortDefaultName()
         {
-            if (comPortDefaultName == null || comPortDefaultName == string.Empty)
+            if (comPortDefaultName == null || comPortDefaultName == string.Empty || comPortDefaultName == "Генераторы не обнаружены")
             {
                 comPortDefaultName = "NONE";
             }
@@ -838,27 +847,46 @@ namespace LibDevicesManager
             receivedMessage = receivedMessage.Substring(0, receivedMessage.Length - 1);
             return receivedMessage;
         }
-        private static string GetSerialNumber(string portName)
+        private static string GetSerialNumber(string identificationString)
         {
-            string identificationString = GetIdentificationString(portName);
-            if (identificationString == string.Empty && identificationString == null)
-            {
-                return string.Empty;
-            }
             string[] subString = identificationString.Split(',');
             string serialNumber = subString[2];
             return serialNumber;
         }
-        private static string GetIdentificationString(string comPortName)
+        
+        private static string GetDS360IdentificationString(string comPortName)
         {
             string command = "*IDN?";
-            Result result = ComPort.PortOpen(comPortName, out SerialPort port);
+            Result result = ComPort.PortOpen(DeviceModel.DS360, comPortName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
                 return string.Empty;
             }
-            result = ComPort.Send(port, command); ;
+            Thread.Sleep(300);
+            result = ComPort.Send(port, command);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            Thread.Sleep(300);
+            string identificationString = ComPort.Receive(port);
+            identificationString = identificationString.Substring(0, identificationString.Length - 1);
+            ComPort.PortClose(port);
+            return identificationString;
+        }
+        private static string GetDS360EIdentificationString(string comPortName)
+        {
+            string command = "*IDN?";
+            Result result = ComPort.PortOpen(DeviceModel.DS360Emulator, comPortName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                return string.Empty;
+            }
+            Thread.Sleep(300);
+            result = ComPort.Send(port, command);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -871,6 +899,7 @@ namespace LibDevicesManager
         }
         #endregion CommunicateWithDS360
 
+        #region SecondaryMethods
         private void SetComPortNumber(int comPortNumber)
         {
             if (comPortNumber < 1 || comPortNumber > 256)
@@ -1054,8 +1083,80 @@ namespace LibDevicesManager
             }
             return false;
         }
+        private static bool IsItDS360(string identificationString)
+        {
+            if (identificationString.StartsWith("StanfordResearchSystems,DS360,"))
+            {
+                return true;
+            }
+            return false;
+        }
+        private static bool IsItDS360E(string identificationString)
+        {
+            if (identificationString.StartsWith("StanfordResearchSystems,DS360E,"))
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion SecondaryMethods
 
         #region UnUsed
+        private static string[] GetDevicesArray()
+        {
+            List<string> ports = ComPort.PortsNamesList;
+            string[] devices = new string[ports.Count];
+            for (int i = 0; i < ports.Count; i++)
+            {
+                devices[i] = $"{ports[i]}: {ComPort.GetDeviceModel(ports[i])}";
+            }
+            return devices;
+        }
+        private static string[] GetComPortNameArray()
+        {
+            string[] portNames;
+            try
+            {
+                portNames = SerialPort.GetPortNames();
+            }
+            catch (Win32Exception)
+            {
+                portNames = new string[] { "Com-порты не обнаружены" };
+            }
+            if (portNames == null || portNames.Length == 0)
+            {
+                portNames = new string[] { "Com-порты не обнаружены" };
+            }
+            return portNames;
+        }
+        private static string[] GetGeneratorsArray()
+        {
+            List<string> ports = ComPort.PortsNamesList;
+            List<string> generatorsList = new List<string>();
+            string deviceName = string.Empty;
+            //
+
+            for (int i = 0; i < ports.Count; i++)
+            {
+                deviceName = ComPort.GetDeviceModel(ports[i]);
+                if (IsItGenerator(deviceName))
+                {
+                    //deviceName = $"{ports[i]}: {deviceName} s/n{GetSerialNumber(ports[i])}";
+                    deviceName = $"{ports[i]}: {deviceName}";
+                    generatorsList.Add(deviceName);
+                }
+            }
+            if (generatorsList.Count == 0)
+            {
+                generatorsList.Add("Генераторы не обнаружены");
+            }
+            string[] generators = new string[generatorsList.Count];
+            for (int i = 0; i < generatorsList.Count; i++)
+            {
+                generators[i] = generatorsList[i];
+            }
+            return generators;
+        }
         private static string SetGeneratorsPortAsDefaultComPort()
         {
             string portName = string.Empty;
@@ -1083,12 +1184,23 @@ namespace LibDevicesManager
 
             return string.Empty; //Дописать
         }
-
         private static List<string> GetComPortList()
         {
             List<string> portsNamesList = ComPort.PortsNamesList;
             return portsNamesList;
         }
+        /*
+        private static string _GetSerialNumber(string portName)
+        {
+            string identificationString = GetDS360IdentificationString(portName);
+            if (identificationString == string.Empty && identificationString == null)
+            {
+                return string.Empty;
+            }
+            string[] subString = identificationString.Split(',');
+            string serialNumber = subString[2];
+            return serialNumber;
+        }*/
         #endregion UnUsed
     }
 }

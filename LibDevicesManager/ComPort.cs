@@ -14,6 +14,14 @@ namespace LibDevicesManager
     {
         Success, Failure, Exception, ParamError, AcsessError
     }
+    public enum DeviceType
+    {
+        Generator
+    }
+    public enum DeviceModel
+    {
+        DS360, DS360Emulator, Agilent
+    }
     public static class ComPort
     {
         private static int baudRate = 9600;
@@ -148,7 +156,7 @@ namespace LibDevicesManager
             if (result == Result.Success)
             {
                 return "DS360-Emulator";
-            }            
+            }
             result = IsComPortDS360(portName);
             if (result == Result.Success)
             {
@@ -156,7 +164,7 @@ namespace LibDevicesManager
             }
             return "Unknown";
         }
-        public static Result PortOpen(string portName, out SerialPort port)
+        public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port)
         {
             Result result = Result.Success;
             port = new SerialPort();
@@ -167,6 +175,14 @@ namespace LibDevicesManager
             }
             string comPortName = "COM" + portNumber;
             port.PortName = comPortName;
+            if (deviceModel == DeviceModel.DS360)
+            {
+                SetPortSettingForDS360();
+            }
+            if (deviceModel == DeviceModel.DS360Emulator)
+            {
+                SetPortSettingForDS360Emulator();
+            }
             result = SetupPort(port);
             if (result != Result.Success)
             {
@@ -188,6 +204,14 @@ namespace LibDevicesManager
             {
                 result = Result.Exception;
             }
+            /*if (result == Result.Success)
+            {
+                while (!port.IsOpen)
+                {
+                    Thread.Sleep(30);
+                }
+            }*/
+            //Thread.Sleep(300);
             return result;
         }
         public static Result PortClose(SerialPort port)
@@ -265,7 +289,7 @@ namespace LibDevicesManager
                 return Result.Exception;
             }
         }
-        private static void SetupPortDS360()
+        public static void SetPortSettingForDS360()
         {
             baudRate = 9600;
             parity = Parity.None;
@@ -274,20 +298,20 @@ namespace LibDevicesManager
             readTimeout = 100;
             writeTimeout = 100;
         }
-        private static void SetupPortDS360Emulator()
+        private static void SetPortSettingForDS360Emulator()
         {
             baudRate = 9600;
             parity = Parity.None;
             stopBits = StopBits.One;
             dtrEnable = false;
-            readTimeout = 100;
-            writeTimeout = 100;
+            readTimeout = 500;
+            writeTimeout = 500;
         }
         private static Result IsComPortDS360(string portName)
         {
             Result result = Result.Success;
-            SetupPortDS360();
-            result = PortOpen(portName, out SerialPort port);
+            //SetPortSettingForDS360();
+            result = PortOpen(DeviceModel.DS360, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 port.Dispose();
@@ -310,8 +334,8 @@ namespace LibDevicesManager
         private static Result IsComPortDS360Emulator(string portName)
         {
             Result result = Result.Success;
-            SetupPortDS360Emulator();
-            result = PortOpen(portName, out SerialPort port);
+            //SetPortSettingForDS360Emulator();
+            result = PortOpen(DeviceModel.DS360Emulator, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 port.Dispose();

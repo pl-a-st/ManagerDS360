@@ -13,6 +13,7 @@ using VibroMath;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static ManagerDS360.frmCreationEditingRoute;
+using System.IO.Ports;
 
 namespace ManagerDS360
 {
@@ -86,7 +87,14 @@ namespace ManagerDS360
                 butSend.Visible = false;
             }
 
-            cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
+            //cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
+            //ААС: Добавил ниже список из 20 имён
+            string[] comportNames = new string[20];
+            for (int i = 0;i < comportNames.Length; i++)
+            {
+                comportNames[i] = $"COM{i+1}";
+            }
+            cboComPort.Items.AddRange(comportNames); 
             //cboComPort.SelectedIndex = DS360Setting.ComPortDefaultName;  //генер. по умолч. поставить в ячейку комбобокса
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();

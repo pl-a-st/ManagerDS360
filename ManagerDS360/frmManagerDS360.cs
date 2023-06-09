@@ -126,14 +126,10 @@ namespace ManagerDS360
             //отображение в окошке наименования генератора
         }
 
-        private void treFieldКouteЕree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
         internal void frmManagerDS360_Load(object sender, EventArgs e)
         {
             PushListBox();
+            cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             butBroadcastSettingsGenerator.Enabled = false;
             butNextSetup.Enabled = false;
             string name = DS360Setting.ComPortDefaultName;
@@ -166,11 +162,6 @@ namespace ManagerDS360
         private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
         {
             //скролл горизонт
-        }
-
-        private void frmManagerDS360_Load_1(object sender, EventArgs e)
-        {
-
         }
 
         internal void lblDefaultGenerator_Click(object sender, EventArgs e)

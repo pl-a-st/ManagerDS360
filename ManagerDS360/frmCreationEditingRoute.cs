@@ -115,7 +115,7 @@ namespace ManagerDS360
             //название маршрута
         }
 
-        public static class StaticData
+        public static class StaticName
         {
             //Статическая переменная, выступающая как буфер данных для имени настройки
             public static String nameBuffer = String.Empty;
@@ -137,7 +137,7 @@ namespace ManagerDS360
             
             treeNode.DS360Setting= editingSettings.DS360Setting;
             //treeNode.Name = "Заглушка";
-            treeNode.Text = StaticData.nameBuffer;
+            treeNode.Text = StaticName.nameBuffer;
             treRouteTree.Nodes.Add(treeNode);
             
             //treRouteTree.Nodes.Add(treeNode);

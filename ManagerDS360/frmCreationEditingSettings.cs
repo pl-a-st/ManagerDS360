@@ -224,7 +224,7 @@ namespace ManagerDS360
 
 
             //продумать конфигурацию имени для настройки 
-            StaticData.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
+            StaticName.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
 
             this.Close();
         }

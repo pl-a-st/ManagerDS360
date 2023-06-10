@@ -20,8 +20,9 @@ namespace ManagerDS360
 {
     public enum Type
     {
-        Change,
-        Control
+        Create,
+        Control,
+        Change
     }
 
     public enum FunctionTypeSignal
@@ -68,11 +69,14 @@ namespace ManagerDS360
         }
         public void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
-            InitializecboSetValue();
-            InitializecboTypeSignal();
-            InitializecboDetector();
-            InitializecboDetector2();
-            InitializechcboComPort();
+            if (Type == Type.Create|| Type == Type.Control)
+            {
+                InitializecboSetValue();
+                InitializecboTypeSignal();
+                InitializecboDetector();
+                InitializecboDetector2();
+                InitializechcboComPort();
+            }
             //взять енам из ds360.сs FunctionType
 
             if (this.Type == Type.Control)
@@ -81,7 +85,7 @@ namespace ManagerDS360
                 butSend.Visible = true;
                 butSend.Location = butSave.Location;
             }
-            if (this.Type == Type.Change)
+            if (this.Type == Type.Create)
             {
                 butSave.Visible = true;
                 butSend.Visible = false;
@@ -254,7 +258,10 @@ namespace ManagerDS360
 
             if (cboSetValue.Text == @"мм / с")
             {
-                VibroCalc.CalcAll(new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                VibroCalc.CalcAll(velocity);
+                DS360Setting.VibroParametr = velocity;
+                DS360Setting.SignalParametrTone1 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true);
             }
             if (cboSetValue.Text == @"мкм")
             {

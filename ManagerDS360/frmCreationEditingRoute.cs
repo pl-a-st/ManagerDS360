@@ -15,6 +15,7 @@ using System.Reflection.Emit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using LibControls;
 using System.Runtime.InteropServices;
+using VibroMath;
 
 namespace ManagerDS360
 {
@@ -138,7 +139,7 @@ namespace ManagerDS360
                 return;
             }
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            editingSettings.Type = Type.Change;
+            editingSettings.Type = Type.Create;
             editingSettings.SaveStatus = SaveStatus.Cancel;
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
@@ -179,15 +180,36 @@ namespace ManagerDS360
             textNode += "[Offset = " + editingSettings.txtOffset.Text + "] ";
             return textNode;
         }
-
+        /// <summary>
+        /// редактирование настройки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butEditSetting_Click(object sender, EventArgs e)
         {
-            //редактирование настройки
+            if (treRouteTree.SelectedNode== null|| (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
+            {
+                MessageBox.Show("Не выбрана настройка для редактирования");
+                return;
+            }
+            TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
+            if(selectedNode.DS360Setting.VibroParametr is Velocity)
+            {
+                VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.Frequency);
+                VibroCalc.Sensitivity.Set_mV_G(100);// TODO gопменять
+                Velocity velocity = selectedNode.DS360Setting.VibroParametr as Velocity;
+                VibroCalc.CalcAll(velocity);
+                editingSettings.InitializecboDetector();
+                editingSettings.cboDetector.SelectedItem = ((Detector)selectedNode.DS360Setting.SignalParametrTone1).ToString().Replace(" - ", " - ");
+                editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
+                editingSettings.txtValue.Text = velocity.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
+            }
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
+            
             editingSettings.ShowDialog();
         }
 

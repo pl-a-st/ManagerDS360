@@ -56,25 +56,46 @@ namespace LibControls
             }
             base.OnKeyPress(e);
         }
-       
+
+    }
+    public enum NodeType
+    {
+        Folder,
+        Setting
     }
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
     {
+        public NodeType NodeType;
         public DS360Setting DS360Setting = new DS360Setting();
-       
+
+        public TreeNodeWithSetting(NodeType nodeType)
+        {
+            this.NodeType = nodeType;
+            if (NodeType == NodeType.Folder)
+            {
+                this.ImageIndex = 0;
+                this.SelectedImageIndex = 0;
+            }
+            if (NodeType == NodeType.Setting)
+            {
+                this.ImageIndex = 1;
+                this.SelectedImageIndex = 1;
+            }
+        }
+
 
 
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView
     {
-        public TreeNodeWithSetting CopyTreeNodeWithSetup = new TreeNodeWithSetting();
+        public TreeNodeWithSetting CopyTreeNodeWithSetup;
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
             ImageList = new ImageList();
-            ImageList.ImageSize = new Size(25,25);
+            ImageList.ImageSize = new Size(25, 25);
             ImageList.Images.Add(Properties.Resources.Папка);
             ImageList.Images.Add(Properties.Resources.Настройка);
         }

@@ -78,12 +78,11 @@ namespace ManagerDS360
             {
                 butSave.Visible = false;
                 butSend.Visible = true;
-                butSend.Location = new Point(53, 404);
+                butSend.Location = butSave.Location;
             }
             if (this.Type == Type.Change)
             {
                 butSave.Visible = true;
-                butSave.Location = new Point(53, 404);
                 butSend.Visible = false;
             }
 

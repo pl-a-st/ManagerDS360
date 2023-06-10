@@ -51,10 +51,18 @@ namespace ManagerDS360
 
             //}
         }
-
+        /// <summary>
+        /// Кнопка добавить папку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butAddFolder_Click(object sender, EventArgs e)
         {
-            //кнопка добавить папку
+            if(treRouteTree.SelectedNode!=null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
             frmInputName frmInputName = new frmInputName();
             frmInputName.ShowDialog();
 
@@ -124,6 +132,11 @@ namespace ManagerDS360
 
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
@@ -134,17 +147,21 @@ namespace ManagerDS360
             {
                 return;
             }
-            TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Setting, StaticName.nameBuffer);
-            
-            treeNode.DS360Setting= editingSettings.DS360Setting;
-            //treeNode.Name = "Заглушка";
-            treeNode.Text = StaticName.nameBuffer;
-            treRouteTree.Nodes.Add(treeNode);
-            
-            //treRouteTree.Nodes.Add(treeNode);
-            //newfrmCreationEditingSettings.cbo
+            string textNode = string.Empty;
 
-            ///*treRouteTree*/.Nodes.Add()
+            textNode += "["+ editingSettings.cboTypeSignal.Text + "] ";
+            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
+            TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Setting, textNode);
+            treeNode.DS360Setting= editingSettings.DS360Setting;
+            if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+            {
+                treRouteTree.Nodes.Add(treeNode);
+                return;
+            }
+            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            SelectedNodeWithSetup.Nodes.Add(treeNode);
+            SelectedNodeWithSetup.Expand();
+
         }
 
         private void butEditSetting_Click(object sender, EventArgs e)

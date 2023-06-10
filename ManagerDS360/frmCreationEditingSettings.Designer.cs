@@ -48,10 +48,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtFrequency = new LibControls.ModifiedTextBox();
             this.txtValue = new LibControls.ModifiedTextBox();
             this.txtValue2 = new LibControls.ModifiedTextBox();
@@ -97,7 +97,7 @@
             // cboTypeSignal
             // 
             this.cboTypeSignal.FormattingEnabled = true;
-            this.cboTypeSignal.Location = new System.Drawing.Point(20, 43);
+            this.cboTypeSignal.Location = new System.Drawing.Point(30, 120);
             this.cboTypeSignal.Name = "cboTypeSignal";
             this.cboTypeSignal.Size = new System.Drawing.Size(143, 21);
             this.cboTypeSignal.TabIndex = 3;
@@ -106,7 +106,7 @@
             // lblTypeSignal
             // 
             this.lblTypeSignal.AutoSize = true;
-            this.lblTypeSignal.Location = new System.Drawing.Point(17, 27);
+            this.lblTypeSignal.Location = new System.Drawing.Point(27, 104);
             this.lblTypeSignal.Name = "lblTypeSignal";
             this.lblTypeSignal.Size = new System.Drawing.Size(88, 13);
             this.lblTypeSignal.TabIndex = 4;
@@ -116,7 +116,7 @@
             // cboSetValue
             // 
             this.cboSetValue.FormattingEnabled = true;
-            this.cboSetValue.Location = new System.Drawing.Point(20, 88);
+            this.cboSetValue.Location = new System.Drawing.Point(30, 74);
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(143, 21);
             this.cboSetValue.TabIndex = 5;
@@ -125,7 +125,7 @@
             // lblSetValue
             // 
             this.lblSetValue.AutoSize = true;
-            this.lblSetValue.Location = new System.Drawing.Point(17, 72);
+            this.lblSetValue.Location = new System.Drawing.Point(27, 58);
             this.lblSetValue.Name = "lblSetValue";
             this.lblSetValue.Size = new System.Drawing.Size(121, 13);
             this.lblSetValue.TabIndex = 6;
@@ -135,7 +135,7 @@
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
-            this.lblConversionFactor.Location = new System.Drawing.Point(17, 118);
+            this.lblConversionFactor.Location = new System.Drawing.Point(27, 150);
             this.lblConversionFactor.Name = "lblConversionFactor";
             this.lblConversionFactor.Size = new System.Drawing.Size(137, 13);
             this.lblConversionFactor.TabIndex = 8;
@@ -189,7 +189,7 @@
             // lblOffset
             // 
             this.lblOffset.AutoSize = true;
-            this.lblOffset.Location = new System.Drawing.Point(17, 165);
+            this.lblOffset.Location = new System.Drawing.Point(309, 210);
             this.lblOffset.Name = "lblOffset";
             this.lblOffset.Size = new System.Drawing.Size(61, 13);
             this.lblOffset.TabIndex = 16;
@@ -277,6 +277,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Второй сигнал";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Детектор";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -310,18 +319,9 @@
             this.groupBox4.Controls.Add(this.cboTypeSignal);
             this.groupBox4.Location = new System.Drawing.Point(12, 86);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(587, 234);
+            this.groupBox4.Size = new System.Drawing.Size(587, 251);
             this.groupBox4.TabIndex = 38;
             this.groupBox4.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Детектор";
             // 
             // txtFrequency
             // 
@@ -361,7 +361,7 @@
             // 
             // txtConversionFactor
             // 
-            this.txtConversionFactor.Location = new System.Drawing.Point(20, 134);
+            this.txtConversionFactor.Location = new System.Drawing.Point(30, 166);
             this.txtConversionFactor.MaxLength = 9;
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
@@ -371,11 +371,12 @@
             // 
             // txtOffset
             // 
-            this.txtOffset.Location = new System.Drawing.Point(19, 181);
+            this.txtOffset.Location = new System.Drawing.Point(312, 223);
             this.txtOffset.MaxLength = 9;
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(143, 20);
             this.txtOffset.TabIndex = 29;
+            this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
             // frmCreationEditingSettings

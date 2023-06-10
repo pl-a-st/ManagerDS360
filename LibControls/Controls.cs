@@ -69,7 +69,7 @@ namespace LibControls
         public NodeType NodeType;
         public DS360Setting DS360Setting = new DS360Setting();
 
-        public TreeNodeWithSetting(NodeType nodeType)
+        public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
             if (NodeType == NodeType.Folder)
@@ -82,10 +82,8 @@ namespace LibControls
                 this.ImageIndex = 1;
                 this.SelectedImageIndex = 1;
             }
+            Text= text;
         }
-
-
-
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView

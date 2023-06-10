@@ -58,19 +58,20 @@ namespace ManagerDS360
             frmInputName frmInputName = new frmInputName();
             frmInputName.ShowDialog();
 
-            if (frmInputName.SaveName == SaveName.SaveName)
+            if (frmInputName.SaveName != SaveName.SaveName)
             {
-                string nameSet = frmInputName.txtNameSet.Text;
-                TreeNodeWithSetup treeNodeWithSetup = new TreeNodeWithSetup(nameSet);
-                if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
-                {
-                    treRouteTree.Nodes.Add(treeNodeWithSetup);
-                    return;
-                }
-                TreeNodeWithSetup SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetup;
-                SelectedNodeWithSetup.Nodes.Add(treeNodeWithSetup);
-                SelectedNodeWithSetup.Expand();
+                return;
             }
+            TreeNodeWithSetting treeNodeWihtSetting = new TreeNodeWithSetting(NodeType.Folder, frmInputName.txtNameSet.Text);
+            
+            if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+            {
+                treRouteTree.Nodes.Add(treeNodeWihtSetting);
+                return;
+            }
+            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            SelectedNodeWithSetup.Nodes.Add(treeNodeWihtSetting);
+            SelectedNodeWithSetup.Expand();
         }
         //обновление окна CreationEditingRoute
         void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
@@ -133,7 +134,7 @@ namespace ManagerDS360
             {
                 return;
             }
-            TreeNodeWithSetting treeNode = new TreeNodeWithSetting();
+            TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Setting, StaticName.nameBuffer);
             
             treeNode.DS360Setting= editingSettings.DS360Setting;
             //treeNode.Name = "Заглушка";

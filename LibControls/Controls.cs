@@ -67,7 +67,7 @@ namespace LibControls
     public class TreeNodeWithSetting : TreeNode
     {
         public NodeType NodeType;
-        public DS360Setting DS360Setting = new DS360Setting();
+        public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
 
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {

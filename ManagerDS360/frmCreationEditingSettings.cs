@@ -14,6 +14,7 @@ using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static ManagerDS360.frmCreationEditingRoute;
 using System.IO.Ports;
+using LibControls;
 
 namespace ManagerDS360
 {
@@ -60,7 +61,7 @@ namespace ManagerDS360
         public FunctionTypeSignal FunctionTypeSignal;
 
         public double Voltage;
-        public DS360Setting DS360Setting = new DS360Setting();
+        public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
         public frmCreationEditingSettings()
         {
             InitializeComponent();
@@ -182,7 +183,7 @@ namespace ManagerDS360
             {
                 portName = cboComPort.Text;
             }
-            DS360Setting = new DS360Setting();
+            DS360Setting = new DS360SettingVibroSigParam();
 
             if (CheckFormsParameters() != Result.Success)
             {

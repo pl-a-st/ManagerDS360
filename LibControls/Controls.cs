@@ -82,7 +82,7 @@ namespace LibControls
                 this.ImageIndex = 1;
                 this.SelectedImageIndex = 1;
             }
-            Text= text;
+            Text = text;
         }
     }
     [Serializable]
@@ -96,6 +96,19 @@ namespace LibControls
             ImageList.ImageSize = new Size(25, 25);
             ImageList.Images.Add(Properties.Resources.Папка);
             ImageList.Images.Add(Properties.Resources.Настройка);
+        }
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+            this.SelectedNode = null;
+        }
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.SelectedNode = null;
+            }
         }
     }
 }

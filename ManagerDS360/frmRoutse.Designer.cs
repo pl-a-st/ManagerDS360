@@ -38,7 +38,7 @@
             this.butDeleteRoute = new System.Windows.Forms.Button();
             this.lblSaveRoutes = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.treSaveRoutes = new LibControls.TreeViewWithSeting();
+            this.treSaveRoutes = new LibControls.TreeViewWithSetting();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,6 +186,6 @@
         private System.Windows.Forms.Button butDeleteRoute;
         private System.Windows.Forms.Label lblSaveRoutes;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private LibControls.TreeViewWithSeting treSaveRoutes;
+        private LibControls.TreeViewWithSetting treSaveRoutes;
     }
 }

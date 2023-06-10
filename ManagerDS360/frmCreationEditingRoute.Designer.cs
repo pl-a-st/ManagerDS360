@@ -41,7 +41,7 @@
             this.lblSave = new System.Windows.Forms.Label();
             this.lblSaveRoute = new System.Windows.Forms.Label();
             this.butAllDelete = new System.Windows.Forms.Button();
-            this.treRouteTree = new LibControls.TreeViewWithSeting();
+            this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -237,6 +237,6 @@
         internal System.Windows.Forms.Label lblSave;
         private System.Windows.Forms.Label lblSaveRoute;
         private System.Windows.Forms.Button butAllDelete;
-        private LibControls.TreeViewWithSeting treRouteTree;
+        private LibControls.TreeViewWithSetting treRouteTree;
     }
 }

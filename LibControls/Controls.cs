@@ -59,14 +59,22 @@ namespace LibControls
        
     }
     [Serializable]
-    public class TreeNodeWithSeting : TreeNode
+    public class TreeNodeWithSetting : TreeNode
     {
         public DS360Setting DS360Setting = new DS360Setting();
        
+
+
     }
     [Serializable]
-    public class TreeViewWithSeting : TreeView
+    public class TreeViewWithSetting : TreeView
     {
-        public TreeNodeWithSeting CopyTreeNodeWithSetup = new TreeNodeWithSeting();
+        public TreeNodeWithSetting CopyTreeNodeWithSetup = new TreeNodeWithSetting();
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            this.ImageList = new ImageList();
+
+        }
     }
 }

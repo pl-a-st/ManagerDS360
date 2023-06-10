@@ -133,7 +133,7 @@ namespace ManagerDS360
             {
                 return;
             }
-            TreeNodeWithSeting treeNode = new TreeNodeWithSeting();
+            TreeNodeWithSetting treeNode = new TreeNodeWithSetting();
             
             treeNode.DS360Setting= editingSettings.DS360Setting;
             //treeNode.Name = "Заглушка";

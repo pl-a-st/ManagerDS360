@@ -73,8 +73,10 @@ namespace LibControls
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            this.ImageList = new ImageList();
-
+            ImageList = new ImageList();
+            ImageList.ImageSize = new Size(25,25);
+            ImageList.Images.Add(Properties.Resources.Папка);
+            ImageList.Images.Add(Properties.Resources.Настройка);
         }
     }
 }

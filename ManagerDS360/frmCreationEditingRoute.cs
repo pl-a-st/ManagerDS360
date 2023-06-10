@@ -147,12 +147,9 @@ namespace ManagerDS360
             {
                 return;
             }
-            string textNode = string.Empty;
-
-            textNode += "["+ editingSettings.cboTypeSignal.Text + "] ";
-            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
+            string textNode = GetTextNode(editingSettings);
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Setting, textNode);
-            treeNode.DS360Setting= editingSettings.DS360Setting;
+            treeNode.DS360Setting = editingSettings.DS360Setting;
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNode);
@@ -162,6 +159,25 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Nodes.Add(treeNode);
             SelectedNodeWithSetup.Expand();
 
+        }
+
+        private static string GetTextNode(frmCreationEditingSettings editingSettings)
+        {
+            string textNode= string.Empty;
+            textNode += "[" + editingSettings.cboTypeSignal.Text + "] ";
+            textNode += "[Кп = " + editingSettings.txtConversionFactor.Text + "] ";
+            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
+            textNode += "[1" + editingSettings.cboDetector.Text + " = ";
+            textNode += editingSettings.txtValue.Text + "] ";
+            textNode += "[1F = " + editingSettings.txtFrequency.Text + "] ";
+            if (editingSettings.txtValue2.Text != "" && editingSettings.txtValue2.Text != string.Empty)
+            {
+                textNode += "[2" + editingSettings.cboDetector2.Text + " = ";
+                textNode += editingSettings.txtValue2.Text + "] ";
+                textNode += "[2F = " + editingSettings.txtFrequency2.Text + "] ";
+            }
+            textNode += "[Offset = " + editingSettings.txtOffset.Text + "] ";
+            return textNode;
         }
 
         private void butEditSetting_Click(object sender, EventArgs e)

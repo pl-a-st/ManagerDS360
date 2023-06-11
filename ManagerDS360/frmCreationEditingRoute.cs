@@ -194,6 +194,22 @@ namespace ManagerDS360
             }
             TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+            configureEditingSettings(selectedNode, editingSettings);
+            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
+            editingSettings.ShowDialog();
+            if (editingSettings.SaveStatus != SaveStatus.Save)
+            {
+                return;
+            }
+            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            string textNode = GetTextNode(editingSettings);
+            SelectedNodeWithSetup.Text = textNode;
+            SelectedNodeWithSetup.DS360Setting = editingSettings.DS360Setting;
+        }
+
+        private void configureEditingSettings(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
+        {
+            editingSettings.Text = "Конструирование настройки";
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
             editingSettings.InitializecboDetector();
@@ -206,12 +222,16 @@ namespace ManagerDS360
             editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
             editingSettings.txtFrequency2.Text = selectedNode.DS360Setting.FrequencyB.ToString();
             editingSettings.txtOffset.Text = selectedNode.DS360Setting.Offset.ToString();
+            ConfigureToVibroparam(selectedNode, editingSettings);
+            editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
+        }
 
+        private static void ConfigureToVibroparam(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
+        {
             VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.Frequency);
             VibroCalc.Sensitivity.Set_mV_G(selectedNode.DS360Setting.Sensitivity.Get_mV_G());
             if (selectedNode.DS360Setting.VibroParametr is Voltage)
             {
-                
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
@@ -220,7 +240,7 @@ namespace ManagerDS360
             }
             if (selectedNode.DS360Setting.VibroParametr is Velocity)
             {
-               
+
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Velocity.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
@@ -245,18 +265,6 @@ namespace ManagerDS360
                 editingSettings.txtValue2.Text = VibroCalc.Displacement.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.мкм];
             }
-            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
-            editingSettings.Text = "Конструирование настройки";
-            editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
-            editingSettings.ShowDialog();
-            if(editingSettings.SaveStatus!= SaveStatus.Save)
-            {
-                return;
-            }
-            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            string textNode = GetTextNode(editingSettings);
-            SelectedNodeWithSetup.Text = textNode;
-            SelectedNodeWithSetup.DS360Setting = editingSettings.DS360Setting;
         }
 
         private void butUp_Click(object sender, EventArgs e)

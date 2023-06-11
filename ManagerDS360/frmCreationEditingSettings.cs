@@ -84,7 +84,7 @@ namespace ManagerDS360
                 butSend.Visible = true;
                 butSend.Location = butSave.Location;
             }
-            if (this.Type == Type.Create)
+            if (this.Type == Type.Create || this.Type == Type.Change)
             {
                 butSave.Visible = true;
                 butSend.Visible = false;
@@ -226,8 +226,8 @@ namespace ManagerDS360
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
-            DS360Setting.SignalParametrTone1 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDetector.Text, true);
-            DS360Setting.SignalParametrTone2 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDetector2.Text, true);
+            DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);
+            DS360Setting.SignalParametrTone2 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector2.Text);
             DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
@@ -244,7 +244,24 @@ namespace ManagerDS360
 
             this.Close();
         }
-
+        private static string GetTextNode(frmCreationEditingSettings editingSettings)
+        {
+            string textNode = string.Empty;
+            textNode += "[" + editingSettings.cboTypeSignal.Text + "] ";
+            textNode += "[Кп = " + editingSettings.txtConversionFactor.Text + "] ";
+            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
+            textNode += "[1" + editingSettings.cboDetector.Text + " = ";
+            textNode += editingSettings.txtValue.Text + "] ";
+            textNode += "[1F = " + editingSettings.txtFrequency.Text + "] ";
+            if (editingSettings.txtValue2.Text != "" && editingSettings.txtValue2.Text != string.Empty)
+            {
+                textNode += "[2" + editingSettings.cboDetector2.Text + " = ";
+                textNode += editingSettings.txtValue2.Text + "] ";
+                textNode += "[2F = " + editingSettings.txtFrequency2.Text + "] ";
+            }
+            textNode += "[Offset = " + editingSettings.txtOffset.Text + "] ";
+            return textNode;
+        }
         private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
         {
             double value1 = double.Parse(txt.Text);
@@ -262,25 +279,25 @@ namespace ManagerDS360
 
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с)
             {
-                Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
                 VibroCalc.CalcAll(velocity);
                 DS360Setting.VibroParametr = velocity;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм)
             {
-                Displacement displacement = new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                Displacement displacement = new Displacement(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
                 VibroCalc.CalcAll(displacement);
                 DS360Setting.VibroParametr = displacement;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.м_с2)
             {
-                Acceleration acceleration = new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                Acceleration acceleration = new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
                 VibroCalc.CalcAll(acceleration);
                 DS360Setting.VibroParametr = acceleration;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.U)
             {
-                Voltage voltage = new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                Voltage voltage = new Voltage(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
                 VibroCalc.CalcAll(voltage);
                 DS360Setting.VibroParametr = voltage;
             }

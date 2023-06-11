@@ -44,7 +44,6 @@ namespace ManagerDS360
         м_с2,
         мм_с,
         мкм,
-        G
     }
     public enum Detector
     {
@@ -69,7 +68,7 @@ namespace ManagerDS360
         }
         public void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
-            if (Type == Type.Create|| Type == Type.Control)
+            if (Type == Type.Create || Type == Type.Control)
             {
                 InitializecboSetValue();
                 InitializecboTypeSignal();
@@ -94,11 +93,11 @@ namespace ManagerDS360
             //cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
             //ААС: Добавил ниже список из 20 имён
             string[] comportNames = new string[20];
-            for (int i = 0;i < comportNames.Length; i++)
+            for (int i = 0; i < comportNames.Length; i++)
             {
-                comportNames[i] = $"COM{i+1}";
+                comportNames[i] = $"COM{i + 1}";
             }
-            cboComPort.Items.AddRange(comportNames); 
+            cboComPort.Items.AddRange(comportNames);
             //cboComPort.SelectedIndex = DS360Setting.ComPortDefaultName;  //генер. по умолч. поставить в ячейку комбобокса
             cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
@@ -145,8 +144,9 @@ namespace ManagerDS360
             cboTypeSignal.Items.Clear();
             foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
             {
-                if (TypeSignalToString(element).Contains("Квадрат")&(
-                    cboSetValue.Text == @"мм / с" | cboSetValue.Text == @"мкм"))
+                if (TypeSignalToString(element).Contains("Квадрат") & 
+                    (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с |
+                    PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм))
                 {
                     continue;
                 }
@@ -159,14 +159,15 @@ namespace ManagerDS360
         {
             return ((FunctionTypeSignal)element).ToString().Replace("_", " - ");
         }
-
+        /// <summary>
+        /// добавление в комбобокс физ.величин
+        /// </summary>
         internal void InitializecboSetValue()
         {
-            //добавление в комбобокс физ.величин
             cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
-            foreach (int element in Enum.GetValues(typeof(PhysicalQuantity)))
+            foreach (var element in PmData.PhysicalQuantity)
             {
-                cboSetValue.Items.Add(SetValueToString(element));
+                cboSetValue.Items.Add(element.Value);
             }
             cboSetValue.SelectedIndex = 0;
         }
@@ -258,30 +259,31 @@ namespace ManagerDS360
             VibroCalc.Frequency.Set_Hz(double.Parse(txtFreq.Text));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
 
-            if (cboSetValue.Text == @"мм / с")
+            if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с)
             {
                 Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
                 VibroCalc.CalcAll(velocity);
                 DS360Setting.VibroParametr = velocity;
             }
-            if (cboSetValue.Text == @"мкм")
+            if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм)
             {
                 Displacement displacement = new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
                 VibroCalc.CalcAll(displacement);
                 DS360Setting.VibroParametr = displacement;
             }
-            if (cboSetValue.Text == @"м / с2")
+            if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.м_с2)
             {
                 Acceleration acceleration = new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
                 VibroCalc.CalcAll(acceleration);
                 DS360Setting.VibroParametr = acceleration;
             }
-            if (cboSetValue.Text == @"U")
+            if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.U)
             {
                 Voltage voltage = new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
                 VibroCalc.CalcAll(voltage);
                 DS360Setting.VibroParametr = voltage;
             }
+
         }
 
         private Result CheckFormsParameters()

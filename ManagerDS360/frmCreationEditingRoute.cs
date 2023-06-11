@@ -59,7 +59,7 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butAddFolder_Click(object sender, EventArgs e)
         {
-            if(treRouteTree.SelectedNode!=null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");
                 return;
@@ -72,7 +72,7 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting treeNodeWihtSetting = new TreeNodeWithSetting(NodeType.Folder, frmInputName.txtNameSet.Text);
-            
+
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNodeWihtSetting);
@@ -164,7 +164,7 @@ namespace ManagerDS360
 
         private static string GetTextNode(frmCreationEditingSettings editingSettings)
         {
-            string textNode= string.Empty;
+            string textNode = string.Empty;
             textNode += "[" + editingSettings.cboTypeSignal.Text + "] ";
             textNode += "[Кп = " + editingSettings.txtConversionFactor.Text + "] ";
             textNode += "[" + editingSettings.cboSetValue.Text + "] ";
@@ -187,7 +187,7 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butEditSetting_Click(object sender, EventArgs e)
         {
-            if (treRouteTree.SelectedNode== null|| (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
+            if (treRouteTree.SelectedNode == null || (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
             {
                 MessageBox.Show("Не выбрана настройка для редактирования");
                 return;
@@ -197,7 +197,7 @@ namespace ManagerDS360
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
 
-            if(selectedNode.DS360Setting.VibroParametr is Velocity)
+            if (selectedNode.DS360Setting.VibroParametr is Velocity)
             {
                 VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.Frequency);
                 VibroCalc.Sensitivity.Set_mV_G(100);// TODO gопменять
@@ -210,7 +210,7 @@ namespace ManagerDS360
             }
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
-            
+
             editingSettings.ShowDialog();
         }
 
@@ -285,6 +285,7 @@ namespace ManagerDS360
         {
             //удалить всё
             treRouteTree.Nodes.Clear();
+            PhysicalQuantity physicalQuantity = PmData.GetEnumFromString(PmData.PhysicalQuantity, "м/c²");
         }
     }
 }

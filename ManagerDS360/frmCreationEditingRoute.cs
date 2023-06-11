@@ -170,7 +170,7 @@ namespace ManagerDS360
             textNode += "[1" + editingSettings.cboDetector.Text + " = ";
             textNode += editingSettings.txtValue.Text + "] ";
             textNode += "[1F = " + editingSettings.txtFrequency.Text + "] ";
-            if (editingSettings.txtValue2.Text != "" && editingSettings.txtValue2.Text != string.Empty)
+            if (editingSettings.IsTwoTone())
             {
                 textNode += "[2" + editingSettings.cboDetector2.Text + " = ";
                 textNode += editingSettings.txtValue2.Text + "] ";
@@ -219,10 +219,16 @@ namespace ManagerDS360
             editingSettings.cboDetector2.SelectedItem = PmData.Detector[(Detector)selectedNode.DS360Setting.SignalParametrTone2];
             editingSettings.txtConversionFactor.Text = selectedNode.DS360Setting.Sensitivity.Get_mV_G().ToString();
             editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
-            editingSettings.txtFrequency2.Text = selectedNode.DS360Setting.FrequencyB.ToString();
+            
             editingSettings.txtOffset.Text = selectedNode.DS360Setting.Offset.ToString();
+            editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
+            
             ConfigureToVibroparam(selectedNode, editingSettings);
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
+            if (editingSettings.IsTwoTone())
+            {
+                editingSettings.txtFrequency2.Text = selectedNode.DS360Setting.FrequencyB.ToString();
+            }
         }
 
         private static void ConfigureToVibroparam(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
@@ -233,8 +239,11 @@ namespace ManagerDS360
             {
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
-                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
-                editingSettings.txtValue2.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                if (editingSettings.IsTwoTone())
+                {
+                    VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
+                    editingSettings.txtValue2.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                }
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.U];
             }
             if (selectedNode.DS360Setting.VibroParametr is Velocity)
@@ -242,26 +251,36 @@ namespace ManagerDS360
 
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Velocity.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
-                VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
-                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
-                editingSettings.txtValue2.Text = VibroCalc.Velocity.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                if (editingSettings.IsTwoTone())
+                {
+                    VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
+                    VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
+                    editingSettings.txtValue2.Text = VibroCalc.Velocity.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                }
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.мм_с];
             }
             if (selectedNode.DS360Setting.VibroParametr is Acceleration)
             {
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
-                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
-                editingSettings.txtValue2.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                if (editingSettings.IsTwoTone())
+                {
+                    VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
+                    editingSettings.txtValue2.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                }
+                    
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.м_с2];
             }
             if (selectedNode.DS360Setting.VibroParametr is Displacement)
             {
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Displacement.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
-                VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
-                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
-                editingSettings.txtValue2.Text = VibroCalc.Displacement.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                if (editingSettings.IsTwoTone())
+                {
+                    VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
+                    VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
+                    editingSettings.txtValue2.Text = VibroCalc.Displacement.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
+                }
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.мкм];
             }
         }

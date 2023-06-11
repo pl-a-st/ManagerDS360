@@ -11,7 +11,7 @@ namespace LibControls
     [Serializable]
     public class DS360SettingVibroSigParam : DS360Setting
     {
-        public VibroParametr VibroParametr;
+        public SignalsParameter VibroParametr;
         public SignalParametrType SignalParametrTone1;
         public SignalParametrType SignalParametrTone2;
         public Sensitivity Sensitivity;

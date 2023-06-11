@@ -196,6 +196,7 @@ namespace ManagerDS360
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
+
             if(selectedNode.DS360Setting.VibroParametr is Velocity)
             {
                 VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.Frequency);

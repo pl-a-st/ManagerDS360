@@ -213,7 +213,6 @@ namespace ManagerDS360
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
             }
-
             if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
@@ -225,6 +224,9 @@ namespace ManagerDS360
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
+            DS360Setting.SignalParametrTone1 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDetector.Text, true);
+            DS360Setting.SignalParametrTone2 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDetector2.Text, true);
+            DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
             SaveStatus = SaveStatus.Save;
@@ -261,19 +263,24 @@ namespace ManagerDS360
                 Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
                 VibroCalc.CalcAll(velocity);
                 DS360Setting.VibroParametr = velocity;
-                DS360Setting.SignalParametrTone1 = (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true);
             }
             if (cboSetValue.Text == @"мкм")
             {
-                VibroCalc.CalcAll(new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                Displacement displacement = new Displacement(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                VibroCalc.CalcAll(displacement);
+                DS360Setting.VibroParametr = displacement;
             }
             if (cboSetValue.Text == @"м / с2")
             {
-                VibroCalc.CalcAll(new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                Acceleration acceleration = new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                VibroCalc.CalcAll(acceleration);
+                DS360Setting.VibroParametr = acceleration;
             }
             if (cboSetValue.Text == @"U")
             {
-                VibroCalc.CalcAll(new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true)));
+                Voltage voltage = new Voltage(double.Parse(txtVal.Text), (SignalParametrType)(Detector)Enum.Parse(typeof(Detector), cboDet.Text, true));
+                VibroCalc.CalcAll(voltage);
+                DS360Setting.VibroParametr = voltage;
             }
         }
 

@@ -18,7 +18,13 @@ namespace ManagerDS360
             { ManagerDS360.PhysicalQuantity.мм_с,@"мм/с" },
             { ManagerDS360.PhysicalQuantity.мкм,@"мкм" },
         };
-        public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str) 
+        public static Dictionary<Detector, string> Detector = new Dictionary<Detector, string>()
+        {
+            { ManagerDS360.Detector.СКЗ,"СКЗ"},
+            { ManagerDS360.Detector.Пик,"Пик"},
+            { ManagerDS360.Detector.Пик_пик,"Пик - Пик"}
+        };
+        public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)
         {
             return dictionary.FirstOrDefault(x => x.Value == str).Key;
         }

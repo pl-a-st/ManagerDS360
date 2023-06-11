@@ -14,6 +14,6 @@ namespace LibControls
         public SignalsParameter VibroParametr;
         public SignalParametrType SignalParametrTone1;
         public SignalParametrType SignalParametrTone2;
-        public Sensitivity Sensitivity;
+        public Sensitivity Sensitivity=new Sensitivity();
     }
 }

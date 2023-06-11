@@ -113,24 +113,20 @@ namespace ManagerDS360
         {
             cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;  //добавление в комбобокс детектора
 
-            string[] enumElements = Enum.GetNames(typeof(Detector));
-            foreach (var item in enumElements)
+            foreach (var element in PmData.Detector)
             {
-                cboDetector2.Items.Add(item.Replace("_", " - "));
+                cboDetector2.Items.Add(element.Value);
             }
+
             cboDetector2.SelectedIndex = (int)Detector.СКЗ;
         }
 
         internal void InitializecboDetector()
         {
             cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;   //добавление в комбобокс детектора
-
-            //cboDetector.Items.AddRange(Enum.GetNames(typeof(Detector)));
-
-            string[] enumElements = Enum.GetNames(typeof(Detector));
-            foreach (var item in enumElements)
+            foreach (var element in PmData.Detector)
             {
-                cboDetector.Items.Add(item.Replace("_", " - "));
+                cboDetector.Items.Add(element.Value);
             }
             cboDetector.SelectedIndex = (int)Detector.СКЗ;
         }
@@ -142,17 +138,23 @@ namespace ManagerDS360
             ////строку в Енам
             //Enum.Parse(typeof(Race), cBxRace.Text, true);
             cboTypeSignal.Items.Clear();
-            foreach (int element in Enum.GetValues(typeof(FunctionTypeSignal)))
+            foreach (var element in PmData.FunctionTypeSignal)
             {
-                if (TypeSignalToString(element).Contains("Квадрат") & 
-                    (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с |
-                    PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм))
+                if (IsElementNotForVelocityOrDisplacment(element))
                 {
                     continue;
                 }
-                cboTypeSignal.Items.Add(TypeSignalToString(element));
+                cboTypeSignal.Items.Add(element.Value);
             }
             cboTypeSignal.SelectedIndex = 0;
+        }
+
+        private bool IsElementNotForVelocityOrDisplacment(KeyValuePair<FunctionTypeSignal, string> element)
+        {
+            return (
+                element.Key == FunctionTypeSignal.Квадрат || element.Key == FunctionTypeSignal.Синус_Квадрат) &
+                (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с || 
+                PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм);
         }
 
         private static string TypeSignalToString(int element)
@@ -195,7 +197,7 @@ namespace ManagerDS360
                 return;
             }
             //ветка для двух тонов
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Синус)
+            if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус)
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
@@ -204,23 +206,22 @@ namespace ManagerDS360
                 SetVibroCalclToTone(txtValue2, cboDetector2, txtFrequency2);
                 DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Квадрат)
+            if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.SineSquare;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
-
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус)
+            if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
                 SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
-            if ((FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Квадрат)
+            if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
@@ -342,8 +343,8 @@ namespace ManagerDS360
 
         internal bool IsTwoTone()
         {
-            return (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Синус
-                | (FunctionTypeSignal)Enum.Parse(typeof(FunctionTypeSignal), cboTypeSignal.Text.Replace(" - ", "_"), true) == FunctionTypeSignal.Синус_Квадрат;
+            return PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус
+                | PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Квадрат;
         }
 
         internal static void NewMethod(frmCreationEditingSettings editingSettings)
@@ -381,10 +382,10 @@ namespace ManagerDS360
 
             //FunctionTypeSignal = FunctionTypeSignal[cboTypeSignal.SelectedIndex];
 
-            string strSinSin = FunctionTypeSignal.Синус_Синус.ToString().Replace("_", " - ");
-            string strSinSquare = FunctionTypeSignal.Синус_Квадрат.ToString().Replace("_", " - ");
-            string strSin = FunctionTypeSignal.Синус.ToString();
-            string strSquare = FunctionTypeSignal.Квадрат.ToString();
+            string strSinSin = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус_Синус];
+            string strSinSquare = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус_Квадрат];
+            string strSin = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус];
+            string strSquare = PmData.FunctionTypeSignal[FunctionTypeSignal.Квадрат];
             if (cboTypeSignal.Text == strSinSin | cboTypeSignal.Text == strSinSquare)
             {
                 txtOffset.Enabled = true;

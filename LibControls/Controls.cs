@@ -120,8 +120,6 @@ namespace LibControls
             DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode.BackColor = Color.FromArgb(0, 120, 215);
             LastSelectedTreeNode = this.SelectedNode;
-
-            
         }
        private  void DoLastSelectedTreeNodeBackColorWhite()
         {

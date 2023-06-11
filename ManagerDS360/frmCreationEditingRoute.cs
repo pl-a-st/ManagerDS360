@@ -342,7 +342,6 @@ namespace ManagerDS360
         {
             //удалить всё
             treRouteTree.Nodes.Clear();
-            PhysicalQuantity physicalQuantity = PmData.GetEnumFromString(PmData.PhysicalQuantity, "м/c²");
         }
     }
 }

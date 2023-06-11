@@ -266,10 +266,14 @@ namespace ManagerDS360
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.мкм];
             }
         }
-
+        /// <summary>
+        /// //переместить настройку вверх по списку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butUp_Click(object sender, EventArgs e)
         {
-            //переместить настройку вверх по списку
+            
 
         }
 

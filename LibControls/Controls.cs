@@ -84,11 +84,13 @@ namespace LibControls
             }
             Text = text;
         }
+
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView
     {
         public TreeNodeWithSetting CopyTreeNodeWithSetup;
+        private TreeNode LastSelectedTreeNode;
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -100,6 +102,7 @@ namespace LibControls
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
+            DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode = null;
         }
         protected override void OnKeyUp(KeyEventArgs e)
@@ -107,7 +110,24 @@ namespace LibControls
             base.OnKeyUp(e);
             if (e.KeyCode == Keys.Escape)
             {
+                DoLastSelectedTreeNodeBackColorWhite();
                 this.SelectedNode = null;
+            }
+        }
+        protected override void OnAfterSelect(TreeViewEventArgs e)
+        {
+            base.OnAfterSelect(e);
+            DoLastSelectedTreeNodeBackColorWhite();
+            this.SelectedNode.BackColor = Color.FromArgb(0, 120, 215);
+            LastSelectedTreeNode = this.SelectedNode;
+
+            
+        }
+       private  void DoLastSelectedTreeNodeBackColorWhite()
+        {
+            if (LastSelectedTreeNode != null)
+            {
+                LastSelectedTreeNode.BackColor = Color.White;
             }
         }
     }

@@ -196,6 +196,8 @@ namespace ManagerDS360
             {
                 return;
             }
+            DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);
+            DS360Setting.SignalParametrTone2 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector2.Text);
             //ветка для двух тонов
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус)
             {
@@ -226,8 +228,7 @@ namespace ManagerDS360
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
-            DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);
-            DS360Setting.SignalParametrTone2 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector2.Text);
+            
             DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);

@@ -211,8 +211,8 @@ namespace ManagerDS360
             VibroCalc.Sensitivity.Set_mV_G(selectedNode.DS360Setting.Sensitivity.Get_mV_G());
             if (selectedNode.DS360Setting.VibroParametr is Voltage)
             {
-                Voltage voltage = selectedNode.DS360Setting.VibroParametr as Voltage;
-                VibroCalc.CalcAll(voltage);
+                
+                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
                 editingSettings.txtValue2.Text = VibroCalc.Voltage.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
@@ -220,8 +220,8 @@ namespace ManagerDS360
             }
             if (selectedNode.DS360Setting.VibroParametr is Velocity)
             {
-                Velocity velocity = selectedNode.DS360Setting.VibroParametr as Velocity;
-                VibroCalc.CalcAll(velocity);
+               
+                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Velocity.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
@@ -230,8 +230,7 @@ namespace ManagerDS360
             }
             if (selectedNode.DS360Setting.VibroParametr is Acceleration)
             {
-                Acceleration acceleration = selectedNode.DS360Setting.VibroParametr as Acceleration;
-                VibroCalc.CalcAll(acceleration);
+                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
                 editingSettings.txtValue2.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
@@ -239,8 +238,7 @@ namespace ManagerDS360
             }
             if (selectedNode.DS360Setting.VibroParametr is Displacement)
             {
-                Displacement displacement = selectedNode.DS360Setting.VibroParametr as Displacement;
-                VibroCalc.CalcAll(displacement);
+                VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Displacement.Get(selectedNode.DS360Setting.SignalParametrTone1).ToString();
                 VibroCalc.Frequency.Set_Hz(selectedNode.DS360Setting.FrequencyB);
                 VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
@@ -251,6 +249,10 @@ namespace ManagerDS360
             editingSettings.Text = "Конструирование настройки";
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
             editingSettings.ShowDialog();
+            if(editingSettings.SaveStatus!= SaveStatus.Save)
+            {
+                return;
+            }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
             string textNode = GetTextNode(editingSettings);
             SelectedNodeWithSetup.Text = textNode;

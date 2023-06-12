@@ -234,11 +234,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\VibroMath.xml" />
     <None Include="Resources\cat.png" />
     <None Include="Resources\kletka-siniy-razmetka.jpg" />
     <None Include="Resources\fon_knopki.jpg" />
-    <Content Include="Resources\VibroMath.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VibroMath.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VibroMath.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

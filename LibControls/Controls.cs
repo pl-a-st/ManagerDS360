@@ -74,14 +74,13 @@ namespace LibControls
        
         protected TreeNodeWithSetting(SerializationInfo info, StreamingContext context)
         {
-            if (context.Context is DS360SettingVibroSigParam)
-            {
-                DS360Setting = context.Context as DS360SettingVibroSigParam;
-            }
-            if (context.Context is NodeType)
-            {
-                NodeType= (NodeType)context.Context;
-            }
+            
+            this.Text = (string)info.GetValue("NodeText", this.Text.GetType());
+            this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType());
+            this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType());
+            TreeNodeWithSetting[] test = null;
+            this.Nodes.AddRange((TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType()));
+            SetImage();
         }
         protected override void Deserialize(SerializationInfo serializationInfo, StreamingContext context)
         {
@@ -90,11 +89,23 @@ namespace LibControls
         protected override void Serialize(SerializationInfo si, StreamingContext context)
         {
             base.Serialize(si, context);
-
+            si.AddValue("NodeText", this.Text);
+            si.AddValue("DS360Setting", this.DS360Setting);
+            si.AddValue("NodeType", this.NodeType);
+            SetImage();
+            TreeNodeWithSetting[] treeNodeWithSettings= new TreeNodeWithSetting[this.Nodes.Count];
+            this.Nodes.CopyTo(treeNodeWithSettings, 0);
+            si.AddValue("treeNodeWithSettings", treeNodeWithSettings);
         }
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
+            
+            Text = text;
+        }
+
+        private void SetImage()
+        {
             if (NodeType == NodeType.Folder)
             {
                 this.ImageIndex = 0;
@@ -105,9 +116,7 @@ namespace LibControls
                 this.ImageIndex = 1;
                 this.SelectedImageIndex = 1;
             }
-            Text = text;
         }
-       
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView

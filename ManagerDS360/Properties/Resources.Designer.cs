@@ -101,15 +101,24 @@ namespace ManagerDS360.Properties {
         ///            &lt;summary&gt;
         ///            Предоставляет:
         ///            поля - параметры синусоидальной вибрации, находящиеся в математической зависимости;
-        ///            метод - вызывающий пересчет полей в зависимости от типа задаваемого параметра и его значения.
+        ///            метод CalcAll - вызывающий пересчет полей в зависимости от типа задаваемого параметра и его значения.
         ///            &lt;/summary&gt;
         ///        &lt;/member&gt;
-        ///        &lt;member name=&quot;P:VibroMath.VibroCalc.Voltage&quot;&gt;
-        ///   [остаток строки не уместился]&quot;;.
+        ///        &lt;member name=&quot;P:VibroMath.VibroCalc.Volta [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string VibroMath {
             get {
                 return ResourceManager.GetString("VibroMath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] VibroMath1 {
+            get {
+                object obj = ResourceManager.GetObject("VibroMath1", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

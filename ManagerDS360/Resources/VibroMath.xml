@@ -8,7 +8,7 @@
             <summary>
             Предоставляет:
             поля - параметры синусоидальной вибрации, находящиеся в математической зависимости;
-            метод - вызывающий пересчет полей в зависимости от типа задаваемого параметра и его значения.
+            метод CalcAll - вызывающий пересчет полей в зависимости от типа задаваемого параметра и его значения.
             </summary>
         </member>
         <member name="P:VibroMath.VibroCalc.Voltage">
@@ -62,11 +62,6 @@
             <param name="sensitivity"></param>
             <param name="freeze"></param>
         </member>
-        <member name="T:VibroMath.Voltage">
-            <summary>
-            Напряжение.
-            </summary>
-        </member>
         <member name="M:VibroMath.Voltage.Get_dB">
             <summary>
             Возвращает значение в дБ.
@@ -78,27 +73,6 @@
             Присваивает значение параметру, принимает дБ.
             </summary>
             <param name="dB"></param>
-        </member>
-        <member name="T:VibroMath.Acceleration">
-            <summary>
-            Виброускорение.
-            </summary>
-        </member>
-        <member name="T:VibroMath.Velocity">
-            <summary>
-            Виброскорость.
-            </summary>
-        </member>
-        <member name="T:VibroMath.Displacement">
-            <summary>
-            Виброперемещение.
-            </summary>
-        </member>
-        <member name="T:VibroMath.Sensitivity">
-            <summary>
-            Коэффициент преобразования датчика.
-            
-            </summary>
         </member>
         <member name="F:VibroMath.Sensitivity.G">
             <summary>
@@ -136,16 +110,18 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="T:VibroMath.Frequency">
-            <summary>
-            Частота
-            </summary>
-        </member>
         <member name="M:VibroMath.Frequency.#ctor">
             <summary>
             Возвращает значение в Гц.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:VibroMath.Frequency.#ctor(System.Double,FrequencyType)">
+            <summary>
+            Задает частоту в соотвестви с указанным параметром
+            </summary>
+            <param name="value"></param>
+            <param name="type"></param>
         </member>
         <member name="M:VibroMath.Frequency.Set_Hz(System.Double)">
             <summary>

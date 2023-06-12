@@ -22,14 +22,14 @@ namespace ManagerDS360
         {
             { ManagerDS360.Detector.СКЗ,"СКЗ"},
             { ManagerDS360.Detector.Пик,"Пик"},
-            { ManagerDS360.Detector.Пик_пик,"Пик - Пик"}
+            { ManagerDS360.Detector.Пик_пик,"Пик-Пик"}
         };
         public static Dictionary<FunctionTypeSignal, string> FunctionTypeSignal = new Dictionary<FunctionTypeSignal, string>()
         {
             { ManagerDS360.FunctionTypeSignal.Синус,"Синус"},
             { ManagerDS360.FunctionTypeSignal.Квадрат,"Квадрат"},
-            { ManagerDS360.FunctionTypeSignal.Синус_Синус,"Синус - Синус"},
-            { ManagerDS360.FunctionTypeSignal.Синус_Квадрат,"Синус - Квадрат"},
+            { ManagerDS360.FunctionTypeSignal.Синус_Синус,"Синус-Синус"},
+            { ManagerDS360.FunctionTypeSignal.Синус_Квадрат,"Синус-Квадрат"},
         };
         public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)
         {

@@ -38,7 +38,7 @@ namespace ManagerDS360
         public void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
             PushListBox();
-           
+
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
 
         }
@@ -160,23 +160,24 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Expand();
 
         }
-
         private static string GetTextNode(frmCreationEditingSettings editingSettings)
         {
             string textNode = string.Empty;
-            textNode += "[" + editingSettings.cboTypeSignal.Text + "] ";
-            textNode += "[Кп = " + editingSettings.txtConversionFactor.Text + "] ";
-            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
-            textNode += "[1" + editingSettings.cboDetector.Text + " = ";
-            textNode += editingSettings.txtValue.Text + "] ";
-            textNode += "[1F = " + editingSettings.txtFrequency.Text + "] ";
+            textNode += "[" + editingSettings.cboTypeSignal.Text + "]  ";
+            textNode += "[Кп:" + editingSettings.txtConversionFactor.Text + "]  ";
+            textNode += "[" + editingSettings.cboSetValue.Text + "]  ";
+            textNode += "T1: ";
+            textNode += "[" + editingSettings.cboDetector.Text + ":";
+            textNode += editingSettings.txtValue.Text;
+            textNode += "  F:" + editingSettings.txtFrequency.Text + "]  ";
             if (editingSettings.IsTwoTone())
             {
-                textNode += "[2" + editingSettings.cboDetector2.Text + " = ";
-                textNode += editingSettings.txtValue2.Text + "] ";
-                textNode += "[2F = " + editingSettings.txtFrequency2.Text + "] ";
+                textNode += "T2: ";
+                textNode += "[" + editingSettings.cboDetector2.Text + ":";
+                textNode += editingSettings.txtValue2.Text;
+                textNode += "  F:" + editingSettings.txtFrequency2.Text + "]  ";
             }
-            textNode += "[Offset = " + editingSettings.txtOffset.Text + "] ";
+            textNode += "[Offset:" + editingSettings.txtOffset.Text + "]";
             return textNode;
         }
         /// <summary>
@@ -219,10 +220,10 @@ namespace ManagerDS360
             editingSettings.cboDetector2.SelectedItem = PmData.Detector[(Detector)selectedNode.DS360Setting.SignalParametrTone2];
             editingSettings.txtConversionFactor.Text = selectedNode.DS360Setting.Sensitivity.Get_mV_G().ToString();
             editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
-            
+
             editingSettings.txtOffset.Text = selectedNode.DS360Setting.Offset.ToString();
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
-            
+
             ConfigureToVibroparam(selectedNode, editingSettings);
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
             if (editingSettings.IsTwoTone())
@@ -268,7 +269,7 @@ namespace ManagerDS360
                     VibroCalc.CalcAll(new Voltage(selectedNode.DS360Setting.AmplitudeRMSToneB, SignalParametrType.RMS));
                     editingSettings.txtValue2.Text = VibroCalc.Acceleration.Get(selectedNode.DS360Setting.SignalParametrTone2).ToString();
                 }
-                    
+
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.м_с2];
             }
             if (selectedNode.DS360Setting.VibroParametr is Displacement)
@@ -291,7 +292,7 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butUp_Click(object sender, EventArgs e)
         {
-            if(treRouteTree.SelectedNode== null)
+            if (treRouteTree.SelectedNode == null)
             {
                 return;
             }

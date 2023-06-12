@@ -245,28 +245,11 @@ namespace ManagerDS360
 
             this.Close();
         }
-        private static string GetTextNode(frmCreationEditingSettings editingSettings)
-        {
-            string textNode = string.Empty;
-            textNode += "[" + editingSettings.cboTypeSignal.Text + "] ";
-            textNode += "[Кп = " + editingSettings.txtConversionFactor.Text + "] ";
-            textNode += "[" + editingSettings.cboSetValue.Text + "] ";
-            textNode += "[1" + editingSettings.cboDetector.Text + " = ";
-            textNode += editingSettings.txtValue.Text + "] ";
-            textNode += "[1F = " + editingSettings.txtFrequency.Text + "] ";
-            if (editingSettings.txtValue2.Text != "" && editingSettings.txtValue2.Text != string.Empty)
-            {
-                textNode += "[2" + editingSettings.cboDetector2.Text + " = ";
-                textNode += editingSettings.txtValue2.Text + "] ";
-                textNode += "[2F = " + editingSettings.txtFrequency2.Text + "] ";
-            }
-            textNode += "[Offset = " + editingSettings.txtOffset.Text + "] ";
-            return textNode;
-        }
+       
         private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
         {
             double value1 = double.Parse(txt.Text);
-            if ((Detector)Enum.Parse(typeof(FunctionTypeSignal), cbo.Text, true) == Detector.Пик_пик)
+            if (PmData.GetEnumFromString(PmData.Detector, cbo.Text) == Detector.Пик_пик)
             {
                 value1 = value1 / 2;
             }

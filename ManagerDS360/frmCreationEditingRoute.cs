@@ -38,9 +38,12 @@ namespace ManagerDS360
         public void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
             PushListBox();
-
+            
+           
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
-
+            TreeNodeWithSetting[] treeNodeWithSettings = null ;
+            treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, @"C:\Users\ВеринСГ\Desktop\123123.rout", out MethodResultStatus methodResultStatus);
+            treRouteTree.Nodes.AddRange(treeNodeWithSettings);
         }
 
         private void PushListBox()

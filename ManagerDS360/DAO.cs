@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
-
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices;

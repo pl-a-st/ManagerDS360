@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -69,7 +70,28 @@ namespace LibControls
 
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
+        
+       
+        protected TreeNodeWithSetting(SerializationInfo info, StreamingContext context)
+        {
+            if (context.Context is DS360SettingVibroSigParam)
+            {
+                DS360Setting = context.Context as DS360SettingVibroSigParam;
+            }
+            if (context.Context is NodeType)
+            {
+                NodeType= (NodeType)context.Context;
+            }
+        }
+        protected override void Deserialize(SerializationInfo serializationInfo, StreamingContext context)
+        {
+            base.Deserialize(serializationInfo, context);
+        }
+        protected override void Serialize(SerializationInfo si, StreamingContext context)
+        {
+            base.Serialize(si, context);
 
+        }
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
@@ -85,7 +107,7 @@ namespace LibControls
             }
             Text = text;
         }
-
+       
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView

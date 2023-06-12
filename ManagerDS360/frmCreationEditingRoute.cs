@@ -215,10 +215,10 @@ namespace ManagerDS360
                 frmInputName.ShowDialog();
                 if (frmInputName.SaveName == SaveName.SaveName)
                 {
-                    selectedNode.Text = frmInputName.txtNameSet.Text; 
+                    selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
             }
-            
+
         }
 
         private void configureEditingSettings(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
@@ -370,16 +370,26 @@ namespace ManagerDS360
 
         internal void butSave_Click(object sender, EventArgs e)
         {
+            if (txtNameRoute.Text == "" || txtNameRoute.Text == string.Empty)
+            {
+                MessageBox.Show("Не введено название маршрута!");
+                return;
+            }
             string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
-            //записать маршрут в файл (имена и настройки)
-
-
-
-            //DAO.SerializeObject obj = new SerializeObject();
-            List<TreeNode> treeNodes = new List<TreeNode>();
-            //treeNodes.AddRange(treRouteTree.Nodes.)
-
-
+            if (pathDyrectoryForRouteFile == "" || pathDyrectoryForRouteFile == string.Empty)
+            {
+                MessageBox.Show("Не выбран путь для сохранения!");
+                return;
+            }
+            string FullFilePath = pathDyrectoryForRouteFile +@"\"+ txtNameRoute.Text + ".rout";
+            TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[treRouteTree.Nodes.Count];
+                treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
+            if (DAO.binWriteObjectToFile(treeNodeWithSettings, FullFilePath)== MethodResultStatus.Fault)
+            {
+                MessageBox.Show($"Не удалось записать файл {FullFilePath}");
+                return;
+            }
+            // TODO дописать добавление файла в списо сохраненных
 
         }
 

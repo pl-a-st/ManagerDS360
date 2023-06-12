@@ -66,6 +66,7 @@ namespace LibControls
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
     {
+
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
 

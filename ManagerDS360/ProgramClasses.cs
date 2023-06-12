@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace ManagerDS360
 {
     public static class PmData
     {
+        public const string FileNameRouteAddresses = @"RouteAddresses.route";
+
         public static Dictionary<PhysicalQuantity, string> PhysicalQuantity = new Dictionary<PhysicalQuantity, string>()
         {
             { ManagerDS360.PhysicalQuantity.U,"мВ"},
@@ -31,18 +34,19 @@ namespace ManagerDS360
             { ManagerDS360.FunctionTypeSignal.Синус_Синус,"Синус-Синус"},
             { ManagerDS360.FunctionTypeSignal.Синус_Квадрат,"Синус-Квадрат"},
         };
+
+        public static List<FileInfo> RouteAddresses = new List<FileInfo>();
+
+        static PmData()
+        {
+            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.TakeUserPath(FileNameRouteAddresses), out var result);
+        }
+
+
         public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)
         {
             return dictionary.FirstOrDefault(x => x.Value == str).Key;
         }
     }
-    public static class Menu<InputEnum> where InputEnum : Enum
-    {
-        public static Enum GetEnumFromString(Dictionary<InputEnum, string> dictionary, string str)
-        {
-
-            return dictionary.FirstOrDefault(x => x.Value == str).Key as System.Enum;
-            //return Enum.GetValues(typeof(InputEnum)).GetValue(SelectedPosition) as System.Enum; // так вытягиевает из Enum, но Enum может не соответствовать по порядку Dictionary
-        }
-    }
+    
 }

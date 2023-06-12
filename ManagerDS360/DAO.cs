@@ -31,49 +31,48 @@ namespace ManagerDS360
         }
 
         //сохранение объекта/сериализация
-        public static class Serializable
-        {
-            public static MethodResultStatus binWriteObjectToFile<Type>(Type serObject, string fileName)
-            {
-                try
-                {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    using (FileStream stream = new FileStream(fileName, FileMode.Create))
-                    {
-                        bf.Serialize(stream, serObject);
-                    }
-                    return MethodResultStatus.Ok;
-                }
-                catch (Exception ex)
-                {
-                }
-                return MethodResultStatus.Fault;
-            }
 
-            //извлечение/десериализация
-            public static Type binReadFileToObject<Type>(Type serObject, string fullPathFileName, out MethodResultStatus methodResultStatus)
+        public static MethodResultStatus binWriteObjectToFile<Type>(Type serObject, string fileName)
+        {
+            try
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                try
+                using (FileStream stream = new FileStream(fileName, FileMode.Create))
                 {
-                    using (FileStream stream = new FileStream(fullPathFileName, FileMode.Open))
-                    {
-                        serObject = (Type)bf.Deserialize(stream);
-                    }
-                    methodResultStatus = MethodResultStatus.Ok;
+                    bf.Serialize(stream, serObject);
                 }
-                catch (Exception ex)
-                {
-                    methodResultStatus = MethodResultStatus.Fault;
-                }
-                return serObject;
+                return MethodResultStatus.Ok;
             }
+            catch (Exception ex)
+            {
+            }
+            return MethodResultStatus.Fault;
         }
+
+        //извлечение/десериализация
+        public static Type binReadFileToObject<Type>(Type serObject, string fullPathFileName, out MethodResultStatus methodResultStatus)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            try
+            {
+                using (FileStream stream = new FileStream(fullPathFileName, FileMode.Open))
+                {
+                    serObject = (Type)bf.Deserialize(stream);
+                }
+                methodResultStatus = MethodResultStatus.Ok;
+            }
+            catch (Exception ex)
+            {
+                methodResultStatus = MethodResultStatus.Fault;
+            }
+            return serObject;
+        }
+
 
         //получение пути для сохранения настроек:
         public static string TakeUserPath(string fileName)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\Маршруты\\";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

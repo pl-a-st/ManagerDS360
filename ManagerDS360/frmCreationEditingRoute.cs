@@ -189,7 +189,7 @@ namespace ManagerDS360
         {
             if (treRouteTree.SelectedNode == null)
             {
-                MessageBox.Show("Не выбрана настройка для редактирования");
+                MessageBox.Show("Не выбран узел для редактирования");
                 return;
             }
             TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
@@ -234,7 +234,6 @@ namespace ManagerDS360
             editingSettings.cboDetector2.SelectedItem = PmData.Detector[(Detector)selectedNode.DS360Setting.SignalParametrTone2];
             editingSettings.txtConversionFactor.Text = selectedNode.DS360Setting.Sensitivity.Get_mV_G().ToString();
             editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
-
             editingSettings.txtOffset.Text = selectedNode.DS360Setting.Offset.ToString();
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
 
@@ -244,6 +243,7 @@ namespace ManagerDS360
             {
                 editingSettings.txtFrequency2.Text = selectedNode.DS360Setting.FrequencyB.ToString();
             }
+            // добавить обработку Com по дефолту или номеру
         }
 
         private static void ConfigureToVibroparam(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
@@ -427,6 +427,12 @@ namespace ManagerDS360
         {
             //удалить всё
             treRouteTree.Nodes.Clear();
+        }
+
+        private void butCancel_Click(object sender, EventArgs e)
+        {
+            SaveName = SaveName.Cancel;
+            this.Close();
         }
     }
 }

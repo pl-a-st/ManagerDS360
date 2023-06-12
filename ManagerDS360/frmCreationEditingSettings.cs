@@ -173,6 +173,22 @@ namespace ManagerDS360
 
         internal void butSave_Click(object sender, EventArgs e)
         {
+            if (CheckFormsParameters() != Result.Success)
+            {
+                return;
+            }
+            SetDS360Setting();
+            SaveStatus = SaveStatus.Save;
+
+
+            //продумать конфигурацию имени для настройки 
+            StaticName.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
+
+            this.Close();
+        }
+
+        private void SetDS360Setting()
+        {
             DS360Setting = new DS360SettingVibroSigParam();
             if (chcDefaultGenerator.Checked)
             {
@@ -181,10 +197,6 @@ namespace ManagerDS360
             if (!chcDefaultGenerator.Checked)
             {
                 DS360Setting.ComPortNumber = (int)numComName.Value;
-            }
-            if (CheckFormsParameters() != Result.Success)
-            {
-                return;
             }
             DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);
             DS360Setting.SignalParametrTone2 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector2.Text);
@@ -218,19 +230,12 @@ namespace ManagerDS360
                 DS360Setting.FunctionType = FunctionType.Square;
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
-            
+
             DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
-            SaveStatus = SaveStatus.Save;
-
-
-            //продумать конфигурацию имени для настройки 
-            StaticName.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
-
-            this.Close();
         }
-       
+
         private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
         {
             double value1 = double.Parse(txt.Text);

@@ -43,6 +43,7 @@
             this.lblSaveRoute = new System.Windows.Forms.Label();
             this.butAllDelete = new System.Windows.Forms.Button();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.butCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -118,7 +119,7 @@
             // butSave
             // 
             this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butSave.Location = new System.Drawing.Point(295, 414);
+            this.butSave.Location = new System.Drawing.Point(299, 414);
             this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
@@ -198,6 +199,19 @@
             this.treRouteTree.Size = new System.Drawing.Size(529, 366);
             this.treRouteTree.TabIndex = 15;
             // 
+            // butCancel
+            // 
+            this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butCancel.Location = new System.Drawing.Point(718, 414);
+            this.butCancel.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butCancel.Name = "butCancel";
+            this.butCancel.Size = new System.Drawing.Size(110, 27);
+            this.butCancel.TabIndex = 8;
+            this.butCancel.Text = "Отмена";
+            this.butCancel.UseVisualStyleBackColor = true;
+            this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +223,7 @@
             this.Controls.Add(this.lblSave);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
+            this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.butDelete);
             this.Controls.Add(this.butEditSetting);
@@ -244,5 +259,6 @@
         private System.Windows.Forms.Label lblSaveRoute;
         private System.Windows.Forms.Button butAllDelete;
         private LibControls.TreeViewWithSetting treRouteTree;
+        internal System.Windows.Forms.Button butCancel;
     }
 }

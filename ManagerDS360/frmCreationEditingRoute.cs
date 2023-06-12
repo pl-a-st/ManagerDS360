@@ -41,9 +41,9 @@ namespace ManagerDS360
             
            
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
-            //TreeNodeWithSetting[] treeNodeWithSettings = null;
-            //treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, @"C:\Users\ВеринСГ\Desktop\123123.rout", out MethodResultStatus methodResultStatus);
-            //treRouteTree.Nodes.AddRange(treeNodeWithSettings);
+            TreeNodeWithSetting[] treeNodeWithSettings = null;
+            treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, @"C:\Users\ВеринСГ\Desktop\123123.rout", out MethodResultStatus methodResultStatus);
+            treRouteTree.Nodes.AddRange(treeNodeWithSettings);
         }
 
         private void PushListBox()

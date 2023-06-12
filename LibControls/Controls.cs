@@ -78,8 +78,13 @@ namespace LibControls
             this.Text = (string)info.GetValue("NodeText", this.Text.GetType());
             this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType());
             this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType());
-            TreeNodeWithSetting[] test = null;
-            this.Nodes.AddRange((TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType()));
+            TreeNodeWithSetting[] test = new TreeNodeWithSetting[1]  ;
+            TreeNodeWithSetting[] treeNodeWithSettings = (TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType());
+            foreach(var node in treeNodeWithSettings)
+            {
+                this.Nodes.Add(node);
+            }
+            
             SetImage();
         }
         protected override void Deserialize(SerializationInfo serializationInfo, StreamingContext context)

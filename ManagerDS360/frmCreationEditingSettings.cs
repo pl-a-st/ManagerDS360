@@ -92,14 +92,7 @@ namespace ManagerDS360
 
             //cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
             //ААС: Добавил ниже список из 20 имён
-            string[] comportNames = new string[20];
-            for (int i = 0; i < comportNames.Length; i++)
-            {
-                comportNames[i] = $"COM{i + 1}";
-            }
-            cboComPort.Items.AddRange(comportNames);
-            //cboComPort.SelectedIndex = DS360Setting.ComPortDefaultName;  //генер. по умолч. поставить в ячейку комбобокса
-            cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
             chcDefaultGenerator.Checked = true;
 
@@ -180,18 +173,15 @@ namespace ManagerDS360
 
         internal void butSave_Click(object sender, EventArgs e)
         {
-            //объявление переменных
-            string portName;
+            DS360Setting = new DS360SettingVibroSigParam();
             if (chcDefaultGenerator.Checked)
             {
-                portName = chcDefaultGenerator.Text;
+                DS360Setting.SetComPortNameToDefault();
             }
             if (!chcDefaultGenerator.Checked)
             {
-                portName = cboComPort.Text;
+                DS360Setting.ComPortNumber = (int)numComName.Value;
             }
-            DS360Setting = new DS360SettingVibroSigParam();
-
             if (CheckFormsParameters() != Result.Success)
             {
                 return;
@@ -233,11 +223,6 @@ namespace ManagerDS360
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
             SaveStatus = SaveStatus.Save;
-
-
-            //TreeNode treeNode = new TreeNode();
-            //treeNode.Setup = dS360Setting;
-            //treRouteTree
 
 
             //продумать конфигурацию имени для настройки 
@@ -360,11 +345,11 @@ namespace ManagerDS360
             //галочка, чтобы взять генератор по умолч. 
             if (chcDefaultGenerator.Checked == false)
             {
-                cboComPort.Enabled = true;
+                numComName.Enabled = true;
             }
             if (chcDefaultGenerator.Checked == true)
             {
-                cboComPort.Enabled = false;
+                numComName.Enabled = false;
             }
         }
 
@@ -517,6 +502,14 @@ namespace ManagerDS360
         {
             //ввод второго значения
             txtValue2.Enabled = true;
+        }
+
+        private void numComName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar < 49 || e.KeyChar > 57)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

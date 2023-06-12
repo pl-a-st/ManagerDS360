@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.chcDefaultGenerator = new System.Windows.Forms.CheckBox();
-            this.cboComPort = new System.Windows.Forms.ComboBox();
             this.lblComPort = new System.Windows.Forms.Label();
             this.cboTypeSignal = new System.Windows.Forms.ComboBox();
             this.lblTypeSignal = new System.Windows.Forms.Label();
@@ -58,10 +57,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
+            this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numComName)).BeginInit();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
@@ -75,23 +76,14 @@
             this.chcDefaultGenerator.UseVisualStyleBackColor = true;
             this.chcDefaultGenerator.CheckedChanged += new System.EventHandler(this.chcDefaultGenerator_CheckedChanged);
             // 
-            // cboComPort
-            // 
-            this.cboComPort.FormattingEnabled = true;
-            this.cboComPort.Location = new System.Drawing.Point(187, 32);
-            this.cboComPort.Name = "cboComPort";
-            this.cboComPort.Size = new System.Drawing.Size(143, 21);
-            this.cboComPort.TabIndex = 1;
-            this.cboComPort.SelectedIndexChanged += new System.EventHandler(this.cboComPort_SelectedIndexChanged);
-            // 
             // lblComPort
             // 
             this.lblComPort.AutoSize = true;
-            this.lblComPort.Location = new System.Drawing.Point(187, 16);
+            this.lblComPort.Location = new System.Drawing.Point(179, 28);
             this.lblComPort.Name = "lblComPort";
-            this.lblComPort.Size = new System.Drawing.Size(54, 13);
+            this.lblComPort.Size = new System.Drawing.Size(28, 13);
             this.lblComPort.TabIndex = 2;
-            this.lblComPort.Text = "Com порт";
+            this.lblComPort.Text = "Com";
             this.lblComPort.Click += new System.EventHandler(this.lblComPort_Click);
             // 
             // cboTypeSignal
@@ -237,8 +229,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.numComName);
             this.groupBox1.Controls.Add(this.chcDefaultGenerator);
-            this.groupBox1.Controls.Add(this.cboComPort);
             this.groupBox1.Controls.Add(this.lblComPort);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -379,6 +371,29 @@
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
+            // numComName
+            // 
+            this.numComName.Location = new System.Drawing.Point(209, 24);
+            this.numComName.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numComName.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numComName.Name = "numComName";
+            this.numComName.Size = new System.Drawing.Size(53, 20);
+            this.numComName.TabIndex = 3;
+            this.numComName.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numComName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numComName_KeyPress);
+            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,6 +418,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numComName)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -410,7 +426,6 @@
         #endregion
 
         internal System.Windows.Forms.CheckBox chcDefaultGenerator;
-        internal System.Windows.Forms.ComboBox cboComPort;
         internal System.Windows.Forms.Label lblComPort;
         internal System.Windows.Forms.Label lblTypeSignal;
         internal System.Windows.Forms.ComboBox cboSetValue;
@@ -439,5 +454,6 @@
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown numComName;
     }
 }

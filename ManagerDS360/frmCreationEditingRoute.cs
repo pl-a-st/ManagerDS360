@@ -187,24 +187,38 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butEditSetting_Click(object sender, EventArgs e)
         {
-            if (treRouteTree.SelectedNode == null || (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
+            if (treRouteTree.SelectedNode == null)
             {
                 MessageBox.Show("Не выбрана настройка для редактирования");
                 return;
             }
             TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            configureEditingSettings(selectedNode, editingSettings);
-            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
-            editingSettings.ShowDialog();
-            if (editingSettings.SaveStatus != SaveStatus.Save)
+            if (selectedNode.NodeType == NodeType.Setting)
             {
-                return;
+                frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
+                configureEditingSettings(selectedNode, editingSettings);
+                editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
+                editingSettings.ShowDialog();
+                if (editingSettings.SaveStatus != SaveStatus.Save)
+                {
+                    return;
+                }
+                TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+                string textNode = GetTextNode(editingSettings);
+                SelectedNodeWithSetup.Text = textNode;
+                SelectedNodeWithSetup.DS360Setting = editingSettings.DS360Setting;
             }
-            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            string textNode = GetTextNode(editingSettings);
-            SelectedNodeWithSetup.Text = textNode;
-            SelectedNodeWithSetup.DS360Setting = editingSettings.DS360Setting;
+            if (selectedNode.NodeType == NodeType.Folder)
+            {
+                frmInputName frmInputName = new frmInputName();
+                frmInputName.txtNameSet.Text = selectedNode.Text;
+                frmInputName.ShowDialog();
+                if (frmInputName.SaveName == SaveName.SaveName)
+                {
+                    selectedNode.Text = frmInputName.txtNameSet.Text; 
+                }
+            }
+            
         }
 
         private void configureEditingSettings(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)

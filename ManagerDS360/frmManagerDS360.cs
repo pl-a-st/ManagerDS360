@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibControls;
 using LibDevicesManager;
 
 namespace ManagerDS360
@@ -83,8 +84,16 @@ namespace ManagerDS360
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
+            if((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            {
+                return;
+            }
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).DS360Setting.SendDS360Setting() != Result.Success)
+            {
+                MessageBox.Show((treRouteTree.SelectedNode as TreeNodeWithSetting).DS360Setting.ResultMessage);
+            }
             //передача настройки в генератор
-
+            
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)
@@ -140,7 +149,7 @@ namespace ManagerDS360
             LoadCboSavedRoutes();
             PushListBox();
             cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            butBroadcastSettingsGenerator.Enabled = false;
+            
             butNextSetup.Enabled = false;
             DS360Setting.FindAllDS360();
             string name = DS360Setting.ComPortDefaultName;

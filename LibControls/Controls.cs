@@ -69,24 +69,34 @@ namespace LibControls
     {
 
         public NodeType NodeType;
+        public bool IsExpand;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
-        
-       
+        public TreeNodeWithSetting(NodeType nodeType, string text)
+        {
+            this.NodeType = nodeType;
+            SetImage();
+            Text = text;
+        }
         protected TreeNodeWithSetting(SerializationInfo info, StreamingContext context)
         {
-            
+
             this.Text = (string)info.GetValue("NodeText", this.Text.GetType());
             this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType());
             this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType());
-            TreeNodeWithSetting[] test = new TreeNodeWithSetting[1]  ;
+            TreeNodeWithSetting[] test = new TreeNodeWithSetting[1];
             TreeNodeWithSetting[] treeNodeWithSettings = (TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType());
-            foreach(var node in treeNodeWithSettings)
+            foreach (var node in treeNodeWithSettings)
             {
                 this.Nodes.Add(node);
             }
-            
+
+            if ((bool)info.GetValue("IsExpand", this.IsExpanded.GetType()))
+            {
+                this.Expand();
+            }
             SetImage();
         }
+
         protected override void Deserialize(SerializationInfo serializationInfo, StreamingContext context)
         {
             base.Deserialize(serializationInfo, context);
@@ -98,15 +108,10 @@ namespace LibControls
             si.AddValue("DS360Setting", this.DS360Setting);
             si.AddValue("NodeType", this.NodeType);
             SetImage();
-            TreeNodeWithSetting[] treeNodeWithSettings= new TreeNodeWithSetting[this.Nodes.Count];
+            TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[this.Nodes.Count];
             this.Nodes.CopyTo(treeNodeWithSettings, 0);
             si.AddValue("treeNodeWithSettings", treeNodeWithSettings);
-        }
-        public TreeNodeWithSetting(NodeType nodeType, string text)
-        {
-            this.NodeType = nodeType;
-            SetImage();
-            Text = text;
+            si.AddValue("IsExpand", this.IsExpanded);
         }
 
         private void SetImage()
@@ -158,7 +163,7 @@ namespace LibControls
             this.SelectedNode.BackColor = Color.FromArgb(0, 120, 215);
             LastSelectedTreeNode = this.SelectedNode;
         }
-       private  void DoLastSelectedTreeNodeBackColorWhite()
+        private void DoLastSelectedTreeNodeBackColorWhite()
         {
             if (LastSelectedTreeNode != null)
             {

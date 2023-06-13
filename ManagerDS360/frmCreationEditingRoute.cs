@@ -33,6 +33,7 @@ namespace ManagerDS360
     {
         public SaveName SaveName;
         public TypeFormOpen TypeFormOpen;
+        public FileInfo FileInfo;
 
         Timer timer;
 
@@ -244,7 +245,7 @@ namespace ManagerDS360
             {
                 editingSettings.chcDefaultGenerator.Checked = true;
             }
-            else 
+            else
             {
                 editingSettings.chcDefaultGenerator.Checked = false;
                 editingSettings.numComName.Value = int.Parse(selectedNode.DS360Setting.ComPortName.Replace("COM", ""));
@@ -388,16 +389,24 @@ namespace ManagerDS360
                 MessageBox.Show("Не введено название маршрута!");
                 return;
             }
-            string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.");
-            if (pathDyrectoryForRouteFile == "" || pathDyrectoryForRouteFile == string.Empty)
+            string fullFilePath =string.Empty;
+            if (TypeFormOpen == TypeFormOpen.ToСreate)
             {
-                MessageBox.Show("Не выбран путь для сохранения!");
-                return;
+                string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.", out MethodResultStatus resultStatus);
+                if (resultStatus != MethodResultStatus.Ok)
+                {
+                    MessageBox.Show("Не выбран путь для сохранения!");
+                    return;
+                }
+                fullFilePath = pathDyrectoryForRouteFile + @"\" + txtNameRoute.Text + ".rout";
             }
-            string fullFilePath = pathDyrectoryForRouteFile +@"\"+ txtNameRoute.Text + ".rout";
+            if (TypeFormOpen == TypeFormOpen.ToChange)
+            {
+                fullFilePath = FileInfo.FullName;
+            }
             TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[treRouteTree.Nodes.Count];
-                treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
-            if (DAO.binWriteObjectToFile(treeNodeWithSettings, fullFilePath)== MethodResultStatus.Fault)
+            treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
+            if (DAO.binWriteObjectToFile(treeNodeWithSettings, fullFilePath) == MethodResultStatus.Fault)
             {
                 MessageBox.Show($"Не удалось записать файл {fullFilePath}");
                 return;

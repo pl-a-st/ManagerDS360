@@ -78,16 +78,19 @@ namespace ManagerDS360
             return path + fileName;
         }
         //получение пути для сохранения маршрута: 
-        public static string GetFolderNameDialog(string TitleDiolog)
+        public static string GetFolderNameDialog(string TitleDiolog, out MethodResultStatus resultStatus)
         {
             CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();
             FolderDialog.IsFolderPicker = true;
             FolderDialog.Title = TitleDiolog;
             string path = "";
-            if (FolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            if (FolderDialog.ShowDialog() != CommonFileDialogResult.Ok)
             {
-                path = FolderDialog.FileName;
+                resultStatus = MethodResultStatus.Fault;
+                return path;
             }
+            path = FolderDialog.FileName;
+            resultStatus = MethodResultStatus.Ok;
             return path;
         }
     }

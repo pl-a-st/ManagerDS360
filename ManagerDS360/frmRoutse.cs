@@ -122,6 +122,7 @@ namespace ManagerDS360
                 return;
             }
             FileInfo routeFileInfo = PmData.RouteAddresses[lstSaveRoutes.SelectedIndex];
+
             string fileRoutePath = routeFileInfo.FullName;
             string RoutName = routeFileInfo.Name.Replace(routeFileInfo.Extension, "");
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
@@ -130,6 +131,7 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
             TreeNodeWithSetting[] treeNodeWithSettings = null;
             newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus));
+            newfrmCreationEditingRoute.FileInfo = routeFileInfo;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
         }

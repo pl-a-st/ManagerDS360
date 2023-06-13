@@ -861,7 +861,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             Thread.Sleep(300);
-            ComPort.PortClear(port);
+            //ComPort.PortClear(port);
             result = ComPort.Send(port, command);
             if (result != Result.Success)
             {
@@ -884,7 +884,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             Thread.Sleep(300);
-            ComPort.PortClear(port);
+            //ComPort.PortClear(port);
             result = ComPort.Send(port, command);
             if (result != Result.Success)
             {

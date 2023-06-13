@@ -166,17 +166,14 @@ namespace LibDevicesManager
         }
         public static void PortClear(SerialPort port)
         {
-            try
+            if (port.IsOpen)
             {
-                port.DiscardInBuffer();
-            }
-            catch (IOException)
-            {
-                //Обрабоать
-            }
-            catch (InvalidOperationException)
-            {
-                //Обрабоать
+                string checkString = string.Empty;
+                do
+                {
+                    checkString = Receive(port);
+                } 
+                while (!checkString.StartsWith("Ошибка"));
             }
         }
         public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port)
@@ -282,7 +279,7 @@ namespace LibDevicesManager
                 }
                 catch (InvalidOperationException ex)
                 {
-                    return "InvalidOperationException";
+                    return "Ошибка InvalidOperationException";
                 }
             }
             return receivedMessage;

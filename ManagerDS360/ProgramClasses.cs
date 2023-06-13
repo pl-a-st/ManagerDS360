@@ -12,7 +12,7 @@ namespace ManagerDS360
 {
     public static class PmData
     {
-        public const string FileNameRouteAddresses = @"RouteAddresses.route";
+        public const string FileNameRouteAddresses = @"RouteAddresses.bin";
 
         public static Dictionary<PhysicalQuantity, string> PhysicalQuantity = new Dictionary<PhysicalQuantity, string>()
         {
@@ -39,7 +39,7 @@ namespace ManagerDS360
 
         static PmData()
         {
-            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.TakeUserPath(FileNameRouteAddresses), out var result);
+            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses), out var result);
         }
 
 

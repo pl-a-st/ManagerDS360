@@ -258,7 +258,7 @@
         internal System.Windows.Forms.Label lblSave;
         private System.Windows.Forms.Label lblSaveRoute;
         private System.Windows.Forms.Button butAllDelete;
-        private LibControls.TreeViewWithSetting treRouteTree;
         internal System.Windows.Forms.Button butCancel;
+        public LibControls.TreeViewWithSetting treRouteTree;
     }
 }

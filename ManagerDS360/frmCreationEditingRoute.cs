@@ -41,9 +41,7 @@ namespace ManagerDS360
             
            
             List<DS360Setting> dS360Settings = new List<DS360Setting>();
-            TreeNodeWithSetting[] treeNodeWithSettings = null;
-            treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, @"C:\Users\ВеринСГ\Desktop\123123.rout", out MethodResultStatus methodResultStatus);
-            treRouteTree.Nodes.AddRange(treeNodeWithSettings);
+            
         }
 
         private void PushListBox()
@@ -384,16 +382,18 @@ namespace ManagerDS360
                 MessageBox.Show("Не выбран путь для сохранения!");
                 return;
             }
-            string FullFilePath = pathDyrectoryForRouteFile +@"\"+ txtNameRoute.Text + ".rout";
+            string fullFilePath = pathDyrectoryForRouteFile +@"\"+ txtNameRoute.Text + ".rout";
             TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[treRouteTree.Nodes.Count];
                 treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
-            if (DAO.binWriteObjectToFile(treeNodeWithSettings, FullFilePath)== MethodResultStatus.Fault)
+            if (DAO.binWriteObjectToFile(treeNodeWithSettings, fullFilePath)== MethodResultStatus.Fault)
             {
-                MessageBox.Show($"Не удалось записать файл {FullFilePath}");
+                MessageBox.Show($"Не удалось записать файл {fullFilePath}");
                 return;
             }
-            // TODO дописать добавление файла в списо сохраненных
-
+            FileInfo routFile = new FileInfo(fullFilePath);
+            PmData.RouteAddresses.Add(routFile);
+            DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
+            MessageBox.Show("Файл маршрута успешно сохранен!");
         }
 
         private void butDelete_Click(object sender, EventArgs e)

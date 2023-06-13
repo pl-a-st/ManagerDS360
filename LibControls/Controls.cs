@@ -105,7 +105,7 @@ namespace LibControls
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
-            
+            SetImage();
             Text = text;
         }
 

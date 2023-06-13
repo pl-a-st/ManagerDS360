@@ -68,7 +68,7 @@ namespace ManagerDS360
 
 
         //получение пути для сохранения настроек:
-        public static string TakeUserPath(string fileName)
+        public static string GetApplicationDataPath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
             if (!Directory.Exists(path))

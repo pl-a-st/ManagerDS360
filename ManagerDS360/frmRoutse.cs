@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using LibControls;
 
 namespace ManagerDS360
 {
@@ -40,18 +40,15 @@ namespace ManagerDS360
             //    return;
             //}
 
-                //listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
+            //listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
             //listRoutesFiles.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#").GetFiles());
-            foreach (FileInfo info in listRoutesFiles)
-            {
-                //lstSaveRoutes.Items.Add(info);
-            }
+            ReloadLstRoutes();
 
             butUpRoute.Enabled = false;
             butDownRoute.Enabled = false;
 
             butDeleteRoute.Enabled = false;
-            butEditingRoute.Enabled = false;
+            //butEditingRoute.Enabled = false;
             //butSaveRoutes.Enabled = false;
  
         }
@@ -101,11 +98,35 @@ namespace ManagerDS360
             //создание нового маршрута
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
             newfrmCreationEditingRoute.ShowDialog();
+            ReloadLstRoutes();
         }
 
+        private void ReloadLstRoutes()
+        {
+            lstSaveRoutes.Items.Clear();
+            foreach (var file in PmData.RouteAddresses)
+            {
+                lstSaveRoutes.Items.Add(file.Name);
+            }
+        }
+        /// <summary>
+        /// //редактирование маршрута
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-            //редактирование маршрута
+            if (lstSaveRoutes.SelectedIndex == -1)
+            {
+                return;
+            }
+            string fileRoutePath = PmData.RouteAddresses[lstSaveRoutes.SelectedIndex].FullName;
+            frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
+            newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
+            TreeNodeWithSetting[] treeNodeWithSettings = null;
+            newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus));
+            newfrmCreationEditingRoute.ShowDialog();
+            ReloadLstRoutes();
         }
 
         private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)

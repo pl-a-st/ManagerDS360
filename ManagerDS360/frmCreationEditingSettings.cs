@@ -416,14 +416,14 @@ namespace ManagerDS360
         private void txtConversionFactor_TextChanged(object sender, EventArgs e)
         {
             //ввод коэф. преобразования
-            txtConversionFactor.Enabled = true;
+         
             //txtConversionFactor = 100;
         }
 
         internal void txtFrequency_TextChanged(object sender, EventArgs e)
         {
             //ввод частоты
-            txtFrequency.Enabled = true;
+         
         }
 
         private void lblFrequency_Click(object sender, EventArgs e)
@@ -437,7 +437,7 @@ namespace ManagerDS360
         private void txtOffset_TextChanged(object sender, EventArgs e)
         {
             //ввод смещения
-            txtOffset.Enabled = true;
+     
         }
 
         private void lblDetector_Click(object sender, EventArgs e)
@@ -486,25 +486,25 @@ namespace ManagerDS360
         private void txtFrequency2_TextChanged(object sender, EventArgs e)
         {
             //ввод второй частоты
-            txtFrequency2.Enabled = true;
+           
         }
 
         private void cboDetector2_SelectedIndexChanged(object sender, EventArgs e)
         {
             //выбор второго детектора
-            cboDetector2.Enabled = false;
+
         }
 
         private void txtValue_TextChanged(object sender, EventArgs e)
         {
             //ввод первого значения
-            txtValue.Enabled = true;
+           
         }
 
         private void txtValue2_TextChanged(object sender, EventArgs e)
         {
             //ввод второго значения
-            txtValue2.Enabled = true;
+            
         }
 
         private void numComName_KeyPress(object sender, KeyPressEventArgs e)

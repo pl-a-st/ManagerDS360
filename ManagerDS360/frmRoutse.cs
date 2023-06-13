@@ -33,24 +33,8 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-            //DirectoryInfo directoryInfo = new DirectoryInfo();  //"W:\\8.Технический отдел\\Общая\\Группа C#\\Папка пользователя");
-            //if (!directoryInfo.Exists)
-            //{
-            //    MessageBox.Show("Нет данных о созданных маршрутах!", "Внимание"); 
-            //    return;
-            //}
-
-            //listRoutesFiles.AddRange(new DirectoryInfo("E:\\SteamLibrary").GetFiles());
-            //listRoutesFiles.AddRange(new DirectoryInfo("W:\\8.Технический отдел\\Общая\\Группа C#").GetFiles());
             ReloadLstRoutes();
 
-            butUpRoute.Enabled = false;
-            butDownRoute.Enabled = false;
-
-            butDeleteRoute.Enabled = false;
-            //butEditingRoute.Enabled = false;
-            //butSaveRoutes.Enabled = false;
- 
         }
         //выбор элемента treeView
         private void TreeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
@@ -69,8 +53,17 @@ namespace ManagerDS360
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
         {
-            //удаление маршрута-строки из листа
-
+            if (lstSaveRoutes.SelectedIndex == -1)
+            {
+                return;
+            }
+            if(MessageBox.Show("Удалить маршрут из списка маршрутов?", "Сообщение", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return;
+            }
+            PmData.RouteAddresses.RemoveAt(lstSaveRoutes.SelectedIndex);
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
         }
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)

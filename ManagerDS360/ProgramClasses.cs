@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using VibroMath;
 
 namespace ManagerDS360
@@ -42,7 +43,13 @@ namespace ManagerDS360
             RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses), out var result);
         }
 
-
+       static  public void SaveRouteAddresses()
+        {
+            if(DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses))!= MethodResultStatus.Ok)
+            {
+                MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
+            }
+        }
         public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)
         {
             return dictionary.FirstOrDefault(x => x.Value == str).Key;

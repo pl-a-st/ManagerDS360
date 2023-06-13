@@ -243,6 +243,7 @@
             // 
             // numComName
             // 
+            this.numComName.Enabled = false;
             this.numComName.Location = new System.Drawing.Point(209, 24);
             this.numComName.Maximum = new decimal(new int[] {
             255,

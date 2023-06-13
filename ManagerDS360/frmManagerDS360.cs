@@ -129,6 +129,7 @@ namespace ManagerDS360
 
         internal void frmManagerDS360_Load(object sender, EventArgs e)
         {
+            LoadCboSavedRoutes();
             PushListBox();
             cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             butBroadcastSettingsGenerator.Enabled = false;
@@ -140,6 +141,18 @@ namespace ManagerDS360
                 name = "не выбран";
             }
             butDefaultGenerator.Text = $"Генератор {name}";
+        }
+
+        private void LoadCboSavedRoutes()
+        {
+            foreach (var route in PmData.RouteAddresses)
+            {
+                cboSavedRoutes.Items.Add(route.Name.Replace(route.Extension, ""));
+            }
+            if (cboSavedRoutes.Items.Count != -1)
+            {
+                cboSavedRoutes.SelectedIndex = 0;
+            }
         }
 
         private void PushListBox()

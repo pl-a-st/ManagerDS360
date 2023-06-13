@@ -8,7 +8,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices;
-
+using System.Windows.Forms;
 
 namespace ManagerDS360
 {
@@ -50,6 +50,11 @@ namespace ManagerDS360
         //извлечение/десериализация
         public static Type binReadFileToObject<Type>(Type serObject, string fullPathFileName, out MethodResultStatus methodResultStatus)
         {
+            if (!File.Exists(fullPathFileName))
+            {
+                methodResultStatus = MethodResultStatus.Fault;
+                return serObject;
+            }
             BinaryFormatter bf = new BinaryFormatter();
             try
             {

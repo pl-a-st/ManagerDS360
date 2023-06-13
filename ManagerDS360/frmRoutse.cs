@@ -14,7 +14,7 @@ namespace ManagerDS360
 {
     public partial class frmEditingRoutes : Form
     {
-        List<FileInfo>listRoutesFiles = new List<FileInfo>();
+        List<FileInfo> listRoutesFiles = new List<FileInfo>();
 
         public frmEditingRoutes()
         {
@@ -57,7 +57,7 @@ namespace ManagerDS360
             {
                 return;
             }
-            if(MessageBox.Show("Удалить маршрут из списка маршрутов?", "Сообщение", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show("Удалить маршрут из списка маршрутов?", "Сообщение", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
             }
@@ -123,7 +123,15 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.txtNameRoute.Text = RoutName;
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
             TreeNodeWithSetting[] treeNodeWithSettings = null;
-            newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus));
+            treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus);
+            if (methodResultStatus == MethodResultStatus.Ok)
+            {
+                newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(treeNodeWithSettings);
+            }
+            if (methodResultStatus == MethodResultStatus.Fault)
+            {
+                MessageBox.Show($"При чтении файла {routeFileInfo.FullName} произошла ошибка!");  
+            }
             newfrmCreationEditingRoute.FileInfo = routeFileInfo;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
@@ -137,6 +145,19 @@ namespace ManagerDS360
         private void lblSaveRoutes_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void butAddRout_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "|*.rout";
+            if (fileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            PmData.RouteAddresses.Add(new FileInfo(fileDialog.FileName));
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
         }
     }
 }

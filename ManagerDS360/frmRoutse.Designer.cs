@@ -39,6 +39,7 @@
             this.lblSaveRoutes = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lstSaveRoutes = new System.Windows.Forms.ListBox();
+            this.butAddRout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // butCreateRoutes
             // 
             this.butCreateRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCreateRoutes.Location = new System.Drawing.Point(391, 29);
+            this.butCreateRoutes.Location = new System.Drawing.Point(408, 29);
             this.butCreateRoutes.Name = "butCreateRoutes";
             this.butCreateRoutes.Size = new System.Drawing.Size(132, 45);
             this.butCreateRoutes.TabIndex = 2;
@@ -67,7 +68,7 @@
             // butEditingRoute
             // 
             this.butEditingRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditingRoute.Location = new System.Drawing.Point(391, 82);
+            this.butEditingRoute.Location = new System.Drawing.Point(408, 80);
             this.butEditingRoute.Name = "butEditingRoute";
             this.butEditingRoute.Size = new System.Drawing.Size(132, 45);
             this.butEditingRoute.TabIndex = 3;
@@ -77,23 +78,25 @@
             // 
             // butUpRoute
             // 
-            this.butUpRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butUpRoute.Location = new System.Drawing.Point(391, 151);
+            this.butUpRoute.FlatAppearance.BorderSize = 0;
+            this.butUpRoute.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butUpRoute.Location = new System.Drawing.Point(367, 171);
+            this.butUpRoute.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.butUpRoute.Name = "butUpRoute";
-            this.butUpRoute.Size = new System.Drawing.Size(132, 34);
-            this.butUpRoute.TabIndex = 4;
-            this.butUpRoute.Text = "Вверх";
+            this.butUpRoute.Size = new System.Drawing.Size(33, 33);
+            this.butUpRoute.TabIndex = 0;
+            this.butUpRoute.Text = "▲";
             this.butUpRoute.UseVisualStyleBackColor = true;
             this.butUpRoute.Click += new System.EventHandler(this.butUpRoute_Click);
             // 
             // butDownRoute
             // 
-            this.butDownRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDownRoute.Location = new System.Drawing.Point(391, 198);
+            this.butDownRoute.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butDownRoute.Location = new System.Drawing.Point(367, 220);
             this.butDownRoute.Name = "butDownRoute";
-            this.butDownRoute.Size = new System.Drawing.Size(132, 34);
+            this.butDownRoute.Size = new System.Drawing.Size(33, 33);
             this.butDownRoute.TabIndex = 5;
-            this.butDownRoute.Text = "Вниз";
+            this.butDownRoute.Text = "▼";
             this.butDownRoute.UseVisualStyleBackColor = true;
             this.butDownRoute.Click += new System.EventHandler(this.butDownRoute_Click);
             // 
@@ -150,6 +153,17 @@
             this.lstSaveRoutes.Size = new System.Drawing.Size(349, 316);
             this.lstSaveRoutes.TabIndex = 11;
             // 
+            // butAddRout
+            // 
+            this.butAddRout.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butAddRout.Location = new System.Drawing.Point(408, 131);
+            this.butAddRout.Name = "butAddRout";
+            this.butAddRout.Size = new System.Drawing.Size(132, 45);
+            this.butAddRout.TabIndex = 3;
+            this.butAddRout.Text = "Найти  маршрут";
+            this.butAddRout.UseVisualStyleBackColor = true;
+            this.butAddRout.Click += new System.EventHandler(this.butAddRout_Click);
+            // 
             // frmEditingRoutes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +176,7 @@
             this.Controls.Add(this.butSaveRoutes);
             this.Controls.Add(this.butDownRoute);
             this.Controls.Add(this.butUpRoute);
+            this.Controls.Add(this.butAddRout);
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.butCreateRoutes);
             this.Controls.Add(this.lblSavedRoutes);
@@ -189,5 +204,6 @@
         private System.Windows.Forms.Label lblSaveRoutes;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox lstSaveRoutes;
+        private System.Windows.Forms.Button butAddRout;
     }
 }

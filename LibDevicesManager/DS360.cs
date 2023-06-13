@@ -61,7 +61,7 @@ namespace LibDevicesManager
                 isComPortDefaultName = value;
             }
         }
-        public string ComPortName
+        public string ComPortName //Проверить использование IsComPortDefaultName
         {
             get
             {
@@ -192,7 +192,7 @@ namespace LibDevicesManager
 
         #region PrivateFields
         private static string comPortDefaultName;
-        private static bool isComPortDefaultName = true;
+        private bool isComPortDefaultName = true;
         private string comPortName;
         private int comPortNumber;
         private FunctionType functionType;

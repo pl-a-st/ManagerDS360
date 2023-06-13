@@ -87,7 +87,7 @@ namespace ManagerDS360
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)
-        {/*
+        {
             //появление messageBox
             MessageBox.Show(
          "Мanager DS360. Версия ПО 0.005.\n  Год разработки - 2023.",
@@ -97,8 +97,8 @@ namespace ManagerDS360
           MessageBoxDefaultButton.Button1);
             //MessageBoxDefaultButton.Button1,
             //MessageBoxOptions.DefaultDesktopOnly);
-            */
-            //Эту часть кода ААС использует для тестирования библиотеки
+            
+            /*//Эту часть кода ААС использует для тестирования библиотеки
 
             DS360Setting generator = new DS360Setting();
             generator.ComPortName = "COM5";
@@ -112,6 +112,7 @@ namespace ManagerDS360
             //string str = generator.GetIdentificationString();
             //string str2 = "S/n: " + generator.GetSerialNumber();
             MessageBox.Show(generator.ResultMessage, "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            */
         }
 
 

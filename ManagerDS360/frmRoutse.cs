@@ -115,7 +115,6 @@ namespace ManagerDS360
                 return;
             }
             FileInfo routeFileInfo = PmData.RouteAddresses[lstSaveRoutes.SelectedIndex];
-
             string fileRoutePath = routeFileInfo.FullName;
             string RoutName = routeFileInfo.Name.Replace(routeFileInfo.Extension, "");
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
@@ -123,16 +122,6 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.txtNameRoute.Text = RoutName;
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
             newfrmCreationEditingRoute.treRouteTree.LoadTreeNodesWithSeetings(routeFileInfo);
-            //TreeNodeWithSetting[] treeNodeWithSettings = null;
-            //treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus);
-            //if (methodResultStatus == MethodResultStatus.Ok)
-            //{
-            //    newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(treeNodeWithSettings);
-            //}
-            //if (methodResultStatus == MethodResultStatus.Fault)
-            //{
-            //    MessageBox.Show($"При чтении файла {routeFileInfo.FullName} произошла ошибка!");  
-            //}
             newfrmCreationEditingRoute.FileInfo = routeFileInfo;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();

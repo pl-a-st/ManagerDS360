@@ -487,7 +487,7 @@ namespace LibDevicesManager
                 return result;
             }
             //ПОСЛЕ открытия порта нужна пауза!!!! 
-            //Нужна очистка входного буффера!!!!
+            ComPort.PortClear(port);
             result = SetOutputSignalEnable(port, false);
             if (result != Result.Success)
             {
@@ -861,6 +861,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             Thread.Sleep(300);
+            ComPort.PortClear(port);
             result = ComPort.Send(port, command);
             if (result != Result.Success)
             {
@@ -883,6 +884,7 @@ namespace LibDevicesManager
                 return string.Empty;
             }
             Thread.Sleep(300);
+            ComPort.PortClear(port);
             result = ComPort.Send(port, command);
             if (result != Result.Success)
             {

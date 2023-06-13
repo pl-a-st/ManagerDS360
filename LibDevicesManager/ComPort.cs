@@ -164,6 +164,21 @@ namespace LibDevicesManager
             }
             return "Unknown";
         }
+        public static void PortClear(SerialPort port)
+        {
+            try
+            {
+                port.DiscardInBuffer();
+            }
+            catch (IOException)
+            {
+                //Обрабоать
+            }
+            catch (InvalidOperationException)
+            {
+                //Обрабоать
+            }
+        }
         public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port)
         {
             Result result = Result.Success;

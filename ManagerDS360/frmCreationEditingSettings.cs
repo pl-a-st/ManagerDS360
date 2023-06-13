@@ -192,10 +192,12 @@ namespace ManagerDS360
             DS360Setting = new DS360SettingVibroSigParam();
             if (chcDefaultGenerator.Checked)
             {
-                DS360Setting.SetComPortNameToDefault();
+                //DS360Setting.SetComPortNameToDefault(); //ААС: старый способ, удаляем.
+                DS360Setting.IsComPortDefaultName = true;
             }
             if (!chcDefaultGenerator.Checked)
             {
+                DS360Setting.IsComPortDefaultName = false;
                 DS360Setting.ComPortNumber = (int)numComName.Value;
             }
             DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);

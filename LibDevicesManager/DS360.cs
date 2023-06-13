@@ -50,11 +50,22 @@ namespace LibDevicesManager
                 SetComPortDefaultName(value);
             }
         }
+        public bool IsComPortDefaultName
+        {
+            get
+            {
+                return isComPortDefaultName;
+            }
+            set
+            {
+                isComPortDefaultName = value;
+            }
+        }
         public string ComPortName
         {
             get
             {
-                if (comPortName == null || comPortName == string.Empty)
+                if (comPortName == null || comPortName == string.Empty || IsComPortDefaultName)
                 {
                     return ComPortDefaultName;
                 }
@@ -181,6 +192,7 @@ namespace LibDevicesManager
 
         #region PrivateFields
         private static string comPortDefaultName;
+        private static bool isComPortDefaultName = true;
         private string comPortName;
         private int comPortNumber;
         private FunctionType functionType;
@@ -202,6 +214,7 @@ namespace LibDevicesManager
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+        private static bool isDebugMode = false;
         #endregion PrivateFields
 
         //Исправить на заполнение автополей
@@ -392,7 +405,7 @@ namespace LibDevicesManager
             {
                 generatorsList.Clear();
             }
-            if (generatorsList.Count!= 0)
+            if (generatorsList.Count != 0)
             {
                 generators = new string[generatorsList.Count];
                 for (int i = 0; i < generatorsList.Count; i++)
@@ -442,7 +455,7 @@ namespace LibDevicesManager
             {
                 result = Result.ParamError;
             }
-            if (!ComPort.IsPortNameCorrect(ComPortName))
+            if (!IsComPortDefaultName && !ComPort.IsPortNameCorrect(ComPortName))
             {
                 resultMessage += "\nЗадано некорректное имя Com-порта";
                 result = Result.ParamError;
@@ -460,7 +473,13 @@ namespace LibDevicesManager
             {
                 return result;
             }
-            result = ComPort.PortOpen(DeviceModel, ComPortName, out SerialPort port);
+            string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
+            if (portName == "NONE")
+            {
+                resultMessage += "\nГенератор не найден";
+                return Result.Failure;
+            }
+            result = ComPort.PortOpen(DeviceModel, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -497,28 +516,6 @@ namespace LibDevicesManager
             //дать команду на включение сигнала.
             ComPort.PortClose(port);
             return result;
-        }
-        public void SetComPortNameToDefault()
-        {
-            ComPortName = ComPortDefaultName;
-        }
-        private static Result SetComPortDefaultName(string portName)
-        {
-            if (ComPort.IsPortNameCorrect(portName))
-            {
-                comPortDefaultName = portName;
-                return Result.Success;
-            }
-            //comPortDefaultName = "NONE";
-            return Result.ParamError;
-        }
-        public static string GetComPortDefaultName()
-        {
-            if (comPortDefaultName == null || comPortDefaultName == string.Empty || comPortDefaultName == "Генераторы не обнаружены")
-            {
-                comPortDefaultName = "NONE";
-            }
-            return comPortDefaultName;
         }
         #endregion PublicMethods
 
@@ -853,7 +850,7 @@ namespace LibDevicesManager
             string serialNumber = subString[2];
             return serialNumber;
         }
-        
+
         private static string GetDS360IdentificationString(string comPortName)
         {
             string command = "*IDN?";
@@ -900,6 +897,24 @@ namespace LibDevicesManager
         #endregion CommunicateWithDS360
 
         #region SecondaryMethods
+        private static Result SetComPortDefaultName(string portName)
+        {
+            if (ComPort.IsPortNameCorrect(portName))
+            {
+                comPortDefaultName = portName;
+                return Result.Success;
+            }
+            //comPortDefaultName = "NONE";
+            return Result.ParamError;
+        }
+        private static string GetComPortDefaultName()
+        {
+            if (comPortDefaultName == null || comPortDefaultName == string.Empty || comPortDefaultName == "Генераторы не обнаружены")
+            {
+                comPortDefaultName = "NONE";
+            }
+            return comPortDefaultName;
+        }
         private void SetComPortNumber(int comPortNumber)
         {
             if (comPortNumber < 1 || comPortNumber > 256)
@@ -950,7 +965,10 @@ namespace LibDevicesManager
         }
         private void DebugMessage(string str1, string str2)
         {
-            MessageBox.Show(str1, str2, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            if (isDebugMode)
+            {
+                MessageBox.Show(str1, str2, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            }
         }
         private void DebugCompareMissage(string query, Result result, string value, string receivedValue)
         {
@@ -1102,6 +1120,10 @@ namespace LibDevicesManager
         #endregion SecondaryMethods
 
         #region UnUsed
+        private void SetComPortNameToDefault()
+        {
+            ComPortName = ComPortDefaultName;
+        }
         private static string[] GetDevicesArray()
         {
             List<string> ports = ComPort.PortsNamesList;

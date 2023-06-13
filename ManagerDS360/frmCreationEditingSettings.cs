@@ -94,7 +94,7 @@ namespace ManagerDS360
             //ААС: Добавил ниже список из 20 имён
             
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-            chcDefaultGenerator.Checked = true;
+         
 
         }
 
@@ -192,7 +192,6 @@ namespace ManagerDS360
             DS360Setting = new DS360SettingVibroSigParam();
             if (chcDefaultGenerator.Checked)
             {
-                //DS360Setting.SetComPortNameToDefault(); //ААС: старый способ, удаляем.
                 DS360Setting.IsComPortDefaultName = true;
             }
             if (!chcDefaultGenerator.Checked)

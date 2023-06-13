@@ -24,9 +24,16 @@ namespace ManagerDS360
         Cancel,
         SaveName
     }
+    public enum TypeFormOpen
+    {
+        ToСreate,
+        ToChange
+    }
     public partial class frmCreationEditingRoute : Form
     {
         public SaveName SaveName;
+        public TypeFormOpen TypeFormOpen;
+
         Timer timer;
 
         List<TreeNode> checkedNodes = new List<TreeNode>();
@@ -38,10 +45,6 @@ namespace ManagerDS360
         public void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
             PushListBox();
-            
-           
-            List<DS360Setting> dS360Settings = new List<DS360Setting>();
-            
         }
 
         private void PushListBox()
@@ -237,6 +240,15 @@ namespace ManagerDS360
             editingSettings.txtFrequency.Text = selectedNode.DS360Setting.Frequency.ToString();
             editingSettings.txtOffset.Text = selectedNode.DS360Setting.Offset.ToString();
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
+            if (selectedNode.DS360Setting.IsComPortDefaultName)
+            {
+                editingSettings.chcDefaultGenerator.Checked = true;
+            }
+            else 
+            {
+                editingSettings.chcDefaultGenerator.Checked = false;
+                editingSettings.numComName.Value = int.Parse(selectedNode.DS360Setting.ComPortName.Replace("COM", ""));
+            }
 
             ConfigureToVibroparam(selectedNode, editingSettings);
             editingSettings.cboTypeSignal.SelectedItem = PmData.FunctionTypeSignal[(FunctionTypeSignal)selectedNode.DS360Setting.FunctionType];
@@ -390,9 +402,12 @@ namespace ManagerDS360
                 MessageBox.Show($"Не удалось записать файл {fullFilePath}");
                 return;
             }
-            FileInfo routFile = new FileInfo(fullFilePath);
-            PmData.RouteAddresses.Add(routFile);
-            DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
+            if (TypeFormOpen == TypeFormOpen.ToСreate)
+            {
+                FileInfo routFile = new FileInfo(fullFilePath);
+                PmData.RouteAddresses.Add(routFile);
+                DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
+            }
             MessageBox.Show("Файл маршрута успешно сохранен!");
         }
 

@@ -97,6 +97,7 @@ namespace ManagerDS360
         {
             //создание нового маршрута
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
+            newfrmCreationEditingRoute.TypeFormOpen = TypeFormOpen.ToСreate;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
         }
@@ -124,6 +125,7 @@ namespace ManagerDS360
             string fileRoutePath = routeFileInfo.FullName;
             string RoutName = routeFileInfo.Name.Replace(routeFileInfo.Extension, "");
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
+            newfrmCreationEditingRoute.TypeFormOpen = TypeFormOpen.ToChange;
             newfrmCreationEditingRoute.txtNameRoute.Text = RoutName;
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
             TreeNodeWithSetting[] treeNodeWithSettings = null;

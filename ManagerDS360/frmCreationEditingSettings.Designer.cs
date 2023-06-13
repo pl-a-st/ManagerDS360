@@ -45,6 +45,7 @@
             this.cboDetector2 = new System.Windows.Forms.ComboBox();
             this.lblValue = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
             this.txtValue = new LibControls.ModifiedTextBox();
@@ -57,17 +58,18 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
-            this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numComName)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numComName)).BeginInit();
             this.SuspendLayout();
             // 
             // chcDefaultGenerator
             // 
             this.chcDefaultGenerator.AutoSize = true;
+            this.chcDefaultGenerator.Checked = true;
+            this.chcDefaultGenerator.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chcDefaultGenerator.Location = new System.Drawing.Point(20, 27);
             this.chcDefaultGenerator.Name = "chcDefaultGenerator";
             this.chcDefaultGenerator.Size = new System.Drawing.Size(153, 17);
@@ -239,6 +241,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Подключение";
             // 
+            // numComName
+            // 
+            this.numComName.Location = new System.Drawing.Point(209, 24);
+            this.numComName.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numComName.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numComName.Name = "numComName";
+            this.numComName.Size = new System.Drawing.Size(53, 20);
+            this.numComName.TabIndex = 3;
+            this.numComName.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numComName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numComName_KeyPress);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.cboDetector);
@@ -371,29 +396,6 @@
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
-            // numComName
-            // 
-            this.numComName.Location = new System.Drawing.Point(209, 24);
-            this.numComName.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numComName.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numComName.Name = "numComName";
-            this.numComName.Size = new System.Drawing.Size(53, 20);
-            this.numComName.TabIndex = 3;
-            this.numComName.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numComName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numComName_KeyPress);
-            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,13 +414,13 @@
             this.Load += new System.EventHandler(this.frmCreationEditingSettings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numComName)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numComName)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -454,6 +456,6 @@
         internal System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.NumericUpDown numComName;
+        public System.Windows.Forms.NumericUpDown numComName;
     }
 }

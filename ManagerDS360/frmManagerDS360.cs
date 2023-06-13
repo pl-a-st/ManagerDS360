@@ -124,6 +124,7 @@ namespace ManagerDS360
             {
                 return;
             }
+            treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
             //загрузить выпадающий список сохранённых маршрутов из листа
         }

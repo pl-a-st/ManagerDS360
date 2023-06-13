@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibDevicesManager;
-
-
+using ManagerDS360;
 
 namespace LibControls
 {
@@ -162,6 +162,20 @@ namespace LibControls
             DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode.BackColor = Color.FromArgb(0, 120, 215);
             LastSelectedTreeNode = this.SelectedNode;
+        }
+        public void LoadTreeNodesWithSeetings(FileInfo fileInfo)
+        {
+            string fileRoutePath = fileInfo.FullName;
+            TreeNodeWithSetting[] treeNodeWithSettings = null;
+            treeNodeWithSettings = DALS.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus);
+            if (methodResultStatus == MethodResultStatus.Ok)
+            {
+                this.Nodes.AddRange(treeNodeWithSettings);
+            }
+            if (methodResultStatus == MethodResultStatus.Fault)
+            {
+                MessageBox.Show($"При чтении файла {fileInfo.FullName} произошла ошибка!");
+            }
         }
         private void DoLastSelectedTreeNodeBackColorWhite()
         {

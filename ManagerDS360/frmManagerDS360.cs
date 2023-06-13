@@ -65,6 +65,7 @@ namespace ManagerDS360
         {
             frmEditingRoutes editingRoutes = new frmEditingRoutes();
             editingRoutes.ShowDialog();
+            LoadCboSavedRoutes();
         }
 
         private void butNextSetup_Click(object sender, EventArgs e)
@@ -119,6 +120,11 @@ namespace ManagerDS360
 
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cboSavedRoutes.SelectedIndex == -1)
+            {
+                return;
+            }
+            treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
             //загрузить выпадающий список сохранённых маршрутов из листа
         }
 
@@ -129,6 +135,7 @@ namespace ManagerDS360
 
         internal void frmManagerDS360_Load(object sender, EventArgs e)
         {
+            
             LoadCboSavedRoutes();
             PushListBox();
             cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -145,11 +152,13 @@ namespace ManagerDS360
 
         private void LoadCboSavedRoutes()
         {
+            treRouteTree.Nodes.Clear();
+            cboSavedRoutes.Items.Clear();
             foreach (var route in PmData.RouteAddresses)
             {
                 cboSavedRoutes.Items.Add(route.Name.Replace(route.Extension, ""));
             }
-            if (cboSavedRoutes.Items.Count != -1)
+            if (cboSavedRoutes.Items.Count >0)
             {
                 cboSavedRoutes.SelectedIndex = 0;
             }

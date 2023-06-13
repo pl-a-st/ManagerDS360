@@ -122,16 +122,17 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.TypeFormOpen = TypeFormOpen.ToChange;
             newfrmCreationEditingRoute.txtNameRoute.Text = RoutName;
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
-            TreeNodeWithSetting[] treeNodeWithSettings = null;
-            treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus);
-            if (methodResultStatus == MethodResultStatus.Ok)
-            {
-                newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(treeNodeWithSettings);
-            }
-            if (methodResultStatus == MethodResultStatus.Fault)
-            {
-                MessageBox.Show($"При чтении файла {routeFileInfo.FullName} произошла ошибка!");  
-            }
+            newfrmCreationEditingRoute.treRouteTree.LoadTreeNodesWithSeetings(routeFileInfo);
+            //TreeNodeWithSetting[] treeNodeWithSettings = null;
+            //treeNodeWithSettings = DAO.binReadFileToObject(treeNodeWithSettings, fileRoutePath, out MethodResultStatus methodResultStatus);
+            //if (methodResultStatus == MethodResultStatus.Ok)
+            //{
+            //    newfrmCreationEditingRoute.treRouteTree.Nodes.AddRange(treeNodeWithSettings);
+            //}
+            //if (methodResultStatus == MethodResultStatus.Fault)
+            //{
+            //    MessageBox.Show($"При чтении файла {routeFileInfo.FullName} произошла ошибка!");  
+            //}
             newfrmCreationEditingRoute.FileInfo = routeFileInfo;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();

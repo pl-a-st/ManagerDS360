@@ -24,19 +24,18 @@ namespace ManagerDS360 {
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.butBroadcastSettingsGenerator = new System.Windows.Forms.Button();
             this.butNextSetup = new System.Windows.Forms.Button();
             this.butDefaultGenerator = new System.Windows.Forms.Button();
-            this.lstRouteSettings = new System.Windows.Forms.TreeView();
             this.lblRoute = new System.Windows.Forms.Label();
             this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
             this.lblSavedRoutes = new System.Windows.Forms.Label();
             this.butEditingRoute = new System.Windows.Forms.Button();
             this.butGeneratorControl = new System.Windows.Forms.Button();
-            this.sbrVerticalFieldКouteЕree = new System.Windows.Forms.VScrollBar();
-            this.sbrHorizontalFieldКouteЕree = new System.Windows.Forms.HScrollBar();
             this.butAboutProgram = new System.Windows.Forms.Button();
             this.lblDefaultGenerator = new System.Windows.Forms.Label();
+            this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.SuspendLayout();
             // 
             // butBroadcastSettingsGenerator
@@ -71,14 +70,6 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.Text = "Генератор по умолчанию";
             this.butDefaultGenerator.UseVisualStyleBackColor = true;
             this.butDefaultGenerator.Click += new System.EventHandler(this.butDefaultGenerator_Click);
-            // 
-            // lstRouteSettings
-            // 
-            this.lstRouteSettings.Location = new System.Drawing.Point(254, 42);
-            this.lstRouteSettings.Name = "lstRouteSettings";
-            this.lstRouteSettings.Size = new System.Drawing.Size(549, 429);
-            this.lstRouteSettings.TabIndex = 3;
-            this.lstRouteSettings.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.lstRouteSettings_AfterSelect);
             // 
             // lblRoute
             // 
@@ -135,24 +126,6 @@ namespace ManagerDS360 {
             this.butGeneratorControl.UseVisualStyleBackColor = true;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
             // 
-            // sbrVerticalFieldКouteЕree
-            // 
-            this.sbrVerticalFieldКouteЕree.Location = new System.Drawing.Point(784, 43);
-            this.sbrVerticalFieldКouteЕree.Name = "sbrVerticalFieldКouteЕree";
-            this.sbrVerticalFieldКouteЕree.Size = new System.Drawing.Size(19, 406);
-            this.sbrVerticalFieldКouteЕree.TabIndex = 10;
-            this.sbrVerticalFieldКouteЕree.Visible = false;
-            this.sbrVerticalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrVerticalFieldКouteЕree_Scroll);
-            // 
-            // sbrHorizontalFieldКouteЕree
-            // 
-            this.sbrHorizontalFieldКouteЕree.Location = new System.Drawing.Point(254, 449);
-            this.sbrHorizontalFieldКouteЕree.Name = "sbrHorizontalFieldКouteЕree";
-            this.sbrHorizontalFieldКouteЕree.Size = new System.Drawing.Size(548, 20);
-            this.sbrHorizontalFieldКouteЕree.TabIndex = 11;
-            this.sbrHorizontalFieldКouteЕree.Visible = false;
-            this.sbrHorizontalFieldКouteЕree.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbrHorizontalFieldКouteЕree_Scroll);
-            // 
             // butAboutProgram
             // 
             this.butAboutProgram.BackgroundImage = global::ManagerDS360.Properties.Resources.fon_knopki;
@@ -178,22 +151,29 @@ namespace ManagerDS360 {
             this.lblDefaultGenerator.Visible = false;
             this.lblDefaultGenerator.Click += new System.EventHandler(this.lblDefaultGenerator_Click);
             // 
+            // treRouteTree
+            // 
+            this.treRouteTree.ImageIndex = 0;
+            this.treRouteTree.Location = new System.Drawing.Point(255, 42);
+            this.treRouteTree.Name = "treRouteTree";
+            this.treRouteTree.SelectedImageIndex = 0;
+            this.treRouteTree.Size = new System.Drawing.Size(550, 448);
+            this.treRouteTree.TabIndex = 15;
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ManagerDS360.Properties.Resources.kletka_siniy_razmetka;
             this.ClientSize = new System.Drawing.Size(1020, 514);
+            this.Controls.Add(this.treRouteTree);
             this.Controls.Add(this.lblDefaultGenerator);
             this.Controls.Add(this.butAboutProgram);
-            this.Controls.Add(this.sbrHorizontalFieldКouteЕree);
-            this.Controls.Add(this.sbrVerticalFieldКouteЕree);
             this.Controls.Add(this.butGeneratorControl);
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.lblSavedRoutes);
             this.Controls.Add(this.cboSavedRoutes);
             this.Controls.Add(this.lblRoute);
-            this.Controls.Add(this.lstRouteSettings);
             this.Controls.Add(this.butDefaultGenerator);
             this.Controls.Add(this.butNextSetup);
             this.Controls.Add(this.butBroadcastSettingsGenerator);
@@ -216,16 +196,14 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butBroadcastSettingsGenerator;
         private System.Windows.Forms.Button butNextSetup;
         private System.Windows.Forms.Button butDefaultGenerator;
-        private System.Windows.Forms.TreeView lstRouteSettings;
         private System.Windows.Forms.Label lblRoute;
         private System.Windows.Forms.ComboBox cboSavedRoutes;
         private System.Windows.Forms.Label lblSavedRoutes;
         private System.Windows.Forms.Button butEditingRoute;
         private System.Windows.Forms.Button butGeneratorControl;
-        private System.Windows.Forms.VScrollBar sbrVerticalFieldКouteЕree;
-        private System.Windows.Forms.HScrollBar sbrHorizontalFieldКouteЕree;
         private System.Windows.Forms.Button butAboutProgram;
         internal System.Windows.Forms.Label lblDefaultGenerator;
+        private LibControls.TreeViewWithSetting treRouteTree;
     }
 }
 

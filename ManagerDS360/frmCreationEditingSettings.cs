@@ -229,6 +229,7 @@ namespace ManagerDS360
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
+                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
 

@@ -69,7 +69,6 @@ namespace LibControls
     {
 
         public NodeType NodeType;
-        public bool IsExpand;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {

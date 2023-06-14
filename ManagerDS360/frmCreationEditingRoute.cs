@@ -230,6 +230,8 @@ namespace ManagerDS360
 
         private void configureEditingSettings(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)
         {
+            DS360SettingConvert_V_to_mV(selectedNode);
+
             editingSettings.Text = "Конструирование настройки";
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
@@ -260,6 +262,13 @@ namespace ManagerDS360
                 editingSettings.txtFrequency2.Text = selectedNode.DS360Setting.FrequencyB.ToString();
             }
             // добавить обработку Com по дефолту или номеру
+        }
+
+        private static void DS360SettingConvert_V_to_mV(TreeNodeWithSetting selectedNode)
+        {
+            selectedNode.DS360Setting.AmplitudeRMS *= 1000;
+            selectedNode.DS360Setting.AmplitudeRMSToneB *= 1000;
+            selectedNode.DS360Setting.Offset *= 1000;
         }
 
         private static void ConfigureToVibroparam(TreeNodeWithSetting selectedNode, frmCreationEditingSettings editingSettings)

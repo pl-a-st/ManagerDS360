@@ -206,16 +206,16 @@ namespace ManagerDS360
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-                SetVibroCalclToTone(txtValue2, cboDetector2, txtFrequency2);
+                SetVibroCalclAndSetDS360VibroParam(txtValue2, cboDetector2, txtFrequency2);
                 DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.SineSquare;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
@@ -223,19 +223,28 @@ namespace ManagerDS360
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
-                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
-                SetVibroCalclToTone(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
                 DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
             }
 
             DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
             DS360Setting.Frequency = double.Parse(txtFrequency.Text);
             DS360Setting.Offset = double.Parse(txtOffset.Text);
+            DS360SettingConvert_mV_to_V();
+        }
+
+        private void DS360SettingConvert_mV_to_V()
+        {
+            DS360Setting.AmplitudeRMS /= 1000;
+            DS360Setting.AmplitudeRMSToneB /= 1000;
+            DS360Setting.Offset /= 1000;
+
         }
 
         private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
@@ -248,7 +257,7 @@ namespace ManagerDS360
             return value1;
         }
 
-        internal void SetVibroCalclToTone(TextBox txtVal, ComboBox cboDet, TextBox txtFreq)
+        internal void SetVibroCalclAndSetDS360VibroParam(TextBox txtVal, ComboBox cboDet, TextBox txtFreq)
         {
             VibroCalc.Frequency.Set_Hz(double.Parse(txtFreq.Text));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));

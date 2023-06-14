@@ -100,6 +100,9 @@ namespace LibDevicesManager
                 functionType = value;
             }
         }
+        /// <summary>
+        /// СКЗ амплитуды сигнала в вольтах. (СКЗ амплитуды первого тона для двухтонального сигнала)
+        /// </summary>
         public double AmplitudeRMS
         {
             get
@@ -394,6 +397,13 @@ namespace LibDevicesManager
 
         //Добавить описание методов
         #region PublicMethods
+        /// <summary>
+        /// Производит поиск подключенных к компъютеру генераторов DS360.
+        /// </summary>
+        /// <param name="needRefreshGeneratorsList"> Необходимость повторного опроса Com-портов. 
+        /// Значение true - будет произведён повторный опрос портов. 
+        /// Значение false - повторный опрос производиться не будет  </param>
+        /// <returns>Массив имён подключенных к компъютеру генераторов DS360 </returns>
         public static string[] FindAllDS360(bool needRefreshGeneratorsList = false)
         {
             if (generatorsList == null)

@@ -54,6 +54,12 @@ namespace ManagerDS360
         {
             return dictionary.FirstOrDefault(x => x.Value == str).Key;
         }
+        public static T CloneObj<T>(this T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            return (T)inst?.Invoke(obj, null);
+        }
     }
     
 }

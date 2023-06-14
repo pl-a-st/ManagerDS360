@@ -80,11 +80,13 @@ namespace ManagerDS360
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNodeWihtSetting);
+                treRouteTree.SelectedNode = treeNodeWihtSetting;
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
             SelectedNodeWithSetup.Nodes.Add(treeNodeWihtSetting);
             SelectedNodeWithSetup.Expand();
+           treRouteTree.SelectedNode = treeNodeWihtSetting;
         }
         //обновление окна CreationEditingRoute
         void editingSettings_FormClosed(object sender, FormClosedEventArgs e)

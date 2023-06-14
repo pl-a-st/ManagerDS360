@@ -146,9 +146,9 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Папка);
             ImageList.Images.Add(Properties.Resources.Настройка);
         }
-        protected override void OnClick(EventArgs e)
+        protected override void OnMouseDown(MouseEventArgs e)
         {
-            base.OnClick(e);
+            base.OnMouseDown(e);
             DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode = null;
         }

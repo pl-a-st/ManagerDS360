@@ -148,6 +148,7 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Настройка_синяя);
             ImageList.Images.Add(Properties.Resources.Настройка_красная);
             ImageList.Images.Add(Properties.Resources.Настройка_зеленая);
+           
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {

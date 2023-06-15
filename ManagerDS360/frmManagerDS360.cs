@@ -85,6 +85,11 @@ namespace ManagerDS360
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
             var selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            if (selectedNode == null)
+            {
+                return;
+            }
+            
             if (selectedNode.NodeType != NodeType.Setting)
             {
                 return;
@@ -96,6 +101,7 @@ namespace ManagerDS360
                 MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
                 selectedNode.ImageIndex = 4;
                 selectedNode.SelectedImageIndex = 4;
+                return;
             }
             selectedNode.ImageIndex = 3;
             selectedNode.SelectedImageIndex = 3;
@@ -154,7 +160,7 @@ namespace ManagerDS360
             
             LoadCboSavedRoutes();
             PushListBox();
-            cboSavedRoutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            
             
             butNextSetup.Enabled = false;
             DS360Setting.FindAllDS360();

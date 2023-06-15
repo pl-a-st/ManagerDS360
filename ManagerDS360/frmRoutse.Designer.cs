@@ -47,7 +47,7 @@
             // 
             this.lblSavedRoutes.AutoSize = true;
             this.lblSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSavedRoutes.Location = new System.Drawing.Point(18, 10);
+            this.lblSavedRoutes.Location = new System.Drawing.Point(9, 9);
             this.lblSavedRoutes.Name = "lblSavedRoutes";
             this.lblSavedRoutes.Size = new System.Drawing.Size(166, 14);
             this.lblSavedRoutes.TabIndex = 1;
@@ -123,10 +123,12 @@
             // lstSaveRoutes
             // 
             this.lstSaveRoutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSaveRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lstSaveRoutes.FormattingEnabled = true;
+            this.lstSaveRoutes.ItemHeight = 14;
             this.lstSaveRoutes.Location = new System.Drawing.Point(12, 29);
             this.lstSaveRoutes.Name = "lstSaveRoutes";
-            this.lstSaveRoutes.Size = new System.Drawing.Size(349, 394);
+            this.lstSaveRoutes.Size = new System.Drawing.Size(349, 382);
             this.lstSaveRoutes.TabIndex = 11;
             // 
             // butAddRout

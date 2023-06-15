@@ -137,6 +137,9 @@
     <None Include="Properties\Папка.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Настройка красная 2.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Настройка зеленая.png" />
   </ItemGroup>
   <ItemGroup>

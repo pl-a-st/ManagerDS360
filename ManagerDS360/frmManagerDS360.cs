@@ -99,12 +99,12 @@ namespace ManagerDS360
             if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
             {
                 MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
-                selectedNode.ImageIndex = 4;
-                selectedNode.SelectedImageIndex = 4;
+                selectedNode.ImageIndex = 3;
+                selectedNode.SelectedImageIndex = 3;
                 return;
             }
-            selectedNode.ImageIndex = 3;
-            selectedNode.SelectedImageIndex = 3;
+            selectedNode.ImageIndex = 4;
+            selectedNode.SelectedImageIndex = 4;
             //передача настройки в генератор
 
         }

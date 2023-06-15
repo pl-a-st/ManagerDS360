@@ -19,19 +19,23 @@ namespace LibDevicesManager
     }
     public enum FunctionType
     {
-        Sine, Square, SineSine, SineSquare //ToNEXT: , WhiteNoise, PinkNoise
+        Sine, Square, SineSine, SineSquare //ToDo: , WhiteNoise, PinkNoise
     }
     public enum ToneBFunctionType
     {
         Sine, Square
     }
+    public enum OutputMode
+    {
+        Analog, Digital
+    }
     public enum OutputType
     {
-        Unbalanced
+        Unbalanced //ToDo: , Balanced
     }
     public enum OutputImpedance
     {
-        HiZ
+        HiZ //ToDo: , 50_Om, 150_Om, 600_Om
     }
     #endregion Enums
     [Serializable]
@@ -101,7 +105,7 @@ namespace LibDevicesManager
             }
         }
         /// <summary>
-        /// СКЗ амплитуды сигнала в вольтах. (СКЗ амплитуды первого тона для двухтонального сигнала)
+        /// Получает или задаёт СКЗ амплитуды сигнала в вольтах (СКЗ амплитуды первого тона для двухтонального сигнала).
         /// </summary>
         public double AmplitudeRMS
         {
@@ -114,6 +118,9 @@ namespace LibDevicesManager
                 amplitudeRMS = value;
             }
         }
+        /// <summary>
+        /// Получает или задаёт СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).
+        /// </summary>
         public double AmplitudeRMSToneB
         {
             get
@@ -156,6 +163,17 @@ namespace LibDevicesManager
             set
             {
                 offset = value;
+            }
+        }
+        public OutputMode OutputMode
+        {
+            get
+            {
+                return outputMode;
+            }
+            set
+            {
+                outputMode = value;
             }
         }
         public OutputType OutputType
@@ -204,8 +222,9 @@ namespace LibDevicesManager
         private double frequency;
         private double frequencyB;
         private double offset;
-        private OutputType outputType;
-        private OutputImpedance outputImpedance;
+        private OutputMode outputMode = OutputMode.Analog;
+        private OutputType outputType = OutputType.Unbalanced;
+        private OutputImpedance outputImpedance = OutputImpedance.HiZ;
         private string resultMessage;
         private static List<string> generatorsList;
         private const double frequencyMin = 0.01;
@@ -486,26 +505,21 @@ namespace LibDevicesManager
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
-                resultMessage += "\nГенератор не найден";
+                resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
             result = ComPort.PortOpen(DeviceModel, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
-                resultMessage += "\nОтсутствует связь с генератором";
+                resultMessage = "\nОтсутствует связь с генератором";
                 return result;
             }
             //ПОСЛЕ открытия порта нужна пауза!!!! 
-            ComPort.PortClear(port);
-            result = SetOutputSignalEnable(port, false);
-            if (result != Result.Success)
+            if (SetPrimeryOutputSetting(port) != Result.Success)
             {
-                ComPort.PortClose(port);
-                resultMessage += "\nОшибка передачи параметра в генератор";
-                return result;
+                return Result.Failure;
             }
-            //Прописать выставление дефолтных настроек!!! (Unbalanced, Hi-Z и т.п.)
             //Прописать отправку настроек (до конца)
             if (IsSignalPeriodical() && !IsTwoToneSignal())
             {
@@ -518,7 +532,7 @@ namespace LibDevicesManager
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
-                resultMessage += "\nОшибка передачи параметра в генератор";
+                resultMessage = "\nОшибка передачи параметра в генератор";
                 return result;
             }
             resultMessage = "\nПараметры успешно переданы в генератор";
@@ -789,6 +803,61 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
+        private Result SetOffsetToZero(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string value = "0"; //TEST
+            string command = "OFFS" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SetPrimeryOutputSetting (SerialPort port)
+        {
+            ComPort.PortClear(port);
+            if (SetOutputSignalEnable(port, false) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            if (SetModifyFunctionEnable(port, false) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            if (SetOutputType(port, outputType) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            if (SetOutputImpedance(port, outputImpedance) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            if(SetOffsetToZero(port) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            return Result.Success;
+        }
+        private Result SetModifyFunctionEnable(SerialPort port, bool modifyFunctionEnable = false)
+        {
+            Result result = Result.Failure;
+            string value = "1";
+            if (modifyFunctionEnable == false)
+            {
+                value = "0";
+            }
+            string command = "MENA" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
         private Result SetOutputSignalEnable(SerialPort port, bool outputEnable = true)
         {
             Result result = Result.Failure;
@@ -798,6 +867,30 @@ namespace LibDevicesManager
                 value = "0";
             }
             string command = "OUTE" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SetOutputType(SerialPort port, OutputType outputType)
+        {
+            Result result = Result.Failure;
+            string value = "0";
+            if (outputType == OutputType.Unbalanced)
+            {
+                value = "0";
+            }
+            string command = "OUTM" + value;
+            result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result SetOutputImpedance(SerialPort port, OutputImpedance outputImpedance)
+        {
+            Result result = Result.Failure;
+            string value = "3";
+            if (outputImpedance == OutputImpedance.HiZ)
+            {
+                value = "3";
+            }
+            string command = "TERM" + value;
             result = SendOutputControlCommand(port, command);
             return result;
         }
@@ -824,6 +917,7 @@ namespace LibDevicesManager
             {
                 return result;
             }
+            //Возможно нужен Таймаут!!!
             string receivedValue = ReceiveMessageFromeDS360(port);
             if (!CompareValues(receivedValue, value))
             {
@@ -985,25 +1079,13 @@ namespace LibDevicesManager
         private void DebugCompareMissage(string query, Result result, string value, string receivedValue)
         {
             //test
-            string paramName = query;
-            string title = (result == Result.Success) ? "Успешно" : "Ошибка";
-            if (query == "OFFS?")
+            if (isDebugMode)
             {
+                string paramName = query;
+                string title = (result == Result.Success) ? "Успешно" : "Ошибка";
+                string message = $"{paramName}\nSend: {value}\nReceive: {receivedValue}";
+                DebugMessage(message, title);
             }
-            if (query == "TTAF?")
-            {
-            }
-            if (query == "TTBF?")
-            {
-            }
-            if (query == "TTAA?VR")
-            {
-            }
-            if (query == "TTBA?VR")
-            {
-            }
-            string message = $"{paramName}\nSend: {value}\nReceive: {receivedValue}";
-            DebugMessage(message, title);
             //--test
         }
         private bool CompareValues(string value1, string value2)

@@ -149,5 +149,73 @@ namespace ManagerDS360
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
         }
+
+        private void butRenameRoute_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = lstSaveRoutes.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                return;
+            }
+            FileInfo routeFileInfo = PmData.RouteAddresses[selectedIndex];
+            frmInputName frmInputName = new frmInputName();
+            frmInputName.label1.Text = "Введите новое имя маршрута";
+            frmInputName.ShowDialog();
+            if(frmInputName.SaveName != SaveName.SaveName)
+            {
+                return;
+            }
+            string newFullFile = routeFileInfo.DirectoryName + @"\" + frmInputName.txtNameSet.Text + @".rout";
+            try
+            {
+                File.Move(routeFileInfo.FullName, newFullFile);
+                MessageBox.Show("Файл переименован");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Не удалось переименовать файл {routeFileInfo.FullName}");
+                return;
+            }
+            PmData.RouteAddresses[selectedIndex] = new FileInfo(newFullFile);
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
+        }
+
+        private void butCopyRoute_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = lstSaveRoutes.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                return;
+            }
+            FileInfo routeFileInfo = PmData.RouteAddresses[selectedIndex];
+            frmInputName frmInputName = new frmInputName();
+            frmInputName.label1.Text = "Введите имя маршрута";
+            frmInputName.ShowDialog();
+            if (frmInputName.SaveName != SaveName.SaveName)
+            {
+                return;
+            }
+
+            string newFullFile = DAO.GetFolderNameDialog("Выберите папку для копирования маршрута.", out MethodResultStatus resultStatus) + @"\" + frmInputName.txtNameSet.Text + @".rout";
+            if (resultStatus != MethodResultStatus.Ok)
+            {
+                MessageBox.Show("Не выбрана папка для копирования маршрута");
+            }
+            try
+            {
+                File.Copy(routeFileInfo.FullName, newFullFile);
+                MessageBox.Show("Файл скопирован");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Не удалось скопировать файл {routeFileInfo.FullName}");
+                return;
+            }
+            PmData.RouteAddresses.Add(new FileInfo(newFullFile));
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
+
+        }
     }
 }

@@ -43,6 +43,10 @@ namespace LibDevicesManager
     {
         //Добавить описание публичных полей
         #region PublicFields
+        /// <summary>
+        /// Задаёт или возвращает имя Com-порта для использования по умолчанию
+        /// </summary>
+        /// <value>NONE - означает, что имя не назначено</value>
         public static string ComPortDefaultName
         {
             get
@@ -54,6 +58,12 @@ namespace LibDevicesManager
                 SetComPortDefaultName(value);
             }
         }
+        /// <summary>
+        /// Задаёт или возвращает использование имени COM-порта по умолчанию.
+        /// </summary>
+        /// <value><br><strong>true</strong> - будет использовано имя COM-порта, заданное в поле <cref>ComPortDefaultName</cref></br>
+        /// <br><strong>false</strong> - будет использовано имя COM-порта, заданное в поле <cref>ComPortName</cref></br>
+        /// </value> 
         public bool IsComPortDefaultName
         {
             get
@@ -65,6 +75,9 @@ namespace LibDevicesManager
                 isComPortDefaultName = value;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public string ComPortName //Проверить использование IsComPortDefaultName
         {
             get
@@ -105,7 +118,7 @@ namespace LibDevicesManager
             }
         }
         /// <summary>
-        /// Получает или задаёт СКЗ амплитуды сигнала в вольтах (СКЗ амплитуды первого тона для двухтонального сигнала).
+        /// Задаёт или возвращает СКЗ амплитуды сигнала в вольтах (СКЗ амплитуды первого тона для двухтонального сигнала).
         /// </summary>
         public double AmplitudeRMS
         {
@@ -119,7 +132,7 @@ namespace LibDevicesManager
             }
         }
         /// <summary>
-        /// Получает или задаёт СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).
+        /// Задаёт или возвращает СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).
         /// </summary>
         public double AmplitudeRMSToneB
         {
@@ -476,6 +489,11 @@ namespace LibDevicesManager
             comPortDefaultName = generators[0];
             return generators;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Result CheckDS360Setting()
         {
             resultMessage = string.Empty;

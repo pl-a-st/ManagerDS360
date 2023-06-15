@@ -107,7 +107,6 @@ namespace ManagerDS360
           MessageBoxDefaultButton.Button1);
             //MessageBoxDefaultButton.Button1,
             //MessageBoxOptions.DefaultDesktopOnly);
-            
             /*//Эту часть кода ААС использует для тестирования библиотеки
 
             DS360Setting generator = new DS360Setting();

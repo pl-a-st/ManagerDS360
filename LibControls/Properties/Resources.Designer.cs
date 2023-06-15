@@ -73,6 +73,36 @@ namespace LibControls.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Настройка_зеленая {
+            get {
+                object obj = ResourceManager.GetObject("Настройка_зеленая", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Настройка_красная {
+            get {
+                object obj = ResourceManager.GetObject("Настройка_красная", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Настройка_синяя {
+            get {
+                object obj = ResourceManager.GetObject("Настройка_синяя", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Папка {
             get {
                 object obj = ResourceManager.GetObject("Папка", resourceCulture);

@@ -136,5 +136,14 @@
   <ItemGroup>
     <None Include="Properties\Папка.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Настройка зеленая.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Настройка красная.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Настройка синяя.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

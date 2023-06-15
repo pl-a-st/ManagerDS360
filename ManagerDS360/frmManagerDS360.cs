@@ -84,16 +84,23 @@ namespace ManagerDS360
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
-            if((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            var selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            if (selectedNode.NodeType != NodeType.Setting)
             {
                 return;
             }
-            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).DS360Setting.SendDS360Setting() != Result.Success)
+            selectedNode.ImageIndex = 2;
+            selectedNode.SelectedImageIndex = 2;
+            if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
             {
-                MessageBox.Show((treRouteTree.SelectedNode as TreeNodeWithSetting).DS360Setting.ResultMessage);
+                MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
+                selectedNode.ImageIndex = 4;
+                selectedNode.SelectedImageIndex = 4;
             }
+            selectedNode.ImageIndex = 3;
+            selectedNode.SelectedImageIndex = 3;
             //передача настройки в генератор
-            
+
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)

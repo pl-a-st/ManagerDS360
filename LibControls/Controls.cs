@@ -145,6 +145,9 @@ namespace LibControls
             ImageList.ImageSize = new Size(25, 25);
             ImageList.Images.Add(Properties.Resources.Папка);
             ImageList.Images.Add(Properties.Resources.Настройка);
+            ImageList.Images.Add(Properties.Resources.Настройка_синяя);
+            ImageList.Images.Add(Properties.Resources.Настройка_красная);
+            ImageList.Images.Add(Properties.Resources.Настройка_зеленая);
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {

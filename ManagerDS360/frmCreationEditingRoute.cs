@@ -400,7 +400,7 @@ namespace ManagerDS360
                 MessageBox.Show("Не введено название маршрута!");
                 return;
             }
-            string fullFilePath =string.Empty;
+            
             if (TypeFormOpen == TypeFormOpen.ToСreate)
             {
                 string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.", out MethodResultStatus resultStatus);
@@ -409,26 +409,27 @@ namespace ManagerDS360
                     MessageBox.Show("Не выбран путь для сохранения!");
                     return;
                 }
-                fullFilePath = pathDyrectoryForRouteFile + @"\" + txtNameRoute.Text + ".rout";
-            }
-            if (TypeFormOpen == TypeFormOpen.ToChange)
-            {
-                fullFilePath = FileInfo.FullName;
+                FileInfo =new FileInfo( pathDyrectoryForRouteFile + @"\" + txtNameRoute.Text + ".rout");
             }
             TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[treRouteTree.Nodes.Count];
             treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
-            if (DAO.binWriteObjectToFile(treeNodeWithSettings, fullFilePath) == MethodResultStatus.Fault)
+            if (DAO.binWriteObjectToFile(treeNodeWithSettings, FileInfo.FullName) == MethodResultStatus.Fault)
             {
-                MessageBox.Show($"Не удалось записать файл {fullFilePath}");
+                MessageBox.Show($"Не удалось записать файл {FileInfo.FullName}");
                 return;
             }
             if (TypeFormOpen == TypeFormOpen.ToСreate)
             {
-                FileInfo routFile = new FileInfo(fullFilePath);
-                PmData.RouteAddresses.Add(routFile);
+                PmData.RouteAddresses.Add(FileInfo);
                 DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
             }
-            MessageBox.Show("Файл маршрута успешно сохранен!");
+            if (MessageBox.Show("Файл маршрута успешно сохранен! Закртыть окно редактирования?","Сообщение",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Close();
+                return;
+            }
+            TypeFormOpen = TypeFormOpen.ToChange;
+            txtNameRoute.Enabled = false;
         }
 
         private void butDelete_Click(object sender, EventArgs e)

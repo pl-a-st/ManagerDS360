@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -89,7 +90,7 @@ namespace ManagerDS360
             {
                 return;
             }
-            
+
             if (selectedNode.NodeType != NodeType.Setting)
             {
                 return;
@@ -111,9 +112,12 @@ namespace ManagerDS360
 
         private void butAboutProgram_Click(object sender, EventArgs e)
         {
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+            var buildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(
+            TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
             //появление messageBox
             MessageBox.Show(
-         "Мanager DS360. Версия ПО 0.005.\n  Год разработки - 2023.",
+         $"Мanager DS360. Версия ПО {version.ToString()}\n  Дата разработки - {buildDateTime.ToShortDateString()}.",
          "О программе",
           MessageBoxButtons.OK,
           MessageBoxIcon.Information,
@@ -157,11 +161,11 @@ namespace ManagerDS360
 
         internal void frmManagerDS360_Load(object sender, EventArgs e)
         {
-            
+
             LoadCboSavedRoutes();
             PushListBox();
-            
-            
+
+
             butNextSetup.Enabled = false;
             DS360Setting.FindAllDS360();
             string name = DS360Setting.ComPortDefaultName;
@@ -180,7 +184,7 @@ namespace ManagerDS360
             {
                 cboSavedRoutes.Items.Add(route.Name.Replace(route.Extension, ""));
             }
-            if (cboSavedRoutes.Items.Count >0)
+            if (cboSavedRoutes.Items.Count > 0)
             {
                 cboSavedRoutes.SelectedIndex = 0;
             }
@@ -213,6 +217,27 @@ namespace ManagerDS360
         internal void lblDefaultGenerator_Click(object sender, EventArgs e)
         {
             //наименование генератора по умолчанию
+        }
+
+        private void cboSavedRoutes_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void cboSavedRoutes_MouseDown(object sender, MouseEventArgs e)
+        {
+
+
+        }
+
+        private void cboSavedRoutes_Click(object sender, EventArgs e)
+        {
+            cboSavedRoutes.DroppedDown = true;
+        }
+
+        private void cboSavedRoutes_MouseEnter(object sender, EventArgs e)
+        {
+
         }
     }
 }

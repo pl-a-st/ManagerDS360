@@ -92,6 +92,10 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.Size = new System.Drawing.Size(753, 22);
             this.cboSavedRoutes.TabIndex = 6;
             this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
+            this.cboSavedRoutes.Click += new System.EventHandler(this.cboSavedRoutes_Click);
+            this.cboSavedRoutes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseClick);
+            this.cboSavedRoutes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseDown);
+            this.cboSavedRoutes.MouseEnter += new System.EventHandler(this.cboSavedRoutes_MouseEnter);
             // 
             // butEditingRoute
             // 
@@ -152,6 +156,9 @@ namespace ManagerDS360 {
             // 
             // treRouteTree
             // 
+            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treRouteTree.ImageIndex = 0;
             this.treRouteTree.Location = new System.Drawing.Point(255, 42);

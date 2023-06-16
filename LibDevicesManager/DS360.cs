@@ -129,10 +129,10 @@ namespace LibDevicesManager
         /// Задаёт или возвращает тип функции выходного сигнала.
         /// </summary>
         /// <returns>Тип функции выходного сигнала.</returns>
-        /// <value><br><strong><see langword="Sine"/></strong> - тип функции: Синус</br>
-        /// <br><strong><see langword="Square"/></strong> - тип функции: Квадрат</br>
-        /// <br><strong><see langword="SineSine"/></strong> - тип функции: Синус для первого тона и Синус для второго тона</br>
-        /// <br><strong><see langword="SineSquare"/></strong> - тип функции: Синус для первого тона и Квадрат для второго тона</br>
+        /// <value><br><strong><see langword="Sine"/></strong> - тип функции: "Синус"</br>
+        /// <br><strong><see langword="Square"/></strong> - тип функции: "Квадрат"</br>
+        /// <br><strong><see langword="SineSine"/></strong> - тип функции: "Синус" для первого тона и "Синус" для второго тона</br>
+        /// <br><strong><see langword="SineSquare"/></strong> - тип функции: "Синус" для первого тона и "Квадрат" для второго тона</br>
         /// </value> 
         public FunctionType FunctionType
         {
@@ -165,7 +165,7 @@ namespace LibDevicesManager
         /// Задаёт или возвращает СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).
         /// </summary>
         /// <returns>СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).</returns>
-        /// <value>Допустимые значения от 0.000005 до 20 </value>
+        /// <value>Допустимые значения амплитуды от 0.000005 до 20 </value>
         public double AmplitudeRMSToneB
         {
             get
@@ -177,6 +177,12 @@ namespace LibDevicesManager
                 amplitudeRMSToneB = value;
             }
         }
+
+        /// <summary>
+        /// Задаёт или возвращает частоту сигнала в Гц (частоту первого тона для двухтонального сигнала).
+        /// </summary>
+        /// <returns>Частоту сигнала в Гц (частоту первого тона для двухтонального сигнала).</returns>
+        /// <value>Допустимые значения частоты от 0.01 до 200000 </value>
         public double Frequency
         {
             get
@@ -188,6 +194,14 @@ namespace LibDevicesManager
                 frequency = value;
             }
         }
+
+        /// <summary>
+        /// Задаёт или возвращает частоту второго тона сигнала в Гц (для двухтонального сигнала).
+        /// </summary>
+        /// <returns>частоту второго тона сигнала в Гц (для двухтонального сигнала).</returns>
+        /// <value><br>Допустимые значения частоты:</br>
+        /// <br>при форме второго тона сигнала "Синус" - от 0.01 до 200000 </br>
+        /// <br>при форме второго тона сигнала "Квадрат" - от 0.1 до 5000 </br></value>
         public double FrequencyB
         {
             get
@@ -199,6 +213,12 @@ namespace LibDevicesManager
                 frequencyB = value;
             }
         }
+
+        /// <summary>
+        /// Задаёт или возвращает значение напряжения постоянной составляющей сигнала в Вольт.
+        /// </summary>
+        /// <returns>Значение напряжения постоянной составляющей сигнала </returns>
+        /// <value><br>Допустимые значения смещения: от -20 до 20</br></value>
         public double Offset
         {
             get
@@ -243,6 +263,9 @@ namespace LibDevicesManager
                 outputImpedance = value;
             }
         }
+        /// <summary>
+        /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
+        /// </summary>
         public string ResultMessage
         {
             get
@@ -464,9 +487,9 @@ namespace LibDevicesManager
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
         /// </summary>
-        /// <param name="needRefreshGeneratorsList"> Необходимость повторного опроса Com-портов. 
-        /// Значение true - будет произведён повторный опрос портов. 
-        /// Значение false - повторный опрос производиться не будет  </param>
+        /// <param name="needRefreshGeneratorsList"> Необходимость повторного опроса Com-портов.</param>
+        /// <value><br><see langword="true"/> - будет произведён повторный опрос портов.</br> 
+        /// <br><see langword="false"/>  - повторный опрос производиться не будет  </br></value>
         /// <returns>Массив имён подключенных к компъютеру генераторов DS360 </returns>
         public static string[] FindAllDS360(bool needRefreshGeneratorsList = false)
         {
@@ -525,7 +548,9 @@ namespace LibDevicesManager
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns><br><see cref="Result.Success"/> при успешной проверке параметров сигнала</br>
+        /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при выходе параметров сигнала за допустимые пределы.</br>
+        /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result CheckDS360Setting()
         {
             resultMessage = string.Empty;
@@ -545,6 +570,7 @@ namespace LibDevicesManager
             }
             return result;
         }
+
         public Result SendDS360Setting()
         {
             Result result = CheckDS360Setting();

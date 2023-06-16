@@ -546,7 +546,7 @@ namespace LibDevicesManager
         }
 
         /// <summary>
-        /// 
+        /// Проверяет корректность введённых параметров сигнала
         /// </summary>
         /// <returns><br><see cref="Result.Success"/> при успешной проверке параметров сигнала</br>
         /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при выходе параметров сигнала за допустимые пределы.</br>
@@ -571,6 +571,12 @@ namespace LibDevicesManager
             return result;
         }
 
+        /// <summary>
+        /// Передаёт введённые параметры сигнала в генератор
+        /// </summary>
+        /// <returns><br><see cref="Result.Success"/> при успешном изменении параметров выходного сигнала генератора</br>
+        /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при возникновении ошибки при передаче параметров сигнала.</br>
+        /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result SendDS360Setting()
         {
             Result result = CheckDS360Setting();

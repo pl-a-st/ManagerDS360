@@ -201,6 +201,7 @@ namespace ManagerDS360
             if (resultStatus != MethodResultStatus.Ok)
             {
                 MessageBox.Show("Не выбрана папка для копирования маршрута");
+                return;
             }
             try
             {

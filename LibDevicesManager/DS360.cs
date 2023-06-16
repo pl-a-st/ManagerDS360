@@ -43,10 +43,11 @@ namespace LibDevicesManager
     {
         //Добавить описание публичных полей
         #region PublicFields
+
         /// <summary>
         /// Задаёт или возвращает имя Com-порта для использования по умолчанию
         /// </summary>
-        /// <value>NONE - означает, что имя не назначено</value>
+        /// <value><strong><see langword="NONE"/></strong> - означает, что имя Com-порта не назначено</value>
         public static string ComPortDefaultName
         {
             get
@@ -58,11 +59,12 @@ namespace LibDevicesManager
                 SetComPortDefaultName(value);
             }
         }
+
         /// <summary>
         /// Задаёт или возвращает использование имени COM-порта по умолчанию.
         /// </summary>
-        /// <value><br><strong>true</strong> - будет использовано имя COM-порта, заданное в поле <cref>ComPortDefaultName</cref></br>
-        /// <br><strong>false</strong> - будет использовано имя COM-порта, заданное в поле <cref>ComPortName</cref></br>
+        /// <value><br><strong><see langword="true"/></strong> - будет использовано имя COM-порта, заданное в поле <see cref="ComPortDefaultName"/></br>
+        /// <br><strong><see langword="false"/></strong> - будет использовано имя COM-порта, заданное в поле <see cref="ComPortName"/></br>
         /// </value> 
         public bool IsComPortDefaultName
         {
@@ -75,9 +77,12 @@ namespace LibDevicesManager
                 isComPortDefaultName = value;
             }
         }
+
         /// <summary>
-        /// 
+        /// Задаёт или возвращает имя Com-порта
         /// </summary>
+        /// <returns>Имя Com-порта</returns>
+        /// <value>Допустимые значения от  COM1 до COM256</value>
         public string ComPortName //Проверить использование IsComPortDefaultName
         {
             get
@@ -97,6 +102,11 @@ namespace LibDevicesManager
                 }
             }
         }
+
+        /// <summary>
+        /// Задаёт номер Com-порта
+        /// </summary>
+        /// <value>Допустимые значения от 1 до 256</value>
         public int ComPortNumber
         {
             set
@@ -104,8 +114,26 @@ namespace LibDevicesManager
                 SetComPortNumber(value);
             }
         }
+
+        /// <summary>
+        /// Модель генератора
+        /// </summary>
+        /// <returns>одно из значений перечисления DeviceModel </returns>
         public DeviceModel DeviceModel { get { return DeviceModel.DS360; } }
+        /// <summary>
+        /// Тип устройства
+        /// </summary>
+        /// <returns>одно из значений перечисления DeviceType </returns>
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
+        /// <summary>
+        /// Задаёт или возвращает тип функции выходного сигнала.
+        /// </summary>
+        /// <returns>Тип функции выходного сигнала.</returns>
+        /// <value><br><strong><see langword="Sine"/></strong> - тип функции: Синус</br>
+        /// <br><strong><see langword="Square"/></strong> - тип функции: Квадрат</br>
+        /// <br><strong><see langword="SineSine"/></strong> - тип функции: Синус для первого тона и Синус для второго тона</br>
+        /// <br><strong><see langword="SineSquare"/></strong> - тип функции: Синус для первого тона и Квадрат для второго тона</br>
+        /// </value> 
         public FunctionType FunctionType
         {
             get
@@ -120,6 +148,8 @@ namespace LibDevicesManager
         /// <summary>
         /// Задаёт или возвращает СКЗ амплитуды сигнала в вольтах (СКЗ амплитуды первого тона для двухтонального сигнала).
         /// </summary>
+        /// <returns>СКЗ амплитуды сигнала в вольтах (СКЗ амплитуды первого тона для двухтонального сигнала).</returns>
+        /// <value>Допустимые значения от 0.000005 до 20 </value>
         public double AmplitudeRMS
         {
             get
@@ -134,6 +164,8 @@ namespace LibDevicesManager
         /// <summary>
         /// Задаёт или возвращает СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).
         /// </summary>
+        /// <returns>СКЗ амплитуды второго тона сигнала в вольтах (для двухтонального сигнала).</returns>
+        /// <value>Допустимые значения от 0.000005 до 20 </value>
         public double AmplitudeRMSToneB
         {
             get

@@ -25,6 +25,7 @@ namespace ManagerDS360 {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManagerDS360));
             this.butBroadcastSettingsGenerator = new System.Windows.Forms.Button();
             this.butNextSetup = new System.Windows.Forms.Button();
             this.butDefaultGenerator = new System.Windows.Forms.Button();
@@ -183,6 +184,7 @@ namespace ManagerDS360 {
             this.Controls.Add(this.butNextSetup);
             this.Controls.Add(this.butBroadcastSettingsGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1036, 553);
             this.MinimumSize = new System.Drawing.Size(1036, 553);

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace ManagerDS360
 {
     public partial class frmManagerDS360 : Form
     {
+        ToolTip PicPlayToolTip = new ToolTip();
         public frmManagerDS360()
         {
             InitializeComponent();
@@ -65,9 +67,7 @@ namespace ManagerDS360
 
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-            frmEditingRoutes editingRoutes = new frmEditingRoutes();
-            editingRoutes.ShowDialog();
-            LoadCboSavedRoutes();
+            
         }
 
         private void butNextSetup_Click(object sender, EventArgs e)
@@ -84,6 +84,13 @@ namespace ManagerDS360
         }
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
+        {
+
+            SendNodeSetting();
+            //передача настройки в генератор
+        }
+
+        private void SendNodeSetting()
         {
             var selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
             if (selectedNode == null)
@@ -106,39 +113,12 @@ namespace ManagerDS360
             }
             selectedNode.ImageIndex = 4;
             selectedNode.SelectedImageIndex = 4;
-            //передача настройки в генератор
-
         }
 
         private void butAboutProgram_Click(object sender, EventArgs e)
         {
-            var version = Assembly.GetEntryAssembly().GetName().Version;
-            var buildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(
-            TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
-            //появление messageBox
-            MessageBox.Show(
-         $"Мanager DS360. Версия ПО {version.ToString()}\n  Дата разработки - {buildDateTime.ToShortDateString()}.",
-         "О программе",
-          MessageBoxButtons.OK,
-          MessageBoxIcon.Information,
-          MessageBoxDefaultButton.Button1);
-            //MessageBoxDefaultButton.Button1,
-            //MessageBoxOptions.DefaultDesktopOnly);
-            /*//Эту часть кода ААС использует для тестирования библиотеки
 
-            DS360Setting generator = new DS360Setting();
-            generator.ComPortName = "COM5";
-            generator.FunctionType = FunctionType.SineSquare;
-            generator.Frequency = 251.25856;
-            generator.FrequencyB = 151.26856;
-            generator.AmplitudeRMS = 2.35523456;
-            generator.AmplitudeRMSToneB = 1.15523456;
-            //generator.Offset = 0.0;
-            generator.SendDS360Setting();
-            //string str = generator.GetIdentificationString();
-            //string str2 = "S/n: " + generator.GetSerialNumber();
-            MessageBox.Show(generator.ResultMessage, "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            */
+
         }
 
 
@@ -151,6 +131,7 @@ namespace ManagerDS360
             }
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
+            GetToolToPicPlay();
             //загрузить выпадающий список сохранённых маршрутов из листа
         }
 
@@ -166,7 +147,7 @@ namespace ManagerDS360
             PushListBox();
 
 
-            butNextSetup.Enabled = false;
+
             DS360Setting.FindAllDS360();
             string name = DS360Setting.ComPortDefaultName;
             if (name == "NONE")
@@ -238,6 +219,107 @@ namespace ManagerDS360
         private void cboSavedRoutes_MouseEnter(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            SendNodeSetting();
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            picPlay.Image = Properties.Resources.Play2;
+        }
+
+        private void frmManagerDS360_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            picPlay.Image = Properties.Resources.Play;
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            picNext.Image = Properties.Resources.следующий_2;
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            picNext.Image = Properties.Resources.следующий;
+        }
+
+        private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            GetToolToPicPlay();
+        }
+
+        private void GetToolToPicPlay()
+        {
+            TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            PicPlayToolTip.RemoveAll();
+            PicPlayToolTip.SetToolTip(picPlay, GetTextToToll(selectedNode));
+        }
+
+        private string GetTextToToll(TreeNodeWithSetting selectedNode)
+        {
+
+            if (selectedNode == null)
+            {
+                return "Испытание: не выбрано!\nНастройка: не выбрана";
+
+            }
+            if (selectedNode.NodeType == NodeType.Folder)
+            {
+                return $"Испытание: {selectedNode.Text}\nНастройка: не выбрана";
+
+            }
+            if (selectedNode.NodeType == NodeType.Setting)
+            {
+                return $"Испытание: {GetNodeParentName(selectedNode)}\n{selectedNode.Text}";
+            }
+            return "Испытание: не выбрано!\n\nНастройка: не выбрана";
+        }
+
+        private string GetNodeParentName(TreeNodeWithSetting selectedNode)
+        {
+            if (selectedNode.Parent is TreeNodeWithSetting)
+            {
+                return selectedNode.Parent.Text;
+            }
+            return "нет";
+        }
+
+        private void picPrevious_MouseEnter(object sender, EventArgs e)
+        {
+            picPrevious.Image = Properties.Resources.предыдущий_2;
+        }
+
+        private void picPrevious_MouseLeave(object sender, EventArgs e)
+        {
+            picPrevious.Image = Properties.Resources.предыдущий;
+        }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+            var buildDateTime = new DateTime(2000, 1, 1).Add(
+                new TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
+            MessageBox.Show(
+                $"Мanager DS360. Версия ПО {version.ToString()}\n  Дата разработки - {buildDateTime.ToShortDateString()}.",
+                "О программе",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
+        }
+
+        private void редактированиеМаршрутовToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmEditingRoutes editingRoutes = new frmEditingRoutes();
+            editingRoutes.ShowDialog();
+            LoadCboSavedRoutes();
         }
     }
 }

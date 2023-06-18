@@ -133,4 +133,22 @@
   <data name="VibroMath1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VibroMath.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="следующий" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\следующий.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="следующий_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\следующий 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="предыдущий" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\предыдущий.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="предыдущий_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\предыдущий 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

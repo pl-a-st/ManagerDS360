@@ -35,8 +35,6 @@ namespace ManagerDS360 {
             this.lblSelectedNode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.picPrevious = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.редактированиеМаршрутовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +44,6 @@ namespace ManagerDS360 {
             ((System.ComponentModel.ISupportInitialize)(this.picNext)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPrevious)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +67,7 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboSavedRoutes.FormattingEnabled = true;
-            this.cboSavedRoutes.Location = new System.Drawing.Point(255, 48);
+            this.cboSavedRoutes.Location = new System.Drawing.Point(255, 51);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
             this.cboSavedRoutes.Size = new System.Drawing.Size(753, 22);
             this.cboSavedRoutes.TabIndex = 6;
@@ -104,7 +101,7 @@ namespace ManagerDS360 {
             this.treRouteTree.Location = new System.Drawing.Point(255, 79);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(753, 420);
+            this.treRouteTree.Size = new System.Drawing.Size(753, 423);
             this.treRouteTree.TabIndex = 15;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
@@ -113,7 +110,7 @@ namespace ManagerDS360 {
             this.picPlay.BackColor = System.Drawing.Color.Transparent;
             this.picPlay.Image = global::ManagerDS360.Properties.Resources.Play;
             this.picPlay.InitialImage = null;
-            this.picPlay.Location = new System.Drawing.Point(85, 80);
+            this.picPlay.Location = new System.Drawing.Point(86, 80);
             this.picPlay.Name = "picPlay";
             this.picPlay.Size = new System.Drawing.Size(54, 54);
             this.picPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -127,7 +124,7 @@ namespace ManagerDS360 {
             // 
             this.picNext.BackColor = System.Drawing.Color.Transparent;
             this.picNext.Image = global::ManagerDS360.Properties.Resources.следующий;
-            this.picNext.Location = new System.Drawing.Point(163, 90);
+            this.picNext.Location = new System.Drawing.Point(164, 90);
             this.picNext.Name = "picNext";
             this.picNext.Size = new System.Drawing.Size(55, 36);
             this.picNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -164,7 +161,7 @@ namespace ManagerDS360 {
             // 
             this.picPrevious.BackColor = System.Drawing.Color.Transparent;
             this.picPrevious.Image = global::ManagerDS360.Properties.Resources.предыдущий;
-            this.picPrevious.Location = new System.Drawing.Point(12, 90);
+            this.picPrevious.Location = new System.Drawing.Point(13, 90);
             this.picPrevious.Name = "picPrevious";
             this.picPrevious.Size = new System.Drawing.Size(45, 37);
             this.picPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -172,19 +169,6 @@ namespace ManagerDS360 {
             this.picPrevious.TabStop = false;
             this.picPrevious.MouseEnter += new System.EventHandler(this.picPrevious_MouseEnter);
             this.picPrevious.MouseLeave += new System.EventHandler(this.picPrevious_MouseLeave);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.редактированиеМаршрутовToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 26);
-            // 
-            // редактированиеМаршрутовToolStripMenuItem
-            // 
-            this.редактированиеМаршрутовToolStripMenuItem.Name = "редактированиеМаршрутовToolStripMenuItem";
-            this.редактированиеМаршрутовToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.редактированиеМаршрутовToolStripMenuItem.Text = "Редактирование маршрутов";
             // 
             // menuStrip1
             // 
@@ -223,18 +207,17 @@ namespace ManagerDS360 {
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(252, 32);
+            this.label1.Location = new System.Drawing.Point(254, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 14);
+            this.label1.Size = new System.Drawing.Size(71, 14);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Маршруты:";
+            this.label1.Text = "Маршрут:";
             // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1020, 516);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treRouteTree);
@@ -257,7 +240,6 @@ namespace ManagerDS360 {
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPrevious)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -275,8 +257,6 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Label lblSelectedNode;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox picPrevious;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem1;

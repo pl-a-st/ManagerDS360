@@ -33,13 +33,15 @@
             this.butCancel = new System.Windows.Forms.Button();
             this.butFindGenerator = new System.Windows.Forms.Button();
             this.cboListComPorts = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblLisеComPorts
             // 
             this.lblLisеComPorts.AutoSize = true;
             this.lblLisеComPorts.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblLisеComPorts.Location = new System.Drawing.Point(19, 30);
+            this.lblLisеComPorts.Location = new System.Drawing.Point(6, 21);
             this.lblLisеComPorts.Name = "lblLisеComPorts";
             this.lblLisеComPorts.Size = new System.Drawing.Size(141, 14);
             this.lblLisеComPorts.TabIndex = 1;
@@ -48,7 +50,8 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(22, 199);
+            this.butSave.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butSave.Location = new System.Drawing.Point(66, 197);
             this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
@@ -60,7 +63,8 @@
             // 
             // butCancel
             // 
-            this.butCancel.Location = new System.Drawing.Point(277, 199);
+            this.butCancel.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butCancel.Location = new System.Drawing.Point(238, 197);
             this.butCancel.MaximumSize = new System.Drawing.Size(110, 27);
             this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
             this.butCancel.Name = "butCancel";
@@ -72,11 +76,11 @@
             // 
             // butFindGenerator
             // 
-            this.butFindGenerator.Location = new System.Drawing.Point(277, 47);
-            this.butFindGenerator.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butFindGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butFindGenerator.Location = new System.Drawing.Point(269, 30);
             this.butFindGenerator.MinimumSize = new System.Drawing.Size(110, 27);
             this.butFindGenerator.Name = "butFindGenerator";
-            this.butFindGenerator.Size = new System.Drawing.Size(110, 27);
+            this.butFindGenerator.Size = new System.Drawing.Size(110, 41);
             this.butFindGenerator.TabIndex = 5;
             this.butFindGenerator.Text = "Обновить список";
             this.butFindGenerator.UseVisualStyleBackColor = true;
@@ -84,23 +88,33 @@
             // 
             // cboListComPorts
             // 
+            this.cboListComPorts.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboListComPorts.FormattingEnabled = true;
-            this.cboListComPorts.Location = new System.Drawing.Point(22, 49);
+            this.cboListComPorts.Location = new System.Drawing.Point(9, 40);
             this.cboListComPorts.Name = "cboListComPorts";
-            this.cboListComPorts.Size = new System.Drawing.Size(160, 21);
+            this.cboListComPorts.Size = new System.Drawing.Size(240, 22);
             this.cboListComPorts.TabIndex = 6;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.butFindGenerator);
+            this.groupBox1.Controls.Add(this.butCancel);
+            this.groupBox1.Controls.Add(this.cboListComPorts);
+            this.groupBox1.Controls.Add(this.butSave);
+            this.groupBox1.Controls.Add(this.lblLisеComPorts);
+            this.groupBox1.Location = new System.Drawing.Point(12, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(395, 232);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
             // 
             // frmManagerRoutse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 238);
-            this.Controls.Add(this.cboListComPorts);
-            this.Controls.Add(this.butFindGenerator);
-            this.Controls.Add(this.butCancel);
-            this.Controls.Add(this.butSave);
-            this.Controls.Add(this.lblLisеComPorts);
+            this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(435, 277);
             this.MinimumSize = new System.Drawing.Size(435, 277);
@@ -108,8 +122,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Окно назначения генератора по умолчанию";
             this.Load += new System.EventHandler(this.frmDefaultGenerator_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -119,5 +134,6 @@
         internal System.Windows.Forms.Button butCancel;
         internal System.Windows.Forms.Button butFindGenerator;
         internal System.Windows.Forms.ComboBox cboListComPorts;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

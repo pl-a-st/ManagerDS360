@@ -305,9 +305,8 @@ namespace LibDevicesManager
         private const double maxTwoToneRatio = 1000;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false;
-        #endregion PrivateFields
+        #endregion PrivateFie
 
-        //Исправить на заполнение автополей
         #region Constructors
         //Конструкторы для SingleSignal
         public DS360Setting()
@@ -482,7 +481,6 @@ namespace LibDevicesManager
         }
         #endregion Constructors
 
-        //Добавить описание методов
         #region PublicMethods
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
@@ -602,7 +600,6 @@ namespace LibDevicesManager
             {
                 return Result.Failure;
             }
-            //Прописать отправку настроек (до конца)
             if (IsSignalPeriodical() && !IsTwoToneSignal())
             {
                 result = SendDS360SettingForSingleSignale(port);
@@ -617,9 +614,13 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка передачи параметра в генератор";
                 return result;
             }
+            if (SetOutputSignalEnable(port, true) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка включения выходного сигнала";
+                return Result.Failure;
+            }
             resultMessage = "\nПараметры успешно переданы в генератор";
-            //result = SetOutputSignalEnable(port, true);
-            //дать команду на включение сигнала.
             ComPort.PortClose(port);
             return result;
         }

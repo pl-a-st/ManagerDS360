@@ -56,7 +56,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butDefaultGenerator.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butDefaultGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 48);
+            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 32);
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(230, 38);
             this.butDefaultGenerator.TabIndex = 2;
@@ -86,7 +86,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butGeneratorControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butGeneratorControl.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butGeneratorControl.Location = new System.Drawing.Point(12, 92);
+            this.butGeneratorControl.Location = new System.Drawing.Point(12, 79);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
             this.butGeneratorControl.TabIndex = 9;
@@ -154,7 +154,7 @@ namespace ManagerDS360 {
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.Controls.Add(this.picNext);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(12, 136);
+            this.groupBox1.Location = new System.Drawing.Point(12, 123);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 156);
             this.groupBox1.TabIndex = 19;
@@ -188,6 +188,7 @@ namespace ManagerDS360 {
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
@@ -201,21 +202,22 @@ namespace ManagerDS360 {
             // 
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.редактированиеМаршрутовToolStripMenuItem1});
+            this.менюToolStripMenuItem.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
-            this.менюToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.менюToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.менюToolStripMenuItem.Text = "Меню";
             // 
             // редактированиеМаршрутовToolStripMenuItem1
             // 
             this.редактированиеМаршрутовToolStripMenuItem1.Name = "редактированиеМаршрутовToolStripMenuItem1";
-            this.редактированиеМаршрутовToolStripMenuItem1.Size = new System.Drawing.Size(230, 22);
+            this.редактированиеМаршрутовToolStripMenuItem1.Size = new System.Drawing.Size(259, 22);
             this.редактированиеМаршрутовToolStripMenuItem1.Text = "Редактирование маршрутов";
             this.редактированиеМаршрутовToolStripMenuItem1.Click += new System.EventHandler(this.редактированиеМаршрутовToolStripMenuItem1_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 

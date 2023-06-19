@@ -41,6 +41,7 @@ namespace ManagerDS360 {
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNext)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -55,7 +56,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butDefaultGenerator.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butDefaultGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 35);
+            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 48);
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(230, 38);
             this.butDefaultGenerator.TabIndex = 2;
@@ -69,7 +70,7 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboSavedRoutes.FormattingEnabled = true;
-            this.cboSavedRoutes.Location = new System.Drawing.Point(255, 35);
+            this.cboSavedRoutes.Location = new System.Drawing.Point(255, 48);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
             this.cboSavedRoutes.Size = new System.Drawing.Size(753, 22);
             this.cboSavedRoutes.TabIndex = 6;
@@ -85,7 +86,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butGeneratorControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butGeneratorControl.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butGeneratorControl.Location = new System.Drawing.Point(12, 79);
+            this.butGeneratorControl.Location = new System.Drawing.Point(12, 92);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
             this.butGeneratorControl.TabIndex = 9;
@@ -100,10 +101,10 @@ namespace ManagerDS360 {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(255, 66);
+            this.treRouteTree.Location = new System.Drawing.Point(255, 79);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(753, 438);
+            this.treRouteTree.Size = new System.Drawing.Size(753, 420);
             this.treRouteTree.TabIndex = 15;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
@@ -153,7 +154,7 @@ namespace ManagerDS360 {
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.Controls.Add(this.picNext);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(12, 123);
+            this.groupBox1.Location = new System.Drawing.Point(12, 136);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 156);
             this.groupBox1.TabIndex = 19;
@@ -218,11 +219,22 @@ namespace ManagerDS360 {
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(252, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 14);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Маршруты:";
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1020, 516);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treRouteTree);
@@ -269,6 +281,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }
 

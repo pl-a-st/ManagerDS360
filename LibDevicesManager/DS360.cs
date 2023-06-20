@@ -509,6 +509,15 @@ namespace LibDevicesManager
                 return generators;
             }
             List<string> ports = ComPort.PortsNamesList;
+            Task[] TasksPushGeneratorList = new Task[ports.Count];
+            for (int i = 0; i < ports.Count; i++)
+            {
+                int portNum = i;
+                TasksPushGeneratorList[i] = (new Task(() => PushGeneratorsList(ports, portNum)));
+                TasksPushGeneratorList[i].Start();
+            }
+            Task.WaitAll(TasksPushGeneratorList);
+            /*
             string deviceName = string.Empty;
             string identificationString = string.Empty;
             for (int i = 0; i < ports.Count; i++)
@@ -528,6 +537,7 @@ namespace LibDevicesManager
                 }
                 //--ForTest
             }
+            */
             if (generatorsList.Count == 0)
             {
                 generatorsList.Add("Генераторы не обнаружены");
@@ -1080,6 +1090,25 @@ namespace LibDevicesManager
             identificationString = identificationString.Substring(0, identificationString.Length - 1);
             ComPort.PortClose(port);
             return identificationString;
+        }
+        private static void PushGeneratorsList(List<string> ports, int portNum)
+        {
+            string deviceName = string.Empty;
+            string identificationString = string.Empty;
+            identificationString = GetDS360IdentificationString(ports[portNum]);
+            if (IsItDS360(identificationString))
+            {
+                deviceName = $"{ports[portNum]}: DS360, s/n{GetSerialNumber(identificationString)}";
+                generatorsList.Add(deviceName);
+            }
+            //ForTest
+            identificationString = GetDS360EIdentificationString(ports[portNum]);
+            if (IsItDS360E(identificationString))
+            {
+                deviceName = $"{ports[portNum]}: DS360E, s/n{GetSerialNumber(identificationString)}";
+                generatorsList.Add(deviceName);
+            }
+            //--ForTest
         }
         #endregion CommunicateWithDS360
 

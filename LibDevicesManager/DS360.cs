@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -488,7 +484,7 @@ namespace LibDevicesManager
         /// <br><see langword="false"/>  - опрос портов производиться не будет, список генераторов будет сформирован из списка ранее найденных устройств  </br>
         /// <br>Если не удалось найти ни одного подключенного генератора, будет сформирован массив, состоящий из одной строки: "Генераторы не обнаружены"</br></value>
         /// <returns>Массив имён подключенных к компъютеру генераторов DS360 </returns>
-        public static string[] FindAllDS360(bool needRefreshGeneratorsList = false)
+        public static string[] FindAllDS360(bool needRefreshGeneratorsList = true)
         {
             if (generatorsList == null)
             {
@@ -517,7 +513,7 @@ namespace LibDevicesManager
                 TasksPushGeneratorList[i].Start();
             }
             Task.WaitAll(TasksPushGeneratorList);
-            /*
+            /* //Удалить после проверки!
             string deviceName = string.Empty;
             string identificationString = string.Empty;
             for (int i = 0; i < ports.Count; i++)
@@ -1045,7 +1041,6 @@ namespace LibDevicesManager
             string serialNumber = subString[2];
             return serialNumber;
         }
-
         private static string GetDS360IdentificationString(string comPortName)
         {
             string command = "*IDN?";
@@ -1101,7 +1096,7 @@ namespace LibDevicesManager
                 deviceName = $"{ports[portNum]}: DS360, s/n{GetSerialNumber(identificationString)}";
                 generatorsList.Add(deviceName);
             }
-            //ForTest
+            //ForTest - Удалить в финальной версии
             identificationString = GetDS360EIdentificationString(ports[portNum]);
             if (IsItDS360E(identificationString))
             {
@@ -1324,6 +1319,7 @@ namespace LibDevicesManager
         #endregion SecondaryMethods
 
         #region UnUsed
+        /*
         private void SetComPortNameToDefault()
         {
             ComPortName = ComPortDefaultName;
@@ -1415,6 +1411,7 @@ namespace LibDevicesManager
             List<string> portsNamesList = ComPort.PortsNamesList;
             return portsNamesList;
         }
+        */
         /*
         private static string _GetSerialNumber(string portName)
         {

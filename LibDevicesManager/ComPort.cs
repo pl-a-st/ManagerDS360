@@ -137,18 +137,6 @@ namespace LibDevicesManager
             }
             return devicesNameList;
         }
-        public static List<string> GetAllGeneratorsPorts()
-        {
-            List<string> generators = new List<string>();
-            for (int i = 0; i < PortsNamesList.Count; i++)
-            {
-                if (DevicesNamesList[i].Contains("DS360")) //ToNEXT: добавить другие генераторы
-                {
-                    generators.Add(PortsNamesList[i]);
-                }
-            }
-            return generators;
-        }
         public static string GetDeviceModel(string portName)
         {
             Result result = new Result();
@@ -388,62 +376,20 @@ namespace LibDevicesManager
             int.TryParse(portName, out portNumber);
             return portNumber;
         }
-        /*
-        private static Result _Send(SerialPort port, string message)
+        #region UnUsed
+
+        private static List<string> GetAllGeneratorsPorts()
         {
-            if (message == null)
+            List<string> generators = new List<string>();
+            for (int i = 0; i < PortsNamesList.Count; i++)
             {
-                return Result.ParamError;
-            }
-            if (port != null && port.IsOpen)
-            {
-                message += "\n";
-                char[] chars = message.ToCharArray();
-                try
+                if (DevicesNamesList[i].Contains("DS360")) //ToNEXT: добавить другие генераторы
                 {
-                    //port.WriteLine(message);
-                    port.Write(chars, 0, chars.Length);
-                    return Result.Success;
-                }
-                catch (TimeoutException ex)
-                {
-                    //Обработать ошибку передачи
-                    //ExceptionMessage = "Ошибка времени отправки пакета. " + ex.Message;
-                    return Result.Exception;
+                    generators.Add(PortsNamesList[i]);
                 }
             }
-            return Result.AcsessError;
+            return generators;
         }
-        */
-        /*
-        private static string _Receive(SerialPort port)
-        {
-            string receivedMessage = string.Empty;
-            char charToRead;
-            if (port != null && port.IsOpen)
-            {
-                try
-                {
-                    //receivedMessage = port.ReadLine();
-                    //receivedMessage = port.ReadExisting();
-                    while (port.BytesToRead> 0)
-                    {
-                        charToRead = (char)port.ReadChar();
-                        if (charToRead == '\n')
-                        {
-                            return receivedMessage;
-                        }
-                        receivedMessage += charToRead;
-                    }
-                }
-                catch (TimeoutException ex)
-                {
-                    //ExceptionMessage = "Ошибка времени получения пакета. " + ex.Message;
-                    return "Ошибка времени получения пакета";
-                }
-            }
-            return receivedMessage;
-        }
-        */
+        #endregion UnUsed
     }
 }

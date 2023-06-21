@@ -51,7 +51,7 @@
             // butSave
             // 
             this.butSave.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(66, 197);
+            this.butSave.Location = new System.Drawing.Point(45, 197);
             this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
@@ -81,7 +81,7 @@
             this.butFindGenerator.MinimumSize = new System.Drawing.Size(110, 27);
             this.butFindGenerator.Name = "butFindGenerator";
             this.butFindGenerator.Size = new System.Drawing.Size(110, 41);
-            this.butFindGenerator.TabIndex = 5;
+            this.butFindGenerator.TabIndex = 2;
             this.butFindGenerator.Text = "Обновить список";
             this.butFindGenerator.UseVisualStyleBackColor = true;
             this.butFindGenerator.Click += new System.EventHandler(this.butFindGenerator_Click);
@@ -93,7 +93,7 @@
             this.cboListComPorts.Location = new System.Drawing.Point(9, 40);
             this.cboListComPorts.Name = "cboListComPorts";
             this.cboListComPorts.Size = new System.Drawing.Size(240, 22);
-            this.cboListComPorts.TabIndex = 6;
+            this.cboListComPorts.TabIndex = 1;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
             // 
             // groupBox1
@@ -120,7 +120,7 @@
             this.MinimumSize = new System.Drawing.Size(435, 277);
             this.Name = "frmManagerRoutse";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Окно назначения генератора по умолчанию";
+            this.Text = "Назначение генератора по умолчанию";
             this.Load += new System.EventHandler(this.frmDefaultGenerator_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

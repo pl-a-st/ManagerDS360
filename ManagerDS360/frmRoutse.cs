@@ -34,6 +34,11 @@ namespace ManagerDS360
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
             ReloadLstRoutes();
+            lstSaveRoutes.Select(); 
+            if (lstSaveRoutes.Items.Count != 0)
+            {
+                lstSaveRoutes.SelectedIndex = 0;
+            }
 
         }
         //выбор элемента treeView
@@ -44,11 +49,6 @@ namespace ManagerDS360
             {
                 return;
             }
-        }
-
-        private void lstsaveroutes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
@@ -68,17 +68,6 @@ namespace ManagerDS360
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void sbrHorizontalSaveRoutes_Scroll(object sender, ScrollEventArgs e)
-        {
-
-        }
-
-        private void sbrVerticalSaveRoutes_Scroll(object sender, ScrollEventArgs e)
-        {
-
         }
 
         private void butSaveRoutes_Click(object sender, EventArgs e)
@@ -134,7 +123,6 @@ namespace ManagerDS360
 
         private void lblSaveRoutes_Click(object sender, EventArgs e)
         {
-
         }
 
         private void butAddRout_Click(object sender, EventArgs e)
@@ -216,6 +204,11 @@ namespace ManagerDS360
             PmData.RouteAddresses.Add(new FileInfo(newFullFile));
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
+
+        }
+
+        private void lstSaveRoutes_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

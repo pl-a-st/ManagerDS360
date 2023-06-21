@@ -20,7 +20,6 @@ namespace ManagerDS360
         public frmManagerDS360()
         {
             InitializeComponent();
-
         }
 
         //по крестику спрашивает, закрыть или нет окно
@@ -57,23 +56,20 @@ namespace ManagerDS360
         }
         private void lblRoute_Click(object sender, EventArgs e)
         {
-            //лейбл Маршрут
         }
 
-        private void lblSavedRoutes_Click(object sender, EventArgs e)
-        {
-            //ничего не надо
-        }
+        //private void lblSavedRoutes_Click(object sender, EventArgs e)
+        //{
+        //}
 
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void butNextSetup_Click(object sender, EventArgs e)
-        {
-            //переместить фокус на след. и запустить след. настройку
-        }
+        //private void butNextSetup_Click(object sender, EventArgs e)
+        //{
+        //    //переместить фокус на след. и запустить след. настройку
+        //}
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
@@ -85,9 +81,7 @@ namespace ManagerDS360
 
         private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
         {
-
-            SendNodeSetting();
-            //передача настройки в генератор
+            SendNodeSetting();   //передача настройки в генератор
         }
 
         private void SendNodeSetting()
@@ -117,11 +111,7 @@ namespace ManagerDS360
 
         private void butAboutProgram_Click(object sender, EventArgs e)
         {
-
-
         }
-
-
 
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -137,7 +127,6 @@ namespace ManagerDS360
 
         private void txtNameGenerator_TextChanged(object sender, EventArgs e)
         {
-            //отображение в окошке наименования генератора
         }
 
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
@@ -212,11 +201,6 @@ namespace ManagerDS360
 
         private void PushListBox()
         {
-            //lstRouteSettings.Items.Clear();
-            //foreach (Entry entry1 in ProgramData.Entries)
-            //{
-
-            //}
         }
 
         private void lstRouteSettings_AfterSelect(object sender, TreeViewEventArgs e)
@@ -224,30 +208,27 @@ namespace ManagerDS360
             //список параметров в маршруте
         }
 
-        private void sbrVerticalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
-        {
-            //скролл вертикаль
-        }
+        //private void sbrVerticalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
+        //{
+        //    //скролл вертикаль
+        //}
 
-        private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
-        {
-            //скролл горизонт
-        }
+        //private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
+        //{
+        //    //скролл горизонт
+        //}
 
-        internal void lblDefaultGenerator_Click(object sender, EventArgs e)
-        {
-            //наименование генератора по умолчанию
-        }
+        //internal void lblDefaultGenerator_Click(object sender, EventArgs e)
+        //{
+        //    //наименование генератора по умолчанию
+        //}
 
         private void cboSavedRoutes_MouseClick(object sender, MouseEventArgs e)
         {
-
         }
 
         private void cboSavedRoutes_MouseDown(object sender, MouseEventArgs e)
         {
-
-
         }
 
         private void cboSavedRoutes_Click(object sender, EventArgs e)
@@ -257,7 +238,6 @@ namespace ManagerDS360
 
         private void cboSavedRoutes_MouseEnter(object sender, EventArgs e)
         {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -272,7 +252,6 @@ namespace ManagerDS360
 
         private void frmManagerDS360_MouseEnter(object sender, EventArgs e)
         {
-
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)

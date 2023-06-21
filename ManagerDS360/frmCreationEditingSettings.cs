@@ -94,13 +94,10 @@ namespace ManagerDS360
             //ААС: Добавил ниже список из 20 имён
             
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
-         
-
         }
 
         internal void InitializechcboComPort()
         {
-            //переключение вкл-выкл у выпадающего ком-порт
         }
         internal void InitializecboDetector2()
         {
@@ -179,11 +176,6 @@ namespace ManagerDS360
             }
             SetDS360Setting();
             SaveStatus = SaveStatus.Save;
-
-
-            //продумать конфигурацию имени для настройки 
-            //StaticName.nameBuffer = "Частота: " + DS360Setting.Frequency + "; " + "Тип сигнала: " + DS360Setting.FunctionType + "; " + "Значение: " + txtValue.Text + " " + " _ " + cboSetValue.SelectedText;
-
             this.Close();
         }
 
@@ -244,7 +236,6 @@ namespace ManagerDS360
             DS360Setting.AmplitudeRMS /= 1000;
             DS360Setting.AmplitudeRMSToneB /= 1000;
             DS360Setting.Offset /= 1000;
-
         }
 
         private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
@@ -286,7 +277,6 @@ namespace ManagerDS360
                 VibroCalc.CalcAll(voltage);
                 DS360Setting.VibroParametr = voltage;
             }
-
         }
 
         private Result CheckFormsParameters()
@@ -295,43 +285,31 @@ namespace ManagerDS360
             Result result = Result.Success;
             if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
             {
-                //MessageBox.Show("Введите значение 1.");
-                //return Result.Failure;
                 message += "\nВведите значение 1";
                 result = Result.Failure;
             }
             if (!double.TryParse(txtFrequency.Text, out double frequency_A))
             {
-                //MessageBox.Show("Введите частоту 1.");
-                //return Result.Failure;
                 message += "\nВведите частоту 1";
                 result = Result.Failure;
             }
             if (IsTwoTone() && !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
             {
-                //MessageBox.Show("Введите значение 2.");
-                //return Result.Failure;
                 message += "\nВведите значение 2.";
                 result = Result.Failure;
             }
             if (IsTwoTone() && !double.TryParse(txtFrequency2.Text, out double frequency_B))
             {
-                //MessageBox.Show("Введите частоту 2.");
-                //return Result.Failure;
                 message += "\nВведите частоту 2.";
                 result = Result.Failure;
             }
             if (!IsTwoTone() && !double.TryParse(txtOffset.Text, out double offset))
             {
-                //MessageBox.Show("Введите значение смещения.");
-                //return Result.Failure;
                 message += "\nВведите значение смещения.";
                 result = Result.Failure;
             }
             if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
             {
-                //MessageBox.Show("Введите значение коэффициента.");
-                //return Result.Failure;
                 message += "\nВведите значение коэффициента.";
                 result = Result.Failure;
             }
@@ -340,7 +318,6 @@ namespace ManagerDS360
                 MessageBox.Show(message);
             }
             return result;
-
         }
 
         internal bool IsTwoTone()
@@ -351,10 +328,7 @@ namespace ManagerDS360
 
         internal static void NewMethod(frmCreationEditingSettings editingSettings)
         {
-            //editingSettings.ShowDialog();
-            //DS360Setting dS360Setting = new DS360Setting();
         }
-
 
         private void chcDefaultGenerator_CheckedChanged(object sender, EventArgs e)
         {
@@ -371,19 +345,10 @@ namespace ManagerDS360
 
         private void cboComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //падающее меню ком - портов
         }
 
         internal void cboTypeSignal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //FunctionTypeSignal = FunctionTypeSignal.Квадрат;
-            //FunctionTypeSignal = cboTypeSignal.SelectedIndex;
-            //FunctionTypeSignal = typeof(cboTypeSignal.Items[cboTypeSignal.SelectedIndex].Replace("_", " - "));
-            //if (cboTypeSignal.Items[cboTypeSignal.SelectedIndex] == FunctionTypeSignal.Синус||cboTypeSignal.SelectedItem == FunctionTypeSignal.Квадрат)
-            //вид сигнала!
-
-            //FunctionTypeSignal = FunctionTypeSignal[cboTypeSignal.SelectedIndex];
-
             string strSinSin = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус_Синус];
             string strSinSquare = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус_Квадрат];
             string strSin = PmData.FunctionTypeSignal[FunctionTypeSignal.Синус];
@@ -415,8 +380,6 @@ namespace ManagerDS360
         private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             InitializecboTypeSignal();
-            //физическая величина
-
         }
 
         private void lblConversionFactor_Click(object sender, EventArgs e)
@@ -425,15 +388,10 @@ namespace ManagerDS360
 
         private void txtConversionFactor_TextChanged(object sender, EventArgs e)
         {
-            //ввод коэф. преобразования
-         
-            //txtConversionFactor = 100;
         }
 
         internal void txtFrequency_TextChanged(object sender, EventArgs e)
         {
-            //ввод частоты
-         
         }
 
         private void lblFrequency_Click(object sender, EventArgs e)
@@ -446,17 +404,11 @@ namespace ManagerDS360
 
         private void txtOffset_TextChanged(object sender, EventArgs e)
         {
-            //ввод смещения
-     
         }
 
         private void lblDetector_Click(object sender, EventArgs e)
         {
         }
-
-        //private void txtDetector_TextChanged(object sender, EventArgs e)
-        //{
-        //}
 
         private void butCancel_Click(object sender, EventArgs e)
         {
@@ -471,9 +423,8 @@ namespace ManagerDS360
                 return;
             }
             SetDS360Setting();
-            //
             Result sendingResult = DS360Setting.SendDS360Setting();
-            //
+
             if (sendingResult == Result.Success)
             {
                 MessageBox.Show("Настройка успешно передана в генератор");
@@ -486,35 +437,22 @@ namespace ManagerDS360
 
         private void cboDetector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //выбор детектора
         }
 
-        //private void txtFrequency_KeyPress(object sender, KeyPressEventArgs e)
-        //{
-
-        //}
         private void txtFrequency2_TextChanged(object sender, EventArgs e)
-        {
-            //ввод второй частоты
-           
+        { 
         }
 
         private void cboDetector2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //выбор второго детектора
-
         }
 
         private void txtValue_TextChanged(object sender, EventArgs e)
         {
-            //ввод первого значения
-           
         }
 
         private void txtValue2_TextChanged(object sender, EventArgs e)
-        {
-            //ввод второго значения
-            
+        {  
         }
 
         private void numComName_KeyPress(object sender, KeyPressEventArgs e)

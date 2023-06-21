@@ -91,16 +91,16 @@
             // cboTypeSignal
             // 
             this.cboTypeSignal.FormattingEnabled = true;
-            this.cboTypeSignal.Location = new System.Drawing.Point(30, 120);
+            this.cboTypeSignal.Location = new System.Drawing.Point(23, 120);
             this.cboTypeSignal.Name = "cboTypeSignal";
             this.cboTypeSignal.Size = new System.Drawing.Size(143, 21);
-            this.cboTypeSignal.TabIndex = 3;
+            this.cboTypeSignal.TabIndex = 6;
             this.cboTypeSignal.SelectedIndexChanged += new System.EventHandler(this.cboTypeSignal_SelectedIndexChanged);
             // 
             // lblTypeSignal
             // 
             this.lblTypeSignal.AutoSize = true;
-            this.lblTypeSignal.Location = new System.Drawing.Point(27, 104);
+            this.lblTypeSignal.Location = new System.Drawing.Point(20, 105);
             this.lblTypeSignal.Name = "lblTypeSignal";
             this.lblTypeSignal.Size = new System.Drawing.Size(88, 13);
             this.lblTypeSignal.TabIndex = 4;
@@ -110,7 +110,7 @@
             // cboSetValue
             // 
             this.cboSetValue.FormattingEnabled = true;
-            this.cboSetValue.Location = new System.Drawing.Point(30, 74);
+            this.cboSetValue.Location = new System.Drawing.Point(23, 75);
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(143, 21);
             this.cboSetValue.TabIndex = 5;
@@ -119,7 +119,7 @@
             // lblSetValue
             // 
             this.lblSetValue.AutoSize = true;
-            this.lblSetValue.Location = new System.Drawing.Point(27, 58);
+            this.lblSetValue.Location = new System.Drawing.Point(20, 59);
             this.lblSetValue.Name = "lblSetValue";
             this.lblSetValue.Size = new System.Drawing.Size(121, 13);
             this.lblSetValue.TabIndex = 6;
@@ -129,7 +129,7 @@
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
-            this.lblConversionFactor.Location = new System.Drawing.Point(27, 150);
+            this.lblConversionFactor.Location = new System.Drawing.Point(20, 149);
             this.lblConversionFactor.Name = "lblConversionFactor";
             this.lblConversionFactor.Size = new System.Drawing.Size(116, 13);
             this.lblConversionFactor.TabIndex = 8;
@@ -138,24 +138,24 @@
             // 
             // butSave
             // 
-            this.butSave.Location = new System.Drawing.Point(143, 343);
+            this.butSave.Location = new System.Drawing.Point(147, 343);
             this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(110, 27);
-            this.butSave.TabIndex = 9;
+            this.butSave.TabIndex = 19;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
             this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // butCancel
             // 
-            this.butCancel.Location = new System.Drawing.Point(340, 343);
+            this.butCancel.Location = new System.Drawing.Point(344, 343);
             this.butCancel.MaximumSize = new System.Drawing.Size(110, 27);
             this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(110, 27);
-            this.butCancel.TabIndex = 10;
+            this.butCancel.TabIndex = 20;
             this.butCancel.Text = "Отмена";
             this.butCancel.UseVisualStyleBackColor = true;
             this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
@@ -183,11 +183,11 @@
             // lblOffset
             // 
             this.lblOffset.AutoSize = true;
-            this.lblOffset.Location = new System.Drawing.Point(309, 210);
+            this.lblOffset.Location = new System.Drawing.Point(345, 212);
             this.lblOffset.Name = "lblOffset";
-            this.lblOffset.Size = new System.Drawing.Size(61, 13);
-            this.lblOffset.TabIndex = 16;
-            this.lblOffset.Text = "Смещение";
+            this.lblOffset.Size = new System.Drawing.Size(79, 13);
+            this.lblOffset.TabIndex = 14;
+            this.lblOffset.Text = "Смещение mB";
             this.lblOffset.Click += new System.EventHandler(this.lblOffset_Click);
             // 
             // cboDetector
@@ -196,12 +196,12 @@
             this.cboDetector.Location = new System.Drawing.Point(19, 93);
             this.cboDetector.Name = "cboDetector";
             this.cboDetector.Size = new System.Drawing.Size(143, 21);
-            this.cboDetector.TabIndex = 17;
+            this.cboDetector.TabIndex = 9;
             this.cboDetector.SelectedIndexChanged += new System.EventHandler(this.cboDetector_SelectedIndexChanged);
             // 
             // butSend
             // 
-            this.butSend.Location = new System.Drawing.Point(12, 343);
+            this.butSend.Location = new System.Drawing.Point(16, 343);
             this.butSend.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSend.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSend.Name = "butSend";
@@ -217,7 +217,7 @@
             this.cboDetector2.Location = new System.Drawing.Point(17, 93);
             this.cboDetector2.Name = "cboDetector2";
             this.cboDetector2.Size = new System.Drawing.Size(143, 21);
-            this.cboDetector2.TabIndex = 23;
+            this.cboDetector2.TabIndex = 12;
             this.cboDetector2.SelectedIndexChanged += new System.EventHandler(this.cboDetector2_SelectedIndexChanged);
             // 
             // lblValue
@@ -234,7 +234,7 @@
             this.groupBox1.Controls.Add(this.numComName);
             this.groupBox1.Controls.Add(this.chcDefaultGenerator);
             this.groupBox1.Controls.Add(this.lblComPort);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(16, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(379, 68);
             this.groupBox1.TabIndex = 35;
@@ -286,7 +286,7 @@
             this.txtFrequency.MaxLength = 9;
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency.TabIndex = 27;
+            this.txtFrequency.TabIndex = 10;
             this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
             // 
             // txtValue
@@ -295,7 +295,7 @@
             this.txtValue.MaxLength = 9;
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(143, 20);
-            this.txtValue.TabIndex = 31;
+            this.txtValue.TabIndex = 8;
             this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
             // 
             // groupBox3
@@ -347,7 +347,7 @@
             this.txtValue2.MaxLength = 9;
             this.txtValue2.Name = "txtValue2";
             this.txtValue2.Size = new System.Drawing.Size(143, 20);
-            this.txtValue2.TabIndex = 32;
+            this.txtValue2.TabIndex = 11;
             this.txtValue2.TextChanged += new System.EventHandler(this.txtValue2_TextChanged);
             // 
             // txtFrequency2
@@ -356,7 +356,7 @@
             this.txtFrequency2.MaxLength = 9;
             this.txtFrequency2.Name = "txtFrequency2";
             this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency2.TabIndex = 28;
+            this.txtFrequency2.TabIndex = 13;
             this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
             // 
             // groupBox4
@@ -371,7 +371,7 @@
             this.groupBox4.Controls.Add(this.lblConversionFactor);
             this.groupBox4.Controls.Add(this.lblTypeSignal);
             this.groupBox4.Controls.Add(this.cboTypeSignal);
-            this.groupBox4.Location = new System.Drawing.Point(12, 86);
+            this.groupBox4.Location = new System.Drawing.Point(16, 86);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(587, 251);
             this.groupBox4.TabIndex = 38;
@@ -379,21 +379,21 @@
             // 
             // txtConversionFactor
             // 
-            this.txtConversionFactor.Location = new System.Drawing.Point(30, 166);
+            this.txtConversionFactor.Location = new System.Drawing.Point(23, 165);
             this.txtConversionFactor.MaxLength = 9;
             this.txtConversionFactor.Name = "txtConversionFactor";
             this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
-            this.txtConversionFactor.TabIndex = 30;
+            this.txtConversionFactor.TabIndex = 7;
             this.txtConversionFactor.Text = "100";
             this.txtConversionFactor.TextChanged += new System.EventHandler(this.txtConversionFactor_TextChanged);
             // 
             // txtOffset
             // 
-            this.txtOffset.Location = new System.Drawing.Point(312, 223);
+            this.txtOffset.Location = new System.Drawing.Point(338, 225);
             this.txtOffset.MaxLength = 9;
             this.txtOffset.Name = "txtOffset";
-            this.txtOffset.Size = new System.Drawing.Size(143, 20);
-            this.txtOffset.TabIndex = 29;
+            this.txtOffset.Size = new System.Drawing.Size(100, 20);
+            this.txtOffset.TabIndex = 15;
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 

@@ -41,7 +41,7 @@ namespace ManagerDS360 {
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelRoute = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNext)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -89,7 +89,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Location = new System.Drawing.Point(12, 79);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
-            this.butGeneratorControl.TabIndex = 9;
+            this.butGeneratorControl.TabIndex = 3;
             this.butGeneratorControl.Text = "Управление генератором";
             this.butGeneratorControl.UseVisualStyleBackColor = false;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
@@ -105,7 +105,7 @@ namespace ManagerDS360 {
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
             this.treRouteTree.Size = new System.Drawing.Size(753, 420);
-            this.treRouteTree.TabIndex = 15;
+            this.treRouteTree.TabIndex = 7;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
             // picPlay
@@ -221,22 +221,22 @@ namespace ManagerDS360 {
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
-            // label1
+            // labelRoute
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(252, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 14);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Маршруты:";
+            this.labelRoute.AutoSize = true;
+            this.labelRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRoute.Location = new System.Drawing.Point(252, 32);
+            this.labelRoute.Name = "labelRoute";
+            this.labelRoute.Size = new System.Drawing.Size(80, 14);
+            this.labelRoute.TabIndex = 22;
+            this.labelRoute.Text = "Маршруты:";
             // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1020, 516);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelRoute);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treRouteTree);
@@ -283,7 +283,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelRoute;
     }
 }
 

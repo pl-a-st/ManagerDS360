@@ -67,7 +67,7 @@ namespace ManagerDS360
 
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void butNextSetup_Click(object sender, EventArgs e)
@@ -140,23 +140,62 @@ namespace ManagerDS360
             //отображение в окошке наименования генератора
         }
 
-        internal void frmManagerDS360_Load(object sender, EventArgs e)
+        internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
-
             LoadCboSavedRoutes();
             PushListBox();
-
-
-
-            DS360Setting.FindAllDS360();
+            foreach (Control c in this.Controls)
+            {
+                c.Enabled = false;
+            }
+            Panel panel = new Panel();
+            InsertControls(panel, new ProgressBar(), new Label());
+            Task<string[]> getComes = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
+            await Task.Run(() => getComes.Start());
+            await Task.Run(() => getComes.Wait());
+            DS360Setting.ComPortDefaultName = getComes.Result[0];
             string name = DS360Setting.ComPortDefaultName;
             if (name == "NONE")
             {
                 name = "не выбран";
             }
             butDefaultGenerator.Text = $"Генератор {name}";
+            panel.Dispose();
+            foreach (Control c in this.Controls)
+            {
+                c.Enabled = true;
+            }
         }
-
+        private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
+        {
+            panel.Height = (int)(this.Height/3);
+            panel.Width = (int)(this.Width / 2);
+            panel.BackColor = Color.DarkGray;
+            panel.Location = new Point(
+                x: this.Width / 2 - panel.Width / 2,
+                y: this.Height / 2 - panel.Height / 2);
+            progressBar.Width = this.Width / 3;
+            progressBar.Height = this.Height / 6;
+            progressBar.Location = new Point(
+                x: panel.Width / 2 - progressBar.Width / 2,
+                y: panel.Height / 2 - progressBar.Height / 2);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.MarqueeAnimationSpeed = 1;
+            label.AutoSize = true;
+            label.Font = new Font("Verdana",9, FontStyle.Regular);
+            label.Text = "Идет поиск генераторов";
+            label.BackColor = Color.Transparent;
+            label.Parent = progressBar;
+            label.Location = new Point(
+                x: panel.Width / 2 - label.PreferredWidth / 2,
+                y: progressBar.Location.Y - label.Height);
+            panel.Controls.Add(progressBar);
+            panel.Controls.Add(label);
+            this.Controls.Add(panel);
+            panel.BringToFront();
+            progressBar.BringToFront();
+            label.BringToFront();
+        }
         private void LoadCboSavedRoutes()
         {
             treRouteTree.Nodes.Clear();

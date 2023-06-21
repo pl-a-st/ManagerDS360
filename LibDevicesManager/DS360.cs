@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//Тестовое обновление
 
 namespace LibDevicesManager
 {
@@ -41,7 +40,6 @@ namespace LibDevicesManager
     [Serializable]
     public class DS360Setting
     {
-        //Добавить описание публичных полей
         #region PublicFields
 
         /// <summary>
@@ -485,9 +483,10 @@ namespace LibDevicesManager
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
         /// </summary>
-        /// <param name="needRefreshGeneratorsList"> Необходимость повторного опроса Com-портов.</param>
-        /// <value><br><see langword="true"/> - будет произведён повторный опрос портов.</br> 
-        /// <br><see langword="false"/>  - повторный опрос производиться не будет  </br></value>
+        /// <param name="needRefreshGeneratorsList"> Необходимость опроса Com-портов.</param>
+        /// <value><br><see langword="true"/> - будет произведён новый опрос портов.</br> 
+        /// <br><see langword="false"/>  - опрос портов производиться не будет, список генераторов будет сформирован из списка ранее найденных устройств  </br>
+        /// <br>Если не удалось найти ни одного подключенного генератора, будет сформирован массив, состоящий из одной строки: "Генераторы не обнаружены"</br></value>
         /// <returns>Массив имён подключенных к компъютеру генераторов DS360 </returns>
         public static string[] FindAllDS360(bool needRefreshGeneratorsList = false)
         {
@@ -507,10 +506,18 @@ namespace LibDevicesManager
                 {
                     generators[i] = generatorsList[i];
                 }
-                //comPortDefaultName = generators[0];
                 return generators;
             }
             List<string> ports = ComPort.PortsNamesList;
+            Task[] TasksPushGeneratorList = new Task[ports.Count];
+            for (int i = 0; i < ports.Count; i++)
+            {
+                int portNum = i;
+                TasksPushGeneratorList[i] = (new Task(() => PushGeneratorsList(ports, portNum)));
+                TasksPushGeneratorList[i].Start();
+            }
+            Task.WaitAll(TasksPushGeneratorList);
+            /*
             string deviceName = string.Empty;
             string identificationString = string.Empty;
             for (int i = 0; i < ports.Count; i++)
@@ -530,6 +537,7 @@ namespace LibDevicesManager
                 }
                 //--ForTest
             }
+            */
             if (generatorsList.Count == 0)
             {
                 generatorsList.Add("Генераторы не обнаружены");
@@ -1082,6 +1090,25 @@ namespace LibDevicesManager
             identificationString = identificationString.Substring(0, identificationString.Length - 1);
             ComPort.PortClose(port);
             return identificationString;
+        }
+        private static void PushGeneratorsList(List<string> ports, int portNum)
+        {
+            string deviceName = string.Empty;
+            string identificationString = string.Empty;
+            identificationString = GetDS360IdentificationString(ports[portNum]);
+            if (IsItDS360(identificationString))
+            {
+                deviceName = $"{ports[portNum]}: DS360, s/n{GetSerialNumber(identificationString)}";
+                generatorsList.Add(deviceName);
+            }
+            //ForTest
+            identificationString = GetDS360EIdentificationString(ports[portNum]);
+            if (IsItDS360E(identificationString))
+            {
+                deviceName = $"{ports[portNum]}: DS360E, s/n{GetSerialNumber(identificationString)}";
+                generatorsList.Add(deviceName);
+            }
+            //--ForTest
         }
         #endregion CommunicateWithDS360
 

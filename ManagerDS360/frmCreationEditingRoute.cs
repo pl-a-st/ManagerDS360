@@ -34,6 +34,7 @@ namespace ManagerDS360
         public SaveName SaveName;
         public TypeFormOpen TypeFormOpen;
         public FileInfo FileInfo;
+        private DS360SettingVibroSigParam LastDS360Setting;
 
         Timer timer;
 
@@ -86,7 +87,7 @@ namespace ManagerDS360
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
             SelectedNodeWithSetup.Nodes.Add(treeNodeWihtSetting);
             SelectedNodeWithSetup.Expand();
-           treRouteTree.SelectedNode = treeNodeWihtSetting;
+            treRouteTree.SelectedNode = treeNodeWihtSetting;
         }
         //обновление окна CreationEditingRoute
         void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
@@ -94,7 +95,7 @@ namespace ManagerDS360
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             if (editingSettings.SaveStatus == SaveStatus.Save)
             {
-                lblSave.Visible = true;
+                //lblSave.Visible = true;
                 timer = new Timer();
                 timer.Interval = 2000;
                 timer.Enabled = true;
@@ -107,7 +108,7 @@ namespace ManagerDS360
         //таймер для сохранения
         internal void timeTick(object sender, EventArgs e)
         {
-            lblSave.Visible = false;
+            //lblSave.Visible = false;
             timer.Enabled = false;
         }
 
@@ -149,6 +150,11 @@ namespace ManagerDS360
             editingSettings.SaveStatus = SaveStatus.Cancel;
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
+            if (chkUseLastSetting.Checked && LastDS360Setting != null)
+            {
+                var DS360Setting = PmData.CloneObj(LastDS360Setting);
+                СonfigureEditingSettings(DS360Setting, editingSettings);
+            }
             editingSettings.ShowDialog();
             if (editingSettings.SaveStatus != SaveStatus.Save)
             {
@@ -157,6 +163,7 @@ namespace ManagerDS360
             string textNode = GetTextNode(editingSettings);
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Setting, textNode);
             treeNode.DS360Setting = editingSettings.DS360Setting;
+            LastDS360Setting = PmData.CloneObj(editingSettings.DS360Setting);
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNode);
@@ -400,7 +407,7 @@ namespace ManagerDS360
                 MessageBox.Show("Не введено название маршрута!");
                 return;
             }
-            
+
             if (TypeFormOpen == TypeFormOpen.ToСreate)
             {
                 string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения маршрута.", out MethodResultStatus resultStatus);
@@ -409,7 +416,7 @@ namespace ManagerDS360
                     MessageBox.Show("Не выбран путь для сохранения!");
                     return;
                 }
-                FileInfo =new FileInfo( pathDyrectoryForRouteFile + @"\" + txtNameRoute.Text + ".rout");
+                FileInfo = new FileInfo(pathDyrectoryForRouteFile + @"\" + txtNameRoute.Text + ".rout");
             }
             TreeNodeWithSetting[] treeNodeWithSettings = new TreeNodeWithSetting[treRouteTree.Nodes.Count];
             treRouteTree.Nodes.CopyTo(treeNodeWithSettings, 0);
@@ -423,7 +430,7 @@ namespace ManagerDS360
                 PmData.RouteAddresses.Add(FileInfo);
                 DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
             }
-            if (MessageBox.Show("Файл маршрута успешно сохранен! Закртыть окно редактирования?","Сообщение",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Файл маршрута успешно сохранен! Закртыть окно редактирования?", "Сообщение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 this.Close();
                 return;

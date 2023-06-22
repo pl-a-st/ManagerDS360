@@ -187,7 +187,7 @@
             this.lblOffset.Name = "lblOffset";
             this.lblOffset.Size = new System.Drawing.Size(79, 13);
             this.lblOffset.TabIndex = 14;
-            this.lblOffset.Text = "Смещение mB";
+            this.lblOffset.Text = "Смещение мВ";
             this.lblOffset.Click += new System.EventHandler(this.lblOffset_Click);
             // 
             // cboDetector

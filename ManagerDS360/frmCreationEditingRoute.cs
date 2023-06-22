@@ -490,5 +490,86 @@ namespace ManagerDS360
             SaveName = SaveName.Cancel;
             this.Close();
         }
+
+        private void picButUp_Click(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            TreeNode node = treRouteTree.SelectedNode;
+            TreeNode parent = treRouteTree.SelectedNode.Parent;
+            System.Windows.Forms.TreeView view = treRouteTree.SelectedNode.TreeView;
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index - 1, node);
+                }
+            }
+            else if (node.TreeView.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index - 1, node);
+                }
+            }
+            treRouteTree.SelectedNode = node;
+        }
+
+        private void picButDown_Click(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            TreeNode node = treRouteTree.SelectedNode;
+            TreeNode parent = node.Parent;
+            System.Windows.Forms.TreeView view = node.TreeView;
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+                if (index < parent.Nodes.Count - 1)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index + 1, node);
+                }
+            }
+            else if (view != null && view.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index < view.Nodes.Count - 1)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index + 1, node);
+                }
+            }
+            treRouteTree.SelectedNode = node;
+        }
+
+       
+
+        private void picButUp_MouseEnter(object sender, EventArgs e)
+        {
+            picButUp.Image = Properties.Resources.Стрелка_вверх2;
+        }
+        private void picButUp_MouseLeave(object sender, EventArgs e)
+        {
+            picButUp.Image = Properties.Resources.Стрелка_вверх1;
+        }
+
+        private void picButDown_MouseEnter(object sender, EventArgs e)
+        {
+            picButDown.Image = Properties.Resources.Стрелка_вниз2;
+        }
+
+        private void picButDown_MouseLeave(object sender, EventArgs e)
+        {
+            picButDown.Image = Properties.Resources.Стрелка_вниз1;
+        }
     }
 }

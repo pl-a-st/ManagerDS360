@@ -151,4 +151,16 @@
   <data name="предыдущий_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\предыдущий 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Стрелка_вверх1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Стрелка вверх1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Стрелка_вверх2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Стрелка вверх2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Стрелка_вниз1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Стрелка вниз1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Стрелка_вниз2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Стрелка вниз2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

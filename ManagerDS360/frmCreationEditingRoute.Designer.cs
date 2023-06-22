@@ -37,19 +37,23 @@
             this.butEditSetting = new System.Windows.Forms.Button();
             this.butDelete = new System.Windows.Forms.Button();
             this.butSave = new System.Windows.Forms.Button();
-            this.butUp = new System.Windows.Forms.Button();
-            this.butDown = new System.Windows.Forms.Button();
             this.butAllDelete = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.chkUseLastSetting = new System.Windows.Forms.CheckBox();
+            this.picButUp = new System.Windows.Forms.PictureBox();
+            this.picButDown = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picButUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picButDown)).BeginInit();
             this.SuspendLayout();
             // 
             // txtNameRoute
             // 
-            this.txtNameRoute.Location = new System.Drawing.Point(19, 40);
+            this.txtNameRoute.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNameRoute.Location = new System.Drawing.Point(18, 26);
             this.txtNameRoute.Name = "txtNameRoute";
-            this.txtNameRoute.Size = new System.Drawing.Size(268, 20);
+            this.txtNameRoute.Size = new System.Drawing.Size(763, 20);
             this.txtNameRoute.TabIndex = 0;
             this.txtNameRoute.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
             // 
@@ -57,7 +61,7 @@
             // 
             this.lblRouteName.AutoSize = true;
             this.lblRouteName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRouteName.Location = new System.Drawing.Point(16, 23);
+            this.lblRouteName.Location = new System.Drawing.Point(17, 9);
             this.lblRouteName.Name = "lblRouteName";
             this.lblRouteName.Size = new System.Drawing.Size(138, 14);
             this.lblRouteName.TabIndex = 0;
@@ -68,7 +72,7 @@
             // 
             this.lblRouteTree.AutoSize = true;
             this.lblRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRouteTree.Location = new System.Drawing.Point(296, 23);
+            this.lblRouteTree.Location = new System.Drawing.Point(243, 60);
             this.lblRouteTree.Name = "lblRouteTree";
             this.lblRouteTree.Size = new System.Drawing.Size(124, 14);
             this.lblRouteTree.TabIndex = 9;
@@ -78,9 +82,9 @@
             // butAddFolder
             // 
             this.butAddFolder.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddFolder.Location = new System.Drawing.Point(41, 172);
+            this.butAddFolder.Location = new System.Drawing.Point(18, 144);
             this.butAddFolder.Name = "butAddFolder";
-            this.butAddFolder.Size = new System.Drawing.Size(144, 40);
+            this.butAddFolder.Size = new System.Drawing.Size(157, 40);
             this.butAddFolder.TabIndex = 3;
             this.butAddFolder.Text = "Добавить папку";
             this.butAddFolder.UseVisualStyleBackColor = true;
@@ -89,9 +93,9 @@
             // butAddSetting
             // 
             this.butAddSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddSetting.Location = new System.Drawing.Point(41, 101);
+            this.butAddSetting.Location = new System.Drawing.Point(18, 77);
             this.butAddSetting.Name = "butAddSetting";
-            this.butAddSetting.Size = new System.Drawing.Size(144, 42);
+            this.butAddSetting.Size = new System.Drawing.Size(157, 40);
             this.butAddSetting.TabIndex = 2;
             this.butAddSetting.Text = "Добавить настройку";
             this.butAddSetting.UseVisualStyleBackColor = true;
@@ -100,9 +104,9 @@
             // butEditSetting
             // 
             this.butEditSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditSetting.Location = new System.Drawing.Point(41, 234);
+            this.butEditSetting.Location = new System.Drawing.Point(18, 210);
             this.butEditSetting.Name = "butEditSetting";
-            this.butEditSetting.Size = new System.Drawing.Size(144, 40);
+            this.butEditSetting.Size = new System.Drawing.Size(157, 40);
             this.butEditSetting.TabIndex = 4;
             this.butEditSetting.Text = "Редактировать узел";
             this.butEditSetting.UseVisualStyleBackColor = true;
@@ -111,10 +115,10 @@
             // butDelete
             // 
             this.butDelete.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDelete.Location = new System.Drawing.Point(41, 331);
+            this.butDelete.Location = new System.Drawing.Point(18, 322);
             this.butDelete.MinimumSize = new System.Drawing.Size(110, 27);
             this.butDelete.Name = "butDelete";
-            this.butDelete.Size = new System.Drawing.Size(144, 40);
+            this.butDelete.Size = new System.Drawing.Size(157, 40);
             this.butDelete.TabIndex = 5;
             this.butDelete.Text = "Удалить узел";
             this.butDelete.UseVisualStyleBackColor = true;
@@ -124,44 +128,21 @@
             // 
             this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butSave.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(299, 414);
-            this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butSave.Location = new System.Drawing.Point(246, 427);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
-            this.butSave.Size = new System.Drawing.Size(110, 27);
+            this.butSave.Size = new System.Drawing.Size(110, 40);
             this.butSave.TabIndex = 11;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
             this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
-            // butUp
-            // 
-            this.butUp.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butUp.Location = new System.Drawing.Point(226, 171);
-            this.butUp.Name = "butUp";
-            this.butUp.Size = new System.Drawing.Size(63, 33);
-            this.butUp.TabIndex = 7;
-            this.butUp.Text = "Вверх";
-            this.butUp.UseVisualStyleBackColor = true;
-            this.butUp.Click += new System.EventHandler(this.butUp_Click);
-            // 
-            // butDown
-            // 
-            this.butDown.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDown.Location = new System.Drawing.Point(226, 226);
-            this.butDown.Name = "butDown";
-            this.butDown.Size = new System.Drawing.Size(63, 33);
-            this.butDown.TabIndex = 8;
-            this.butDown.Text = "Вниз";
-            this.butDown.UseVisualStyleBackColor = true;
-            this.butDown.Click += new System.EventHandler(this.butDown_Click);
-            // 
             // butAllDelete
             // 
             this.butAllDelete.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAllDelete.Location = new System.Drawing.Point(41, 377);
+            this.butAllDelete.Location = new System.Drawing.Point(18, 368);
             this.butAllDelete.Name = "butAllDelete";
-            this.butAllDelete.Size = new System.Drawing.Size(144, 40);
+            this.butAllDelete.Size = new System.Drawing.Size(157, 40);
             this.butAllDelete.TabIndex = 6;
             this.butAllDelete.Text = "Очистить дерево";
             this.butAllDelete.UseVisualStyleBackColor = true;
@@ -171,11 +152,10 @@
             // 
             this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butCancel.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCancel.Location = new System.Drawing.Point(718, 414);
-            this.butCancel.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butCancel.Location = new System.Drawing.Point(671, 427);
             this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
             this.butCancel.Name = "butCancel";
-            this.butCancel.Size = new System.Drawing.Size(110, 27);
+            this.butCancel.Size = new System.Drawing.Size(110, 40);
             this.butCancel.TabIndex = 12;
             this.butCancel.Text = "Отмена";
             this.butCancel.UseVisualStyleBackColor = true;
@@ -187,33 +167,61 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(299, 42);
+            this.treRouteTree.Location = new System.Drawing.Point(246, 77);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(529, 366);
+            this.treRouteTree.Size = new System.Drawing.Size(535, 330);
             this.treRouteTree.TabIndex = 10;
             // 
             // chkUseLastSetting
             // 
             this.chkUseLastSetting.AutoSize = true;
-            this.chkUseLastSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkUseLastSetting.Location = new System.Drawing.Point(19, 66);
+            this.chkUseLastSetting.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkUseLastSetting.Location = new System.Drawing.Point(18, 62);
             this.chkUseLastSetting.Name = "chkUseLastSetting";
-            this.chkUseLastSetting.Size = new System.Drawing.Size(182, 32);
+            this.chkUseLastSetting.Size = new System.Drawing.Size(157, 17);
             this.chkUseLastSetting.TabIndex = 14;
-            this.chkUseLastSetting.Text = "Брать значения\r\nпредыдущей настройки";
+            this.chkUseLastSetting.Text = "запоминать настройку";
             this.chkUseLastSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkUseLastSetting.UseVisualStyleBackColor = true;
+            // 
+            // picButUp
+            // 
+            this.picButUp.BackColor = System.Drawing.Color.Transparent;
+            this.picButUp.Image = global::ManagerDS360.Properties.Resources.Стрелка_вверх1;
+            this.picButUp.Location = new System.Drawing.Point(204, 184);
+            this.picButUp.Name = "picButUp";
+            this.picButUp.Size = new System.Drawing.Size(35, 35);
+            this.picButUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picButUp.TabIndex = 15;
+            this.picButUp.TabStop = false;
+            this.picButUp.Click += new System.EventHandler(this.picButUp_Click);
+            this.picButUp.MouseEnter += new System.EventHandler(this.picButUp_MouseEnter);
+            this.picButUp.MouseLeave += new System.EventHandler(this.picButUp_MouseLeave);
+            // 
+            // picButDown
+            // 
+            this.picButDown.BackColor = System.Drawing.Color.Transparent;
+            this.picButDown.Image = global::ManagerDS360.Properties.Resources.Стрелка_вниз1;
+            this.picButDown.Location = new System.Drawing.Point(204, 248);
+            this.picButDown.Name = "picButDown";
+            this.picButDown.Size = new System.Drawing.Size(35, 35);
+            this.picButDown.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picButDown.TabIndex = 15;
+            this.picButDown.TabStop = false;
+            this.picButDown.Click += new System.EventHandler(this.picButDown_Click);
+            this.picButDown.MouseEnter += new System.EventHandler(this.picButDown_MouseEnter);
+            this.picButDown.MouseLeave += new System.EventHandler(this.picButDown_MouseLeave);
             // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 480);
+            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.picButDown);
+            this.Controls.Add(this.picButUp);
             this.Controls.Add(this.treRouteTree);
             this.Controls.Add(this.butAllDelete);
-            this.Controls.Add(this.butDown);
-            this.Controls.Add(this.butUp);
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.butDelete);
@@ -230,6 +238,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Создание и редактирование маршрута";
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picButUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picButDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,11 +255,11 @@
         internal System.Windows.Forms.Button butEditSetting;
         internal System.Windows.Forms.Button butDelete;
         internal System.Windows.Forms.Button butSave;
-        internal System.Windows.Forms.Button butUp;
-        internal System.Windows.Forms.Button butDown;
         private System.Windows.Forms.Button butAllDelete;
         internal System.Windows.Forms.Button butCancel;
         public LibControls.TreeViewWithSetting treRouteTree;
         private System.Windows.Forms.CheckBox chkUseLastSetting;
+        private System.Windows.Forms.PictureBox picButUp;
+        private System.Windows.Forms.PictureBox picButDown;
     }
 }

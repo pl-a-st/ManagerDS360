@@ -592,6 +592,7 @@ namespace LibDevicesManager
             }
             return;
             //
+            /*
             generators = new string[generatorsList.Count];
             for (int i = 0; i < generatorsList.Count; i++)
             {
@@ -599,6 +600,7 @@ namespace LibDevicesManager
             }
             comPortDefaultName = generators[0];
             return;
+            */
         }
         /// <summary>
         /// Проверяет корректность введённых параметров сигнала

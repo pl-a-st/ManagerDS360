@@ -571,5 +571,15 @@ namespace ManagerDS360
         {
             picButDown.Image = Properties.Resources.Стрелка_вниз1;
         }
+
+        private void butCpopy_Click(object sender, EventArgs e)
+        {
+            treRouteTree.CopySelectedNode();
+        }
+
+        private void butPaste_Click(object sender, EventArgs e)
+        {
+            treRouteTree.PasteCopyTreeNode();   
+        }
     }
 }

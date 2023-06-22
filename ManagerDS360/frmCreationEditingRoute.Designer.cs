@@ -43,6 +43,8 @@
             this.chkUseLastSetting = new System.Windows.Forms.CheckBox();
             this.picButUp = new System.Windows.Forms.PictureBox();
             this.picButDown = new System.Windows.Forms.PictureBox();
+            this.butCpopy = new System.Windows.Forms.Button();
+            this.butPaste = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picButUp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picButDown)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +84,7 @@
             // butAddFolder
             // 
             this.butAddFolder.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddFolder.Location = new System.Drawing.Point(18, 144);
+            this.butAddFolder.Location = new System.Drawing.Point(18, 123);
             this.butAddFolder.Name = "butAddFolder";
             this.butAddFolder.Size = new System.Drawing.Size(157, 40);
             this.butAddFolder.TabIndex = 3;
@@ -104,7 +106,7 @@
             // butEditSetting
             // 
             this.butEditSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditSetting.Location = new System.Drawing.Point(18, 210);
+            this.butEditSetting.Location = new System.Drawing.Point(18, 169);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(157, 40);
             this.butEditSetting.TabIndex = 4;
@@ -213,6 +215,28 @@
             this.picButDown.MouseEnter += new System.EventHandler(this.picButDown_MouseEnter);
             this.picButDown.MouseLeave += new System.EventHandler(this.picButDown_MouseLeave);
             // 
+            // butCpopy
+            // 
+            this.butCpopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butCpopy.Location = new System.Drawing.Point(18, 215);
+            this.butCpopy.Name = "butCpopy";
+            this.butCpopy.Size = new System.Drawing.Size(157, 40);
+            this.butCpopy.TabIndex = 4;
+            this.butCpopy.Text = "Копировать узел";
+            this.butCpopy.UseVisualStyleBackColor = true;
+            this.butCpopy.Click += new System.EventHandler(this.butCpopy_Click);
+            // 
+            // butPaste
+            // 
+            this.butPaste.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butPaste.Location = new System.Drawing.Point(18, 261);
+            this.butPaste.Name = "butPaste";
+            this.butPaste.Size = new System.Drawing.Size(157, 40);
+            this.butPaste.TabIndex = 4;
+            this.butPaste.Text = "Вставить узел";
+            this.butPaste.UseVisualStyleBackColor = true;
+            this.butPaste.Click += new System.EventHandler(this.butPaste_Click);
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,6 +249,8 @@
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.butDelete);
+            this.Controls.Add(this.butPaste);
+            this.Controls.Add(this.butCpopy);
             this.Controls.Add(this.butEditSetting);
             this.Controls.Add(this.butAddSetting);
             this.Controls.Add(this.butAddFolder);
@@ -261,5 +287,7 @@
         private System.Windows.Forms.CheckBox chkUseLastSetting;
         private System.Windows.Forms.PictureBox picButUp;
         private System.Windows.Forms.PictureBox picButDown;
+        internal System.Windows.Forms.Button butCpopy;
+        internal System.Windows.Forms.Button butPaste;
     }
 }

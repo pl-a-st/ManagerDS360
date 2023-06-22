@@ -67,7 +67,10 @@ namespace LibControls
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
     {
-
+        public TreeNodeWithSetting(string text)
+        {
+            Text = text;
+        }
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
         public TreeNodeWithSetting(NodeType nodeType, string text)
@@ -132,6 +135,21 @@ namespace LibControls
                 this.SelectedImageIndex = 1;
             }
         }
+        public TreeNodeWithSetting Copy()
+        {
+            TreeNodeWithSetting treeNodeWithSetting = new TreeNodeWithSetting(this.NodeType,this.Text);
+            treeNodeWithSetting.DS360Setting = DS360Setting.CloneObj();
+            if (this.IsExpanded)
+            {
+                treeNodeWithSetting.Expand();
+            }
+            foreach (TreeNodeWithSetting node in this.Nodes)
+            {
+                treeNodeWithSetting.Nodes.Add(node.Copy());
+                
+            }
+            return treeNodeWithSetting;
+        }
     }
     [Serializable]
     public class TreeViewWithSetting : TreeView
@@ -193,5 +211,31 @@ namespace LibControls
                 LastSelectedTreeNode.BackColor = Color.White;
             }
         }
+
+        public void CopySelectedNode()
+        {
+            TreeNodeWithSetting selectedNode = this.SelectedNode as TreeNodeWithSetting;
+            if (selectedNode == null)
+            {
+                return;
+            }
+            
+            CopyTreeNodeWithSetup = selectedNode.Copy();
+        }
+        public void PasteCopyTreeNode()
+        {
+            if (CopyTreeNodeWithSetup == null)
+            {
+                return;
+            }
+            TreeNodeWithSetting selectedNode = this.SelectedNode as TreeNodeWithSetting;
+            if (selectedNode == null)
+            {
+                this.Nodes.Add(CopyTreeNodeWithSetup.Copy());
+                return;
+            }
+            selectedNode.Nodes.Add(CopyTreeNodeWithSetup.Copy());
+        }
+
     }
 }

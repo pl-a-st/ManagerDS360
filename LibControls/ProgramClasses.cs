@@ -16,4 +16,14 @@ namespace LibControls
         public SignalParametrType SignalParametrTone2;
         public Sensitivity Sensitivity=new Sensitivity();
     }
+    public static  class PmData
+    {
+        public static T CloneObj<T>(this T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            return (T)inst?.Invoke(obj, null);
+        }
+
+    }
 }

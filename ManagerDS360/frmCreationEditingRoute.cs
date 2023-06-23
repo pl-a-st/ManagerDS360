@@ -191,7 +191,16 @@ namespace ManagerDS360
                 textNode += editingSettings.txtValue2.Text;
                 textNode += "  F:" + editingSettings.txtFrequency2.Text + "]  ";
             }
-            textNode += "[Offset:" + editingSettings.txtOffset.Text + "]";
+            textNode += "[Offset:" + editingSettings.txtOffset.Text + "] ";
+            textNode += "[COM: ";
+            if (editingSettings.chcDefaultGenerator.Checked)
+            {
+                textNode += "default]";
+            }
+            else
+            {
+                textNode += editingSettings.numComName.Value.ToString() + "]";
+            }
             return textNode;
         }
         /// <summary>

@@ -539,11 +539,10 @@ namespace LibDevicesManager
             {
                 generatorsList = new List<string>();
             }
-            if (needRefreshGeneratorsList) //
+            if (needRefreshGeneratorsList) // М.б надо всегда обновлять?!
             {
                 generatorsList.Clear();
             }
-            string[] generators;//
             string firstFoundGenerator = string.Empty;
             if (generatorsList.Count != 0)
             {
@@ -565,42 +564,16 @@ namespace LibDevicesManager
                 {
                     portName = ports[i];
                     tasksPushDefaultGenerator[i] = new Task(() => PushDefaultGenerator(portName));
-                    tasksPushDefaultGenerator[i].Start();
                 }
-                comPortDefaultName = "NONE";
-                bool isTasksComleted = true;
-                do
-                {
-                    foreach (Task t in tasksPushDefaultGenerator)
-                    {
-                        if (!t.IsCompleted)
-                        {
-                           isTasksComleted = false;
-                        }
-                    }
-
-                }
-                while (comPortDefaultName == "NONE" && !isTasksComleted);
-                //Task checkGeneratorDefault = new Task(() => CheckGeneratorDefault());
-                //checkGeneratorDefault.Wait();
+                Task checkGeneratorDefault = new Task(() => CheckGeneratorDefault(tasksPushDefaultGenerator));
+                checkGeneratorDefault.Start();
+                checkGeneratorDefault.Wait();
             }
-
-            //
             if (IsComPortDefaultNameEmpty())
             {
                 generatorsList.Add("Генераторы не обнаружены");
             }
             return;
-            //
-            /*
-            generators = new string[generatorsList.Count];
-            for (int i = 0; i < generatorsList.Count; i++)
-            {
-                generators[i] = generatorsList[i];
-            }
-            comPortDefaultName = generators[0];
-            return;
-            */
         }
         /// <summary>
         /// Проверяет корректность введённых параметров сигнала
@@ -1199,9 +1172,26 @@ namespace LibDevicesManager
             }
             return false;
         }
-        private static void CheckGeneratorDefault()
+        private static void CheckGeneratorDefault(Task[] findTasks)
         {
-
+            comPortDefaultName = "NONE";
+            bool isAllTasksComleted;
+            foreach (Task task in findTasks)
+            {
+                task.Start();
+            }
+            do
+            {
+                isAllTasksComleted = true;
+                foreach (Task task in findTasks)
+                {
+                    if (task.Status != TaskStatus.RanToCompletion)
+                    {
+                        isAllTasksComleted = false;
+                    }
+                }
+            }
+            while (comPortDefaultName == "NONE" && !isAllTasksComleted);
         }
         #endregion CommunicateWithDS360
 
@@ -1292,8 +1282,6 @@ namespace LibDevicesManager
         }
         private bool CompareValues(string value1, string value2)
         {
-            //value1 = value1.Replace(".", decimalSeparator);
-            //value2 = value2.Replace(".", decimalSeparator);
             if (!AgTryParse(value1, out double double1))
             {
                 return false;

@@ -139,10 +139,11 @@ namespace ManagerDS360
             }
             Panel panel = new Panel();
             InsertControls(panel, new ProgressBar(), new Label());
-            Task<string[]> getComes = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
+            //Task<string[]> getComes = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
+            Task getComes = new Task(() => DS360Setting.SetFirstDS360AsDefault());
             await Task.Run(() => getComes.Start());
             await Task.Run(() => getComes.Wait());
-            DS360Setting.ComPortDefaultName = getComes.Result[0];
+            //DS360Setting.ComPortDefaultName = getComes.Result[0];
             string name = DS360Setting.ComPortDefaultName;
             if (name == "NONE")
             {

@@ -70,10 +70,10 @@ namespace ManagerDS360
         {
             if (Type == Type.Create || Type == Type.Control)
             {
-                InitializecboSetValue();
-                InitializecboTypeSignal();
-                InitializecboDetector();
-                InitializecboDetector2();
+                await InitializecboSetValue();
+                await InitializecboTypeSignal();
+                await InitializecboDetector();
+                await InitializecboDetector2();
             }
             //взять енам из ds360.сs FunctionType
 

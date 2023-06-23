@@ -1192,6 +1192,7 @@ namespace LibDevicesManager
                 }
             }
             while (comPortDefaultName == "NONE" && !isAllTasksComleted);
+            Task.WaitAll(findTasks);
         }
         #endregion CommunicateWithDS360
 

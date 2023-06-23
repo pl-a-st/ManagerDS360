@@ -47,15 +47,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtFrequency = new LibControls.ModifiedTextBox();
-            this.txtValue = new LibControls.ModifiedTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtFrequency = new LibControls.ModifiedTextBox();
+            this.txtValue = new LibControls.ModifiedTextBox();
             this.txtValue2 = new LibControls.ModifiedTextBox();
             this.txtFrequency2 = new LibControls.ModifiedTextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
             this.groupBox1.SuspendLayout();
@@ -109,6 +109,7 @@
             // 
             // cboSetValue
             // 
+            this.cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSetValue.FormattingEnabled = true;
             this.cboSetValue.Location = new System.Drawing.Point(23, 75);
             this.cboSetValue.Name = "cboSetValue";
@@ -192,6 +193,7 @@
             // 
             // cboDetector
             // 
+            this.cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector.FormattingEnabled = true;
             this.cboDetector.Location = new System.Drawing.Point(19, 93);
             this.cboDetector.Name = "cboDetector";
@@ -213,6 +215,7 @@
             // 
             // cboDetector2
             // 
+            this.cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector2.FormattingEnabled = true;
             this.cboDetector2.Location = new System.Drawing.Point(17, 93);
             this.cboDetector2.Name = "cboDetector2";
@@ -280,24 +283,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Основной сигнал";
             // 
-            // txtFrequency
-            // 
-            this.txtFrequency.Location = new System.Drawing.Point(19, 139);
-            this.txtFrequency.MaxLength = 9;
-            this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency.TabIndex = 10;
-            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
-            // 
-            // txtValue
-            // 
-            this.txtValue.Location = new System.Drawing.Point(19, 48);
-            this.txtValue.MaxLength = 9;
-            this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(143, 20);
-            this.txtValue.TabIndex = 8;
-            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label2);
@@ -341,24 +326,6 @@
             this.label3.Text = "Частота, Гц";
             this.label3.Click += new System.EventHandler(this.lblFrequency_Click);
             // 
-            // txtValue2
-            // 
-            this.txtValue2.Location = new System.Drawing.Point(17, 48);
-            this.txtValue2.MaxLength = 9;
-            this.txtValue2.Name = "txtValue2";
-            this.txtValue2.Size = new System.Drawing.Size(143, 20);
-            this.txtValue2.TabIndex = 11;
-            this.txtValue2.TextChanged += new System.EventHandler(this.txtValue2_TextChanged);
-            // 
-            // txtFrequency2
-            // 
-            this.txtFrequency2.Location = new System.Drawing.Point(17, 139);
-            this.txtFrequency2.MaxLength = 9;
-            this.txtFrequency2.Name = "txtFrequency2";
-            this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
-            this.txtFrequency2.TabIndex = 13;
-            this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.groupBox2);
@@ -376,6 +343,42 @@
             this.groupBox4.Size = new System.Drawing.Size(587, 251);
             this.groupBox4.TabIndex = 38;
             this.groupBox4.TabStop = false;
+            // 
+            // txtFrequency
+            // 
+            this.txtFrequency.Location = new System.Drawing.Point(19, 139);
+            this.txtFrequency.MaxLength = 9;
+            this.txtFrequency.Name = "txtFrequency";
+            this.txtFrequency.Size = new System.Drawing.Size(143, 20);
+            this.txtFrequency.TabIndex = 10;
+            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
+            // 
+            // txtValue
+            // 
+            this.txtValue.Location = new System.Drawing.Point(19, 48);
+            this.txtValue.MaxLength = 9;
+            this.txtValue.Name = "txtValue";
+            this.txtValue.Size = new System.Drawing.Size(143, 20);
+            this.txtValue.TabIndex = 8;
+            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
+            // 
+            // txtValue2
+            // 
+            this.txtValue2.Location = new System.Drawing.Point(17, 48);
+            this.txtValue2.MaxLength = 9;
+            this.txtValue2.Name = "txtValue2";
+            this.txtValue2.Size = new System.Drawing.Size(143, 20);
+            this.txtValue2.TabIndex = 11;
+            this.txtValue2.TextChanged += new System.EventHandler(this.txtValue2_TextChanged);
+            // 
+            // txtFrequency2
+            // 
+            this.txtFrequency2.Location = new System.Drawing.Point(17, 139);
+            this.txtFrequency2.MaxLength = 9;
+            this.txtFrequency2.Name = "txtFrequency2";
+            this.txtFrequency2.Size = new System.Drawing.Size(143, 20);
+            this.txtFrequency2.TabIndex = 13;
+            this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
             // 
             // txtConversionFactor
             // 

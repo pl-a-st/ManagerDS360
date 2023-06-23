@@ -221,7 +221,7 @@ namespace ManagerDS360
                 var DS360Setting = PmData.CloneObj(selectedNode.DS360Setting);
                 frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
                 СonfigureEditingSettings(DS360Setting, editingSettings);
-                editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
+                
                 editingSettings.ShowDialog();
                 if (editingSettings.SaveStatus != SaveStatus.Save)
                 {
@@ -244,17 +244,17 @@ namespace ManagerDS360
 
         }
 
-        private void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
+        private async void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
         {
             DS360SettingConvert_V_to_mV(dS360);
 
             editingSettings.Text = "Конструирование настройки";
             editingSettings.Type = Type.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
-            editingSettings.InitializecboDetector();
-            editingSettings.InitializecboDetector2();
-            editingSettings.InitializecboSetValue();
-            editingSettings.InitializecboTypeSignal();
+            await editingSettings.InitializecboSetValue();
+            await editingSettings.InitializecboDetector();
+            await editingSettings.InitializecboDetector2();
+            await editingSettings.InitializecboTypeSignal();
             editingSettings.cboDetector.SelectedItem = PmData.Detector[(Detector)dS360.SignalParametrTone1];
             editingSettings.cboDetector2.SelectedItem = PmData.Detector[(Detector)dS360.SignalParametrTone2];
             editingSettings.txtConversionFactor.Text = dS360.Sensitivity.Get_mV_G().ToString();

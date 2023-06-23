@@ -66,7 +66,7 @@ namespace ManagerDS360
         {
             InitializeComponent();
         }
-        public void frmCreationEditingSettings_Load(object sender, EventArgs e)
+        public async void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
             if (Type == Type.Create || Type == Type.Control)
             {
@@ -74,7 +74,6 @@ namespace ManagerDS360
                 InitializecboTypeSignal();
                 InitializecboDetector();
                 InitializecboDetector2();
-                InitializechcboComPort();
             }
             //взять енам из ds360.сs FunctionType
 
@@ -92,27 +91,27 @@ namespace ManagerDS360
 
             //cboComPort.Items.AddRange(DS360Setting.GetDevicesArray());
             //ААС: Добавил ниже список из 20 имён
-            
+
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
         }
 
         internal void InitializechcboComPort()
         {
         }
-        internal void InitializecboDetector2()
+        internal async Task InitializecboDetector2()
         {
             cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;  //добавление в комбобокс детектора
-
+            await Task.Delay(1);
             foreach (var element in PmData.Detector)
             {
                 cboDetector2.Items.Add(element.Value);
             }
-
             cboDetector2.SelectedIndex = (int)Detector.СКЗ;
         }
 
-        internal void InitializecboDetector()
+        internal async Task InitializecboDetector()
         {
+            await Task.Delay(1);
             cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;   //добавление в комбобокс детектора
             foreach (var element in PmData.Detector)
             {
@@ -121,29 +120,31 @@ namespace ManagerDS360
             cboDetector.SelectedIndex = (int)Detector.СКЗ;
         }
 
-        internal void InitializecboTypeSignal()
+        internal async Task InitializecboTypeSignal()
         {
             //добавление в комбобокс типов сигналов
             cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
             ////строку в Енам
             //Enum.Parse(typeof(Race), cBxRace.Text, true);
+            await Task.Delay(1);
             cboTypeSignal.Items.Clear();
-            foreach (var element in PmData.FunctionTypeSignal)
+            var elements = PmData.FunctionTypeSignal.Values.ToArray();
+            cboTypeSignal.Items.AddRange(elements);
+            if (cboSetValue.SelectedItem.ToString() == PmData.PhysicalQuantity[PhysicalQuantity.мкм] ||
+               cboSetValue.SelectedItem.ToString() == PmData.PhysicalQuantity[PhysicalQuantity.мм_с])
             {
-                if (IsElementNotForVelocityOrDisplacment(element))
-                {
-                    continue;
-                }
-                cboTypeSignal.Items.Add(element.Value);
+                cboTypeSignal.Items.Remove(PmData.FunctionTypeSignal[FunctionTypeSignal.Квадрат]);
+                cboTypeSignal.Items.Remove(PmData.FunctionTypeSignal[FunctionTypeSignal.Синус_Квадрат]);
             }
-            cboTypeSignal.SelectedIndex = 0;
+
+            cboTypeSignal.SelectedIndex = (int)FunctionTypeSignal.Синус;
         }
 
         private bool IsElementNotForVelocityOrDisplacment(KeyValuePair<FunctionTypeSignal, string> element)
         {
             return (
                 element.Key == FunctionTypeSignal.Квадрат || element.Key == FunctionTypeSignal.Синус_Квадрат) &
-                (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с || 
+                (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с ||
                 PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм);
         }
 
@@ -154,18 +155,15 @@ namespace ManagerDS360
         /// <summary>
         /// добавление в комбобокс физ.величин
         /// </summary>
-        internal void InitializecboSetValue()
+        internal async Task InitializecboSetValue()
         {
-            cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
-            foreach (var element in PmData.PhysicalQuantity)
-            {
-                cboSetValue.Items.Add(element.Value);
-            }
-            cboSetValue.SelectedIndex = 0;
-        }
-        private static string SetValueToString(int element)
-        {
-            return ((PhysicalQuantity)element).ToString().Replace("_", " / ");
+            await Task.Delay(1);
+            var elements = PmData.PhysicalQuantity.Values.ToArray();
+            cboSetValue.BeginUpdate();
+            cboSetValue.Items.AddRange(elements);
+
+            cboSetValue.SelectedIndex = (int)PhysicalQuantity.U;
+            cboSetValue.EndUpdate();
         }
 
         internal void butSave_Click(object sender, EventArgs e)
@@ -377,9 +375,19 @@ namespace ManagerDS360
         {
         }
 
-        private void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cboSetValue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            InitializecboTypeSignal();
+            string item = string.Empty;
+            if (cboTypeSignal.SelectedIndex != -1)
+            {
+                item= cboTypeSignal.SelectedItem.ToString();
+            }
+            await InitializecboTypeSignal();
+            if (cboTypeSignal.Items.Contains(item))
+            {
+                cboTypeSignal.SelectedItem = item;
+            }
+
         }
 
         private void lblConversionFactor_Click(object sender, EventArgs e)
@@ -440,7 +448,7 @@ namespace ManagerDS360
         }
 
         private void txtFrequency2_TextChanged(object sender, EventArgs e)
-        { 
+        {
         }
 
         private void cboDetector2_SelectedIndexChanged(object sender, EventArgs e)
@@ -452,7 +460,7 @@ namespace ManagerDS360
         }
 
         private void txtValue2_TextChanged(object sender, EventArgs e)
-        {  
+        {
         }
 
         private void numComName_KeyPress(object sender, KeyPressEventArgs e)

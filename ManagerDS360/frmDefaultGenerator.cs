@@ -23,12 +23,21 @@ namespace ManagerDS360
         {
         }
 
-        internal void frmDefaultGenerator_Load(object sender, EventArgs e)
+        internal async void frmDefaultGenerator_Load(object sender, EventArgs e)
         {
-            //cboListComPorts.Items.AddRange(DS360Setting.GetDevicesArray());
-            cboListComPorts.Items.AddRange(DS360Setting.FindAllDS360());
+            ProgressBar progressBar = new ProgressBar();
+            Label label = new Label();
+            groupBox1.Enabled = false;
+            InsertControls(progressBar, label);
+            Task<string[]> getComs = new Task<string[]>(() => DS360Setting.FindAllDS360());
+            Task.Run(() => getComs.Start());
+            await Task.Run(() => getComs.Wait());
+            cboListComPorts.Items.AddRange(getComs.Result);
             cboListComPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cboListComPorts.SelectedIndex = 0;
+            groupBox1.Enabled = true;
+            progressBar.Dispose();
+            label.Dispose();
         }
 
         internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)

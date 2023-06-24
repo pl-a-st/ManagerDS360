@@ -157,6 +157,7 @@ namespace ManagerDS360 {
             this.butNext.BackColor = System.Drawing.Color.Transparent;
             this.butNext.BackgroundImage = global::ManagerDS360.Properties.Resources.следующий;
             this.butNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butNext.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butNext.FlatAppearance.BorderSize = 0;
             this.butNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
@@ -178,6 +179,7 @@ namespace ManagerDS360 {
             this.butPrevious.BackColor = System.Drawing.Color.Transparent;
             this.butPrevious.BackgroundImage = global::ManagerDS360.Properties.Resources.предыдущий;
             this.butPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butPrevious.FlatAppearance.BorderSize = 0;
             this.butPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;

@@ -158,7 +158,7 @@ namespace ManagerDS360
         }
         private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
         {
-            panel.Height = (int)(this.Height/3);
+            panel.Height = (int)(this.Height / 3);
             panel.Width = (int)(this.Width / 2);
             panel.BackColor = Color.DarkGray;
             panel.Location = new Point(
@@ -172,7 +172,7 @@ namespace ManagerDS360
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.MarqueeAnimationSpeed = 1;
             label.AutoSize = true;
-            label.Font = new Font("Verdana",9, FontStyle.Regular);
+            label.Font = new Font("Verdana", 9, FontStyle.Regular);
             label.Text = "Идет поиск генераторов";
             label.BackColor = Color.Transparent;
             label.Parent = progressBar;
@@ -260,15 +260,7 @@ namespace ManagerDS360
             picPlay.Image = Properties.Resources.Play;
         }
 
-        private void pictureBox2_MouseEnter(object sender, EventArgs e)
-        {
-            picNext.Image = Properties.Resources.следующий_2;
-        }
-
-        private void pictureBox2_MouseLeave(object sender, EventArgs e)
-        {
-            picNext.Image = Properties.Resources.следующий;
-        }
+       
 
         private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -311,16 +303,6 @@ namespace ManagerDS360
             return "нет";
         }
 
-        private void picPrevious_MouseEnter(object sender, EventArgs e)
-        {
-            picPrevious.Image = Properties.Resources.предыдущий_2;
-        }
-
-        private void picPrevious_MouseLeave(object sender, EventArgs e)
-        {
-            picPrevious.Image = Properties.Resources.предыдущий;
-        }
-
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var version = Assembly.GetEntryAssembly().GetName().Version;
@@ -339,6 +321,144 @@ namespace ManagerDS360
             frmEditingRoutes editingRoutes = new frmEditingRoutes();
             editingRoutes.ShowDialog();
             LoadCboSavedRoutes();
+        }
+
+        private void picNext_Click(object sender, EventArgs e)
+        {
+
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+
+
+        }
+        private TreeNode GetNextParentNode(TreeNode selectedNode)
+        {
+            if (selectedNode.Parent is TreeNode)
+            {
+                if (selectedNode.Parent.NextNode != null)
+                {
+                    return selectedNode.Parent.NextNode;
+                }
+                return GetNextParentNode(selectedNode.Parent);
+            }
+            return selectedNode;
+        }
+        private void butNext_Click(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            SelectNextSetting();
+            SendNodeSetting();
+        }
+
+        private void SelectNextSetting()
+        {
+            if (treRouteTree.SelectedNode.NextVisibleNode == null)
+            {
+                return;
+            }
+            if (!treRouteTree.SelectedNode.NextVisibleNode.IsExpanded)
+            {
+                treRouteTree.SelectedNode.NextVisibleNode.Expand();
+            }
+            treRouteTree.SelectedNode = treRouteTree.SelectedNode.NextVisibleNode;
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            {
+                SelectNextSetting();
+            }
+        }
+        private void SelectPreviousSetting()
+        {
+            if (treRouteTree.SelectedNode.PrevVisibleNode == null)
+            {
+                return;
+            }
+            if (!treRouteTree.SelectedNode.PrevVisibleNode.IsExpanded)
+            {
+                treRouteTree.SelectedNode.PrevVisibleNode.Expand();
+            }
+            treRouteTree.SelectedNode = treRouteTree.SelectedNode.PrevVisibleNode;
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            {
+                SelectPreviousSetting();
+            }
+
+        }
+
+        private void picPrevious_Click(object sender, EventArgs e)
+        {
+            treRouteTree.SelectedNode = treRouteTree.SelectedNode.PrevVisibleNode;
+            //if (treRouteTree.SelectedNode == null)
+            //{
+            //    return;
+            //}
+            //treRouteTree.SelectedNode = GerPrevousNode(treRouteTree.SelectedNode);
+        }
+
+        private void butNext_MouseEnter(object sender, EventArgs e)
+        {
+            butNext.BackgroundImage = Properties.Resources.следующий_2;
+        }
+
+        private void butNext_MouseLeave(object sender, EventArgs e)
+        {
+            butNext.BackgroundImage = Properties.Resources.следующий;
+        }
+
+        private void butNext_MouseDown(object sender, MouseEventArgs e)
+        {
+            SetButClikSize(butNext);
+        }
+
+        private void SetButClikSize(Button but)
+        {
+            but.Location = new Point(but.Location.X + 1, but.Location.Y + 1);
+            but.Size = new Size(but.Width - 2, but.Height - 2);
+        }
+
+        private void butNext_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetButAfterClickSize(butNext);
+        }
+
+        private void SetButAfterClickSize(Button but)
+        {
+            but.Location = new Point(but.Location.X - 1, but.Location.Y - 1);
+            but.Size = new Size(but.Width + 2, but.Height + 2);
+        }
+
+        private void butPrevious_Click(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            SelectPreviousSetting();
+            SendNodeSetting();
+        }
+
+        private void butPrevious_MouseEnter(object sender, EventArgs e)
+        {
+            butPrevious.BackgroundImage = Properties.Resources.предыдущий_2;
+        }
+
+        private void butPrevious_MouseLeave(object sender, EventArgs e)
+        {
+            butPrevious.BackgroundImage = Properties.Resources.предыдущий;
+        }
+
+        private void butPrevious_MouseDown(object sender, MouseEventArgs e)
+        {
+            SetButClikSize(butPrevious);
+        }
+
+        private void butPrevious_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetButAfterClickSize(butPrevious);
         }
     }
 }

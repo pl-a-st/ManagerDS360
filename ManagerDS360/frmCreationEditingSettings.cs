@@ -174,6 +174,13 @@ namespace ManagerDS360
             }
             SetDS360Setting();
             SaveStatus = SaveStatus.Save;
+            if (DS360Setting.CheckDS360Setting() != Result.Success)
+            {
+                MessageBox.Show(DS360Setting.ResultMessage, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button1);
+                return;
+            }
             this.Close();
         }
 
@@ -380,7 +387,7 @@ namespace ManagerDS360
             string item = string.Empty;
             if (cboTypeSignal.SelectedIndex != -1)
             {
-                item= cboTypeSignal.SelectedItem.ToString();
+                item = cboTypeSignal.SelectedItem.ToString();
             }
             await InitializecboTypeSignal();
             if (cboTypeSignal.Items.Contains(item))

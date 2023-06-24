@@ -31,10 +31,9 @@ namespace ManagerDS360 {
             this.butGeneratorControl = new System.Windows.Forms.Button();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.picPlay = new System.Windows.Forms.PictureBox();
-            this.picNext = new System.Windows.Forms.PictureBox();
             this.lblSelectedNode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.picPrevious = new System.Windows.Forms.PictureBox();
+            this.butPrevious = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.редактированиеМаршрутовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -42,10 +41,9 @@ namespace ManagerDS360 {
             this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
+            this.butNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picNext)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPrevious)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -113,7 +111,7 @@ namespace ManagerDS360 {
             this.picPlay.BackColor = System.Drawing.Color.Transparent;
             this.picPlay.Image = global::ManagerDS360.Properties.Resources.Play;
             this.picPlay.InitialImage = null;
-            this.picPlay.Location = new System.Drawing.Point(85, 80);
+            this.picPlay.Location = new System.Drawing.Point(91, 80);
             this.picPlay.Name = "picPlay";
             this.picPlay.Size = new System.Drawing.Size(54, 54);
             this.picPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -122,19 +120,6 @@ namespace ManagerDS360 {
             this.picPlay.Click += new System.EventHandler(this.pictureBox1_Click);
             this.picPlay.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.picPlay.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            // 
-            // picNext
-            // 
-            this.picNext.BackColor = System.Drawing.Color.Transparent;
-            this.picNext.Image = global::ManagerDS360.Properties.Resources.следующий;
-            this.picNext.Location = new System.Drawing.Point(163, 90);
-            this.picNext.Name = "picNext";
-            this.picNext.Size = new System.Drawing.Size(55, 36);
-            this.picNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picNext.TabIndex = 17;
-            this.picNext.TabStop = false;
-            this.picNext.MouseEnter += new System.EventHandler(this.pictureBox2_MouseEnter);
-            this.picNext.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             // 
             // lblSelectedNode
             // 
@@ -149,10 +134,9 @@ namespace ManagerDS360 {
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.picPrevious);
             this.groupBox1.Controls.Add(this.picPlay);
+            this.groupBox1.Controls.Add(this.butPrevious);
             this.groupBox1.Controls.Add(this.lblSelectedNode);
-            this.groupBox1.Controls.Add(this.picNext);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(12, 123);
             this.groupBox1.Name = "groupBox1";
@@ -160,18 +144,26 @@ namespace ManagerDS360 {
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
-            // picPrevious
+            // butPrevious
             // 
-            this.picPrevious.BackColor = System.Drawing.Color.Transparent;
-            this.picPrevious.Image = global::ManagerDS360.Properties.Resources.предыдущий;
-            this.picPrevious.Location = new System.Drawing.Point(12, 90);
-            this.picPrevious.Name = "picPrevious";
-            this.picPrevious.Size = new System.Drawing.Size(45, 37);
-            this.picPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picPrevious.TabIndex = 19;
-            this.picPrevious.TabStop = false;
-            this.picPrevious.MouseEnter += new System.EventHandler(this.picPrevious_MouseEnter);
-            this.picPrevious.MouseLeave += new System.EventHandler(this.picPrevious_MouseLeave);
+            this.butPrevious.AutoSize = true;
+            this.butPrevious.BackColor = System.Drawing.Color.Transparent;
+            this.butPrevious.BackgroundImage = global::ManagerDS360.Properties.Resources.предыдущий;
+            this.butPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butPrevious.FlatAppearance.BorderSize = 0;
+            this.butPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPrevious.Location = new System.Drawing.Point(13, 90);
+            this.butPrevious.Name = "butPrevious";
+            this.butPrevious.Size = new System.Drawing.Size(55, 36);
+            this.butPrevious.TabIndex = 23;
+            this.butPrevious.UseVisualStyleBackColor = false;
+            this.butPrevious.Click += new System.EventHandler(this.butPrevious_Click);
+            this.butPrevious.MouseDown += new System.Windows.Forms.MouseEventHandler(this.butPrevious_MouseDown);
+            this.butPrevious.MouseEnter += new System.EventHandler(this.butPrevious_MouseEnter);
+            this.butPrevious.MouseLeave += new System.EventHandler(this.butPrevious_MouseLeave);
+            this.butPrevious.MouseUp += new System.Windows.Forms.MouseEventHandler(this.butPrevious_MouseUp);
             // 
             // contextMenuStrip1
             // 
@@ -231,11 +223,33 @@ namespace ManagerDS360 {
             this.labelRoute.TabIndex = 22;
             this.labelRoute.Text = "Маршруты:";
             // 
+            // butNext
+            // 
+            this.butNext.AutoSize = true;
+            this.butNext.BackColor = System.Drawing.Color.Transparent;
+            this.butNext.BackgroundImage = global::ManagerDS360.Properties.Resources.следующий;
+            this.butNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butNext.FlatAppearance.BorderSize = 0;
+            this.butNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butNext.Location = new System.Drawing.Point(175, 213);
+            this.butNext.Name = "butNext";
+            this.butNext.Size = new System.Drawing.Size(55, 36);
+            this.butNext.TabIndex = 23;
+            this.butNext.UseVisualStyleBackColor = false;
+            this.butNext.Click += new System.EventHandler(this.butNext_Click);
+            this.butNext.MouseDown += new System.Windows.Forms.MouseEventHandler(this.butNext_MouseDown);
+            this.butNext.MouseEnter += new System.EventHandler(this.butNext_MouseEnter);
+            this.butNext.MouseLeave += new System.EventHandler(this.butNext_MouseLeave);
+            this.butNext.MouseUp += new System.Windows.Forms.MouseEventHandler(this.butNext_MouseUp);
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1020, 516);
+            this.Controls.Add(this.butNext);
             this.Controls.Add(this.labelRoute);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
@@ -255,10 +269,8 @@ namespace ManagerDS360 {
             this.Load += new System.EventHandler(this.frmManagerDS360_Load);
             this.MouseEnter += new System.EventHandler(this.frmManagerDS360_MouseEnter);
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picNext)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPrevious)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -273,10 +285,8 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butGeneratorControl;
         private LibControls.TreeViewWithSetting treRouteTree;
         private System.Windows.Forms.PictureBox picPlay;
-        private System.Windows.Forms.PictureBox picNext;
         private System.Windows.Forms.Label lblSelectedNode;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox picPrevious;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -284,6 +294,8 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.Label labelRoute;
+        private System.Windows.Forms.Button butNext;
+        private System.Windows.Forms.Button butPrevious;
     }
 }
 

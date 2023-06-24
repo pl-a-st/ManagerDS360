@@ -245,23 +245,6 @@ namespace ManagerDS360
         {
             SendNodeSetting();
         }
-
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
-        {
-            picPlay.Image = Properties.Resources.Play2;
-        }
-
-        private void frmManagerDS360_MouseEnter(object sender, EventArgs e)
-        {
-        }
-
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
-        {
-            picPlay.Image = Properties.Resources.Play;
-        }
-
-       
-
         private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             GetToolToPicPlay();
@@ -271,7 +254,6 @@ namespace ManagerDS360
         {
             TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
             PicPlayToolTip.RemoveAll();
-            PicPlayToolTip.SetToolTip(picPlay, GetTextToToll(selectedNode));
         }
 
         private string GetTextToToll(TreeNodeWithSetting selectedNode)
@@ -459,6 +441,31 @@ namespace ManagerDS360
         private void butPrevious_MouseUp(object sender, MouseEventArgs e)
         {
             SetButAfterClickSize(butPrevious);
+        }
+
+        private void butPlay_Click(object sender, EventArgs e)
+        {
+            SendNodeSetting();
+        }
+
+        private void butPlay_MouseEnter(object sender, EventArgs e)
+        {
+            butPlay.BackgroundImage = Properties.Resources.Play2;
+        }
+
+        private void butPlay_MouseLeave(object sender, EventArgs e)
+        {
+            butPlay.BackgroundImage = Properties.Resources.Play;
+        }
+
+        private void butPlay_MouseDown(object sender, MouseEventArgs e)
+        {
+            SetButClikSize(butPlay);
+        }
+
+        private void butPlay_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetButAfterClickSize(butPlay);
         }
     }
 }

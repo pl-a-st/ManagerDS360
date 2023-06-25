@@ -467,5 +467,10 @@ namespace ManagerDS360
         {
             SetButAfterClickSize(butPlay);
         }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

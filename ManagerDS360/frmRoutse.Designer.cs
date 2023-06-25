@@ -161,6 +161,7 @@
             // 
             // butDown
             // 
+            this.butDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butDown.BackColor = System.Drawing.Color.Transparent;
             this.butDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butDown.BackgroundImage")));
             this.butDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;

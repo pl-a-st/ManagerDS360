@@ -347,32 +347,7 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butUp_Click(object sender, EventArgs e)
         {
-            if (treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
-            TreeNode node = treRouteTree.SelectedNode;
-            TreeNode parent = treRouteTree.SelectedNode.Parent;
-            System.Windows.Forms.TreeView view = treRouteTree.SelectedNode.TreeView;
-            if (parent != null)
-            {
-                int index = parent.Nodes.IndexOf(node);
-                if (index > 0)
-                {
-                    parent.Nodes.RemoveAt(index);
-                    parent.Nodes.Insert(index - 1, node);
-                }
-            }
-            else if (node.TreeView.Nodes.Contains(node)) //root node
-            {
-                int index = view.Nodes.IndexOf(node);
-                if (index > 0)
-                {
-                    view.Nodes.RemoveAt(index);
-                    view.Nodes.Insert(index - 1, node);
-                }
-            }
-            treRouteTree.SelectedNode = node;
+
         }
         /// <summary>
         /// //переместить настройку вниз по списку
@@ -381,32 +356,7 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butDown_Click(object sender, EventArgs e)
         {
-            if (treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
-            TreeNode node = treRouteTree.SelectedNode;
-            TreeNode parent = node.Parent;
-            System.Windows.Forms.TreeView view = node.TreeView;
-            if (parent != null)
-            {
-                int index = parent.Nodes.IndexOf(node);
-                if (index < parent.Nodes.Count - 1)
-                {
-                    parent.Nodes.RemoveAt(index);
-                    parent.Nodes.Insert(index + 1, node);
-                }
-            }
-            else if (view != null && view.Nodes.Contains(node)) //root node
-            {
-                int index = view.Nodes.IndexOf(node);
-                if (index < view.Nodes.Count - 1)
-                {
-                    view.Nodes.RemoveAt(index);
-                    view.Nodes.Insert(index + 1, node);
-                }
-            }
-            treRouteTree.SelectedNode = node;
+
         }
 
         internal void butSave_Click(object sender, EventArgs e)
@@ -589,6 +539,86 @@ namespace ManagerDS360
         private void butPaste_Click(object sender, EventArgs e)
         {
             treRouteTree.PasteCopyTreeNode();   
+        }
+
+        private void butUp_Click_1(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            TreeNode node = treRouteTree.SelectedNode;
+            TreeNode parent = treRouteTree.SelectedNode.Parent;
+            System.Windows.Forms.TreeView view = treRouteTree.SelectedNode.TreeView;
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index - 1, node);
+                }
+            }
+            else if (node.TreeView.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index - 1, node);
+                }
+            }
+            treRouteTree.SelectedNode = node;
+        }
+
+        private void butDown_Click_1(object sender, EventArgs e)
+        {
+            if (treRouteTree.SelectedNode == null)
+            {
+                return;
+            }
+            TreeNode node = treRouteTree.SelectedNode;
+            TreeNode parent = node.Parent;
+            System.Windows.Forms.TreeView view = node.TreeView;
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+                if (index < parent.Nodes.Count - 1)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index + 1, node);
+                }
+            }
+            else if (view != null && view.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index < view.Nodes.Count - 1)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index + 1, node);
+                }
+            }
+            treRouteTree.SelectedNode = node;
+        }
+
+        private void butUp_MouseEnter(object sender, EventArgs e)
+        {
+            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх2;
+        }
+
+        private void butUp_MouseLeave(object sender, EventArgs e)
+        {
+            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх1;
+        }
+
+        private void butDown_MouseEnter(object sender, EventArgs e)
+        {
+            butDown.BackgroundImage = Properties.Resources.Стрелка_вниз2;
+        }
+
+        private void butDown_MouseLeave(object sender, EventArgs e)
+        {
+            butDown.BackgroundImage = Properties.Resources.Стрелка_вниз1;
         }
     }
 }

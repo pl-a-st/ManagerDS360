@@ -12,12 +12,46 @@ using ManagerDS360;
 
 namespace LibControls
 {
-    public class GreyButton : Button
+    public class ButtonForPicture : Button
     {
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            this.BackColor = Color.Blue;
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.CheckedBackColor = Color.Transparent;
+            this.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            this.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            this.FlatAppearance.BorderSize =0;
+            this.ImageList = new ImageList();
+            this.BackColor = Color.Transparent;
+        }
+        protected override void OnMouseDown(MouseEventArgs mevent)
+        {
+            base.OnMouseDown(mevent);
+            this.Location = new Point(this.Location.X + 1, this.Location.Y + 1);
+            this.Size = new Size(this.Width - 2, this.Height - 2);
+        }
+        protected override void OnMouseUp(MouseEventArgs mevent)
+        {
+            base.OnMouseUp(mevent);
+            this.Location = new Point(this.Location.X - 1, this.Location.Y - 1);
+            this.Size = new Size(this.Width + 2, this.Height + 2);
+        }
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            if (this.ImageList.Images.Count > 1)
+            {
+                this.BackgroundImage = this.ImageList.Images[1];
+            }
+        }
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            if (this.ImageList.Images.Count > 0)
+            {
+                this.BackgroundImage = this.ImageList.Images[0];
+            }
         }
     }
     public enum Access

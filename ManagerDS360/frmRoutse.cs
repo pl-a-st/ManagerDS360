@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using LibControls;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Dialogs.Controls;
 
 namespace ManagerDS360
 {
@@ -33,14 +35,21 @@ namespace ManagerDS360
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
+
             ReloadLstRoutes();
-            lstSaveRoutes.Select(); 
+            SelectLstRoutes();
+
+        }
+
+        private void SelectLstRoutes()
+        {
+            lstSaveRoutes.Select();
             if (lstSaveRoutes.Items.Count != 0)
             {
                 lstSaveRoutes.SelectedIndex = 0;
             }
-
         }
+
         //выбор элемента treeView
         private void TreeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -64,6 +73,7 @@ namespace ManagerDS360
             PmData.RouteAddresses.RemoveAt(lstSaveRoutes.SelectedIndex);
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
+            SelectLstRoutes();
         }
 
         private void lblSavedRoutes_Click(object sender, EventArgs e)
@@ -82,6 +92,7 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.TypeFormOpen = TypeFormOpen.ToСreate;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
+            SelectLstRoutes();
         }
 
         private void ReloadLstRoutes()
@@ -114,6 +125,7 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.FileInfo = routeFileInfo;
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
+            SelectLstRoutes();
         }
 
         private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)
@@ -136,6 +148,7 @@ namespace ManagerDS360
             PmData.RouteAddresses.Add(new FileInfo(fileDialog.FileName));
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
+            SelectLstRoutes();
         }
 
         private void butRenameRoute_Click(object sender, EventArgs e)
@@ -149,7 +162,7 @@ namespace ManagerDS360
             frmInputName frmInputName = new frmInputName();
             frmInputName.label1.Text = "Введите новое имя маршрута";
             frmInputName.ShowDialog();
-            if(frmInputName.SaveName != SaveName.SaveName)
+            if (frmInputName.SaveName != SaveName.SaveName)
             {
                 return;
             }
@@ -167,6 +180,7 @@ namespace ManagerDS360
             PmData.RouteAddresses[selectedIndex] = new FileInfo(newFullFile);
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
+            SelectLstRoutes();
         }
 
         private void butCopyRoute_Click(object sender, EventArgs e)
@@ -177,23 +191,23 @@ namespace ManagerDS360
                 return;
             }
             FileInfo routeFileInfo = PmData.RouteAddresses[selectedIndex];
-            frmInputName frmInputName = new frmInputName();
-            frmInputName.label1.Text = "Введите имя маршрута";
-            frmInputName.ShowDialog();
-            if (frmInputName.SaveName != SaveName.SaveName)
-            {
-                return;
-            }
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.Title = "Введите новое название файла";
+            string newFullFile = string.Empty;
 
-            string newFullFile = DAO.GetFolderNameDialog("Выберите папку для копирования маршрута.", out MethodResultStatus resultStatus) + @"\" + frmInputName.txtNameSet.Text + @".rout";
-            if (resultStatus != MethodResultStatus.Ok)
+            if (fileDialog.ShowDialog() != DialogResult.OK)
             {
                 MessageBox.Show("Не выбрана папка для копирования маршрута");
                 return;
             }
+            newFullFile = fileDialog.FileName;
+            if (!newFullFile.EndsWith(".rout"))
+            {
+                newFullFile += ".rout";
+            }
             try
             {
-                File.Copy(routeFileInfo.FullName, newFullFile);
+                File.Copy(routeFileInfo.FullName, newFullFile, true);
                 MessageBox.Show("Файл скопирован");
             }
             catch (IOException ex)
@@ -201,15 +215,77 @@ namespace ManagerDS360
                 MessageBox.Show($"Не удалось скопировать файл {routeFileInfo.FullName}");
                 return;
             }
-            PmData.RouteAddresses.Add(new FileInfo(newFullFile));
+            AddFileInfoToRouteAddresses(newFullFile);
             PmData.SaveRouteAddresses();
             ReloadLstRoutes();
+        }
 
+        private static void AddFileInfoToRouteAddresses(string newFullFile)
+        {
+            foreach (var fileInfo in PmData.RouteAddresses)
+            {
+                if (fileInfo.FullName == newFullFile)
+                {
+                    return;
+                }
+
+            }
+            PmData.RouteAddresses.Add(new FileInfo(newFullFile));
         }
 
         private void lstSaveRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void butUp_MouseEnter(object sender, EventArgs e)
+        {
+            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх2;
+        }
+
+        private void butUp_MouseLeave(object sender, EventArgs e)
+        {
+            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх1;
+        }
+
+        private void butDown_MouseEnter(object sender, EventArgs e)
+        {
+            butDown.BackgroundImage = Properties.Resources.Стрелка_вниз2;
+        }
+
+        private void butDown_MouseLeave(object sender, EventArgs e)
+        {
+            butDown.BackgroundImage = Properties.Resources.Стрелка_вниз1;
+        }
+
+        private void butUp_Click(object sender, EventArgs e)
+        {
+            int selectIndex = lstSaveRoutes.SelectedIndex;
+            if (selectIndex < 1)
+            {
+                return;
+            }
+            FileInfo fileInfo = PmData.RouteAddresses[selectIndex];
+            PmData.RouteAddresses.RemoveAt(selectIndex);
+            PmData.RouteAddresses.Insert(selectIndex - 1, fileInfo);
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
+            lstSaveRoutes.SelectedIndex = selectIndex - 1;
+        }
+
+        private void butDown_Click(object sender, EventArgs e)
+        {
+            int selectIndex = lstSaveRoutes.SelectedIndex;
+            if (selectIndex == -1 || selectIndex == lstSaveRoutes.Items.Count - 1)
+            {
+                return;
+            }
+            FileInfo fileInfo = PmData.RouteAddresses[selectIndex];
+            PmData.RouteAddresses.RemoveAt(selectIndex);
+            PmData.RouteAddresses.Insert(selectIndex + 1, fileInfo);
+            PmData.SaveRouteAddresses();
+            ReloadLstRoutes();
+            lstSaveRoutes.SelectedIndex = selectIndex + 1;
         }
     }
 }

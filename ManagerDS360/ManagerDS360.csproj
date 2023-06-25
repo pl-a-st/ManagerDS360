@@ -376,6 +376,10 @@
     <None Include="Resources\Стрелка вверх1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Стрелка_вверх1.png" />
+    <None Include="Resources\Стрелка_вверх2.png" />
+    <None Include="Resources\Стрелка_вниз1.png" />
+    <None Include="Resources\Стрелка_вниз2.png" />
     <Content Include="значок_синус %284%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

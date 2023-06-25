@@ -74,7 +74,7 @@ namespace ManagerDS360
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            editingSettings.Type = Type.Control;
+            editingSettings.Type = CallType.Control;
             editingSettings.Text = "Отправка настройки в генератор";
             editingSettings.ShowDialog();
         }

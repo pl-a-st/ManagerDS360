@@ -146,7 +146,7 @@ namespace ManagerDS360
                 return;
             }
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            editingSettings.Type = Type.Create;
+            editingSettings.Type = CallType.Create;
             editingSettings.SaveStatus = SaveStatus.Cancel;
             editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
@@ -249,7 +249,7 @@ namespace ManagerDS360
             DS360SettingConvert_V_to_mV(dS360);
 
             editingSettings.Text = "Конструирование настройки";
-            editingSettings.Type = Type.Change;
+            editingSettings.Type = CallType.Change;
             editingSettings.SaveStatus = SaveStatus.Cancel;
             await editingSettings.InitializecboSetValue();
             await editingSettings.InitializecboDetector();

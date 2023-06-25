@@ -29,7 +29,6 @@ namespace ManagerDS360 {
             this.butDefaultGenerator = new System.Windows.Forms.Button();
             this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
             this.butGeneratorControl = new System.Windows.Forms.Button();
-            this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.lblSelectedNode = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.butPlay = new System.Windows.Forms.Button();
@@ -42,18 +41,25 @@ namespace ManagerDS360 {
             this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
+            this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // butDefaultGenerator
             // 
+            this.butDefaultGenerator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butDefaultGenerator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.butDefaultGenerator.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butDefaultGenerator.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butDefaultGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 32);
+            this.butDefaultGenerator.Location = new System.Drawing.Point(12, 28);
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(230, 38);
             this.butDefaultGenerator.TabIndex = 2;
@@ -67,9 +73,9 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSavedRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboSavedRoutes.FormattingEnabled = true;
-            this.cboSavedRoutes.Location = new System.Drawing.Point(255, 48);
+            this.cboSavedRoutes.Location = new System.Drawing.Point(6, 28);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
-            this.cboSavedRoutes.Size = new System.Drawing.Size(753, 22);
+            this.cboSavedRoutes.Size = new System.Drawing.Size(743, 22);
             this.cboSavedRoutes.TabIndex = 6;
             this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
             this.cboSavedRoutes.Click += new System.EventHandler(this.cboSavedRoutes_Click);
@@ -79,31 +85,18 @@ namespace ManagerDS360 {
             // 
             // butGeneratorControl
             // 
+            this.butGeneratorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butGeneratorControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.butGeneratorControl.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butGeneratorControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butGeneratorControl.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butGeneratorControl.Location = new System.Drawing.Point(12, 79);
+            this.butGeneratorControl.Location = new System.Drawing.Point(12, 75);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
             this.butGeneratorControl.TabIndex = 3;
             this.butGeneratorControl.Text = "Управление генератором";
             this.butGeneratorControl.UseVisualStyleBackColor = false;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
-            // 
-            // treRouteTree
-            // 
-            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(255, 79);
-            this.treRouteTree.Name = "treRouteTree";
-            this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(753, 420);
-            this.treRouteTree.TabIndex = 7;
-            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             // 
             // lblSelectedNode
             // 
@@ -118,12 +111,13 @@ namespace ManagerDS360 {
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.butPlay);
             this.groupBox1.Controls.Add(this.butNext);
             this.groupBox1.Controls.Add(this.butPrevious);
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(12, 123);
+            this.groupBox1.Location = new System.Drawing.Point(12, 119);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 156);
             this.groupBox1.TabIndex = 19;
@@ -210,13 +204,17 @@ namespace ManagerDS360 {
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(167, 24);
             this.menuStrip1.TabIndex = 21;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -247,28 +245,60 @@ namespace ManagerDS360 {
             // 
             this.labelRoute.AutoSize = true;
             this.labelRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRoute.Location = new System.Drawing.Point(252, 32);
+            this.labelRoute.Location = new System.Drawing.Point(3, 12);
             this.labelRoute.Name = "labelRoute";
             this.labelRoute.Size = new System.Drawing.Size(80, 14);
             this.labelRoute.TabIndex = 22;
             this.labelRoute.Text = "Маршруты:";
             // 
+            // treRouteTree
+            // 
+            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treRouteTree.ImageIndex = 0;
+            this.treRouteTree.Location = new System.Drawing.Point(6, 59);
+            this.treRouteTree.Name = "treRouteTree";
+            this.treRouteTree.SelectedImageIndex = 0;
+            this.treRouteTree.Size = new System.Drawing.Size(743, 484);
+            this.treRouteTree.TabIndex = 7;
+            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
+            this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.treRouteTree);
+            this.splitContainer1.Panel2.Controls.Add(this.cboSavedRoutes);
+            this.splitContainer1.Panel2.Controls.Add(this.labelRoute);
+            this.splitContainer1.Size = new System.Drawing.Size(1020, 558);
+            this.splitContainer1.SplitterDistance = 255;
+            this.splitContainer1.TabIndex = 23;
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 516);
-            this.Controls.Add(this.labelRoute);
+            this.ClientSize = new System.Drawing.Size(1020, 585);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.treRouteTree);
-            this.Controls.Add(this.butGeneratorControl);
-            this.Controls.Add(this.cboSavedRoutes);
-            this.Controls.Add(this.butDefaultGenerator);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1036, 553);
             this.Name = "frmManagerDS360";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -280,6 +310,11 @@ namespace ManagerDS360 {
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,6 +337,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butNext;
         private System.Windows.Forms.Button butPrevious;
         private System.Windows.Forms.Button butPlay;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 

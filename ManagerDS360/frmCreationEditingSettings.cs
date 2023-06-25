@@ -18,7 +18,7 @@ using LibControls;
 
 namespace ManagerDS360
 {
-    public enum Type
+    public enum CallType
     {
         Create,
         Control,
@@ -54,7 +54,7 @@ namespace ManagerDS360
 
     public partial class frmCreationEditingSettings : Form
     {
-        public Type Type;
+        public CallType Type;
         public SaveStatus SaveStatus;
         public PhysicalQuantity PhysicalQuantity;
         public Detector Detector;
@@ -68,7 +68,7 @@ namespace ManagerDS360
         }
         public async void frmCreationEditingSettings_Load(object sender, EventArgs e)
         {
-            if (Type == Type.Create || Type == Type.Control)
+            if (Type == CallType.Create || Type == CallType.Control)
             {
                 await InitializecboSetValue();
                 await InitializecboTypeSignal();
@@ -77,13 +77,13 @@ namespace ManagerDS360
             }
             //взять енам из ds360.сs FunctionType
 
-            if (this.Type == Type.Control)
+            if (this.Type == CallType.Control)
             {
                 butSave.Visible = false;
                 butSend.Visible = true;
                 butSend.Location = butSave.Location;
             }
-            if (this.Type == Type.Create || this.Type == Type.Change)
+            if (this.Type == CallType.Create || this.Type == CallType.Change)
             {
                 butSave.Visible = true;
                 butSend.Visible = false;

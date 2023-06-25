@@ -512,24 +512,6 @@ namespace ManagerDS360
 
        
 
-        private void picButUp_MouseEnter(object sender, EventArgs e)
-        {
-            picButUp.Image = Properties.Resources.Стрелка_вверх2;
-        }
-        private void picButUp_MouseLeave(object sender, EventArgs e)
-        {
-            picButUp.Image = Properties.Resources.Стрелка_вверх1;
-        }
-
-        private void picButDown_MouseEnter(object sender, EventArgs e)
-        {
-            picButDown.Image = Properties.Resources.Стрелка_вниз2;
-        }
-
-        private void picButDown_MouseLeave(object sender, EventArgs e)
-        {
-            picButDown.Image = Properties.Resources.Стрелка_вниз1;
-        }
 
         private void butCpopy_Click(object sender, EventArgs e)
         {

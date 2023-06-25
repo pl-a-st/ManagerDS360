@@ -57,7 +57,7 @@
             // 
             this.butCreateRoutes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butCreateRoutes.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCreateRoutes.Location = new System.Drawing.Point(425, 29);
+            this.butCreateRoutes.Location = new System.Drawing.Point(422, 29);
             this.butCreateRoutes.Name = "butCreateRoutes";
             this.butCreateRoutes.Size = new System.Drawing.Size(132, 45);
             this.butCreateRoutes.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             this.butEditingRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butEditingRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditingRoute.Location = new System.Drawing.Point(425, 80);
+            this.butEditingRoute.Location = new System.Drawing.Point(422, 80);
             this.butEditingRoute.Name = "butEditingRoute";
             this.butEditingRoute.Size = new System.Drawing.Size(132, 45);
             this.butEditingRoute.TabIndex = 3;
@@ -81,7 +81,7 @@
             // 
             this.butDeleteRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butDeleteRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDeleteRoute.Location = new System.Drawing.Point(425, 366);
+            this.butDeleteRoute.Location = new System.Drawing.Point(422, 366);
             this.butDeleteRoute.Name = "butDeleteRoute";
             this.butDeleteRoute.Size = new System.Drawing.Size(132, 45);
             this.butDeleteRoute.TabIndex = 7;
@@ -107,7 +107,7 @@
             // 
             this.butAddRout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butAddRout.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddRout.Location = new System.Drawing.Point(425, 233);
+            this.butAddRout.Location = new System.Drawing.Point(422, 233);
             this.butAddRout.Name = "butAddRout";
             this.butAddRout.Size = new System.Drawing.Size(132, 45);
             this.butAddRout.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             this.butRenameRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butRenameRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRenameRoute.Location = new System.Drawing.Point(425, 131);
+            this.butRenameRoute.Location = new System.Drawing.Point(422, 131);
             this.butRenameRoute.Name = "butRenameRoute";
             this.butRenameRoute.Size = new System.Drawing.Size(132, 45);
             this.butRenameRoute.TabIndex = 4;
@@ -131,7 +131,7 @@
             // 
             this.butCopyRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butCopyRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCopyRoute.Location = new System.Drawing.Point(425, 182);
+            this.butCopyRoute.Location = new System.Drawing.Point(422, 182);
             this.butCopyRoute.Name = "butCopyRoute";
             this.butCopyRoute.Size = new System.Drawing.Size(132, 45);
             this.butCopyRoute.TabIndex = 5;
@@ -150,7 +150,7 @@
             this.butUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butUp.Location = new System.Drawing.Point(367, 156);
+            this.butUp.Location = new System.Drawing.Point(367, 137);
             this.butUp.Name = "butUp";
             this.butUp.Size = new System.Drawing.Size(33, 39);
             this.butUp.TabIndex = 10;
@@ -170,7 +170,7 @@
             this.butDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDown.Location = new System.Drawing.Point(367, 224);
+            this.butDown.Location = new System.Drawing.Point(367, 233);
             this.butDown.Name = "butDown";
             this.butDown.Size = new System.Drawing.Size(33, 39);
             this.butDown.TabIndex = 11;

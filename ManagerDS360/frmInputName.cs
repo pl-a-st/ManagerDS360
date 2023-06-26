@@ -27,18 +27,15 @@ namespace ManagerDS360
         private void btnSave_Click(object sender, EventArgs e)
         {
             SaveName = SaveName.SaveName;
-
             Close();
         }
 
         private void frmInputName_Load(object sender, EventArgs e)
         {
-
         }
 
         private void txtNameSet_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

@@ -56,7 +56,7 @@
             this.txtNameRoute.Location = new System.Drawing.Point(18, 26);
             this.txtNameRoute.Name = "txtNameRoute";
             this.txtNameRoute.Size = new System.Drawing.Size(536, 22);
-            this.txtNameRoute.TabIndex = 0;
+            this.txtNameRoute.TabIndex = 1;
             this.txtNameRoute.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
             // 
             // lblRouteName
@@ -88,7 +88,7 @@
             this.butAddFolder.Location = new System.Drawing.Point(619, 136);
             this.butAddFolder.Name = "butAddFolder";
             this.butAddFolder.Size = new System.Drawing.Size(157, 40);
-            this.butAddFolder.TabIndex = 3;
+            this.butAddFolder.TabIndex = 5;
             this.butAddFolder.Text = "Добавить папку";
             this.butAddFolder.UseVisualStyleBackColor = true;
             this.butAddFolder.Click += new System.EventHandler(this.butAddFolder_Click);
@@ -100,7 +100,7 @@
             this.butAddSetting.Location = new System.Drawing.Point(619, 90);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(157, 40);
-            this.butAddSetting.TabIndex = 2;
+            this.butAddSetting.TabIndex = 4;
             this.butAddSetting.Text = "Добавить настройку";
             this.butAddSetting.UseVisualStyleBackColor = true;
             this.butAddSetting.Click += new System.EventHandler(this.butAddSetting_Click);
@@ -112,7 +112,7 @@
             this.butEditSetting.Location = new System.Drawing.Point(619, 209);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(157, 40);
-            this.butEditSetting.TabIndex = 4;
+            this.butEditSetting.TabIndex = 6;
             this.butEditSetting.Text = "Редактировать узел";
             this.butEditSetting.UseVisualStyleBackColor = true;
             this.butEditSetting.Click += new System.EventHandler(this.butEditSetting_Click);
@@ -125,7 +125,7 @@
             this.butDelete.MinimumSize = new System.Drawing.Size(110, 27);
             this.butDelete.Name = "butDelete";
             this.butDelete.Size = new System.Drawing.Size(157, 40);
-            this.butDelete.TabIndex = 5;
+            this.butDelete.TabIndex = 9;
             this.butDelete.Text = "Удалить узел";
             this.butDelete.UseVisualStyleBackColor = true;
             this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
@@ -150,7 +150,7 @@
             this.butAllDelete.Location = new System.Drawing.Point(619, 423);
             this.butAllDelete.Name = "butAllDelete";
             this.butAllDelete.Size = new System.Drawing.Size(157, 40);
-            this.butAllDelete.TabIndex = 6;
+            this.butAllDelete.TabIndex = 10;
             this.butAllDelete.Text = "Очистить дерево";
             this.butAllDelete.UseVisualStyleBackColor = true;
             this.butAllDelete.Click += new System.EventHandler(this.butAllDelete_Click);
@@ -176,7 +176,7 @@
             this.chkUseLastSetting.Location = new System.Drawing.Point(619, 75);
             this.chkUseLastSetting.Name = "chkUseLastSetting";
             this.chkUseLastSetting.Size = new System.Drawing.Size(157, 17);
-            this.chkUseLastSetting.TabIndex = 14;
+            this.chkUseLastSetting.TabIndex = 3;
             this.chkUseLastSetting.Text = "запоминать настройку";
             this.chkUseLastSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkUseLastSetting.UseVisualStyleBackColor = true;
@@ -188,7 +188,7 @@
             this.butCpopy.Location = new System.Drawing.Point(619, 255);
             this.butCpopy.Name = "butCpopy";
             this.butCpopy.Size = new System.Drawing.Size(157, 40);
-            this.butCpopy.TabIndex = 4;
+            this.butCpopy.TabIndex = 7;
             this.butCpopy.Text = "Копировать узел";
             this.butCpopy.UseVisualStyleBackColor = true;
             this.butCpopy.Click += new System.EventHandler(this.butCpopy_Click);
@@ -200,7 +200,7 @@
             this.butPaste.Location = new System.Drawing.Point(619, 301);
             this.butPaste.Name = "butPaste";
             this.butPaste.Size = new System.Drawing.Size(157, 40);
-            this.butPaste.TabIndex = 4;
+            this.butPaste.TabIndex = 8;
             this.butPaste.Text = "Вставить узел";
             this.butPaste.UseVisualStyleBackColor = true;
             this.butPaste.Click += new System.EventHandler(this.butPaste_Click);
@@ -216,7 +216,7 @@
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
             this.treRouteTree.Size = new System.Drawing.Size(536, 387);
-            this.treRouteTree.TabIndex = 10;
+            this.treRouteTree.TabIndex = 2;
             // 
             // butDown
             // 
@@ -232,7 +232,7 @@
             this.butDown.Location = new System.Drawing.Point(560, 301);
             this.butDown.Name = "butDown";
             this.butDown.Size = new System.Drawing.Size(33, 39);
-            this.butDown.TabIndex = 17;
+            this.butDown.TabIndex = 14;
             this.butDown.UseVisualStyleBackColor = false;
             this.butDown.Click += new System.EventHandler(this.butDown_Click_1);
             this.butDown.MouseEnter += new System.EventHandler(this.butDown_MouseEnter);
@@ -252,7 +252,7 @@
             this.butUp.Location = new System.Drawing.Point(560, 210);
             this.butUp.Name = "butUp";
             this.butUp.Size = new System.Drawing.Size(33, 39);
-            this.butUp.TabIndex = 16;
+            this.butUp.TabIndex = 13;
             this.butUp.UseVisualStyleBackColor = false;
             this.butUp.Click += new System.EventHandler(this.butUp_Click_1);
             this.butUp.MouseEnter += new System.EventHandler(this.butUp_MouseEnter);
@@ -279,7 +279,6 @@
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
             this.Controls.Add(this.chkUseLastSetting);
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(816, 519);
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

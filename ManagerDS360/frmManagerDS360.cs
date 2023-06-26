@@ -54,22 +54,6 @@ namespace ManagerDS360
             }
             butDefaultGenerator.Text = $"Генератор {name}";
         }
-        private void lblRoute_Click(object sender, EventArgs e)
-        {
-        }
-
-        //private void lblSavedRoutes_Click(object sender, EventArgs e)
-        //{
-        //}
-
-        private void butEditingRoute_Click(object sender, EventArgs e)
-        {
-        }
-
-        //private void butNextSetup_Click(object sender, EventArgs e)
-        //{
-        //    //переместить фокус на след. и запустить след. настройку
-        //}
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
@@ -109,10 +93,6 @@ namespace ManagerDS360
             selectedNode.SelectedImageIndex = 4;
         }
 
-        private void butAboutProgram_Click(object sender, EventArgs e)
-        {
-        }
-
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboSavedRoutes.SelectedIndex == -1)
@@ -122,11 +102,6 @@ namespace ManagerDS360
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
             GetToolToPicPlay();
-            //загрузить выпадающий список сохранённых маршрутов из листа
-        }
-
-        private void txtNameGenerator_TextChanged(object sender, EventArgs e)
-        {
         }
 
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
@@ -204,26 +179,6 @@ namespace ManagerDS360
         {
         }
 
-        private void lstRouteSettings_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            //список параметров в маршруте
-        }
-
-        //private void sbrVerticalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
-        //{
-        //    //скролл вертикаль
-        //}
-
-        //private void sbrHorizontalFieldКouteЕree_Scroll(object sender, ScrollEventArgs e)
-        //{
-        //    //скролл горизонт
-        //}
-
-        //internal void lblDefaultGenerator_Click(object sender, EventArgs e)
-        //{
-        //    //наименование генератора по умолчанию
-        //}
-
         private void cboSavedRoutes_MouseClick(object sender, MouseEventArgs e)
         {
         }
@@ -287,15 +242,6 @@ namespace ManagerDS360
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var version = Assembly.GetEntryAssembly().GetName().Version;
-            var buildDateTime = new DateTime(2000, 1, 1).Add(
-                new TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
-            MessageBox.Show(
-                $"Мanager DS360. Версия ПО {version.ToString()}\n  Дата разработки - {buildDateTime.ToShortDateString()}.",
-                "О программе",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1);
         }
 
         private void редактированиеМаршрутовToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -307,13 +253,10 @@ namespace ManagerDS360
 
         private void picNext_Click(object sender, EventArgs e)
         {
-
             if (treRouteTree.SelectedNode == null)
             {
                 return;
             }
-
-
         }
         private TreeNode GetNextParentNode(TreeNode selectedNode)
         {
@@ -471,6 +414,19 @@ namespace ManagerDS360
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+            var buildDateTime = new DateTime(2000, 1, 1).Add(
+                new TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
+            MessageBox.Show(
+                $"Мanager DS360. Версия ПО {version.ToString()}\n  Дата разработки - {buildDateTime.ToShortDateString()}.",
+                "О программе",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
         }
     }
 }

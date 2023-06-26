@@ -194,7 +194,6 @@
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.butCreateRoutes);
             this.Controls.Add(this.lblSavedRoutes);
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(588, 492);
             this.Name = "frmEditingRoutes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

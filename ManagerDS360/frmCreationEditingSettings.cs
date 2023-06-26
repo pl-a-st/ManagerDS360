@@ -173,7 +173,6 @@ namespace ManagerDS360
                 return;
             }
             SetDS360Setting();
-            SaveStatus = SaveStatus.Save;
             if (DS360Setting.CheckDS360Setting() != Result.Success)
             {
                 MessageBox.Show(DS360Setting.ResultMessage, "Ошибка", MessageBoxButtons.OK,
@@ -181,6 +180,7 @@ namespace ManagerDS360
                 MessageBoxDefaultButton.Button1);
                 return;
             }
+            SaveStatus = SaveStatus.Save;
             this.Close();
         }
 

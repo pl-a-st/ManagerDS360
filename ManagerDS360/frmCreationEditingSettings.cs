@@ -203,31 +203,38 @@ namespace ManagerDS360
             {
                 DS360Setting.FunctionType = FunctionType.SineSine;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-                SetVibroCalclAndSetDS360VibroParam(txtValue2, cboDetector2, txtFrequency2);
+                SetVibroCalclAndSetDS360VibroParam(txtValue2.Text, cboDetector2.Text, txtFrequency2.Text);
                 DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.SineSquare;
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
+                SetVibroCalclAndSetDS360VibroParam(
+                    GetValueToSquareToDetector(cboDetector2, txtValue2).ToString(),
+                    cboDetector2.Text,
+                    txtFrequency2.Text);
                 DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-                DS360Setting.AmplitudeRMSToneB = GetValueToSquareToDetector(cboDetector2, txtValue2);
+                DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
             }
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус)
             {
                 DS360Setting.FunctionType = FunctionType.Sine;
-                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
+                SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
             if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Квадрат)
             {
                 DS360Setting.FunctionType = FunctionType.Square;
-                SetVibroCalclAndSetDS360VibroParam(txtValue, cboDetector, txtFrequency);
-                DS360Setting.AmplitudeRMS = GetValueToSquareToDetector(cboDetector, txtValue);
+                SetVibroCalclAndSetDS360VibroParam(
+                    GetValueToSquareToDetector(cboDetector, txtValue).ToString(),
+                    PmData.Detector[Detector.СКЗ], 
+                    txtFrequency.Text);
+                DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }
 
             DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
@@ -243,7 +250,7 @@ namespace ManagerDS360
             DS360Setting.Offset /= 1000;
         }
 
-        private double GetValueToSquareToDetector(System.Windows.Forms.ComboBox cbo, TextBox txt)
+        private double GetValueToSquareToDetector(ComboBox cbo, TextBox txt)
         {
             double value1 = double.Parse(txt.Text);
             if (PmData.GetEnumFromString(PmData.Detector, cbo.Text) == Detector.Пик_пик)
@@ -253,32 +260,32 @@ namespace ManagerDS360
             return value1;
         }
 
-        internal void SetVibroCalclAndSetDS360VibroParam(TextBox txtVal, ComboBox cboDet, TextBox txtFreq)
+        internal void SetVibroCalclAndSetDS360VibroParam(string txtVal, string cboDet, string txtFreq)
         {
-            VibroCalc.Frequency.Set_Hz(double.Parse(txtFreq.Text));
+            VibroCalc.Frequency.Set_Hz(double.Parse(txtFreq));
             VibroCalc.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
 
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мм_с)
             {
-                Velocity velocity = new Velocity(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
+                Velocity velocity = new Velocity(double.Parse(txtVal), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet));
                 VibroCalc.CalcAll(velocity);
                 DS360Setting.VibroParametr = velocity;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.мкм)
             {
-                Displacement displacement = new Displacement(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
+                Displacement displacement = new Displacement(double.Parse(txtVal), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet));
                 VibroCalc.CalcAll(displacement);
                 DS360Setting.VibroParametr = displacement;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.м_с2)
             {
-                Acceleration acceleration = new Acceleration(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
+                Acceleration acceleration = new Acceleration(double.Parse(txtVal), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet));
                 VibroCalc.CalcAll(acceleration);
                 DS360Setting.VibroParametr = acceleration;
             }
             if (PmData.GetEnumFromString(PmData.PhysicalQuantity, cboSetValue.Text) == PhysicalQuantity.U)
             {
-                Voltage voltage = new Voltage(double.Parse(txtVal.Text), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet.Text));
+                Voltage voltage = new Voltage(double.Parse(txtVal), (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDet));
                 VibroCalc.CalcAll(voltage);
                 DS360Setting.VibroParametr = voltage;
             }

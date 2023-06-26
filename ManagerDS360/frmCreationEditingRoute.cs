@@ -221,7 +221,7 @@ namespace ManagerDS360
                 var DS360Setting = PmData.CloneObj(selectedNode.DS360Setting);
                 frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
                 СonfigureEditingSettings(DS360Setting, editingSettings);
-                
+
                 editingSettings.ShowDialog();
                 if (editingSettings.SaveStatus != SaveStatus.Save)
                 {
@@ -294,17 +294,16 @@ namespace ManagerDS360
             if (dS360.VibroParametr is Voltage)
             {
                 VibroCalc.CalcAll(new Voltage(dS360.AmplitudeRMS, SignalParametrType.RMS));
-                editingSettings.txtValue.Text = VibroCalc.Voltage.Get(dS360.SignalParametrTone1).ToString();
+                editingSettings.txtValue.Text = GetVoltage(dS360, dS360.SignalParametrTone1).ToString();
                 if (editingSettings.IsTwoTone())
                 {
                     VibroCalc.CalcAll(new Voltage(dS360.AmplitudeRMSToneB, SignalParametrType.RMS));
-                    editingSettings.txtValue2.Text = VibroCalc.Voltage.Get(dS360.SignalParametrTone2).ToString();
+                    editingSettings.txtValue2.Text = GetVoltage(dS360, dS360.SignalParametrTone2).ToString();
                 }
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.U];
             }
             if (dS360.VibroParametr is Velocity)
             {
-
                 VibroCalc.CalcAll(new Voltage(dS360.AmplitudeRMS, SignalParametrType.RMS));
                 editingSettings.txtValue.Text = VibroCalc.Velocity.Get(dS360.SignalParametrTone1).ToString();
                 if (editingSettings.IsTwoTone())
@@ -318,11 +317,11 @@ namespace ManagerDS360
             if (dS360.VibroParametr is Acceleration)
             {
                 VibroCalc.CalcAll(new Voltage(dS360.AmplitudeRMS, SignalParametrType.RMS));
-                editingSettings.txtValue.Text = VibroCalc.Acceleration.Get(dS360.SignalParametrTone1).ToString();
+                editingSettings.txtValue.Text = GetAcceleration(dS360, dS360.SignalParametrTone1).ToString();
                 if (editingSettings.IsTwoTone())
                 {
                     VibroCalc.CalcAll(new Voltage(dS360.AmplitudeRMSToneB, SignalParametrType.RMS));
-                    editingSettings.txtValue2.Text = VibroCalc.Acceleration.Get(dS360.SignalParametrTone2).ToString();
+                    editingSettings.txtValue2.Text = GetAcceleration(dS360, dS360.SignalParametrTone2).ToString();
                 }
 
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.м_с2];
@@ -340,6 +339,40 @@ namespace ManagerDS360
                 editingSettings.cboSetValue.SelectedItem = PmData.PhysicalQuantity[PhysicalQuantity.мкм];
             }
         }
+
+        private static double GetVoltage(DS360SettingVibroSigParam dS360, SignalParametrType signalParametrType)
+        {
+            if (dS360.FunctionType == FunctionType.Square)
+            {
+                if (signalParametrType == SignalParametrType.RMS ||
+                    signalParametrType == SignalParametrType.PIK)
+                {
+                   return VibroCalc.Voltage.GetRMS();
+                }
+                if (signalParametrType == SignalParametrType.PIK_PIK)
+                {
+                    return 2 * VibroCalc.Voltage.GetRMS();
+                }
+            }
+            return VibroCalc.Voltage.Get(signalParametrType);
+        }
+        private static double GetAcceleration(DS360SettingVibroSigParam dS360, SignalParametrType signalParametrType)
+        {
+            if (dS360.FunctionType == FunctionType.Square)
+            {
+                if (signalParametrType == SignalParametrType.RMS ||
+                    signalParametrType == SignalParametrType.PIK)
+                {
+                    return VibroCalc.Acceleration.GetRMS();
+                }
+                if (signalParametrType == SignalParametrType.PIK_PIK)
+                {
+                    return 2 * VibroCalc.Acceleration.GetRMS();
+                }
+            }
+            return VibroCalc.Acceleration.Get(signalParametrType);
+        }
+
         /// <summary>
         /// //переместить настройку вверх по списку
         /// </summary>
@@ -510,7 +543,7 @@ namespace ManagerDS360
             treRouteTree.SelectedNode = node;
         }
 
-       
+
 
 
         private void butCpopy_Click(object sender, EventArgs e)
@@ -520,7 +553,12 @@ namespace ManagerDS360
 
         private void butPaste_Click(object sender, EventArgs e)
         {
-            treRouteTree.PasteCopyTreeNode();   
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
+            treRouteTree.PasteCopyTreeNode();
         }
 
         private void butUp_Click_1(object sender, EventArgs e)

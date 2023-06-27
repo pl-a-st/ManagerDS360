@@ -36,8 +36,6 @@ namespace ManagerDS360
         public FileInfo FileInfo;
         private DS360SettingVibroSigParam LastDS360Setting;
 
-        Timer timer;
-
         List<TreeNode> checkedNodes = new List<TreeNode>();
         public frmCreationEditingRoute()
         {
@@ -51,11 +49,6 @@ namespace ManagerDS360
 
         private void PushListBox()
         {
-            //lstRouteTree.Items.Clear();
-            //foreach (Entry entry1 in ProgramData.Entries)
-            //{
-
-            //}
         }
         /// <summary>
         /// Кнопка добавить папку
@@ -93,43 +86,15 @@ namespace ManagerDS360
         void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            if (editingSettings.SaveStatus == SaveStatus.Save)
-            {
-                //lblSave.Visible = true;
-                timer = new Timer();
-                timer.Interval = 2000;
-                timer.Enabled = true;
-                timer.Tick += timeTick;
-                editingSettings.SaveStatus = SaveStatus.Cancel;
-            }
             this.Refresh();
         }
 
-        //таймер для сохранения
-        internal void timeTick(object sender, EventArgs e)
-        {
-            //lblSave.Visible = false;
-            timer.Enabled = false;
-        }
-
-        //internal void SetNameSetting(frmInputName frmInputName)
-        //{
-        //    if (this.SaveName == SaveName.SaveName)
-        //    {
-        //        string nameSet = frmInputName.txtNameSet.Text;
-        //        treRouteTree.Nodes.Add(new TreeNode(nameSet));
-        //    }
-        //    return;
-        //}
-
         private void lblRouteName_Click(object sender, EventArgs e)
         {
-
         }
 
         private void txtNameRoute_TextChanged(object sender, EventArgs e)
         {
-            //название маршрута
         }
 
         public static class StaticName
@@ -241,7 +206,6 @@ namespace ManagerDS360
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
             }
-
         }
 
         private async void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
@@ -454,11 +418,6 @@ namespace ManagerDS360
             {
                 return;
             }
-
-        }
-        private void lstRouteTree_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void lblRouteTree_Click(object sender, EventArgs e)
@@ -466,14 +425,8 @@ namespace ManagerDS360
 
         }
 
-        internal void lblSave_Click(object sender, EventArgs e)
-        {
-            //лейбл успешного сохранения
-        }
-
         private void butAllDelete_Click(object sender, EventArgs e)
         {
-            //удалить всё
             treRouteTree.Nodes.Clear();
         }
 
@@ -542,9 +495,6 @@ namespace ManagerDS360
             }
             treRouteTree.SelectedNode = node;
         }
-
-
-
 
         private void butCpopy_Click(object sender, EventArgs e)
         {

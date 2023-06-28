@@ -505,12 +505,13 @@ namespace LibDevicesManager
             }
             if (ports != null)
             {
-                string portName;
                 Task[] tasksPushGeneratorList = new Task[ports.Count];
+                int taskNum;
                 for (int i = 0; i < ports.Count; i++)
                 {
-                    portName = ports[i];
-                    tasksPushGeneratorList[i] = new Task(() => PushGeneratorsList(portName));
+                    taskNum = i;
+                    string portName = ports[taskNum];
+                    tasksPushGeneratorList[taskNum] = new Task(() => PushGeneratorsList(portName));
                     tasksPushGeneratorList[i].Start();
                 }
                 Task.WaitAll(tasksPushGeneratorList);

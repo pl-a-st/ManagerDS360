@@ -279,6 +279,7 @@
             0,
             0,
             0});
+            this.numComName.ValueChanged += new System.EventHandler(this.numComName_ValueChanged);
             this.numComName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numComName_KeyPress);
             // 
             // groupBox2

@@ -58,6 +58,11 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butAddFolder_Click(object sender, EventArgs e)
         {
+            AddFolder();
+        }
+
+        private void AddFolder()
+        {
             if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");
@@ -83,6 +88,7 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Expand();
             treRouteTree.SelectedNode = treeNodeWihtSetting;
         }
+
         //обновление окна CreationEditingRoute
         void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -116,7 +122,56 @@ namespace ManagerDS360
             public static String nameBuffer = String.Empty;
         }
 
+        private void Form_KeyDown (object sender, KeyEventArgs e)
+        {
+            if (e.Alt == true && e.KeyCode == Keys.S)    // добавить настройку
+            {
+                AddSetting();
+            }
+            if (e.Control == true && e.KeyCode == Keys.A)    //добавить папку
+            {
+                AddFolder();
+            }
+            if (e.Control == true && e.KeyCode == Keys.R)    //редактировать  
+            {
+                EditSetting();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.C)       //копировать  
+            {
+                treRouteTree.CopySelectedNode();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.V)       //вставить  
+            {
+                Paste();
+            }
+            if (e.Control == true && e.KeyCode == Keys.D)       //удалить узел  
+            {
+                RemoveCheckedNodes(treRouteTree.Nodes);
+            }
+            if (e.Control == true && e.Shift == true && e.KeyCode == Keys.D)    //удалить всё  
+            {
+                treRouteTree.Nodes.Clear();
+            }
+            if (e.Control == true && e.KeyCode == Keys.S)    //сохранить  
+            {
+                Save();
+            }
+            if (e.KeyCode == Keys.Up)    //вверх  
+            {
+                Up();
+            }
+            if (e.KeyCode == Keys.Down)    //вниз  
+            {
+                Down();
+            }
+        }
+
         internal void butAddSetting_Click(object sender, EventArgs e)
+        {
+            AddSetting();
+        }
+
+        private void AddSetting()
         {
             if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
             {
@@ -150,8 +205,8 @@ namespace ManagerDS360
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
             SelectedNodeWithSetup.Nodes.Add(treeNode);
             SelectedNodeWithSetup.Expand();
-
         }
+
         private static string GetTextNode(frmCreationEditingSettings editingSettings)
         {
             string textNode = string.Empty;
@@ -188,6 +243,11 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butEditSetting_Click(object sender, EventArgs e)
         {
+            EditSetting();
+        }
+
+        private void EditSetting()
+        {
             if (treRouteTree.SelectedNode == null)
             {
                 MessageBox.Show("Не выбран узел для редактирования");
@@ -219,7 +279,6 @@ namespace ManagerDS360
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
             }
-
         }
 
         private async void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
@@ -371,6 +430,11 @@ namespace ManagerDS360
         //}
 
         internal void butSave_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
         {
             if (txtNameRoute.Text == "" || txtNameRoute.Text == string.Empty)
             {
@@ -524,6 +588,11 @@ namespace ManagerDS360
 
         private void butPaste_Click(object sender, EventArgs e)
         {
+            Paste();
+        }
+
+        private void Paste()
+        {
             if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");
@@ -533,6 +602,11 @@ namespace ManagerDS360
         }
 
         private void butUp_Click_1(object sender, EventArgs e)
+        {
+            Up();
+        }
+
+        private void Up()
         {
             if (treRouteTree.SelectedNode == null)
             {
@@ -563,6 +637,11 @@ namespace ManagerDS360
         }
 
         private void butDown_Click_1(object sender, EventArgs e)
+        {
+            Down();
+        }
+
+        private void Down()
         {
             if (treRouteTree.SelectedNode == null)
             {

@@ -58,6 +58,7 @@
             this.txtNameRoute.Size = new System.Drawing.Size(536, 22);
             this.txtNameRoute.TabIndex = 1;
             this.txtNameRoute.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
+            this.txtNameRoute.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // lblRouteName
             // 
@@ -104,6 +105,7 @@
             this.butAddSetting.Text = "Добавить настройку";
             this.butAddSetting.UseVisualStyleBackColor = true;
             this.butAddSetting.Click += new System.EventHandler(this.butAddSetting_Click);
+            this.butAddSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // butEditSetting
             // 
@@ -279,11 +281,13 @@
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
             this.Controls.Add(this.chkUseLastSetting);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 519);
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Создание и редактирование маршрута";
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

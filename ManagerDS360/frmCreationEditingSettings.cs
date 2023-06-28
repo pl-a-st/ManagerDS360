@@ -486,5 +486,10 @@ namespace ManagerDS360
             }
             e.Handled = true;
         }
+
+        private void numComName_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

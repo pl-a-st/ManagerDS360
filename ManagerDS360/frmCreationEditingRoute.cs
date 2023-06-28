@@ -49,6 +49,7 @@ namespace ManagerDS360
 
         private void PushListBox()
         {
+
         }
         /// <summary>
         /// Кнопка добавить папку
@@ -89,12 +90,24 @@ namespace ManagerDS360
             this.Refresh();
         }
 
+        internal void SetNameSetting(frmInputName frmInputName)
+        {
+            if (this.SaveName == SaveName.SaveName)
+            {
+                string nameSet = frmInputName.txtNameSet.Text;
+                treRouteTree.Nodes.Add(new TreeNode(nameSet));
+            }
+            return;
+        }
+
         private void lblRouteName_Click(object sender, EventArgs e)
         {
+
         }
 
         private void txtNameRoute_TextChanged(object sender, EventArgs e)
         {
+            //название маршрута
         }
 
         public static class StaticName
@@ -206,6 +219,7 @@ namespace ManagerDS360
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
             }
+
         }
 
         private async void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
@@ -351,10 +365,10 @@ namespace ManagerDS360
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butDown_Click(object sender, EventArgs e)
-        {
+        //private void butDown_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         internal void butSave_Click(object sender, EventArgs e)
         {
@@ -418,11 +432,15 @@ namespace ManagerDS360
             {
                 return;
             }
+
         }
+        //private void lstRouteTree_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //}
 
         private void lblRouteTree_Click(object sender, EventArgs e)
         {
-
         }
 
         private void butAllDelete_Click(object sender, EventArgs e)
@@ -496,6 +514,9 @@ namespace ManagerDS360
             treRouteTree.SelectedNode = node;
         }
 
+       
+
+
         private void butCpopy_Click(object sender, EventArgs e)
         {
             treRouteTree.CopySelectedNode();
@@ -503,10 +524,6 @@ namespace ManagerDS360
 
         private void butPaste_Click(object sender, EventArgs e)
         {
-            if(treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
             if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");

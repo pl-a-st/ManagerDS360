@@ -257,7 +257,9 @@
             // 
             // numComName
             // 
+            this.numComName.DecimalPlaces = 1;
             this.numComName.Enabled = false;
+            this.numComName.Hexadecimal = true;
             this.numComName.Location = new System.Drawing.Point(247, 24);
             this.numComName.Maximum = new decimal(new int[] {
             255,

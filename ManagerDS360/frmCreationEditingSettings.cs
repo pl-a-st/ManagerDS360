@@ -479,10 +479,12 @@ namespace ManagerDS360
 
         private void numComName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar < 49 || e.KeyChar > 57)
+
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Back)
             {
-                e.Handled = true;
+                return;
             }
+            e.Handled = true;
         }
     }
 }

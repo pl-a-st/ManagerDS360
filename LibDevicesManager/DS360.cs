@@ -490,19 +490,13 @@ namespace LibDevicesManager
             {
                 generatorsList = new List<string>();
             }
-            string[] generators;
             if (needRefreshGeneratorsList)
             {
                 generatorsList.Clear();
             }
-            if (generatorsList.Count != 0)
+            if (!needRefreshGeneratorsList)
             {
-                generators = new string[generatorsList.Count];
-                for (int i = 0; i < generatorsList.Count; i++)
-                {
-                    generators[i] = generatorsList[i];
-                }
-                return generators;
+                return generatorsList.ToArray();
             }
             List<string> ports = ComPort.PortsNamesList;
             if (ports == null)
@@ -519,19 +513,13 @@ namespace LibDevicesManager
                     tasksPushGeneratorList[i] = new Task(() => PushGeneratorsList(portName));
                     tasksPushGeneratorList[i].Start();
                 }
-                Task.WaitAll(tasksPushGeneratorList); //Здесь надо отпустить по первому генератору
+                Task.WaitAll(tasksPushGeneratorList);
             }
             if (generatorsList.Count == 0)
             {
                 generatorsList.Add("Генераторы не обнаружены");
             }
-            generators = new string[generatorsList.Count];
-            for (int i = 0; i < generatorsList.Count; i++)
-            {
-                generators[i] = generatorsList[i];
-            }
-            //comPortDefaultName = generators[0]; //Здесь должно быть условие
-            return generators;
+            return generatorsList.ToArray();
         }
         public static void SetFirstDS360AsDefault(bool needRefreshGeneratorsList = true)
         {
@@ -1123,6 +1111,7 @@ namespace LibDevicesManager
             {
                 deviceName = $"{portName}: DS360, s/n{GetSerialNumber(identificationString)}";
                 generatorsList.Add(deviceName);
+
                 return;
             }
             //ForTest - Удалить в финальной версии

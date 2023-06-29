@@ -511,8 +511,7 @@ namespace LibDevicesManager
                 {
                     taskNum = i;
                     string portName = ports[taskNum];
-                    tasksPushGeneratorList[taskNum] = new Task(() => PushGeneratorsList(portName));
-                    tasksPushGeneratorList[i].Start();
+                    tasksPushGeneratorList[taskNum] = Task.Run(() => PushGeneratorsList(portName));
                 }
                 Task.WaitAll(tasksPushGeneratorList);
             }
@@ -1124,6 +1123,8 @@ namespace LibDevicesManager
                 return;
             }
             //--ForTest
+            //deviceName = $"{portName}: Unknown device";
+            //generatorsList.Add(deviceName);
             return;
         }
         private static void PushDefaultGenerator (string portName)

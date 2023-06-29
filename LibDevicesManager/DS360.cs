@@ -888,6 +888,11 @@ namespace LibDevicesManager
             string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "TTAA" + value + "VR";
             result = SendOutputControlCommand(port, command);
+            if (result!= Result.Success)
+            {
+                Thread.Sleep(100);
+                result = SendOutputControlCommand(port, command);
+            }
             return result;
         }
         private Result SendAmplitudeToneB(SerialPort port)

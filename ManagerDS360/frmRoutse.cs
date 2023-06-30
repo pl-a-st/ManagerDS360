@@ -23,22 +23,20 @@ namespace ManagerDS360
             InitializeComponent();
         }
 
-        private void butDownRoute_Click(object sender, EventArgs e)
-        {
-            //перемещение вниз
-        }
+        //private void butDownRoute_Click(object sender, EventArgs e)
+        //{
+        //    //перемещение вниз
+        //}
 
-        private void butUpRoute_Click(object sender, EventArgs e)
-        {
-            //перемещение вверх
-        }
+        //private void butUpRoute_Click(object sender, EventArgs e)
+        //{
+        //    //перемещение вверх
+        //}
 
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
-
             ReloadLstRoutes();
             SelectLstRoutes();
-
         }
 
         private void SelectLstRoutes()
@@ -80,10 +78,10 @@ namespace ManagerDS360
         {
         }
 
-        private void butSaveRoutes_Click(object sender, EventArgs e)
-        {
-            //сохранить список маршрутов и их порядок
-        }
+        //private void butSaveRoutes_Click(object sender, EventArgs e)
+        //{
+        //    //сохранить список маршрутов и их порядок
+        //}
 
         private void butCreateRoutes_Click(object sender, EventArgs e)
         {
@@ -128,14 +126,14 @@ namespace ManagerDS360
             SelectLstRoutes();
         }
 
-        private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            //список сохранённых маршрутов
-        }
+        //private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)
+        //{
+        //    //список сохранённых маршрутов
+        //}
 
-        private void lblSaveRoutes_Click(object sender, EventArgs e)
-        {
-        }
+        //private void lblSaveRoutes_Click(object sender, EventArgs e)
+        //{
+        //}
 
         private void butAddRout_Click(object sender, EventArgs e)
         {

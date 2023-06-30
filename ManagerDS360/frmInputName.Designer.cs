@@ -52,6 +52,7 @@
             this.txtNameSet.Size = new System.Drawing.Size(242, 20);
             this.txtNameSet.TabIndex = 1;
             this.txtNameSet.TextChanged += new System.EventHandler(this.txtNameSet_TextChanged);
+            this.txtNameSet.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // btnSave
             // 
@@ -92,6 +93,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование имени";
             this.Load += new System.EventHandler(this.frmInputName_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

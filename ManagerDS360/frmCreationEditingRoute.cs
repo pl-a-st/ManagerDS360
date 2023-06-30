@@ -156,6 +156,11 @@ namespace ManagerDS360
             {
                 Save();
             }
+            if (e.Control == true && e.KeyCode == Keys.X)    //закрыть  
+            {
+                SaveName = SaveName.Cancel;
+                this.Close();
+            }
             if (e.KeyCode == Keys.Up)    //вверх  
             {
                 Up();
@@ -577,9 +582,6 @@ namespace ManagerDS360
             }
             treRouteTree.SelectedNode = node;
         }
-
-       
-
 
         private void butCpopy_Click(object sender, EventArgs e)
         {

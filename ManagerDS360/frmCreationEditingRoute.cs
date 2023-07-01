@@ -16,6 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using LibControls;
 using System.Runtime.InteropServices;
 using VibroMath;
+using System.Diagnostics;
 
 namespace ManagerDS360
 {
@@ -116,7 +117,7 @@ namespace ManagerDS360
             //название маршрута
         }
 
-        private void Form_KeyDown (object sender, KeyEventArgs e)
+        private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt == true && e.KeyCode == Keys.S)    // добавить настройку
             {
@@ -155,7 +156,7 @@ namespace ManagerDS360
                 SaveName = SaveName.Cancel;
                 this.Close();
             }
-            if (e.KeyCode == Keys.Up)    //вверх  
+            if (e.Shift == true && e.KeyCode == Keys.Up)    //вверх  
             {
                 Up();
                 e.Handled = true;
@@ -385,7 +386,7 @@ namespace ManagerDS360
                 if (signalParametrType == SignalParametrType.RMS ||
                     signalParametrType == SignalParametrType.PIK)
                 {
-                   return VibroCalc.Voltage.GetRMS();
+                    return VibroCalc.Voltage.GetRMS();
                 }
                 if (signalParametrType == SignalParametrType.PIK_PIK)
                 {

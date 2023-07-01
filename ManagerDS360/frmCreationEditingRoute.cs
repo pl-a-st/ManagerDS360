@@ -116,12 +116,6 @@ namespace ManagerDS360
             //название маршрута
         }
 
-        public static class StaticName
-        {
-            //Статическая переменная, выступающая как буфер данных для имени настройки
-            public static String nameBuffer = String.Empty;
-        }
-
         private void Form_KeyDown (object sender, KeyEventArgs e)
         {
             if (e.Alt == true && e.KeyCode == Keys.S)    // добавить настройку
@@ -164,10 +158,12 @@ namespace ManagerDS360
             if (e.KeyCode == Keys.Up)    //вверх  
             {
                 Up();
+                e.Handled = true;
             }
-            if (e.KeyCode == Keys.Down)    //вниз  
+            if (e.Shift == true && e.KeyCode == Keys.Down)    //вниз  
             {
                 Down();
+                e.Handled = true;
             }
         }
 

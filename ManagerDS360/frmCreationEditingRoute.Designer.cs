@@ -46,6 +46,7 @@
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.butDown = new LibControls.ButtonForPicture();
             this.butUp = new LibControls.ButtonForPicture();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -260,6 +261,10 @@
             this.butUp.MouseEnter += new System.EventHandler(this.butUp_MouseEnter);
             this.butUp.MouseLeave += new System.EventHandler(this.butUp_MouseLeave);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "тест";
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,5 +317,6 @@
         internal System.Windows.Forms.Button butPaste;
         private LibControls.ButtonForPicture butDown;
         private LibControls.ButtonForPicture butUp;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

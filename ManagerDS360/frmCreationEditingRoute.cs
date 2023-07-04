@@ -17,6 +17,7 @@ using LibControls;
 using System.Runtime.InteropServices;
 using VibroMath;
 using System.Diagnostics;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
@@ -46,6 +47,15 @@ namespace ManagerDS360
         public void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
             PushListBox();
+            /// перенисти в метод
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.butAddSetting, "ALT+S ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
         }
 
         private void PushListBox()

@@ -281,6 +281,7 @@
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
             this.Controls.Add(this.chkUseLastSetting);
+            this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 519);
             this.Name = "frmCreationEditingRoute";

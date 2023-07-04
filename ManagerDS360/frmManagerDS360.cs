@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -173,10 +174,13 @@ namespace ManagerDS360
         {
             treRouteTree.Nodes.Clear();
             cboSavedRoutes.Items.Clear();
-            foreach (var route in PmData.RouteAddresses)
+            FileInfo[] routes = PmData.RouteAddresses.ToArray();
+            string[] fileNames = new string[routes.Length];
+            for (int i=0;i<routes.Length; i++)
             {
-                cboSavedRoutes.Items.Add(route.Name.Replace(route.Extension, ""));
+                fileNames[i]= routes[i].Name.Replace(routes[i].Extension, "");
             }
+            cboSavedRoutes.Items.AddRange(fileNames);
             if (cboSavedRoutes.Items.Count > 0)
             {
                 cboSavedRoutes.SelectedIndex = 0;

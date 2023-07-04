@@ -101,22 +101,24 @@ namespace ManagerDS360
         internal async Task InitializecboDetector2()
         {
             cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;  //добавление в комбобокс детектора
-            await Task.Delay(1);
-            foreach (var element in PmData.Detector)
-            {
-                cboDetector2.Items.Add(element.Value);
-            }
+            await Task.Delay(10);
+            cboDetector2.Items.AddRange(PmData.Detector.Values.ToArray());
+            //foreach (var element in PmData.Detector)
+            //{
+            //    cboDetector2.Items.Add(element.Value);
+            //}
             cboDetector2.SelectedIndex = (int)Detector.СКЗ;
         }
 
         internal async Task InitializecboDetector()
         {
-            await Task.Delay(1);
+            await Task.Delay(10);
             cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;   //добавление в комбобокс детектора
-            foreach (var element in PmData.Detector)
-            {
-                cboDetector.Items.Add(element.Value);
-            }
+            cboDetector.Items.AddRange(PmData.Detector.Values.ToArray());
+            //foreach (var element in PmData.Detector)
+            //{
+            //    cboDetector.Items.Add(element.Value);
+            //}
             cboDetector.SelectedIndex = (int)Detector.СКЗ;
         }
 
@@ -126,7 +128,7 @@ namespace ManagerDS360
             cboTypeSignal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; ///отключение ввода символов
             ////строку в Енам
             //Enum.Parse(typeof(Race), cBxRace.Text, true);
-            await Task.Delay(1);
+            await Task.Delay(10);
             cboTypeSignal.Items.Clear();
             var elements = PmData.FunctionTypeSignal.Values.ToArray();
             cboTypeSignal.Items.AddRange(elements);
@@ -157,7 +159,7 @@ namespace ManagerDS360
         /// </summary>
         internal async Task InitializecboSetValue()
         {
-            await Task.Delay(1);
+            await Task.Delay(10);
             var elements = PmData.PhysicalQuantity.Values.ToArray();
             cboSetValue.BeginUpdate();
             cboSetValue.Items.AddRange(elements);
@@ -232,7 +234,7 @@ namespace ManagerDS360
                 DS360Setting.FunctionType = FunctionType.Square;
                 SetVibroCalclAndSetDS360VibroParam(
                     GetValueToSquareToDetector(cboDetector, txtValue).ToString(),
-                    PmData.Detector[Detector.СКЗ], 
+                    PmData.Detector[Detector.СКЗ],
                     txtFrequency.Text);
                 DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
             }

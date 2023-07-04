@@ -80,7 +80,7 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.FormattingEnabled = true;
             this.cboSavedRoutes.Location = new System.Drawing.Point(6, 28);
             this.cboSavedRoutes.Name = "cboSavedRoutes";
-            this.cboSavedRoutes.Size = new System.Drawing.Size(608, 22);
+            this.cboSavedRoutes.Size = new System.Drawing.Size(752, 22);
             this.cboSavedRoutes.TabIndex = 6;
             this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
             this.cboSavedRoutes.Click += new System.EventHandler(this.cboSavedRoutes_Click);
@@ -220,7 +220,7 @@ namespace ManagerDS360 {
             this.оПрограммеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(878, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
             this.menuStrip1.TabIndex = 21;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -295,7 +295,7 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel2.Controls.Add(this.treRouteTree);
             this.splitContainer1.Panel2.Controls.Add(this.cboSavedRoutes);
             this.splitContainer1.Panel2.Controls.Add(this.labelRoute);
-            this.splitContainer1.Size = new System.Drawing.Size(878, 564);
+            this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
             // 
@@ -309,7 +309,7 @@ namespace ManagerDS360 {
             this.treRouteTree.Location = new System.Drawing.Point(6, 59);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(606, 490);
+            this.treRouteTree.Size = new System.Drawing.Size(752, 490);
             this.treRouteTree.TabIndex = 7;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
             this.treRouteTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
@@ -318,7 +318,7 @@ namespace ManagerDS360 {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(878, 591);
+            this.ClientSize = new System.Drawing.Size(1024, 591);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;

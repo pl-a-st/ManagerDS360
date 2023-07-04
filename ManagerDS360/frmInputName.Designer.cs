@@ -46,10 +46,11 @@
             // 
             // txtNameSet
             // 
+            this.txtNameSet.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtNameSet.Location = new System.Drawing.Point(30, 50);
-            this.txtNameSet.MaxLength = 40;
+            this.txtNameSet.MaxLength = 0;
             this.txtNameSet.Name = "txtNameSet";
-            this.txtNameSet.Size = new System.Drawing.Size(242, 20);
+            this.txtNameSet.Size = new System.Drawing.Size(242, 22);
             this.txtNameSet.TabIndex = 1;
             this.txtNameSet.TextChanged += new System.EventHandler(this.txtNameSet_TextChanged);
             this.txtNameSet.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);

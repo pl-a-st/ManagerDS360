@@ -43,7 +43,6 @@ namespace ManagerDS360
         internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
             //комбобокс с выбором вариантов
-
         }
 
         private async void butFindGenerator_Click(object sender, EventArgs e)
@@ -86,14 +85,31 @@ namespace ManagerDS360
         internal void butSave_Click(object sender, EventArgs e)
         {
             //сохранить выбранный генератор как по умолчанию и отправить имя на главную страницу в лейбл
+            Save();
+            Close();
+        }
+
+        private void Save()
+        {
             DS360Setting.ComPortDefaultName = cboListComPorts.SelectedItem.ToString();
             frmManagerDS360 frmManagerDS360 = (frmManagerDS360)Application.OpenForms["frmManagerDS360"];
-            Close();
         }
 
         private void butCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true && e.KeyCode == Keys.S)    // сохранить
+            {
+                Save();
+                Close();
+            }
+            if (e.Control == true && e.KeyCode == Keys.X)    // закрыть
+            {
+                Close();
+            }
         }
     }
 }

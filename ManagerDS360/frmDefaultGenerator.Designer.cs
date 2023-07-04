@@ -95,6 +95,7 @@
             this.cboListComPorts.Size = new System.Drawing.Size(240, 22);
             this.cboListComPorts.TabIndex = 1;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
+            this.cboListComPorts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // groupBox1
             // 
@@ -122,6 +123,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Назначение генератора по умолчанию";
             this.Load += new System.EventHandler(this.frmDefaultGenerator_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

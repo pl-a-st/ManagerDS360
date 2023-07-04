@@ -26,6 +26,11 @@ namespace ManagerDS360
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (txtNameSet.Text == "" || txtNameSet.Text == string.Empty)
+            {
+                MessageBox.Show("Не введено название.");
+                return;
+            }
             SaveName = SaveName.SaveName;
             Close();
         }
@@ -36,6 +41,23 @@ namespace ManagerDS360
 
         private void txtNameSet_TextChanged(object sender, EventArgs e)
         {
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true && e.KeyCode == Keys.S)    // сохранить
+            {
+                if (txtNameSet.Text == "" || txtNameSet.Text == string.Empty)
+                {
+                    MessageBox.Show("Не введено название.");
+                    return;
+                }
+                SaveName = SaveName.SaveName;
+                Close();
+            }
+            if (e.Control == true && e.KeyCode == Keys.X)    // закрыть
+            {
+                Close();
+            }
         }
     }
 }

@@ -68,6 +68,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.Text = "Генератор по умолчанию";
             this.butDefaultGenerator.UseVisualStyleBackColor = false;
             this.butDefaultGenerator.Click += new System.EventHandler(this.butDefaultGenerator_Click);
+            this.butDefaultGenerator.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // cboSavedRoutes
             // 
@@ -83,6 +84,7 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.TabIndex = 6;
             this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
             this.cboSavedRoutes.Click += new System.EventHandler(this.cboSavedRoutes_Click);
+            this.cboSavedRoutes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.cboSavedRoutes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseClick);
             this.cboSavedRoutes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseDown);
             this.cboSavedRoutes.MouseEnter += new System.EventHandler(this.cboSavedRoutes_MouseEnter);
@@ -101,6 +103,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Text = "Управление генератором";
             this.butGeneratorControl.UseVisualStyleBackColor = false;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
+            this.butGeneratorControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // lblSelectedNode
             // 
@@ -309,6 +312,7 @@ namespace ManagerDS360 {
             this.treRouteTree.Size = new System.Drawing.Size(606, 490);
             this.treRouteTree.TabIndex = 7;
             this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
+            this.treRouteTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // frmManagerDS360
             // 
@@ -326,6 +330,7 @@ namespace ManagerDS360 {
             this.Text = "DS360";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManagerDS360_Closing);
             this.Load += new System.EventHandler(this.frmManagerDS360_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);

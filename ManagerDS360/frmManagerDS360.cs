@@ -44,6 +44,11 @@ namespace ManagerDS360
 
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
+            DefaultGenerator();
+        }
+
+        private void DefaultGenerator()
+        {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
             frmDefaultGenerator.ShowDialog();
             //butDefaultGenerator.Text = "Генератор " + DS360Setting.ComPortDefaultName;
@@ -56,6 +61,11 @@ namespace ManagerDS360
         }
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
+        {
+            GeneratorControl();
+        }
+
+        private static void GeneratorControl()
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = CallType.Control;
@@ -425,6 +435,17 @@ namespace ManagerDS360
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1);
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true && e.KeyCode == Keys.G)    // управление
+            {
+                GeneratorControl();
+            }
+            if (e.Control == true && e.KeyCode == Keys.D)    // по умолчанию
+            {
+                DefaultGenerator();
+            }
         }
     }
 }

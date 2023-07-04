@@ -298,7 +298,7 @@ namespace LibDevicesManager
         private const double minTwoToneRatio = 0.001;
         private const double maxTwoToneRatio = 1000;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
-        private static bool isDebugMode = false;
+        private static bool isDebugMode = false; //ToDel
         #endregion PrivateFie
 
         #region Constructors
@@ -511,8 +511,7 @@ namespace LibDevicesManager
                 {
                     taskNum = i;
                     string portName = ports[taskNum];
-                    tasksPushGeneratorList[taskNum] = new Task(() => PushGeneratorsList(portName));
-                    tasksPushGeneratorList[i].Start();
+                    tasksPushGeneratorList[taskNum] = Task.Run(() => PushGeneratorsList(portName));
                 }
                 Task.WaitAll(tasksPushGeneratorList);
             }
@@ -522,6 +521,13 @@ namespace LibDevicesManager
             }
             return generatorsList.ToArray();
         }
+        /// <summary>
+        /// Производит поиск первого подключенного к компъютеру генератора DS360.
+        /// </summary>
+        /// <param name="needRefreshGeneratorsList">Необходимость опроса Com-портов.</param>
+        /// <value><br><see langword="true"/> - будет произведён новый опрос портов.</br> 
+        /// <br><see langword="false"/>  - опрос портов производиться не будет, поиск генераторов будет произведён в списке ранее найденных устройств  </br></value>
+        /// <returns>Имя подключенного генератора (или строка "Генераторы не обнаружены" если не удалось найти ни один генератор)</returns>
         public static void SetFirstDS360AsDefault(bool needRefreshGeneratorsList = true)
         {
             if (generatorsList == null)
@@ -554,8 +560,7 @@ namespace LibDevicesManager
                     portName = ports[i];
                     tasksPushDefaultGenerator[i] = new Task(() => PushDefaultGenerator(portName));
                 }
-                Task checkGeneratorDefault = new Task(() => CheckGeneratorDefault(tasksPushDefaultGenerator));
-                checkGeneratorDefault.Start();
+                Task checkGeneratorDefault = Task.Run(() => CheckGeneratorDefault(tasksPushDefaultGenerator));
                 checkGeneratorDefault.Wait();
             }
             if (IsComPortDefaultNameEmpty())
@@ -889,6 +894,11 @@ namespace LibDevicesManager
             string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "TTAA" + value + "VR";
             result = SendOutputControlCommand(port, command);
+            if (result!= Result.Success)
+            {
+                Thread.Sleep(100);
+                result = SendOutputControlCommand(port, command);
+            }
             return result;
         }
         private Result SendAmplitudeToneB(SerialPort port)
@@ -1124,6 +1134,8 @@ namespace LibDevicesManager
                 return;
             }
             //--ForTest
+            //deviceName = $"{portName}: Unknown device";
+            //generatorsList.Add(deviceName);
             return;
         }
         private static void PushDefaultGenerator (string portName)

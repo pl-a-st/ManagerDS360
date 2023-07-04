@@ -16,6 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using LibControls;
 using System.Runtime.InteropServices;
 using VibroMath;
+using System.Diagnostics;
 
 namespace ManagerDS360
 {
@@ -116,13 +117,7 @@ namespace ManagerDS360
             //название маршрута
         }
 
-        public static class StaticName
-        {
-            //Статическая переменная, выступающая как буфер данных для имени настройки
-            public static String nameBuffer = String.Empty;
-        }
-
-        private void Form_KeyDown (object sender, KeyEventArgs e)
+        private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt == true && e.KeyCode == Keys.S)    // добавить настройку
             {
@@ -156,13 +151,20 @@ namespace ManagerDS360
             {
                 Save();
             }
-            if (e.KeyCode == Keys.Up)    //вверх  
+            if (e.Control == true && e.KeyCode == Keys.X)    //закрыть  
+            {
+                SaveName = SaveName.Cancel;
+                this.Close();
+            }
+            if (e.Shift == true && e.KeyCode == Keys.Up)    //вверх  
             {
                 Up();
+                e.Handled = true;
             }
-            if (e.KeyCode == Keys.Down)    //вниз  
+            if (e.Shift == true && e.KeyCode == Keys.Down)    //вниз  
             {
                 Down();
+                e.Handled = true;
             }
         }
 
@@ -384,7 +386,7 @@ namespace ManagerDS360
                 if (signalParametrType == SignalParametrType.RMS ||
                     signalParametrType == SignalParametrType.PIK)
                 {
-                   return VibroCalc.Voltage.GetRMS();
+                    return VibroCalc.Voltage.GetRMS();
                 }
                 if (signalParametrType == SignalParametrType.PIK_PIK)
                 {
@@ -577,9 +579,6 @@ namespace ManagerDS360
             }
             treRouteTree.SelectedNode = node;
         }
-
-       
-
 
         private void butCpopy_Click(object sender, EventArgs e)
         {

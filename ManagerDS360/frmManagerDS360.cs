@@ -176,9 +176,9 @@ namespace ManagerDS360
             cboSavedRoutes.Items.Clear();
             FileInfo[] routes = PmData.RouteAddresses.ToArray();
             string[] fileNames = new string[routes.Length];
-            for (int i=0;i<routes.Length; i++)
+            for (int i = 0; i < routes.Length; i++)
             {
-                fileNames[i]= routes[i].Name.Replace(routes[i].Extension, "");
+                fileNames[i] = routes[i].Name.Replace(routes[i].Extension, "");
             }
             cboSavedRoutes.Items.AddRange(fileNames);
             if (cboSavedRoutes.Items.Count > 0)
@@ -450,6 +450,21 @@ namespace ManagerDS360
             {
                 DefaultGenerator();
             }
+        }
+
+        private void butLable_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butLable_MouseEnter(object sender, EventArgs e)
+        {
+            butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ_темный;
+        }
+
+        private void butLable_MouseLeave(object sender, EventArgs e)
+        {
+            butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace ManagerDS360 {
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -61,7 +62,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butDefaultGenerator.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butDefaultGenerator.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDefaultGenerator.Location = new System.Drawing.Point(11, 28);
+            this.butDefaultGenerator.Location = new System.Drawing.Point(15, 28);
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(230, 38);
             this.butDefaultGenerator.TabIndex = 2;
@@ -96,7 +97,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.butGeneratorControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
             this.butGeneratorControl.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butGeneratorControl.Location = new System.Drawing.Point(11, 75);
+            this.butGeneratorControl.Location = new System.Drawing.Point(15, 75);
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
             this.butGeneratorControl.TabIndex = 3;
@@ -124,7 +125,7 @@ namespace ManagerDS360 {
             this.groupBox1.Controls.Add(this.butPrevious);
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(11, 119);
+            this.groupBox1.Location = new System.Drawing.Point(15, 119);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 156);
             this.groupBox1.TabIndex = 19;
@@ -284,6 +285,7 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.butLable);
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
             this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -298,6 +300,25 @@ namespace ManagerDS360 {
             this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // butLable
+            // 
+            this.butLable.BackColor = System.Drawing.Color.Transparent;
+            this.butLable.BackgroundImage = global::ManagerDS360.Properties.Resources.Логотип_ВАСТ;
+            this.butLable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butLable.FlatAppearance.BorderSize = 0;
+            this.butLable.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butLable.Location = new System.Drawing.Point(15, 436);
+            this.butLable.Name = "butLable";
+            this.butLable.Size = new System.Drawing.Size(217, 102);
+            this.butLable.TabIndex = 20;
+            this.butLable.UseVisualStyleBackColor = false;
+            this.butLable.Enter += new System.EventHandler(this.butLable_Enter);
+            this.butLable.MouseEnter += new System.EventHandler(this.butLable_MouseEnter);
+            this.butLable.MouseLeave += new System.EventHandler(this.butLable_MouseLeave);
             // 
             // treRouteTree
             // 
@@ -367,6 +388,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private LibControls.ButtonForPicture butLable;
     }
 }
 

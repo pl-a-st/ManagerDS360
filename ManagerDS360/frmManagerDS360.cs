@@ -451,25 +451,5 @@ namespace ManagerDS360
                 DefaultGenerator();
             }
         }
-
-        private void buttonForPicture1_Enter(object sender, EventArgs e)
-        {
-            buttonForPicture1.BackgroundImage = Properties.Resources.Логотип_ВАСТ_цветной;
-        }
-
-        private void buttonForPicture1_MouseLeave(object sender, EventArgs e)
-        {
-            buttonForPicture1.BackgroundImage = Properties.Resources.Логотип_ВАСТ;
-        }
-
-        private void buttonForPicture1_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonForPicture1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

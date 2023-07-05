@@ -47,15 +47,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtFrequency = new LibControls.ModifiedTextBox();
+            this.txtValue = new LibControls.ModifiedTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtFrequency = new LibControls.ModifiedTextBox();
-            this.txtValue = new LibControls.ModifiedTextBox();
             this.txtValue2 = new LibControls.ModifiedTextBox();
             this.txtFrequency2 = new LibControls.ModifiedTextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
             this.groupBox1.SuspendLayout();
@@ -298,6 +298,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Основной сигнал";
             // 
+            // txtFrequency
+            // 
+            this.txtFrequency.Location = new System.Drawing.Point(19, 139);
+            this.txtFrequency.MaxLength = 9;
+            this.txtFrequency.Name = "txtFrequency";
+            this.txtFrequency.Size = new System.Drawing.Size(143, 22);
+            this.txtFrequency.TabIndex = 10;
+            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
+            // 
+            // txtValue
+            // 
+            this.txtValue.Location = new System.Drawing.Point(19, 48);
+            this.txtValue.MaxLength = 9;
+            this.txtValue.Name = "txtValue";
+            this.txtValue.Size = new System.Drawing.Size(143, 22);
+            this.txtValue.TabIndex = 8;
+            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label2);
@@ -345,42 +363,6 @@
             this.label3.Text = "Частота, Гц";
             this.label3.Click += new System.EventHandler(this.lblFrequency_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.groupBox2);
-            this.groupBox4.Controls.Add(this.groupBox3);
-            this.groupBox4.Controls.Add(this.txtConversionFactor);
-            this.groupBox4.Controls.Add(this.txtOffset);
-            this.groupBox4.Controls.Add(this.lblOffset);
-            this.groupBox4.Controls.Add(this.lblSetValue);
-            this.groupBox4.Controls.Add(this.cboSetValue);
-            this.groupBox4.Controls.Add(this.lblConversionFactor);
-            this.groupBox4.Controls.Add(this.lblTypeSignal);
-            this.groupBox4.Controls.Add(this.cboTypeSignal);
-            this.groupBox4.Location = new System.Drawing.Point(16, 86);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(587, 251);
-            this.groupBox4.TabIndex = 38;
-            this.groupBox4.TabStop = false;
-            // 
-            // txtFrequency
-            // 
-            this.txtFrequency.Location = new System.Drawing.Point(19, 139);
-            this.txtFrequency.MaxLength = 9;
-            this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(143, 22);
-            this.txtFrequency.TabIndex = 10;
-            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
-            // 
-            // txtValue
-            // 
-            this.txtValue.Location = new System.Drawing.Point(19, 48);
-            this.txtValue.MaxLength = 9;
-            this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(143, 22);
-            this.txtValue.TabIndex = 8;
-            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
-            // 
             // txtValue2
             // 
             this.txtValue2.Location = new System.Drawing.Point(17, 48);
@@ -398,6 +380,24 @@
             this.txtFrequency2.Size = new System.Drawing.Size(143, 22);
             this.txtFrequency2.TabIndex = 13;
             this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.groupBox2);
+            this.groupBox4.Controls.Add(this.groupBox3);
+            this.groupBox4.Controls.Add(this.txtConversionFactor);
+            this.groupBox4.Controls.Add(this.txtOffset);
+            this.groupBox4.Controls.Add(this.lblOffset);
+            this.groupBox4.Controls.Add(this.lblSetValue);
+            this.groupBox4.Controls.Add(this.cboSetValue);
+            this.groupBox4.Controls.Add(this.lblConversionFactor);
+            this.groupBox4.Controls.Add(this.lblTypeSignal);
+            this.groupBox4.Controls.Add(this.cboTypeSignal);
+            this.groupBox4.Location = new System.Drawing.Point(16, 86);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(587, 251);
+            this.groupBox4.TabIndex = 38;
+            this.groupBox4.TabStop = false;
             // 
             // txtConversionFactor
             // 

@@ -44,7 +44,6 @@ namespace ManagerDS360 {
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -284,35 +283,11 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
-            this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             this.splitContainer1.Panel1MinSize = 250;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.treRouteTree);
-            this.splitContainer1.Panel2.Controls.Add(this.cboSavedRoutes);
-            this.splitContainer1.Panel2.Controls.Add(this.labelRoute);
             this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
-            // 
-            // treRouteTree
-            // 
-            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(6, 59);
-            this.treRouteTree.Name = "treRouteTree";
-            this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(752, 490);
-            this.treRouteTree.TabIndex = 7;
-            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect);
-            this.treRouteTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // frmManagerDS360
             // 
@@ -367,6 +342,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private LibControls.ButtonForPicture buttonForPicture1;
     }
 }
 

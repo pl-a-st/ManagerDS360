@@ -713,7 +713,7 @@ namespace ManagerDS360
             if (this.DialogResult == DialogResult.Cancel)
             {
                 if (MessageBox.Show(
-                    "Вы уверены, что хотите закрыть без сохранения",
+                    "Вы уверены, что хотите закрыть без сохранения?",
                     "Закрытие",
                     MessageBoxButtons.YesNo) == DialogResult.No)
                 {

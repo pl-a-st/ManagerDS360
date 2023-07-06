@@ -466,5 +466,11 @@ namespace ManagerDS360
         {
             butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ;
         }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            this.Close();
+        }
     }
 }

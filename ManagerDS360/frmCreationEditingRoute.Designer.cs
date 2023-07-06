@@ -292,6 +292,8 @@
             this.Name = "frmCreationEditingRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Создание и редактирование маршрута";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCreationEditingRoute_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreationEditingRoute_FormClosed);
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);

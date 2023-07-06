@@ -443,6 +443,7 @@ namespace ManagerDS360
 
         internal void butSave_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             Save();
         }
 
@@ -698,6 +699,27 @@ namespace ManagerDS360
         private void butDown_MouseLeave(object sender, EventArgs e)
         {
             butDown.BackgroundImage = Properties.Resources.Стрелка_вниз1;
+        }
+
+        private void frmCreationEditingRoute_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+
+
+        }
+
+        private void frmCreationEditingRoute_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.DialogResult == DialogResult.Cancel)
+            {
+                if (MessageBox.Show(
+                    "Вы уверены, что хотите закрыть без сохранения",
+                    "Закрытие",
+                    MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

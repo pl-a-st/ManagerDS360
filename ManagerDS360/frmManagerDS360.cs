@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using LibControls;
 using LibDevicesManager;
 
+
 namespace ManagerDS360
 {
     public partial class frmManagerDS360 : Form
@@ -471,6 +472,18 @@ namespace ManagerDS360
         {
             DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void butLable_Click(object sender, EventArgs e)
+        {
+
+            frmAboutAuthors frmAboutAuthors = new frmAboutAuthors();
+            frmAboutAuthors.TopMost = true;
+            frmAboutAuthors.Left = this.Left + this.Width / 2 - frmAboutAuthors.WithMax / 2;
+            frmAboutAuthors.Top = this.Top + this.Height / 2 - frmAboutAuthors.WithMax / 2 + frmAboutAuthors.Height / 2;
+            frmAboutAuthors.ShowDialog();
+            
+
         }
     }
 }

@@ -305,9 +305,11 @@ namespace ManagerDS360 {
             // 
             // butLable
             // 
+            this.butLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butLable.BackColor = System.Drawing.Color.Transparent;
             this.butLable.BackgroundImage = global::ManagerDS360.Properties.Resources.Логотип_ВАСТ;
             this.butLable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butLable.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butLable.FlatAppearance.BorderSize = 0;
             this.butLable.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.butLable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -318,6 +320,7 @@ namespace ManagerDS360 {
             this.butLable.Size = new System.Drawing.Size(217, 102);
             this.butLable.TabIndex = 20;
             this.butLable.UseVisualStyleBackColor = false;
+            this.butLable.Click += new System.EventHandler(this.butLable_Click);
             this.butLable.Enter += new System.EventHandler(this.butLable_Enter);
             this.butLable.MouseEnter += new System.EventHandler(this.butLable_MouseEnter);
             this.butLable.MouseLeave += new System.EventHandler(this.butLable_MouseLeave);

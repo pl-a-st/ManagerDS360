@@ -224,6 +224,12 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="DAO.cs" />
+    <Compile Include="frmAboutAuthors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAboutAuthors.Designer.cs">
+      <DependentUpon>frmAboutAuthors.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCreationEditingRoute.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,6 +274,9 @@
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeNodeWithSetup.cs" />
+    <EmbeddedResource Include="frmAboutAuthors.resx">
+      <DependentUpon>frmAboutAuthors.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCreationEditingRoute.resx">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
     </EmbeddedResource>

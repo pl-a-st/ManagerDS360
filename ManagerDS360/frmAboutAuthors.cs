@@ -21,29 +21,44 @@ namespace ManagerDS360
 
         private async void frmAboutAuthors_Load(object sender, EventArgs e)
         {
-            Task[] tasks = {
+          
+                Task[] tasks = {
                 new Task(()=> GetSizeForm()),
                 new Task(()=> AddLabel())
-            };
-            foreach (Task task in tasks)
-            {
-                task.Start();
-            }
-            await Task.Run(() => Task.WaitAll(tasks));
+                };
+                foreach (Task task in tasks)
+                {
+                    task.Start();
+                }
+                await Task.Run(() => Task.WaitAll(tasks));
         }
 
         private async void AddLabel()
         {
-            await Task.Delay(10);
-            Label label = new Label();
-            label.Location = new Point(x: 10, y: 10);
-            label.Font = new Font("Verdana", 12);
-            label.TextAlign = ContentAlignment.MiddleLeft;
-            label.AutoSize = true;
-            BeginInvoke(new Action(() => this.Controls.Add(label)));
-            string aboutAutors = "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
+            try
+            {
+                await Task.Delay(10);
+                Label label = new Label();
+                label.Location = new Point(x: 10, y: 20);
+                label.Font = new Font("Verdana", 12);
+                label.TextAlign = ContentAlignment.MiddleLeft;
+                label.AutoSize = true;
+                BeginInvoke(new Action(() => this.Controls.Add(label)));
+                SetLabelPart1(label);
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void SetLabelPart1(Label label)
+        {
+            string aboutAutors = "Разработчики:\n\n" +
+                "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
                 "Библиотека работы с генератором: Агальцов А.С.\n\n" +
-               "Пользовательский интерфейс: Маяков А.Н., Кирдяшкин В.А., Верин С.Г.";
+               "Пользовательский интерфейс: Маяков А.Н., Кирдяшкин В.А., Верин С.Г.\n\n";
             foreach (char ch in aboutAutors)
             {
                 Thread.Sleep(50);
@@ -60,26 +75,29 @@ namespace ManagerDS360
                     }));
                 }
             }
-
         }
 
         private async void GetSizeForm()
         {
-            await Task.Delay(10);
-            int step = 37;
-            while (this.Width < WithMax)
+            try
             {
                 await Task.Delay(10);
-                BeginInvoke(new Action(() =>
+                int step = 37;
+                while (this.Width < WithMax)
                 {
-                    this.Width += step;
-                    this.Height += step;
-                }));
-                if (step > 1)
-                {
-                    step = (int)(step * 0.956);
+                    await Task.Delay(10);
+                    BeginInvoke(new Action(() =>
+                    {
+                        this.Width += step;
+                        this.Height += step;
+                    }));
+                    if (step > 1)
+                    {
+                        step = (int)(step * 0.956);
+                    }
                 }
             }
+            catch { }
         }
     }
 }

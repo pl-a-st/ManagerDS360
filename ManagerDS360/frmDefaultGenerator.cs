@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibDevicesManager;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
@@ -38,6 +39,15 @@ namespace ManagerDS360
             groupBox1.Enabled = true;
             progressBar.Dispose();
             label.Dispose();
+
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.butSave, "CTRL+S ");
+            toolTip1.SetToolTip(this.butCancel, "CTRL+X ");
         }
 
         internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,6 +120,11 @@ namespace ManagerDS360
             {
                 Close();
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

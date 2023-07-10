@@ -431,6 +431,11 @@ namespace ManagerDS360
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            StripMenuItem2();
+        }
+
+        private static void StripMenuItem2()
+        {
             var version = Assembly.GetEntryAssembly().GetName().Version;
             var buildDateTime = new DateTime(2000, 1, 1).Add(
                 new TimeSpan(TimeSpan.TicksPerDay * version.Build + TimeSpan.TicksPerSecond * 2 * version.Revision));
@@ -441,6 +446,7 @@ namespace ManagerDS360
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1);
         }
+
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control == true && e.KeyCode == Keys.G)    // управление
@@ -451,6 +457,20 @@ namespace ManagerDS360
             {
                 DefaultGenerator();
             }
+
+            if (e.Control == true && e.KeyCode == Keys.I)    // инфо
+            {
+                StripMenuItem2();
+            }
+            if (e.Control == true && e.KeyCode == Keys.O)    // инфо
+            {
+                //StripMenuItem1();
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void butLable_Enter(object sender, EventArgs e)

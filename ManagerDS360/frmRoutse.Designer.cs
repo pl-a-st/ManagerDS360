@@ -35,7 +35,7 @@
             this.butEditingRoute = new System.Windows.Forms.Button();
             this.butDeleteRoute = new System.Windows.Forms.Button();
             this.lstSaveRoutes = new System.Windows.Forms.ListBox();
-            this.butAddRout = new System.Windows.Forms.Button();
+            this.butSearchRoute = new System.Windows.Forms.Button();
             this.butRenameRoute = new System.Windows.Forms.Button();
             this.butCopyRoute = new System.Windows.Forms.Button();
             this.butUp = new LibControls.ButtonForPicture();
@@ -102,18 +102,19 @@
             this.lstSaveRoutes.Size = new System.Drawing.Size(349, 382);
             this.lstSaveRoutes.TabIndex = 1;
             this.lstSaveRoutes.SelectedIndexChanged += new System.EventHandler(this.lstSaveRoutes_SelectedIndexChanged);
+            this.lstSaveRoutes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
-            // butAddRout
+            // butSearchRoute
             // 
-            this.butAddRout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAddRout.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddRout.Location = new System.Drawing.Point(422, 233);
-            this.butAddRout.Name = "butAddRout";
-            this.butAddRout.Size = new System.Drawing.Size(132, 45);
-            this.butAddRout.TabIndex = 6;
-            this.butAddRout.Text = "Найти  маршрут";
-            this.butAddRout.UseVisualStyleBackColor = true;
-            this.butAddRout.Click += new System.EventHandler(this.butAddRout_Click);
+            this.butSearchRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butSearchRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butSearchRoute.Location = new System.Drawing.Point(422, 233);
+            this.butSearchRoute.Name = "butSearchRoute";
+            this.butSearchRoute.Size = new System.Drawing.Size(132, 45);
+            this.butSearchRoute.TabIndex = 6;
+            this.butSearchRoute.Text = "Найти  маршрут";
+            this.butSearchRoute.UseVisualStyleBackColor = true;
+            this.butSearchRoute.Click += new System.EventHandler(this.butSearchRoute_Click);
             // 
             // butRenameRoute
             // 
@@ -188,17 +189,19 @@
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.lstSaveRoutes);
             this.Controls.Add(this.butDeleteRoute);
-            this.Controls.Add(this.butAddRout);
+            this.Controls.Add(this.butSearchRoute);
             this.Controls.Add(this.butCopyRoute);
             this.Controls.Add(this.butRenameRoute);
             this.Controls.Add(this.butEditingRoute);
             this.Controls.Add(this.butCreateRoutes);
             this.Controls.Add(this.lblSavedRoutes);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(588, 492);
             this.Name = "frmEditingRoutes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование сохраненных маршрутов";
             this.Load += new System.EventHandler(this.frmEditingRoutes_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,7 +213,7 @@
         private System.Windows.Forms.Button butEditingRoute;
         private System.Windows.Forms.Button butDeleteRoute;
         private System.Windows.Forms.ListBox lstSaveRoutes;
-        private System.Windows.Forms.Button butAddRout;
+        private System.Windows.Forms.Button butSearchRoute;
         private System.Windows.Forms.Button butRenameRoute;
         private System.Windows.Forms.Button butCopyRoute;
         private LibControls.ButtonForPicture butUp;

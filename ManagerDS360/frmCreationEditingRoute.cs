@@ -56,6 +56,20 @@ namespace ManagerDS360
 
             toolTip1.SetToolTip(this.butAddSetting, "ALT+S ");
             toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
         }
 
         private void PushListBox()

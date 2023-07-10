@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
@@ -37,6 +38,14 @@ namespace ManagerDS360
 
         private void frmInputName_Load(object sender, EventArgs e)
         {
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.btnSave, "CTRL+S ");
+            toolTip1.SetToolTip(this.btnCancel, "CTRL+X ");
         }
 
         private void txtNameSet_TextChanged(object sender, EventArgs e)

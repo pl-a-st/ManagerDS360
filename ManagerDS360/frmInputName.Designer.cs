@@ -87,6 +87,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtNameSet);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(320, 180);
             this.MinimumSize = new System.Drawing.Size(320, 180);

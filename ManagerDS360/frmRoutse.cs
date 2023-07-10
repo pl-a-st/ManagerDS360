@@ -11,6 +11,7 @@ using System.IO;
 using LibControls;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs.Controls;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
@@ -23,20 +24,51 @@ namespace ManagerDS360
             InitializeComponent();
         }
 
-        //private void butDownRoute_Click(object sender, EventArgs e)
-        //{
-        //    //перемещение вниз
-        //}
-
-        //private void butUpRoute_Click(object sender, EventArgs e)
-        //{
-        //    //перемещение вверх
-        //}
-
         private void frmEditingRoutes_Load(object sender, EventArgs e)
         {
             ReloadLstRoutes();
             SelectLstRoutes();
+
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 2000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.butCreateRoutes, "ALT+S ");
+            toolTip1.SetToolTip(this.butDeleteRoute, "CTRL+D ");
+            toolTip1.SetToolTip(this.butEditingRoute, "CTRL+E ");
+            toolTip1.SetToolTip(this.butRenameRoute, "CTRL+R ");
+            toolTip1.SetToolTip(this.butCopyRoute, "CTRL+С ");
+            toolTip1.SetToolTip(this.butSearchRoute, "CTRL+F ");
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt == true && e.KeyCode == Keys.S)    // создать
+            {
+                CreateRoutes();
+            }
+            if (e.Control == true && e.KeyCode == Keys.D)    // удалить
+            {
+                DeleteRoute();
+            }
+            if (e.Control == true && e.KeyCode == Keys.E)    // редактировать
+            {
+                EditingRoute();
+            }
+            if (e.Control == true && e.KeyCode == Keys.R)    // переименовать
+            {
+                RenameRoute();
+            }
+            if (e.Control == true && e.KeyCode == Keys.C)    // копировать
+            {
+                CopyRoute();
+            }
+            if (e.Control == true && e.KeyCode == Keys.F)    // поиск
+            {
+                SearchRoute();
+            }
         }
 
         private void SelectLstRoutes()
@@ -49,16 +81,21 @@ namespace ManagerDS360
         }
 
         //выбор элемента treeView
-        private void TreeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TreeNode node = e.Node;
-            if (node == null)
-            {
-                return;
-            }
-        }
+        //private void TreeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
+        //{
+        //    TreeNode node = e.Node;
+        //    if (node == null)
+        //    {
+        //        return;
+        //    }
+        //}
 
         private void butDeleteRoute_Click(object sender, EventArgs e)
+        {
+            DeleteRoute();
+        }
+
+        private void DeleteRoute()
         {
             if (lstSaveRoutes.SelectedIndex == -1)
             {
@@ -78,12 +115,12 @@ namespace ManagerDS360
         {
         }
 
-        //private void butSaveRoutes_Click(object sender, EventArgs e)
-        //{
-        //    //сохранить список маршрутов и их порядок
-        //}
-
         private void butCreateRoutes_Click(object sender, EventArgs e)
+        {
+            CreateRoutes();
+        }
+
+        private void CreateRoutes()
         {
             //создание нового маршрута
             frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
@@ -108,6 +145,11 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
+            EditingRoute();
+        }
+
+        private void EditingRoute()
+        {
             if (lstSaveRoutes.SelectedIndex == -1)
             {
                 return;
@@ -126,16 +168,12 @@ namespace ManagerDS360
             SelectLstRoutes();
         }
 
-        //private void treSaveRoutes_AfterSelect(object sender, TreeViewEventArgs e)
-        //{
-        //    //список сохранённых маршрутов
-        //}
+        private void butSearchRoute_Click(object sender, EventArgs e)
+        {
+            SearchRoute();
+        }
 
-        //private void lblSaveRoutes_Click(object sender, EventArgs e)
-        //{
-        //}
-
-        private void butAddRout_Click(object sender, EventArgs e)
+        private void SearchRoute()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "|*.rout";
@@ -150,6 +188,11 @@ namespace ManagerDS360
         }
 
         private void butRenameRoute_Click(object sender, EventArgs e)
+        {
+            RenameRoute();
+        }
+
+        private void RenameRoute()
         {
             int selectedIndex = lstSaveRoutes.SelectedIndex;
             if (selectedIndex == -1)
@@ -182,6 +225,11 @@ namespace ManagerDS360
         }
 
         private void butCopyRoute_Click(object sender, EventArgs e)
+        {
+            CopyRoute();
+        }
+
+        private void CopyRoute()
         {
             int selectedIndex = lstSaveRoutes.SelectedIndex;
             if (selectedIndex == -1)

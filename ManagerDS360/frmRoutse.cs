@@ -30,7 +30,7 @@ namespace ManagerDS360
             SelectLstRoutes();
 
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.AutoPopDelay = 2000;
+            toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 100;
             toolTip1.ReshowDelay = 100;
             toolTip1.ShowAlways = true;
@@ -40,7 +40,9 @@ namespace ManagerDS360
             toolTip1.SetToolTip(this.butEditingRoute, "CTRL+E ");
             toolTip1.SetToolTip(this.butRenameRoute, "CTRL+R ");
             toolTip1.SetToolTip(this.butCopyRoute, "CTRL+С ");
-            toolTip1.SetToolTip(this.butSearchRoute, "CTRL+F ");
+            toolTip1.SetToolTip(this.butSearchRoute, "CTRL+F");
+            toolTip1.SetToolTip(this.butUp, "U");
+            toolTip1.SetToolTip(this.butDown, "J");
         }
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
@@ -68,6 +70,14 @@ namespace ManagerDS360
             if (e.Control == true && e.KeyCode == Keys.F)    // поиск
             {
                 SearchRoute();
+            }
+            if (e.KeyCode == Keys.U)    //вверх  
+            {
+                but_Up_C();
+            }
+            if (e.KeyCode == Keys.J)    //вниз  
+            {
+                but_Down_C();
             }
         }
 
@@ -306,6 +316,11 @@ namespace ManagerDS360
 
         private void butUp_Click(object sender, EventArgs e)
         {
+            but_Up_C();
+        }
+
+        private void but_Up_C()
+        {
             int selectIndex = lstSaveRoutes.SelectedIndex;
             if (selectIndex < 1)
             {
@@ -320,6 +335,11 @@ namespace ManagerDS360
         }
 
         private void butDown_Click(object sender, EventArgs e)
+        {
+            but_Down_C();
+        }
+
+        private void but_Down_C()
         {
             int selectIndex = lstSaveRoutes.SelectedIndex;
             if (selectIndex == -1 || selectIndex == lstSaveRoutes.Items.Count - 1)

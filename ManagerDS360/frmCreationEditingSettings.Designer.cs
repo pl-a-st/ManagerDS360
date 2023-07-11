@@ -226,6 +226,7 @@
             // 
             this.cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector2.FormattingEnabled = true;
+            this.cboDetector2.ItemHeight = 14;
             this.cboDetector2.Location = new System.Drawing.Point(17, 91);
             this.cboDetector2.Name = "cboDetector2";
             this.cboDetector2.Size = new System.Drawing.Size(143, 22);
@@ -301,20 +302,16 @@
             // txtFrequency
             // 
             this.txtFrequency.Location = new System.Drawing.Point(19, 137);
-            this.txtFrequency.MaxLength = 9;
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(143, 22);
             this.txtFrequency.TabIndex = 10;
-            this.txtFrequency.TextChanged += new System.EventHandler(this.txtFrequency_TextChanged);
             // 
             // txtValue
             // 
-            this.txtValue.Location = new System.Drawing.Point(19, 46);
-            this.txtValue.MaxLength = 9;
+            this.txtValue.Location = new System.Drawing.Point(19, 48);
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(143, 22);
             this.txtValue.TabIndex = 8;
-            this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
             // 
             // groupBox3
             // 
@@ -369,7 +366,7 @@
             this.txtValue2.MaxLength = 9;
             this.txtValue2.Name = "txtValue2";
             this.txtValue2.Size = new System.Drawing.Size(143, 22);
-            this.txtValue2.TabIndex = 11;
+            this.txtValue2.TabIndex = 12;
             this.txtValue2.TextChanged += new System.EventHandler(this.txtValue2_TextChanged);
             // 
             // txtFrequency2
@@ -378,7 +375,7 @@
             this.txtFrequency2.MaxLength = 9;
             this.txtFrequency2.Name = "txtFrequency2";
             this.txtFrequency2.Size = new System.Drawing.Size(143, 22);
-            this.txtFrequency2.TabIndex = 13;
+            this.txtFrequency2.TabIndex = 14;
             this.txtFrequency2.TextChanged += new System.EventHandler(this.txtFrequency2_TextChanged);
             // 
             // groupBox4
@@ -411,11 +408,11 @@
             // 
             // txtOffset
             // 
-            this.txtOffset.Location = new System.Drawing.Point(328, 226);
+            this.txtOffset.Location = new System.Drawing.Point(334, 226);
             this.txtOffset.MaxLength = 9;
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(110, 20);
-            this.txtOffset.TabIndex = 15;
+            this.txtOffset.TabIndex = 11;
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
@@ -430,6 +427,7 @@
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.DoubleBuffered = true;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(450, 450);
             this.Name = "frmCreationEditingSettings";

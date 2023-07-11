@@ -15,6 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static ManagerDS360.frmCreationEditingRoute;
 using System.IO.Ports;
 using LibControls;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
@@ -93,6 +94,30 @@ namespace ManagerDS360
             //ААС: Добавил ниже список из 20 имён
 
             frmCreationEditingRoute frmCreationEditingRoute = new frmCreationEditingRoute();
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.butSave, "CTRL+S");
+            toolTip1.SetToolTip(this.butCancel, "CTRL+X");
+            toolTip1.SetToolTip(butSend, "Alt+S");
+        }
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control == true && e.KeyCode == Keys.S)    // сохранить
+            {
+                Save();
+            }
+            if (e.Control == true && e.KeyCode == Keys.X)    // закрыть
+            {
+                Close();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.S)    // отправить
+            {
+                SendSetting();
+            }
         }
 
         internal void InitializechcboComPort()
@@ -169,6 +194,11 @@ namespace ManagerDS360
         }
 
         internal void butSave_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
         {
             if (CheckFormsParameters() != Result.Success)
             {
@@ -441,6 +471,11 @@ namespace ManagerDS360
         }
 
         private void butSendSetting_Click(object sender, EventArgs e)
+        {
+            SendSetting();
+        }
+
+        private void SendSetting()
         {
             if (CheckFormsParameters() != Result.Success)
             {

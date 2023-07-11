@@ -41,7 +41,7 @@
             this.butAllDelete = new System.Windows.Forms.Button();
             this.butCancel = new System.Windows.Forms.Button();
             this.chkUseLastSetting = new System.Windows.Forms.CheckBox();
-            this.butCpopy = new System.Windows.Forms.Button();
+            this.butCopy = new System.Windows.Forms.Button();
             this.butPaste = new System.Windows.Forms.Button();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.butDown = new LibControls.ButtonForPicture();
@@ -184,17 +184,17 @@
             this.chkUseLastSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkUseLastSetting.UseVisualStyleBackColor = true;
             // 
-            // butCpopy
+            // butCopy
             // 
-            this.butCpopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butCpopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCpopy.Location = new System.Drawing.Point(619, 255);
-            this.butCpopy.Name = "butCpopy";
-            this.butCpopy.Size = new System.Drawing.Size(157, 40);
-            this.butCpopy.TabIndex = 7;
-            this.butCpopy.Text = "Копировать узел";
-            this.butCpopy.UseVisualStyleBackColor = true;
-            this.butCpopy.Click += new System.EventHandler(this.butCpopy_Click);
+            this.butCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butCopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butCopy.Location = new System.Drawing.Point(619, 255);
+            this.butCopy.Name = "butCopy";
+            this.butCopy.Size = new System.Drawing.Size(157, 40);
+            this.butCopy.TabIndex = 7;
+            this.butCopy.Text = "Копировать узел";
+            this.butCopy.UseVisualStyleBackColor = true;
+            this.butCopy.Click += new System.EventHandler(this.butCopy_Click);
             // 
             // butPaste
             // 
@@ -278,7 +278,7 @@
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.butDelete);
             this.Controls.Add(this.butPaste);
-            this.Controls.Add(this.butCpopy);
+            this.Controls.Add(this.butCopy);
             this.Controls.Add(this.butEditSetting);
             this.Controls.Add(this.butAddSetting);
             this.Controls.Add(this.butAddFolder);
@@ -315,7 +315,7 @@
         internal System.Windows.Forms.Button butCancel;
         public LibControls.TreeViewWithSetting treRouteTree;
         private System.Windows.Forms.CheckBox chkUseLastSetting;
-        internal System.Windows.Forms.Button butCpopy;
+        internal System.Windows.Forms.Button butCopy;
         internal System.Windows.Forms.Button butPaste;
         private LibControls.ButtonForPicture butDown;
         private LibControls.ButtonForPicture butUp;

@@ -104,6 +104,14 @@ namespace ManagerDS360
                     this.Height -= step;
                 }));
             }
+            string aboutAutors2 = "Разработчики:\n\n" +
+               "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
+               "Библиотека работы с генератором: Верин С.Г.\n\n" +
+              "Пользовательский интерфейс: Верин С.Г., Верин С.Г., Верин С.Г.\n\n";
+            BeginInvoke(new Action(() =>
+            {
+                label.Text = aboutAutors2;
+            }));
             Thread.Sleep(3000);
             while (this.ClientSize.Height < label.ClientSize.Height  +  step/2)
             {
@@ -113,6 +121,11 @@ namespace ManagerDS360
                     this.Height += step;
                 }));
             }
+            Thread.Sleep(1500);
+            BeginInvoke(new Action(() =>
+            {
+                label.Text = aboutAutors;
+            }));
         }
 
         private void GetSizeForm()

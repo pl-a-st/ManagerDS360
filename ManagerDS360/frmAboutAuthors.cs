@@ -76,7 +76,7 @@ namespace ManagerDS360
                     }));
                 }
             }
-            while (this.Height >  label.ClientSize.Height + 15)
+            while (this.ClientSize.Height >  label.ClientSize.Height + 30)
             {
                 Thread.Sleep(50);
                 BeginInvoke(new Action(() =>

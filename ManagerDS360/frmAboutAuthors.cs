@@ -76,12 +76,41 @@ namespace ManagerDS360
                     }));
                 }
             }
-            while (this.ClientSize.Height >  label.ClientSize.Height + 30)
+            int step = 15;
+            Thread.Sleep(500);
+            for (int i = 0; i<6; i++)
             {
                 Thread.Sleep(50);
                 BeginInvoke(new Action(() =>
                 {
-                    this.Height -= 15;
+                    this.Height -= step;
+                }));
+            }
+            Thread.Sleep(1000);
+            while (this.ClientSize.Height >  label.ClientSize.Height + 2*step)
+            {
+                Thread.Sleep(50);
+                BeginInvoke(new Action(() =>
+                {
+                    this.Height -= step;
+                }));
+            }
+            Thread.Sleep(1500);
+            while (this.ClientSize.Height > label.ClientSize.Height/2 + 2 * step)
+            {
+                Thread.Sleep(50);
+                BeginInvoke(new Action(() =>
+                {
+                    this.Height -= step;
+                }));
+            }
+            Thread.Sleep(3000);
+            while (this.ClientSize.Height < label.ClientSize.Height  +  step/2)
+            {
+                Thread.Sleep(50);
+                BeginInvoke(new Action(() =>
+                {
+                    this.Height += step;
                 }));
             }
         }

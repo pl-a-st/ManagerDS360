@@ -75,10 +75,10 @@ namespace ManagerDS360
             editingSettings.ShowDialog();
         }
 
-        private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
-        {
-            SendNodeSetting();   //передача настройки в генератор
-        }
+        //private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
+        //{
+        //    SendNodeSetting();   //передача настройки в генератор
+        //}
 
         private void SendNodeSetting()
         {
@@ -140,7 +140,22 @@ namespace ManagerDS360
             {
                 c.Enabled = true;
             }
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 100;
+            toolTip1.ReshowDelay = 100;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.butGeneratorControl, "CTRL+G");
+            toolTip1.SetToolTip(this.butDefaultGenerator, "CTRL+D");
+            toolTip1.SetToolTip(this.butNext, "Space");
+            toolTip1.SetToolTip(this.butPrevious, "CTRL+Space");
+            toolTip1.SetToolTip(this.butPlay, "Enter");
+
+            //toolTip1.SetToolTip(this.toolStripMenuItem2, "CTRL+I");
+            //toolTip1.SetToolTip(this.toolStripMenuItem, "CTRL+O");
         }
+
         private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
         {
             panel.Height = (int)(this.Height / 3);
@@ -285,6 +300,11 @@ namespace ManagerDS360
         }
         private void butNext_Click(object sender, EventArgs e)
         {
+            Next();
+        }
+
+        private void Next()
+        {
             if (treRouteTree.SelectedNode == null)
             {
                 return;
@@ -371,6 +391,11 @@ namespace ManagerDS360
 
         private void butPrevious_Click(object sender, EventArgs e)
         {
+            Previous();
+        }
+
+        private void Previous()
+        {
             if (treRouteTree.SelectedNode == null)
             {
                 return;
@@ -426,7 +451,6 @@ namespace ManagerDS360
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -462,20 +486,30 @@ namespace ManagerDS360
             {
                 StripMenuItem2();
             }
-            if (e.Control == true && e.KeyCode == Keys.O)    // инфо
+            if (e.Control == true && e.KeyCode == Keys.O)    // руководство
             {
                 //StripMenuItem1();
+            }
+            if (e.KeyCode == Keys.Enter)    // запуск
+            {
+                SendNodeSetting();
+            }
+            if (e.KeyCode == Keys.Space)    // далее
+            {
+                Next();
+            }
+            if (e.Control == true && e.KeyCode == Keys.Space)    // назад
+            {
+                Previous();
             }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void butLable_Enter(object sender, EventArgs e)
         {
-
         }
 
         private void butLable_MouseEnter(object sender, EventArgs e)
@@ -496,14 +530,11 @@ namespace ManagerDS360
 
         private void butLable_Click(object sender, EventArgs e)
         {
-
             frmAboutAuthors frmAboutAuthors = new frmAboutAuthors();
             frmAboutAuthors.TopMost = true;
             frmAboutAuthors.Left = this.Left + this.Width / 2 - frmAboutAuthors.WithMax / 2;
             frmAboutAuthors.Top = this.Top + this.Height / 2 - frmAboutAuthors.WithMax / 2 + frmAboutAuthors.Height / 2;
             frmAboutAuthors.ShowDialog();
-            
-
         }
     }
 }

@@ -54,21 +54,19 @@ namespace ManagerDS360
             toolTip1.ReshowDelay = 100;
             toolTip1.ShowAlways = true;
 
-            toolTip1.SetToolTip(this.butAddSetting, "ALT+S ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butAddSetting, "ALT+S");
+            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A");
 
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            toolTip1.SetToolTip(this.butEditSetting, "CTRL+R");
+            toolTip1.SetToolTip(this.butCopy, "Alt+C");
+            toolTip1.SetToolTip(this.butPaste, "Alt+V");
+            toolTip1.SetToolTip(this.butDelete, "CTRL+D");
+            toolTip1.SetToolTip(this.butAllDelete, "CTRL+Shift+D");
+            toolTip1.SetToolTip(this.butSave, "CTRL+S");
+            toolTip1.SetToolTip(this.butCancel, "CTRL+X");
+            toolTip1.SetToolTip(this.butUp, "Shift+Up");
+            toolTip1.SetToolTip(this.butDown, "Shift+Down");
+
             toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
         }
 
@@ -605,7 +603,7 @@ namespace ManagerDS360
             treRouteTree.SelectedNode = node;
         }
 
-        private void butCpopy_Click(object sender, EventArgs e)
+        private void butCopy_Click(object sender, EventArgs e)
         {
             treRouteTree.CopySelectedNode();
         }

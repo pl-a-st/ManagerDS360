@@ -44,8 +44,8 @@ namespace ManagerDS360
             toolTip1.ReshowDelay = 100;
             toolTip1.ShowAlways = true;
 
-            toolTip1.SetToolTip(this.btnSave, "CTRL+S ");
-            toolTip1.SetToolTip(this.btnCancel, "CTRL+X ");
+            toolTip1.SetToolTip(this.btnSave, "CTRL+S");
+            toolTip1.SetToolTip(this.btnCancel, "CTRL+X");
         }
 
         private void txtNameSet_TextChanged(object sender, EventArgs e)

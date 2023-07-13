@@ -46,8 +46,9 @@ namespace ManagerDS360
             toolTip1.ReshowDelay = 100;
             toolTip1.ShowAlways = true;
 
-            toolTip1.SetToolTip(this.butSave, "CTRL+S ");
-            toolTip1.SetToolTip(this.butCancel, "CTRL+X ");
+            toolTip1.SetToolTip(this.butSave, "CTRL+S");
+            toolTip1.SetToolTip(this.butCancel, "CTRL+X");
+            toolTip1.SetToolTip(this.butFindGenerator, "F5");
         }
 
         internal void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,9 +58,14 @@ namespace ManagerDS360
 
         private async void butFindGenerator_Click(object sender, EventArgs e)
         {
+            await FindGenerator();
+        }
+
+        private async Task FindGenerator()
+        {
             ProgressBar progressBar = new ProgressBar();
             Label label = new Label();
-            groupBox1.Enabled= false;
+            groupBox1.Enabled = false;
             InsertControls(progressBar, label);
             Task<string[]> getComs = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
             Task.Run(() => getComs.Start());
@@ -71,6 +77,7 @@ namespace ManagerDS360
             progressBar.Dispose();
             label.Dispose();
         }
+
         private void InsertControls(ProgressBar progressBar, Label label)
         {
             progressBar.Width = this.Width / 2;
@@ -120,11 +127,14 @@ namespace ManagerDS360
             {
                 Close();
             }
+            if (e.KeyCode == Keys.F5)    // обновить
+            {
+                //await FindGenerator();
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
-
         }
     }
 }

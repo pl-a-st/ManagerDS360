@@ -55,77 +55,93 @@ namespace ManagerDS360
 
         private async void SetLabelPart1(Label label)
         {
-            string aboutAutors = "Разработчики:\n\n" +
-                "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
-                "Библиотека работы с генератором: Агальцов А.С.\n\n" +
-               "Пользовательский интерфейс: Маяков А.Н., Кирдяшкин В.А., Верин С.Г.\n\n";
-
-            foreach (char ch in aboutAutors)
+            try
             {
-                Thread.Sleep(50);
-                BeginInvoke(new Action(() =>
+                string aboutAutors = "Разработчики:\n\n" +
+               "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
+               "Библиотека работы с генератором: Агальцов А.С.\n\n" +
+              "Пользовательский интерфейс: Маяков А.Н., Кирдяшкин В.А., Верин С.Г.\n\n";
+
+                foreach (char ch in aboutAutors)
                 {
-                    label.Text += ch;
-                }));
-                while ((label.Location.X + label.Width + 5) >= this.Width)
+                    try
+                    {
+
+                    }
+                    catch
+                    {
+
+                    }
+                    Thread.Sleep(50);
+                    BeginInvoke(new Action(() =>
+                    {
+                        label.Text += ch;
+                    }));
+                    while ((label.Location.X + label.Width + 5) >= this.Width)
+                    {
+                        Thread.Sleep(50);
+                        BeginInvoke(new Action(() =>
+                        {
+                            this.Width += 5;
+                        }));
+                    }
+                }
+                int step = 15;
+                Thread.Sleep(500);
+                for (int i = 0; i < 6; i++)
                 {
                     Thread.Sleep(50);
                     BeginInvoke(new Action(() =>
                     {
-                        this.Width += 5;
+                        this.Height -= step;
                     }));
                 }
-            }
-            int step = 15;
-            Thread.Sleep(500);
-            for (int i = 0; i<6; i++)
-            {
-                Thread.Sleep(50);
+                Thread.Sleep(1000);
+                while (this.ClientSize.Height > label.ClientSize.Height + 2 * step)
+                {
+                    Thread.Sleep(50);
+                    BeginInvoke(new Action(() =>
+                    {
+                        this.Height -= step;
+                    }));
+                }
+                Thread.Sleep(1500);
+                while (this.ClientSize.Height > label.ClientSize.Height / 2 + 2 * step)
+                {
+                    Thread.Sleep(50);
+                    BeginInvoke(new Action(() =>
+                    {
+                        this.Height -= step;
+                    }));
+                }
+                string aboutAutors2 = "Разработчики:\n\n" +
+                   "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
+                   "Библиотека работы с генератором: Верин С.Г.\n\n" +
+                  "Пользовательский интерфейс: Верин С.Г., Верин С.Г., Верин С.Г.\n\n";
                 BeginInvoke(new Action(() =>
                 {
-                    this.Height -= step;
+                    label.Text = aboutAutors2;
                 }));
-            }
-            Thread.Sleep(1000);
-            while (this.ClientSize.Height >  label.ClientSize.Height + 2*step)
-            {
-                Thread.Sleep(50);
+                Thread.Sleep(3000);
+                while (this.ClientSize.Height < label.ClientSize.Height + step / 2)
+                {
+                    Thread.Sleep(50);
+                    BeginInvoke(new Action(() =>
+                    {
+                        this.Height += step;
+                    }));
+                }
+                Thread.Sleep(1500);
                 BeginInvoke(new Action(() =>
                 {
-                    this.Height -= step;
+                    label.Text = aboutAutors;
                 }));
             }
-            Thread.Sleep(1500);
-            while (this.ClientSize.Height > label.ClientSize.Height/2 + 2 * step)
+            catch
             {
-                Thread.Sleep(50);
-                BeginInvoke(new Action(() =>
-                {
-                    this.Height -= step;
-                }));
+
             }
-            string aboutAutors2 = "Разработчики:\n\n" +
-               "Руководитель проекта, архетектура: Верин С.Г.\n\n" +
-               "Библиотека работы с генератором: Верин С.Г.\n\n" +
-              "Пользовательский интерфейс: Верин С.Г., Верин С.Г., Верин С.Г.\n\n";
-            BeginInvoke(new Action(() =>
-            {
-                label.Text = aboutAutors2;
-            }));
-            Thread.Sleep(3000);
-            while (this.ClientSize.Height < label.ClientSize.Height  +  step/2)
-            {
-                Thread.Sleep(50);
-                BeginInvoke(new Action(() =>
-                {
-                    this.Height += step;
-                }));
-            }
-            Thread.Sleep(1500);
-            BeginInvoke(new Action(() =>
-            {
-                label.Text = aboutAutors;
-            }));
+           
         }
 
         private void GetSizeForm()

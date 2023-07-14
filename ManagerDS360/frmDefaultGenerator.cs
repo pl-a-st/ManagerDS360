@@ -116,7 +116,7 @@ namespace ManagerDS360
         {
             Close();
         }
-        private void Form_KeyDown(object sender, KeyEventArgs e)
+        private async void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control == true && e.KeyCode == Keys.S)    // сохранить
             {
@@ -129,7 +129,7 @@ namespace ManagerDS360
             }
             if (e.KeyCode == Keys.F5)    // обновить
             {
-                //await FindGenerator();
+                await FindGenerator();
             }
         }
 

@@ -476,15 +476,18 @@ namespace ManagerDS360
             if (e.Control == true && e.KeyCode == Keys.G)    // управление
             {
                 GeneratorControl();
+                return;
             }
             if (e.Control == true && e.KeyCode == Keys.D)    // по умолчанию
             {
                 DefaultGenerator();
+                return;
             }
 
             if (e.Control == true && e.KeyCode == Keys.I)    // инфо
             {
                 StripMenuItem2();
+                return;
             }
             if (e.Control == true && e.KeyCode == Keys.O)    // руководство
             {
@@ -492,15 +495,18 @@ namespace ManagerDS360
             }
             if (e.KeyCode == Keys.Enter)    // запуск
             {
-                SendNodeSetting();
-            }
-            if (e.KeyCode == Keys.Space)    // далее
-            {
-                Next();
+              SendNodeSetting();
+                return;
+
             }
             if (e.Control == true && e.KeyCode == Keys.Space)    // назад
             {
                 Previous();
+                return;
+            }
+            if (e.KeyCode == Keys.Space)    // далее
+            {
+                Next();
             }
         }
 

@@ -70,7 +70,6 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.Text = "Генератор по умолчанию";
             this.butDefaultGenerator.UseVisualStyleBackColor = false;
             this.butDefaultGenerator.Click += new System.EventHandler(this.butDefaultGenerator_Click);
-            this.butDefaultGenerator.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // cboSavedRoutes
             // 
@@ -105,7 +104,6 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Text = "Управление генератором";
             this.butGeneratorControl.UseVisualStyleBackColor = false;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
-            this.butGeneratorControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // lblSelectedNode
             // 

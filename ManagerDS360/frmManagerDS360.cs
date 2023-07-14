@@ -113,6 +113,10 @@ namespace ManagerDS360
             }
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
+            if (treRouteTree.Nodes.Count > 0)
+            {
+                treRouteTree.SelectedNode = treRouteTree.Nodes[0];
+            }
             GetToolToPicPlay();
         }
 
@@ -495,17 +499,20 @@ namespace ManagerDS360
             }
             if (e.KeyCode == Keys.Enter)    // запуск
             {
-              SendNodeSetting();
+                if (this.treRouteTree.Focused || this.Focused)
+                SendNodeSetting();
+                e.Handled = true;
                 return;
-
             }
             if (e.Control == true && e.KeyCode == Keys.Space)    // назад
             {
                 Previous();
+                e.Handled = true;
                 return;
             }
             if (e.KeyCode == Keys.Space)    // далее
             {
+                e.Handled = true;
                 Next();
             }
         }

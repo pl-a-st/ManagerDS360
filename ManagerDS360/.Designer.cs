@@ -38,11 +38,11 @@ namespace ManagerDS360 {
             this.редактированиеМаршрутовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.редактированиеМаршрутовToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEditingRoutes = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.butLable = new LibControls.ButtonForPicture();
@@ -86,9 +86,6 @@ namespace ManagerDS360 {
             this.cboSavedRoutes.SelectedIndexChanged += new System.EventHandler(this.cboSavedRoutes_SelectedIndexChanged);
             this.cboSavedRoutes.Click += new System.EventHandler(this.cboSavedRoutes_Click);
             this.cboSavedRoutes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
-            this.cboSavedRoutes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseClick);
-            this.cboSavedRoutes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cboSavedRoutes_MouseDown);
-            this.cboSavedRoutes.MouseEnter += new System.EventHandler(this.cboSavedRoutes_MouseEnter);
             // 
             // butGeneratorControl
             // 
@@ -217,7 +214,7 @@ namespace ManagerDS360 {
             this.menuStrip1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
+            this.mnuInfo});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
@@ -227,50 +224,49 @@ namespace ManagerDS360 {
             // менюToolStripMenuItem
             // 
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.редактированиеМаршрутовToolStripMenuItem1,
-            this.выходToolStripMenuItem});
+            this.mnuEditingRoutes,
+            this.mnuExit});
             this.менюToolStripMenuItem.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             this.менюToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.менюToolStripMenuItem.Text = "Меню";
             // 
-            // редактированиеМаршрутовToolStripMenuItem1
+            // mnuEditingRoutes
             // 
-            this.редактированиеМаршрутовToolStripMenuItem1.Name = "редактированиеМаршрутовToolStripMenuItem1";
-            this.редактированиеМаршрутовToolStripMenuItem1.Size = new System.Drawing.Size(259, 22);
-            this.редактированиеМаршрутовToolStripMenuItem1.Text = "Редактирование маршрутов";
-            this.редактированиеМаршрутовToolStripMenuItem1.Click += new System.EventHandler(this.редактированиеМаршрутовToolStripMenuItem1_Click);
+            this.mnuEditingRoutes.Name = "mnuEditingRoutes";
+            this.mnuEditingRoutes.Size = new System.Drawing.Size(259, 22);
+            this.mnuEditingRoutes.Text = "Редактирование маршрутов";
+            this.mnuEditingRoutes.Click += new System.EventHandler(this.mnuEditingRoutes_Click);
             // 
-            // выходToolStripMenuItem
+            // mnuExit
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.mnuExit.Name = "mnuExit";
+            this.mnuExit.Size = new System.Drawing.Size(259, 22);
+            this.mnuExit.Text = "Выход";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
-            // оПрограммеToolStripMenuItem
+            // mnuInfo
             // 
-            this.оПрограммеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
-            this.оПрограммеToolStripMenuItem.Text = "Информация";
-            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            this.mnuInfo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuHelp,
+            this.mnuAboutProgram});
+            this.mnuInfo.Name = "mnuInfo";
+            this.mnuInfo.Size = new System.Drawing.Size(103, 20);
+            this.mnuInfo.Text = "Информация";
+            this.mnuInfo.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // mnuHelp
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
-            this.toolStripMenuItem1.Text = "Справка";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(180, 22);
+            this.mnuHelp.Text = "Справка";
             // 
-            // toolStripMenuItem2
+            // mnuAboutProgram
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(158, 22);
-            this.toolStripMenuItem2.Text = "О программе";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.mnuAboutProgram.Name = "mnuAboutProgram";
+            this.mnuAboutProgram.Size = new System.Drawing.Size(180, 22);
+            this.mnuAboutProgram.Text = "О программе";
+            this.mnuAboutProgram.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // labelRoute
             // 
@@ -327,7 +323,6 @@ namespace ManagerDS360 {
             this.butLable.TabIndex = 20;
             this.butLable.UseVisualStyleBackColor = false;
             this.butLable.Click += new System.EventHandler(this.butLable_Click);
-            this.butLable.Enter += new System.EventHandler(this.butLable_Enter);
             this.butLable.MouseEnter += new System.EventHandler(this.butLable_MouseEnter);
             this.butLable.MouseLeave += new System.EventHandler(this.butLable_MouseLeave);
             // 
@@ -390,17 +385,17 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem менюToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditingRoutes;
+        private System.Windows.Forms.ToolStripMenuItem mnuInfo;
         private System.Windows.Forms.Label labelRoute;
         private System.Windows.Forms.Button butNext;
         private System.Windows.Forms.Button butPrevious;
         private System.Windows.Forms.Button butPlay;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuAboutProgram;
         private LibControls.ButtonForPicture butLable;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuExit;
     }
 }
 

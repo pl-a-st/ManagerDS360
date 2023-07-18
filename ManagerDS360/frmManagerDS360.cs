@@ -23,37 +23,18 @@ namespace ManagerDS360
         {
             InitializeComponent();
         }
-
-        //по крестику спрашивает, закрыть или нет окно
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
-            //проверка на выходе из ПО
-            //DialogResult dialog = MessageBox.Show(
-            // "Вы действительно хотите выйти из программы?",
-            // "Завершение программы",
-            // MessageBoxButtons.YesNo,
-            // MessageBoxIcon.Warning);
-
-            //if (dialog == DialogResult.Yes)
-            //{
-            //    e.Cancel = false;
-            //}
-            //else
-            //{
-            //    e.Cancel = true;
-            //}
         }
-
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
-            DefaultGenerator();
+            SetDefaultGenerator();
         }
 
-        private void DefaultGenerator()
+        private void SetDefaultGenerator()
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
             frmDefaultGenerator.ShowDialog();
-            //butDefaultGenerator.Text = "Генератор " + DS360Setting.ComPortDefaultName;
             string name = DS360Setting.ComPortDefaultName;
             if (name == "NONE")
             {
@@ -64,22 +45,16 @@ namespace ManagerDS360
 
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
-            GeneratorControl();
+            ControlGenerator();
         }
 
-        private static void GeneratorControl()
+        private static void ControlGenerator()
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = CallType.Control;
             editingSettings.Text = "Отправка настройки в генератор";
             editingSettings.ShowDialog();
         }
-
-        //private void butBroadcastSettingsGenerator_Click(object sender, EventArgs e)
-        //{
-        //    SendNodeSetting();   //передача настройки в генератор
-        //}
-
         private void SendNodeSetting()
         {
             var selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
@@ -87,7 +62,6 @@ namespace ManagerDS360
             {
                 return;
             }
-
             if (selectedNode.NodeType != NodeType.Setting)
             {
                 return;
@@ -104,7 +78,6 @@ namespace ManagerDS360
             selectedNode.ImageIndex = 4;
             selectedNode.SelectedImageIndex = 4;
         }
-
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboSavedRoutes.SelectedIndex == -1)
@@ -117,13 +90,53 @@ namespace ManagerDS360
             {
                 treRouteTree.SelectedNode = treRouteTree.Nodes[0];
             }
-            GetToolToPicPlay();
         }
-
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
             LoadCboSavedRoutes();
-            PushListBox();
+            await SetDefaultDS360();
+            SetToolTipes();
+        }
+
+        private void SetToolTipes()
+        {
+            ToolTip toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 100;
+            toolTip.ReshowDelay = 100;
+
+            toolTip.SetToolTip(this.butGeneratorControl, "CTRL+G");
+            toolTip.SetToolTip(this.butDefaultGenerator, "CTRL+D");
+            toolTip.SetToolTip(this.butNext, "Space");
+            toolTip.SetToolTip(this.butPrevious, "CTRL+Space");
+            toolTip.SetToolTip(this.butPlay, "Enter");
+
+            mnuAboutProgram.MouseEnter += MnuAboutProgram_MouseEnter;
+            void MnuAboutProgram_MouseEnter(object sender, EventArgs e)
+            {
+                toolTip.Show("CTRL+I", this, Cursor.Position.X - this.Location.X + 10, Cursor.Position.Y - this.Location.Y + 10);
+            }
+            mnuAboutProgram.MouseLeave += MnuAboutProgram_MouseLeave;
+            void MnuAboutProgram_MouseLeave(object sender, EventArgs e)
+            {
+                toolTip.Hide(this);
+            }
+            // ToDo Подключить после реализации Help
+            //mnuHelp.MouseEnter += MnuHelp_MouseEnter;
+            //void MnuHelp_MouseEnter(object sender, EventArgs e)
+            //{
+            //    toolTip.Show("CTRL+О", this, Cursor.Position.X - this.Location.X + 10, Cursor.Position.Y - this.Location.Y + 10);
+            //}
+            //mnuHelp.MouseLeave += MnuHelp_MouseLeave;
+            //void MnuHelp_MouseLeave(object sender, EventArgs e)
+            //{
+            //    toolTip.Hide(this);
+            //}
+        }
+
+
+        private async Task SetDefaultDS360()
+        {
             foreach (Control c in this.Controls)
             {
                 c.Enabled = false;
@@ -144,20 +157,6 @@ namespace ManagerDS360
             {
                 c.Enabled = true;
             }
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 100;
-            toolTip1.ReshowDelay = 100;
-            toolTip1.ShowAlways = true;
-
-            toolTip1.SetToolTip(this.butGeneratorControl, "CTRL+G");
-            toolTip1.SetToolTip(this.butDefaultGenerator, "CTRL+D");
-            toolTip1.SetToolTip(this.butNext, "Space");
-            toolTip1.SetToolTip(this.butPrevious, "CTRL+Space");
-            toolTip1.SetToolTip(this.butPlay, "Enter");
-
-            //toolTip1.SetToolTip(this.toolStripMenuItem2, "CTRL+I");
-            //toolTip1.SetToolTip(this.toolStripMenuItem, "CTRL+O");
         }
 
         private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
@@ -206,63 +205,19 @@ namespace ManagerDS360
                 cboSavedRoutes.SelectedIndex = 0;
             }
         }
-
-        private void PushListBox()
-        {
-        }
-
-        private void cboSavedRoutes_MouseClick(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void cboSavedRoutes_MouseDown(object sender, MouseEventArgs e)
-        {
-        }
-
         private void cboSavedRoutes_Click(object sender, EventArgs e)
         {
             cboSavedRoutes.DroppedDown = true;
-        }
-
-        private void cboSavedRoutes_MouseEnter(object sender, EventArgs e)
-        {
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            SendNodeSetting();
         }
         private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             GetToolToPicPlay();
         }
-
         private void GetToolToPicPlay()
         {
             TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
             PicPlayToolTip.RemoveAll();
         }
-
-        private string GetTextToToll(TreeNodeWithSetting selectedNode)
-        {
-
-            if (selectedNode == null)
-            {
-                return "Испытание: не выбрано!\nНастройка: не выбрана";
-
-            }
-            if (selectedNode.NodeType == NodeType.Folder)
-            {
-                return $"Испытание: {selectedNode.Text}\nНастройка: не выбрана";
-
-            }
-            if (selectedNode.NodeType == NodeType.Setting)
-            {
-                return $"Испытание: {GetNodeParentName(selectedNode)}\n{selectedNode.Text}";
-            }
-            return "Испытание: не выбрано!\n\nНастройка: не выбрана";
-        }
-
         private string GetNodeParentName(TreeNodeWithSetting selectedNode)
         {
             if (selectedNode.Parent is TreeNodeWithSetting)
@@ -276,7 +231,12 @@ namespace ManagerDS360
         {
         }
 
-        private void редактированиеМаршрутовToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void mnuEditingRoutes_Click(object sender, EventArgs e)
+        {
+            EditRoutes();
+        }
+
+        private void EditRoutes()
         {
             frmEditingRoutes editingRoutes = new frmEditingRoutes();
             editingRoutes.ShowDialog();
@@ -304,10 +264,10 @@ namespace ManagerDS360
         }
         private void butNext_Click(object sender, EventArgs e)
         {
-            Next();
+            SendNextNodeSetting();
         }
 
-        private void Next()
+        private void SendNextNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
             {
@@ -395,10 +355,10 @@ namespace ManagerDS360
 
         private void butPrevious_Click(object sender, EventArgs e)
         {
-            Previous();
+            SendPreviousNodeSetting();
         }
 
-        private void Previous()
+        private void SendPreviousNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
             {
@@ -459,10 +419,10 @@ namespace ManagerDS360
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            StripMenuItem2();
+            ShowAboutProgram();
         }
 
-        private static void StripMenuItem2()
+        private static void ShowAboutProgram()
         {
             var version = Assembly.GetEntryAssembly().GetName().Version;
             var buildDateTime = new DateTime(2000, 1, 1).Add(
@@ -479,18 +439,22 @@ namespace ManagerDS360
         {
             if (e.Control == true && e.KeyCode == Keys.G)    // управление
             {
-                GeneratorControl();
+                ControlGenerator();
                 return;
             }
             if (e.Control == true && e.KeyCode == Keys.D)    // по умолчанию
             {
-                DefaultGenerator();
+                SetDefaultGenerator();
                 return;
             }
-
+            if (e.Control == true && e.KeyCode == Keys.H)
+            {
+                EditRoutes();
+                return;
+            }
             if (e.Control == true && e.KeyCode == Keys.I)    // инфо
             {
-                StripMenuItem2();
+                ShowAboutProgram();
                 return;
             }
             if (e.Control == true && e.KeyCode == Keys.O)    // руководство
@@ -506,25 +470,16 @@ namespace ManagerDS360
             }
             if (e.Control == true && e.KeyCode == Keys.Space)    // назад
             {
-                Previous();
+                SendPreviousNodeSetting();
                 e.Handled = true;
                 return;
             }
             if (e.KeyCode == Keys.Space)    // далее
             {
                 e.Handled = true;
-                Next();
+                SendNextNodeSetting();
             }
         }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void butLable_Enter(object sender, EventArgs e)
-        {
-        }
-
         private void butLable_MouseEnter(object sender, EventArgs e)
         {
             butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ_темный;
@@ -535,7 +490,7 @@ namespace ManagerDS360
             butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ;
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mnuExit_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             this.Close();

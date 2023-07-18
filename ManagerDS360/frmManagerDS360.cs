@@ -18,10 +18,15 @@ namespace ManagerDS360
 {
     public partial class frmManagerDS360 : Form
     {
-        ToolTip PicPlayToolTip = new ToolTip();
         public frmManagerDS360()
         {
             InitializeComponent();
+        }
+        internal async void frmManagerDS360_Load(object sender, EventArgs e)
+        {
+            LoadCboSavedRoutes();
+            await SetDefaultDS360();
+            SetToolTipes();
         }
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
@@ -30,7 +35,6 @@ namespace ManagerDS360
         {
             SetDefaultGenerator();
         }
-
         private void SetDefaultGenerator()
         {
             frmManagerRoutse frmDefaultGenerator = new frmManagerRoutse();
@@ -42,12 +46,10 @@ namespace ManagerDS360
             }
             butDefaultGenerator.Text = $"Генератор {name}";
         }
-
         private void butGeneratorControl_Click(object sender, EventArgs e)
         {
             ControlGenerator();
         }
-
         private static void ControlGenerator()
         {
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
@@ -91,13 +93,6 @@ namespace ManagerDS360
                 treRouteTree.SelectedNode = treRouteTree.Nodes[0];
             }
         }
-        internal async void frmManagerDS360_Load(object sender, EventArgs e)
-        {
-            LoadCboSavedRoutes();
-            await SetDefaultDS360();
-            SetToolTipes();
-        }
-
         private void SetToolTipes()
         {
             ToolTip toolTip = new ToolTip();
@@ -121,7 +116,7 @@ namespace ManagerDS360
             {
                 toolTip.Hide(this);
             }
-            // ToDo Подключить после реализации Help
+            // ToDo! Подключить после реализации Help
             //mnuHelp.MouseEnter += MnuHelp_MouseEnter;
             //void MnuHelp_MouseEnter(object sender, EventArgs e)
             //{
@@ -133,8 +128,6 @@ namespace ManagerDS360
             //    toolTip.Hide(this);
             //}
         }
-
-
         private async Task SetDefaultDS360()
         {
             foreach (Control c in this.Controls)
@@ -158,7 +151,6 @@ namespace ManagerDS360
                 c.Enabled = true;
             }
         }
-
         private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
         {
             panel.Height = (int)(this.Height / 3);
@@ -288,29 +280,24 @@ namespace ManagerDS360
         {
             SetButClikSize(butNext);
         }
-
         private void SetButClikSize(Button but)
         {
             but.Location = new Point(but.Location.X + 1, but.Location.Y + 1);
             but.Size = new Size(but.Width - 2, but.Height - 2);
         }
-
         private void butNext_MouseUp(object sender, MouseEventArgs e)
         {
             SetButAfterClickSize(butNext);
         }
-
         private void SetButAfterClickSize(Button but)
         {
             but.Location = new Point(but.Location.X - 1, but.Location.Y - 1);
             but.Size = new Size(but.Width + 2, but.Height + 2);
         }
-
         private void butPrevious_Click(object sender, EventArgs e)
         {
             SendPreviousNodeSetting();
         }
-
         private void SendPreviousNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
@@ -320,61 +307,49 @@ namespace ManagerDS360
             SelectPreviousSetting();
             SendNodeSetting();
         }
-
         private void butPrevious_MouseEnter(object sender, EventArgs e)
         {
             butPrevious.BackgroundImage = Properties.Resources.предыдущий_2;
         }
-
         private void butPrevious_MouseLeave(object sender, EventArgs e)
         {
             butPrevious.BackgroundImage = Properties.Resources.предыдущий;
         }
-
         private void butPrevious_MouseDown(object sender, MouseEventArgs e)
         {
             SetButClikSize(butPrevious);
         }
-
         private void butPrevious_MouseUp(object sender, MouseEventArgs e)
         {
             SetButAfterClickSize(butPrevious);
         }
-
         private void butPlay_Click(object sender, EventArgs e)
         {
             SendNodeSetting();
         }
-
         private void butPlay_MouseEnter(object sender, EventArgs e)
         {
             butPlay.BackgroundImage = Properties.Resources.Play2;
         }
-
         private void butPlay_MouseLeave(object sender, EventArgs e)
         {
             butPlay.BackgroundImage = Properties.Resources.Play;
         }
-
         private void butPlay_MouseDown(object sender, MouseEventArgs e)
         {
             SetButClikSize(butPlay);
         }
-
         private void butPlay_MouseUp(object sender, MouseEventArgs e)
         {
             SetButAfterClickSize(butPlay);
         }
-
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
         }
-
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             ShowAboutProgram();
         }
-
         private static void ShowAboutProgram()
         {
             var version = Assembly.GetEntryAssembly().GetName().Version;
@@ -387,7 +362,6 @@ namespace ManagerDS360
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1);
         }
-
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control == true && e.KeyCode == Keys.G)    // управление
@@ -437,18 +411,15 @@ namespace ManagerDS360
         {
             butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ_темный;
         }
-
         private void butLable_MouseLeave(object sender, EventArgs e)
         {
             butLable.BackgroundImage = Properties.Resources.Логотип_ВАСТ;
         }
-
         private void mnuExit_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             this.Close();
         }
-
         private void butLable_Click(object sender, EventArgs e)
         {
             frmAboutAuthors frmAboutAuthors = new frmAboutAuthors();

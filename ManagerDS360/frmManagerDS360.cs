@@ -209,46 +209,15 @@ namespace ManagerDS360
         {
             cboSavedRoutes.DroppedDown = true;
         }
-        private void treRouteTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            GetToolToPicPlay();
-        }
-        private void GetToolToPicPlay()
-        {
-            TreeNodeWithSetting selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            PicPlayToolTip.RemoveAll();
-        }
-        private string GetNodeParentName(TreeNodeWithSetting selectedNode)
-        {
-            if (selectedNode.Parent is TreeNodeWithSetting)
-            {
-                return selectedNode.Parent.Text;
-            }
-            return "нет";
-        }
-
-        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void mnuEditingRoutes_Click(object sender, EventArgs e)
         {
             EditRoutes();
         }
-
         private void EditRoutes()
         {
             frmEditingRoutes editingRoutes = new frmEditingRoutes();
             editingRoutes.ShowDialog();
             LoadCboSavedRoutes();
-        }
-
-        private void picNext_Click(object sender, EventArgs e)
-        {
-            if (treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
         }
         private TreeNode GetNextParentNode(TreeNode selectedNode)
         {
@@ -266,7 +235,6 @@ namespace ManagerDS360
         {
             SendNextNodeSetting();
         }
-
         private void SendNextNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
@@ -276,7 +244,6 @@ namespace ManagerDS360
             SelectNextSetting();
             SendNodeSetting();
         }
-
         private void SelectNextSetting()
         {
             if (treRouteTree.SelectedNode.NextVisibleNode == null)
@@ -308,29 +275,15 @@ namespace ManagerDS360
             {
                 SelectPreviousSetting();
             }
-
         }
-
-        private void picPrevious_Click(object sender, EventArgs e)
-        {
-            treRouteTree.SelectedNode = treRouteTree.SelectedNode.PrevVisibleNode;
-            //if (treRouteTree.SelectedNode == null)
-            //{
-            //    return;
-            //}
-            //treRouteTree.SelectedNode = GerPrevousNode(treRouteTree.SelectedNode);
-        }
-
         private void butNext_MouseEnter(object sender, EventArgs e)
         {
             butNext.BackgroundImage = Properties.Resources.следующий_2;
         }
-
         private void butNext_MouseLeave(object sender, EventArgs e)
         {
             butNext.BackgroundImage = Properties.Resources.следующий;
         }
-
         private void butNext_MouseDown(object sender, MouseEventArgs e)
         {
             SetButClikSize(butNext);
@@ -464,7 +417,7 @@ namespace ManagerDS360
             if (e.KeyCode == Keys.Enter)    // запуск
             {
                 if (this.treRouteTree.Focused || this.Focused)
-                SendNodeSetting();
+                    SendNodeSetting();
                 e.Handled = true;
                 return;
             }

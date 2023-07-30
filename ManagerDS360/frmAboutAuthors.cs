@@ -64,14 +64,6 @@ namespace ManagerDS360
 
                 foreach (char ch in aboutAutors)
                 {
-                    try
-                    {
-
-                    }
-                    catch
-                    {
-
-                    }
                     Thread.Sleep(50);
                     BeginInvoke(new Action(() =>
                     {

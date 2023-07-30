@@ -38,7 +38,6 @@ namespace ManagerDS360
         public FileInfo FileInfo;
         private DS360SettingVibroSigParam LastDS360Setting;
 
-        List<TreeNode> checkedNodes = new List<TreeNode>();
         public frmCreationEditingRoute()
         {
             InitializeComponent();
@@ -46,8 +45,11 @@ namespace ManagerDS360
 
         public void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
-            PushListBox();
-            /// перенисти в метод
+            SetToolTipes();
+        }
+
+        private void SetToolTipes()
+        {
             ToolTip toolTip1 = new ToolTip();
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 100;
@@ -56,7 +58,6 @@ namespace ManagerDS360
 
             toolTip1.SetToolTip(this.butAddSetting, "ALT+S");
             toolTip1.SetToolTip(this.butAddFolder, "CTRL+A");
-
             toolTip1.SetToolTip(this.butEditSetting, "CTRL+R");
             toolTip1.SetToolTip(this.butCopy, "Alt+C");
             toolTip1.SetToolTip(this.butPaste, "Alt+V");
@@ -66,13 +67,7 @@ namespace ManagerDS360
             toolTip1.SetToolTip(this.butCancel, "CTRL+X");
             toolTip1.SetToolTip(this.butUp, "Shift+Up");
             toolTip1.SetToolTip(this.butDown, "Shift+Down");
-
             toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
-        }
-
-        private void PushListBox()
-        {
-
         }
         /// <summary>
         /// Кнопка добавить папку
@@ -83,7 +78,6 @@ namespace ManagerDS360
         {
             AddFolder();
         }
-
         private void AddFolder()
         {
             if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
@@ -93,13 +87,11 @@ namespace ManagerDS360
             }
             frmInputName frmInputName = new frmInputName();
             frmInputName.ShowDialog();
-
             if (frmInputName.SaveName != SaveName.SaveName)
             {
                 return;
             }
             TreeNodeWithSetting treeNodeWihtSetting = new TreeNodeWithSetting(NodeType.Folder, frmInputName.txtNameSet.Text);
-
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNodeWihtSetting);
@@ -111,14 +103,6 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Expand();
             treRouteTree.SelectedNode = treeNodeWihtSetting;
         }
-
-        //обновление окна CreationEditingRoute
-        void editingSettings_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
-            this.Refresh();
-        }
-
         internal void SetNameSetting(frmInputName frmInputName)
         {
             if (this.SaveName == SaveName.SaveName)
@@ -205,7 +189,6 @@ namespace ManagerDS360
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = CallType.Create;
             editingSettings.SaveStatus = SaveStatus.Cancel;
-            editingSettings.FormClosed += new FormClosedEventHandler(editingSettings_FormClosed);
             editingSettings.Text = "Конструирование настройки";
             if (chkUseLastSetting.Checked && LastDS360Setting != null)
             {

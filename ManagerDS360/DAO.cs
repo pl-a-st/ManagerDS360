@@ -17,19 +17,15 @@ namespace ManagerDS360
         Ok,
         Fault
     }
-    public class DAO
+    public static class DAO
     {
-        List<FileInfo> RouteFileInfoList = new List<FileInfo>();
-
-        public DAO()
-        {
-            //RouteFileInfoList.AddRange(new DirectoryInfo(fileName).GetFiles());
-
-
-        }
-
-        //сохранение объекта/сериализация
-
+        /// <summary>
+        /// Сохранение/Сериализация объекта в файл
+        /// </summary>
+        /// <typeparam name="Type"></typeparam>
+        /// <param name="serObject"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static MethodResultStatus binWriteObjectToFile<Type>(Type serObject, string fileName)
         {
             try
@@ -46,8 +42,14 @@ namespace ManagerDS360
             }
             return MethodResultStatus.Fault;
         }
-
-        //извлечение/десериализация
+        /// <summary>
+        /// Ивлечение/десериализация объекта из файла
+        /// </summary>
+        /// <typeparam name="Type"></typeparam>
+        /// <param name="serObject"></param>
+        /// <param name="fullPathFileName"></param>
+        /// <param name="methodResultStatus"></param>
+        /// <returns></returns>
         public static Type binReadFileToObject<Type>(Type serObject, string fullPathFileName, out MethodResultStatus methodResultStatus)
         {
             if (!File.Exists(fullPathFileName))
@@ -70,9 +72,11 @@ namespace ManagerDS360
             }
             return serObject;
         }
-
-
-        //получение пути для сохранения настроек:
+        /// <summary>
+        /// получение пути специальной деректории пользователя для данногого приложения
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static string GetApplicationDataPath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
@@ -83,6 +87,12 @@ namespace ManagerDS360
             return path + fileName;
         }
         //получение пути для сохранения маршрута: 
+        /// <summary>
+        /// Запускает диалог выбора папки 
+        /// </summary>
+        /// <param name="TitleDiolog"></param>
+        /// <param name="resultStatus"></param>
+        /// <returns></returns>
         public static string GetFolderNameDialog(string TitleDiolog, out MethodResultStatus resultStatus)
         {
             CommonOpenFileDialog FolderDialog = new CommonOpenFileDialog();

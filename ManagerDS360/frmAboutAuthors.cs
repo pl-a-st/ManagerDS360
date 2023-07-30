@@ -64,14 +64,6 @@ namespace ManagerDS360
 
                 foreach (char ch in aboutAutors)
                 {
-                    try
-                    {
-
-                    }
-                    catch
-                    {
-
-                    }
                     Thread.Sleep(50);
                     BeginInvoke(new Action(() =>
                     {
@@ -151,7 +143,7 @@ namespace ManagerDS360
                 int step = 33;
                 while (this.Width < WithMax)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(30);
                     BeginInvoke(new Action(() =>
                     {
 

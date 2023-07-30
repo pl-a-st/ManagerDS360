@@ -47,7 +47,6 @@ namespace ManagerDS360 {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -289,7 +288,6 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.butLable);
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
             this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
@@ -340,15 +338,6 @@ namespace ManagerDS360 {
             this.treRouteTree.Size = new System.Drawing.Size(752, 490);
             this.treRouteTree.TabIndex = 7;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(72, 336);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "label1";
-            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,7 +363,6 @@ namespace ManagerDS360 {
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -406,7 +394,6 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem mnuAboutProgram;
         private LibControls.ButtonForPicture butLable;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
-        private System.Windows.Forms.Label label1;
     }
 }
 

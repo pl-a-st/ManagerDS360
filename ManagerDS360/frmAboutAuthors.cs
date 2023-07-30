@@ -143,7 +143,7 @@ namespace ManagerDS360
                 int step = 33;
                 while (this.Width < WithMax)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(30);
                     BeginInvoke(new Action(() =>
                     {
 

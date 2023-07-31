@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibControls;
 using LibDevicesManager;
+using Vast.DC23.DataTransferClient;
 
 
 namespace ManagerDS360
@@ -422,6 +423,7 @@ namespace ManagerDS360
         }
         private void butLable_Click(object sender, EventArgs e)
         {
+            
             frmAboutAuthors frmAboutAuthors = new frmAboutAuthors();
             frmAboutAuthors.TopMost = true;
             frmAboutAuthors.Left = this.Left + this.Width / 2 - frmAboutAuthors.WithMax / 2;

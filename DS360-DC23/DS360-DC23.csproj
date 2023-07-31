@@ -342,6 +342,10 @@
       <Name>LibDevicesManager</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Vast.DC22.DataTransferClient\Vast.DC23.DataTransferClient.csproj">
+      <Project>{e32c1102-89a2-4623-8e1b-1c668fee2fd3}</Project>
+      <Name>Vast.DC23.DataTransferClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cat.png" />

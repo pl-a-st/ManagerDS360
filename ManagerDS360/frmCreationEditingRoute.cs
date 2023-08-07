@@ -598,7 +598,7 @@ namespace ManagerDS360
 
         private void Paste()
         {
-            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");
                 return;

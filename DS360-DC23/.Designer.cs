@@ -45,6 +45,7 @@ namespace ManagerDS360 {
             this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.тестОбменаДаннымиССД23ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
@@ -225,6 +226,7 @@ namespace ManagerDS360 {
             // 
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuEditingRoutes,
+            this.тестОбменаДаннымиССД23ToolStripMenuItem,
             this.mnuExit});
             this.менюToolStripMenuItem.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
@@ -234,14 +236,14 @@ namespace ManagerDS360 {
             // mnuEditingRoutes
             // 
             this.mnuEditingRoutes.Name = "mnuEditingRoutes";
-            this.mnuEditingRoutes.Size = new System.Drawing.Size(259, 22);
+            this.mnuEditingRoutes.Size = new System.Drawing.Size(268, 22);
             this.mnuEditingRoutes.Text = "Редактирование маршрутов";
             this.mnuEditingRoutes.Click += new System.EventHandler(this.mnuEditingRoutes_Click);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(259, 22);
+            this.mnuExit.Size = new System.Drawing.Size(268, 22);
             this.mnuExit.Text = "Выход";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
@@ -303,6 +305,13 @@ namespace ManagerDS360 {
             this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // тестОбменаДаннымиССД23ToolStripMenuItem
+            // 
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Name = "тестОбменаДаннымиССД23ToolStripMenuItem";
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Text = "Тест обмена данными с СД-23";
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Click += new System.EventHandler(this.тестОбменаДаннымиССД23ToolStripMenuItem_Click);
             // 
             // butLable
             // 
@@ -394,6 +403,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem mnuAboutProgram;
         private LibControls.ButtonForPicture butLable;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
+        private System.Windows.Forms.ToolStripMenuItem тестОбменаДаннымиССД23ToolStripMenuItem;
     }
 }
 

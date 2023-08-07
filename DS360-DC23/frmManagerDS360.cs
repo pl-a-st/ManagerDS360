@@ -430,5 +430,11 @@ namespace ManagerDS360
             frmAboutAuthors.Top = this.Top + this.Height / 2 - frmAboutAuthors.WithMax / 2 + frmAboutAuthors.Height / 2;
             frmAboutAuthors.ShowDialog();
         }
+
+        private void тестОбменаДаннымиССД23ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmTestExchangeDC23 frmTestExchangeDC23 = new frmTestExchangeDC23();
+            frmTestExchangeDC23.ShowDialog();
+        }
     }
 }

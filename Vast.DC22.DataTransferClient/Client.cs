@@ -20,6 +20,9 @@ namespace Vast.DC23.DataTransferClient
         //public event EventHandler<ExceptionEventArgs> ProcessedExceptionRised;
         private AutoResetEvent m_manResetEvent = new AutoResetEvent(false);
 
+        public delegate void MessageFromDC23Handler(string message);
+        public event MessageFromDC23Handler ReceivedMessageDC23Event;
+
         static Client()
         {
             m_deniedPaths.Add("vast_meas_control_route");
@@ -186,6 +189,7 @@ namespace Vast.DC23.DataTransferClient
             finally
             {
                 OnServerDisconnected();
+                DisconnectedEvent(this, EventArgs.Empty);
                 m_disconnecting = false;
             }
         }
@@ -243,7 +247,12 @@ namespace Vast.DC23.DataTransferClient
             byte[] b = System.Text.Encoding.Unicode.GetBytes(cmd);
             sock.Send(b, b.Length, 0);
         }
-
+        public void SendCommandDC23(string command)
+        {
+            Socket sock = clientsock;
+            byte[] b = System.Text.Encoding.Unicode.GetBytes(command);
+            sock.Send(b, b.Length, 0);
+        }
         public void DeviceVersionAndSummsRewrite()
         {
             m_manResetEvent = new AutoResetEvent(false);
@@ -616,6 +625,11 @@ namespace Vast.DC23.DataTransferClient
                     //Console.WriteLine("CLIENT COMMAND = " + execmd + "\r\n");
 
                     string parm1 = "";
+                    if (execmd.Contains("ANSWER"))
+                    {
+                        ReceivedMessageDC23Event.Invoke(execmd);
+                        continue;
+                    }
                     if (execmd == "SERVER")
                     {
                         m_connectEvent.Set();

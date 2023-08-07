@@ -261,6 +261,12 @@
       <DependentUpon>frmManagerDS360.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmTestExchangeDC23.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestExchangeDC23.Designer.cs">
+      <DependentUpon>frmTestExchangeDC23.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgramClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -295,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmManagerDS360.resx">
       <DependentUpon>frmManagerDS360.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestExchangeDC23.resx">
+      <DependentUpon>frmTestExchangeDC23.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

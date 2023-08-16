@@ -58,6 +58,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numComName)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -245,6 +246,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.numComName);
             this.groupBox1.Controls.Add(this.chcDefaultGenerator);
             this.groupBox1.Controls.Add(this.lblComPort);
@@ -261,7 +263,7 @@
             this.numComName.DecimalPlaces = 1;
             this.numComName.Enabled = false;
             this.numComName.Hexadecimal = true;
-            this.numComName.Location = new System.Drawing.Point(247, 22);
+            this.numComName.Location = new System.Drawing.Point(320, 21);
             this.numComName.Maximum = new decimal(new int[] {
             255,
             0,
@@ -416,6 +418,15 @@
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(281, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 14);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "COM";
+            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -479,5 +490,6 @@
         internal System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox4;
         public System.Windows.Forms.NumericUpDown numComName;
+        private System.Windows.Forms.Label label4;
     }
 }

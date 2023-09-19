@@ -21,7 +21,7 @@ namespace LibControls
             this.FlatAppearance.CheckedBackColor = Color.Transparent;
             this.FlatAppearance.MouseDownBackColor = Color.Transparent;
             this.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            this.FlatAppearance.BorderSize =0;
+            this.FlatAppearance.BorderSize = 0;
             this.ImageList = new ImageList();
             this.BackColor = Color.Transparent;
         }
@@ -171,7 +171,7 @@ namespace LibControls
         }
         public TreeNodeWithSetting Copy()
         {
-            TreeNodeWithSetting treeNodeWithSetting = new TreeNodeWithSetting(this.NodeType,this.Text);
+            TreeNodeWithSetting treeNodeWithSetting = new TreeNodeWithSetting(this.NodeType, this.Text);
             treeNodeWithSetting.DS360Setting = DS360Setting.CloneObj();
             if (this.IsExpanded)
             {
@@ -180,7 +180,7 @@ namespace LibControls
             foreach (TreeNodeWithSetting node in this.Nodes)
             {
                 treeNodeWithSetting.Nodes.Add(node.Copy());
-                
+
             }
             return treeNodeWithSetting;
         }
@@ -200,7 +200,7 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Настройка_синяя);
             ImageList.Images.Add(Properties.Resources.Настройка_красная);
             ImageList.Images.Add(Properties.Resources.Настройка_зеленая);
-           
+
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -253,7 +253,7 @@ namespace LibControls
             {
                 return;
             }
-            
+
             CopyTreeNodeWithSetup = selectedNode.Copy();
         }
         public void PasteCopyTreeNode()

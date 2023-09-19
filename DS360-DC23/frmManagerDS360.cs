@@ -435,6 +435,7 @@ namespace ManagerDS360
         {
             frmTestExchangeDC23 frmTestExchangeDC23 = new frmTestExchangeDC23();
             frmTestExchangeDC23.ShowDialog();
+            frmTestExchangeDC23.Dispose();
         }
     }
 }

@@ -41,11 +41,11 @@ namespace ManagerDS360
         {
             if(this.InvokeRequired)
             {
-                BeginInvoke(new Action(() => txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + message + "\n\n"));
+                BeginInvoke(new Action(() => txtMessages.Text +=  DateTime.Now.ToShortTimeString() + " " + message + "\r\n")) ;
             }
             else
             {
-                txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + message + "\n\n";
+                txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + message + "\r\n";
             }
             
         }
@@ -66,32 +66,46 @@ namespace ManagerDS360
             }
             if(status == ConectStatus.Conected)
             {
-                lblConectStatus.Text = "Соединение с прибором установлено";
+                this.Invoke(new Action(() => { 
+                    lblConectStatus.Text = "Соединение с прибором установлено";
+                    foreach (Control control in this.Controls)
+                    {
+                        control.Enabled = true;
+                    }
+                }));
+              
             }
             if(status == ConectStatus.Disconected)
             {
-                lblConectStatus.Text = "Соединение разорвано";
+                this.Invoke(new Action(() => {
+                    lblConectStatus.Text = "Соединение разорвано";
+                    foreach (Control control in this.Controls)
+                    {
+                        control.Enabled = false;
+                    }
+                }));
             }
         }
 
         private void butDisconect_Click(object sender, EventArgs e)
         {
             Client.Disconnect();
+            Client.CancelConnecting();
         }
 
         private void butOpenRoute_Click(object sender, EventArgs e)
         {
-            Client.SendCommandDC23($"CONTROL_FROM_PC_OPEN_ROUTE_[{txtRouteName.Text}]");
+            Client.SendCommandDC23($"CONTROL_FROM_PC_OPEN_ROUTE_<{txtRouteName.Text}>");
         }
 
         private void butSetChannelA_Click(object sender, EventArgs e)
         {
-            Client.SendCommandDC23($"CONTROL_FROM_PC_SELECT_NODE_FERST_[{txtNodeAddressChannelA.Text}]");
+            Client.SendCommandDC23($"CONTROL_FROM_PC_SELECT_NODE_FERST_<{txtNodeAddressChannelA.Text}>");
         }
 
         private void butSetChannelB_Click(object sender, EventArgs e)
         {
-            Client.SendCommandDC23($"CONTROL_FROM_PC_SELECT_NODE_SECOND_[{txtNodeAddressChannelB.Text}]");
+            Client.SendCommandDC23($"CONTROL_FROM_PC_SELECT_NODE_SECOND_<{txtNodeAddressChannelB.Text}>");
         }
 
         private void butMeas_Click(object sender, EventArgs e)

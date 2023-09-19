@@ -64,6 +64,7 @@
             // 
             // txtRouteName
             // 
+            this.txtRouteName.Enabled = false;
             this.txtRouteName.Location = new System.Drawing.Point(588, 64);
             this.txtRouteName.Name = "txtRouteName";
             this.txtRouteName.Size = new System.Drawing.Size(493, 20);
@@ -73,6 +74,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(585, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
@@ -81,6 +83,7 @@
             // 
             // txtNodeAddressChannelA
             // 
+            this.txtNodeAddressChannelA.Enabled = false;
             this.txtNodeAddressChannelA.Location = new System.Drawing.Point(588, 121);
             this.txtNodeAddressChannelA.Name = "txtNodeAddressChannelA";
             this.txtNodeAddressChannelA.Size = new System.Drawing.Size(493, 20);
@@ -89,6 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Enabled = false;
             this.label2.Location = new System.Drawing.Point(585, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(146, 13);
@@ -97,6 +101,7 @@
             // 
             // butOpenRoute
             // 
+            this.butOpenRoute.Enabled = false;
             this.butOpenRoute.Location = new System.Drawing.Point(438, 61);
             this.butOpenRoute.Name = "butOpenRoute";
             this.butOpenRoute.Size = new System.Drawing.Size(141, 23);
@@ -107,6 +112,7 @@
             // 
             // butSetChannelA
             // 
+            this.butSetChannelA.Enabled = false;
             this.butSetChannelA.Location = new System.Drawing.Point(438, 118);
             this.butSetChannelA.Name = "butSetChannelA";
             this.butSetChannelA.Size = new System.Drawing.Size(141, 23);
@@ -126,6 +132,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(588, 161);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(146, 13);
@@ -145,6 +152,7 @@
             // 
             // butMeas
             // 
+            this.butMeas.Enabled = false;
             this.butMeas.Location = new System.Drawing.Point(438, 226);
             this.butMeas.Name = "butMeas";
             this.butMeas.Size = new System.Drawing.Size(141, 23);

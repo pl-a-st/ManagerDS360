@@ -8,10 +8,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibControls;
 using LibDevicesManager;
+using LibDevicesManager.DC23;
 using Vast.DC23.DataTransferClient;
 
 
@@ -28,7 +30,64 @@ namespace ManagerDS360
             LoadCboSavedRoutes();
             await SetDefaultDS360();
             SetToolTipes();
+            await SetTestedDevicesList();
         }
+
+        private async Task SetTestedDevicesList()
+        {
+            await Task.Delay(10);
+            var elements = PmData.TestedDevice.Values.ToArray();
+            cboTestedDevice.BeginUpdate();
+            cboTestedDevice.Items.AddRange(elements);
+            cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
+            cboTestedDevice.EndUpdate();
+            cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
+        }
+
+        private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var client = ManagerDC23.Client;
+            if (PmData.GetEnumFromString(PmData.TestedDevice,cboTestedDevice.Text)== TestedDevice.DC23)
+            {
+                
+                client.ConnectedEvent += Client_ConnectedEvent;
+                client.DisconnectedEvent += Client_DisconnectedEvent;
+                Thread thr = new Thread(() => client.Connect());
+                thr.IsBackground = true;
+                Invoke(new Action (() =>
+                {
+                    lblTestedDevice.ForeColor = Color.Black;
+                    lblTestedDevice.Text = "Устанавливает соединение";
+                }));
+                thr.Start();
+            }
+            if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.None)
+            {
+                client.Disconnect();
+                client.CancelConnecting();
+            }
+        }
+
+        private void Client_DisconnectedEvent(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                lblTestedDevice.ForeColor = Color.Red;
+                lblTestedDevice.Text = "Соединение разорвано";
+            }));
+            
+        }
+
+        private void Client_ConnectedEvent(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                lblTestedDevice.ForeColor = Color.Green;
+                lblTestedDevice.Text = "Соединение установлено";
+            }));
+            
+        }
+
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
         }
@@ -423,7 +482,7 @@ namespace ManagerDS360
         }
         private void butLable_Click(object sender, EventArgs e)
         {
-            
+
             frmAboutAuthors frmAboutAuthors = new frmAboutAuthors();
             frmAboutAuthors.TopMost = true;
             frmAboutAuthors.Left = this.Left + this.Width / 2 - frmAboutAuthors.WithMax / 2;

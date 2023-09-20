@@ -13,10 +13,19 @@ using VibroMath;
 
 namespace ManagerDS360
 {
+    public enum TestedDevice
+    {
+        None,
+        DC23
+    }
     public static class PmData
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
-
+        public static Dictionary<TestedDevice, string> TestedDevice = new Dictionary<TestedDevice, string>()
+        {
+            { ManagerDS360.TestedDevice.None,"Прибор не подключен"},
+            { ManagerDS360.TestedDevice.DC23,@"СД-23"},
+        };
         public static Dictionary<PhysicalQuantity, string> PhysicalQuantity = new Dictionary<PhysicalQuantity, string>()
         {
             { ManagerDS360.PhysicalQuantity.U,"мВ"},

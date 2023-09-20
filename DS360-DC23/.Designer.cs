@@ -39,15 +39,18 @@ namespace ManagerDS360 {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditingRoutes = new System.Windows.Forms.ToolStripMenuItem();
+            this.тестОбменаДаннымиССД23ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.тестОбменаДаннымиССД23ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblTestedDevice = new System.Windows.Forms.Label();
+            this.cboTestedDevice = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -55,6 +58,7 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // butDefaultGenerator
@@ -122,7 +126,7 @@ namespace ManagerDS360 {
             this.groupBox1.Controls.Add(this.butPrevious);
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(15, 119);
+            this.groupBox1.Location = new System.Drawing.Point(15, 225);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 156);
             this.groupBox1.TabIndex = 19;
@@ -240,6 +244,13 @@ namespace ManagerDS360 {
             this.mnuEditingRoutes.Text = "Редактирование маршрутов";
             this.mnuEditingRoutes.Click += new System.EventHandler(this.mnuEditingRoutes_Click);
             // 
+            // тестОбменаДаннымиССД23ToolStripMenuItem
+            // 
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Name = "тестОбменаДаннымиССД23ToolStripMenuItem";
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Text = "Тест обмена данными с СД-23";
+            this.тестОбменаДаннымиССД23ToolStripMenuItem.Click += new System.EventHandler(this.тестОбменаДаннымиССД23ToolStripMenuItem_Click);
+            // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
@@ -290,6 +301,7 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.butLable);
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
             this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
@@ -305,13 +317,6 @@ namespace ManagerDS360 {
             this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
-            // 
-            // тестОбменаДаннымиССД23ToolStripMenuItem
-            // 
-            this.тестОбменаДаннымиССД23ToolStripMenuItem.Name = "тестОбменаДаннымиССД23ToolStripMenuItem";
-            this.тестОбменаДаннымиССД23ToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
-            this.тестОбменаДаннымиССД23ToolStripMenuItem.Text = "Тест обмена данными с СД-23";
-            this.тестОбменаДаннымиССД23ToolStripMenuItem.Click += new System.EventHandler(this.тестОбменаДаннымиССД23ToolStripMenuItem_Click);
             // 
             // butLable
             // 
@@ -347,6 +352,35 @@ namespace ManagerDS360 {
             this.treRouteTree.Size = new System.Drawing.Size(752, 490);
             this.treRouteTree.TabIndex = 7;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cboTestedDevice);
+            this.groupBox2.Controls.Add(this.lblTestedDevice);
+            this.groupBox2.Location = new System.Drawing.Point(15, 119);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(230, 76);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            // 
+            // lblTestedDevice
+            // 
+            this.lblTestedDevice.AutoSize = true;
+            this.lblTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTestedDevice.Location = new System.Drawing.Point(5, 17);
+            this.lblTestedDevice.Name = "lblTestedDevice";
+            this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
+            this.lblTestedDevice.TabIndex = 0;
+            this.lblTestedDevice.Text = "Подключить поверяемый прибор";
+            // 
+            // cboTestedDevice
+            // 
+            this.cboTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cboTestedDevice.FormattingEnabled = true;
+            this.cboTestedDevice.Location = new System.Drawing.Point(7, 39);
+            this.cboTestedDevice.Name = "cboTestedDevice";
+            this.cboTestedDevice.Size = new System.Drawing.Size(215, 22);
+            this.cboTestedDevice.TabIndex = 1;
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +410,8 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,6 +440,9 @@ namespace ManagerDS360 {
         private LibControls.ButtonForPicture butLable;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
         private System.Windows.Forms.ToolStripMenuItem тестОбменаДаннымиССД23ToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox cboTestedDevice;
+        private System.Windows.Forms.Label lblTestedDevice;
     }
 }
 

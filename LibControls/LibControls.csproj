@@ -148,5 +148,11 @@
   <ItemGroup>
     <None Include="Resources\Настройка синяя.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23_серый-.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

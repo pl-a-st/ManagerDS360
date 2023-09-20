@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibDevicesManager;
+using LibDevicesManager.DC23;
 using ManagerDS360;
 
 namespace LibControls
@@ -96,7 +97,8 @@ namespace LibControls
     public enum NodeType
     {
         Folder,
-        Setting
+        Setting,
+        DC23
     }
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
@@ -107,6 +109,7 @@ namespace LibControls
         }
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
+        public ManagerDC23 DC23 = new ManagerDC23();
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
@@ -117,6 +120,7 @@ namespace LibControls
         {
             try
             {
+                
                 this.Text = (string)info.GetValue("NodeText", this.Text.GetType());
                 this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType());
                 this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType());
@@ -132,6 +136,7 @@ namespace LibControls
                     this.Expand();
                 }
                 SetImage();
+                this.DC23 = (ManagerDC23)info.GetValue("DC23", this.DC23.GetType());
             }
             catch
             {
@@ -146,6 +151,7 @@ namespace LibControls
         protected override void Serialize(SerializationInfo si, StreamingContext context)
         {
             base.Serialize(si, context);
+            si.AddValue("DC23", this.DC23);
             si.AddValue("NodeText", this.Text);
             si.AddValue("DS360Setting", this.DS360Setting);
             si.AddValue("NodeType", this.NodeType);
@@ -164,6 +170,11 @@ namespace LibControls
                 this.SelectedImageIndex = 0;
             }
             if (NodeType == NodeType.Setting)
+            {
+                this.ImageIndex = 1;
+                this.SelectedImageIndex = 5;
+            }
+            if (NodeType == NodeType.DC23)
             {
                 this.ImageIndex = 1;
                 this.SelectedImageIndex = 1;
@@ -200,6 +211,7 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Настройка_синяя);
             ImageList.Images.Add(Properties.Resources.Настройка_красная);
             ImageList.Images.Add(Properties.Resources.Настройка_зеленая);
+            ImageList.Images.Add(Properties.Resources.DC23_серый_);
 
         }
         protected override void OnMouseDown(MouseEventArgs e)

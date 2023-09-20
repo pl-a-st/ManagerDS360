@@ -118,28 +118,39 @@ namespace LibControls
         }
         protected TreeNodeWithSetting(SerializationInfo info, StreamingContext context)
         {
-            try
-            {
-                
-                this.Text = (string)info.GetValue("NodeText", this.Text.GetType());
-                this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType());
-                this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType());
-                TreeNodeWithSetting[] test = new TreeNodeWithSetting[1];
-                TreeNodeWithSetting[] treeNodeWithSettings = (TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType());
-                foreach (var node in treeNodeWithSettings)
+            List<Action> actions = new List<Action>();
+            TreeNodeWithSetting[] test = new TreeNodeWithSetting[1];
+            TreeNodeWithSetting[] treeNodeWithSettings;
+            actions.Add(() => this.Text = (string)info.GetValue("NodeText", this.Text.GetType()));
+            actions.Add(() => this.DS360Setting = (DS360SettingVibroSigParam)info.GetValue("DS360Setting", this.DS360Setting.GetType()));
+            actions.Add(() => this.NodeType = (NodeType)info.GetValue("NodeType", this.NodeType.GetType()));
+            actions.Add(() =>
                 {
-                    this.Nodes.Add(node);
+                    treeNodeWithSettings = (TreeNodeWithSetting[])info.GetValue("treeNodeWithSettings", test.GetType());
+                    foreach (var node in treeNodeWithSettings)
+                    {
+                        this.Nodes.Add(node);
+                    }
+                });
+            actions.Add(() =>
+                {
+                    if ((bool)info.GetValue("IsExpand", this.IsExpanded.GetType()))
+                    {
+                        this.Expand();
+                    }
+                });
+            actions.Add(() => SetImage());
+            actions.Add(() => this.DC23 = (ManagerDC23)info.GetValue("DC23", this.DC23.GetType()));
+            foreach (Action action in actions)
+            {
+                try
+                {
+                    action();
                 }
+                catch
+                {
 
-                if ((bool)info.GetValue("IsExpand", this.IsExpanded.GetType()))
-                {
-                    this.Expand();
                 }
-                SetImage();
-                this.DC23 = (ManagerDC23)info.GetValue("DC23", this.DC23.GetType());
-            }
-            catch
-            {
 
             }
         }
@@ -176,8 +187,8 @@ namespace LibControls
             }
             if (NodeType == NodeType.DC23)
             {
-                this.ImageIndex = 1;
-                this.SelectedImageIndex = 1;
+                this.ImageIndex = 5;
+                this.SelectedImageIndex = 5;
             }
         }
         public TreeNodeWithSetting Copy()

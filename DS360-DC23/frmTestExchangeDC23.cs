@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using Vast.DC23.DataTransferClient;
+using LibDevicesManager.DC23;
 
 namespace ManagerDS360
 {
@@ -20,7 +21,9 @@ namespace ManagerDS360
     }
     public partial class frmTestExchangeDC23 : Form
     {
-        Client Client = new Client();
+        ClientDC23 Client = ManagerDC23.Client;
+
+
         public frmTestExchangeDC23()
         {
             InitializeComponent();
@@ -111,6 +114,39 @@ namespace ManagerDS360
         private void butMeas_Click(object sender, EventArgs e)
         {
             Client.SendCommandDC23($"CONTROL_FROM_PC_MEAS");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ManagerDC23 DC23 = new ManagerDC23();
+            DC23.SetRouteName(txtRouteName.Text);
+            txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + DC23.OpenRoute().ToString() + "\r\n";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManagerDC23 DC23 = new ManagerDC23();
+            DC23.SetСhannelFirstAddress(txtNodeAddressChannelA.Text);
+            txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + DC23.SetChannelFirst().ToString() + "\r\n";
+        }
+
+        private void frmTestExchangeDC23_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Client.Disconnect();
+            Client.CancelConnecting();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ManagerDC23 DC23 = new ManagerDC23();
+            DC23.SetСhannelSecondAddress(txtNodeAddressChannelB.Text);
+            txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + DC23.SetChannelSecond().ToString() + "\r\n";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ManagerDC23 DC23 = new ManagerDC23();
+            txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + DC23.Meas().ToString() + "\r\n";
         }
     }
 }

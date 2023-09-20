@@ -41,6 +41,10 @@
             this.butSetChannelB = new System.Windows.Forms.Button();
             this.butMeas = new System.Windows.Forms.Button();
             this.txtMessages = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblConectStatus
@@ -69,7 +73,7 @@
             this.txtRouteName.Name = "txtRouteName";
             this.txtRouteName.Size = new System.Drawing.Size(493, 20);
             this.txtRouteName.TabIndex = 3;
-            this.txtRouteName.Text = "Поверка";
+            this.txtRouteName.Text = "[Поверка]";
             // 
             // label1
             // 
@@ -88,6 +92,8 @@
             this.txtNodeAddressChannelA.Name = "txtNodeAddressChannelA";
             this.txtNodeAddressChannelA.Size = new System.Drawing.Size(493, 20);
             this.txtNodeAddressChannelA.TabIndex = 3;
+            this.txtNodeAddressChannelA.Text = "[Поверка]/СД-23/ПОВЕРКА/ПЕРВИЧНАЯ_ПОВЕРКА/ПОВЕРКА_С_ВИБРОПРЕОБРАЗОВАТЕЛЯМИ/КОЭФФИ" +
+    "ЦИЕНТ_ПРЕОБРАЗОВАНИЯ_/КОЭФФИЦИЕНТ_ПРЕОБРАЗОВАНИЯ/Канал_А";
             // 
             // label2
             // 
@@ -102,7 +108,7 @@
             // butOpenRoute
             // 
             this.butOpenRoute.Enabled = false;
-            this.butOpenRoute.Location = new System.Drawing.Point(438, 61);
+            this.butOpenRoute.Location = new System.Drawing.Point(438, 39);
             this.butOpenRoute.Name = "butOpenRoute";
             this.butOpenRoute.Size = new System.Drawing.Size(141, 23);
             this.butOpenRoute.TabIndex = 5;
@@ -113,7 +119,7 @@
             // butSetChannelA
             // 
             this.butSetChannelA.Enabled = false;
-            this.butSetChannelA.Location = new System.Drawing.Point(438, 118);
+            this.butSetChannelA.Location = new System.Drawing.Point(438, 105);
             this.butSetChannelA.Name = "butSetChannelA";
             this.butSetChannelA.Size = new System.Drawing.Size(141, 23);
             this.butSetChannelA.TabIndex = 5;
@@ -128,6 +134,8 @@
             this.txtNodeAddressChannelB.Name = "txtNodeAddressChannelB";
             this.txtNodeAddressChannelB.Size = new System.Drawing.Size(493, 20);
             this.txtNodeAddressChannelB.TabIndex = 3;
+            this.txtNodeAddressChannelB.Text = "[Поверка]/СД-23/ПОВЕРКА/ПЕРВИЧНАЯ_ПОВЕРКА/ПОВЕРКА_С_ВИБРОПРЕОБРАЗОВАТЕЛЯМИ/КОЭФФИ" +
+    "ЦИЕНТ_ПРЕОБРАЗОВАНИЯ_/КОЭФФИЦИЕНТ_ПРЕОБРАЗОВАНИЯ/Канал_В";
             // 
             // label3
             // 
@@ -142,7 +150,7 @@
             // butSetChannelB
             // 
             this.butSetChannelB.Enabled = false;
-            this.butSetChannelB.Location = new System.Drawing.Point(438, 175);
+            this.butSetChannelB.Location = new System.Drawing.Point(438, 163);
             this.butSetChannelB.Name = "butSetChannelB";
             this.butSetChannelB.Size = new System.Drawing.Size(141, 23);
             this.butSetChannelB.TabIndex = 5;
@@ -153,7 +161,7 @@
             // butMeas
             // 
             this.butMeas.Enabled = false;
-            this.butMeas.Location = new System.Drawing.Point(438, 226);
+            this.butMeas.Location = new System.Drawing.Point(439, 244);
             this.butMeas.Name = "butMeas";
             this.butMeas.Size = new System.Drawing.Size(141, 23);
             this.butMeas.TabIndex = 5;
@@ -174,16 +182,64 @@
             this.txtMessages.Size = new System.Drawing.Size(408, 388);
             this.txtMessages.TabIndex = 6;
             // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(438, 68);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Открыть маршрут";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(439, 134);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(141, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Назначить каналом А";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(438, 192);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(141, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Назначить каналом B";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(439, 273);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(141, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Измерить";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // frmTestExchangeDC23
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1093, 450);
             this.Controls.Add(this.txtMessages);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.butMeas);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.butSetChannelB);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.butSetChannelA);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.butOpenRoute);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNodeAddressChannelB);
@@ -194,6 +250,7 @@
             this.Controls.Add(this.lblConectStatus);
             this.Name = "frmTestExchangeDC23";
             this.Text = "frmTestExchangeDC23";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestExchangeDC23_FormClosing);
             this.Load += new System.EventHandler(this.frmTestExchangeDC23_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -215,5 +272,9 @@
         private System.Windows.Forms.Button butSetChannelB;
         private System.Windows.Forms.Button butMeas;
         private System.Windows.Forms.TextBox txtMessages;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

@@ -31,6 +31,7 @@ namespace ManagerDS360
             await SetDefaultDS360();
             SetToolTipes();
             await SetTestedDevicesList();
+            cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
         }
 
         private async Task SetTestedDevicesList()
@@ -41,7 +42,7 @@ namespace ManagerDS360
             cboTestedDevice.Items.AddRange(elements);
             cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
             cboTestedDevice.EndUpdate();
-            cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
+           
         }
 
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,7 +58,7 @@ namespace ManagerDS360
                 Invoke(new Action (() =>
                 {
                     lblTestedDevice.ForeColor = Color.Black;
-                    lblTestedDevice.Text = "Устанавливает соединение";
+                    lblTestedDevice.Text = "Устанавливается соединение...";
                 }));
                 thr.Start();
             }
@@ -70,10 +71,14 @@ namespace ManagerDS360
 
         private void Client_DisconnectedEvent(object sender, EventArgs e)
         {
+            var client = ManagerDC23.Client;
             Invoke(new Action(() =>
             {
                 lblTestedDevice.ForeColor = Color.Red;
                 lblTestedDevice.Text = "Соединение разорвано";
+                cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
+                client.ConnectedEvent -= Client_ConnectedEvent;
+                client.DisconnectedEvent -= Client_DisconnectedEvent;
             }));
             
         }
@@ -495,6 +500,11 @@ namespace ManagerDS360
             frmTestExchangeDC23 frmTestExchangeDC23 = new frmTestExchangeDC23();
             frmTestExchangeDC23.ShowDialog();
             frmTestExchangeDC23.Dispose();
+        }
+
+        private void cboTestedDevice_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

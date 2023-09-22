@@ -224,6 +224,7 @@ namespace ManagerDS360
             textNode += "[" + editingSettings.cboDetector.Text + ":";
             textNode += editingSettings.txtValue.Text;
             textNode += "  F:" + editingSettings.txtFrequency.Text + "]  ";
+            textNode += "\r\n";
             if (editingSettings.IsTwoTone())
             {
                 textNode += "T2: ";

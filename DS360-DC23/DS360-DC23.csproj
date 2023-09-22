@@ -223,48 +223,54 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="DAO.cs" />
-    <Compile Include="frmAboutAuthors.cs">
+    <Compile Include="Controls\frmCreationDC23Setting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAboutAuthors.Designer.cs">
+    <Compile Include="Controls\frmCreationDC23Setting.Designer.cs">
+      <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAO.cs" />
+    <Compile Include="Controls\frmAboutAuthors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmAboutAuthors.Designer.cs">
       <DependentUpon>frmAboutAuthors.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCreationEditingRoute.cs">
+    <Compile Include="Controls\frmCreationEditingRoute.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCreationEditingRoute.Designer.cs">
+    <Compile Include="Controls\frmCreationEditingRoute.Designer.cs">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCreationEditingSettings.cs">
+    <Compile Include="Controls\frmCreationEditingSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCreationEditingSettings.Designer.cs">
+    <Compile Include="Controls\frmCreationEditingSettings.Designer.cs">
       <DependentUpon>frmCreationEditingSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmInputName.cs">
+    <Compile Include="Controls\frmInputName.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInputName.Designer.cs">
+    <Compile Include="Controls\frmInputName.Designer.cs">
       <DependentUpon>frmInputName.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmRoutse.cs">
+    <Compile Include="Controls\frmRoutse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRoutse.Designer.cs">
+    <Compile Include="Controls\frmRoutse.Designer.cs">
       <DependentUpon>frmRoutse.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmManagerDS360.cs">
+    <Compile Include="Controls\frmManagerDS360.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include=".Designer.cs">
+    <Compile Include="Controls\.Designer.cs">
       <DependentUpon>frmManagerDS360.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTestExchangeDC23.cs">
+    <Compile Include="Controls\frmTestExchangeDC23.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTestExchangeDC23.Designer.cs">
+    <Compile Include="Controls\frmTestExchangeDC23.Designer.cs">
       <DependentUpon>frmTestExchangeDC23.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -273,36 +279,39 @@
     <Compile Include="TexBoxForDouble.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="frmDefaultGenerator.cs">
+    <Compile Include="Controls\frmDefaultGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDefaultGenerator.Designer.cs">
+    <Compile Include="Controls\frmDefaultGenerator.Designer.cs">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="TreeNodeWithSetup.cs" />
-    <EmbeddedResource Include="frmAboutAuthors.resx">
+    <EmbeddedResource Include="Controls\frmAboutAuthors.resx">
       <DependentUpon>frmAboutAuthors.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCreationEditingRoute.resx">
+    <EmbeddedResource Include="Controls\frmCreationDC23Setting.resx">
+      <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmCreationEditingRoute.resx">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCreationEditingSettings.resx">
+    <EmbeddedResource Include="Controls\frmCreationEditingSettings.resx">
       <DependentUpon>frmCreationEditingSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDefaultGenerator.resx">
+    <EmbeddedResource Include="Controls\frmDefaultGenerator.resx">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInputName.resx">
+    <EmbeddedResource Include="Controls\frmInputName.resx">
       <DependentUpon>frmInputName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRoutse.resx">
+    <EmbeddedResource Include="Controls\frmRoutse.resx">
       <DependentUpon>frmRoutse.cs</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmManagerDS360.resx">
+    <EmbeddedResource Include="Controls\frmManagerDS360.resx">
       <DependentUpon>frmManagerDS360.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTestExchangeDC23.resx">
+    <EmbeddedResource Include="Controls\frmTestExchangeDC23.resx">
       <DependentUpon>frmTestExchangeDC23.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -46,11 +46,11 @@ namespace ManagerDS360 {
             this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboTestedDevice = new System.Windows.Forms.ComboBox();
+            this.lblTestedDevice = new System.Windows.Forms.Label();
             this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblTestedDevice = new System.Windows.Forms.Label();
-            this.cboTestedDevice = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -318,6 +318,36 @@ namespace ManagerDS360 {
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cboTestedDevice);
+            this.groupBox2.Controls.Add(this.lblTestedDevice);
+            this.groupBox2.Location = new System.Drawing.Point(15, 119);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(230, 76);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            // 
+            // cboTestedDevice
+            // 
+            this.cboTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cboTestedDevice.FormattingEnabled = true;
+            this.cboTestedDevice.Location = new System.Drawing.Point(7, 39);
+            this.cboTestedDevice.Name = "cboTestedDevice";
+            this.cboTestedDevice.Size = new System.Drawing.Size(215, 22);
+            this.cboTestedDevice.TabIndex = 1;
+            this.cboTestedDevice.SelectedIndexChanged += new System.EventHandler(this.cboTestedDevice_SelectedIndexChanged_1);
+            // 
+            // lblTestedDevice
+            // 
+            this.lblTestedDevice.AutoSize = true;
+            this.lblTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTestedDevice.Location = new System.Drawing.Point(5, 17);
+            this.lblTestedDevice.Name = "lblTestedDevice";
+            this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
+            this.lblTestedDevice.TabIndex = 0;
+            this.lblTestedDevice.Text = "Подключить поверяемый прибор";
+            // 
             // butLable
             // 
             this.butLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -351,35 +381,6 @@ namespace ManagerDS360 {
             this.treRouteTree.SelectedImageIndex = 0;
             this.treRouteTree.Size = new System.Drawing.Size(752, 490);
             this.treRouteTree.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cboTestedDevice);
-            this.groupBox2.Controls.Add(this.lblTestedDevice);
-            this.groupBox2.Location = new System.Drawing.Point(15, 119);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(230, 76);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            // 
-            // lblTestedDevice
-            // 
-            this.lblTestedDevice.AutoSize = true;
-            this.lblTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTestedDevice.Location = new System.Drawing.Point(5, 17);
-            this.lblTestedDevice.Name = "lblTestedDevice";
-            this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
-            this.lblTestedDevice.TabIndex = 0;
-            this.lblTestedDevice.Text = "Подключить поверяемый прибор";
-            // 
-            // cboTestedDevice
-            // 
-            this.cboTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cboTestedDevice.FormattingEnabled = true;
-            this.cboTestedDevice.Location = new System.Drawing.Point(7, 39);
-            this.cboTestedDevice.Name = "cboTestedDevice";
-            this.cboTestedDevice.Size = new System.Drawing.Size(215, 22);
-            this.cboTestedDevice.TabIndex = 1;
             // 
             // frmManagerDS360
             // 

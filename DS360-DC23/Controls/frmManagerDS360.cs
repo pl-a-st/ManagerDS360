@@ -33,7 +33,7 @@ namespace ManagerDS360
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
         }
-
+       
         private async Task SetTestedDevicesList()
         {
             await Task.Delay(10);
@@ -42,7 +42,6 @@ namespace ManagerDS360
             cboTestedDevice.Items.AddRange(elements);
             cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
             cboTestedDevice.EndUpdate();
-           
         }
 
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)

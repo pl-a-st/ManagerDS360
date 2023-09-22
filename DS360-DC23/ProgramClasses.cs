@@ -18,9 +18,21 @@ namespace ManagerDS360
         None,
         DC23
     }
+    public enum Channel
+    {
+        ChannelFirst,
+        ChannelSecond,
+        ChannelFirstAndSecond
+    }
     public static class PmData
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
+        public static Dictionary<Channel, string> Channel = new Dictionary<Channel, string>()
+        {
+            { ManagerDS360.Channel.ChannelFirst, "Канал А"},
+            { ManagerDS360.Channel.ChannelSecond,"Канал В"},
+            { ManagerDS360.Channel.ChannelFirstAndSecond,"Канала А и В"},
+        };
         public static Dictionary<TestedDevice, string> TestedDevice = new Dictionary<TestedDevice, string>()
         {
             { ManagerDS360.TestedDevice.None,"Нет/отключить"},
@@ -54,9 +66,9 @@ namespace ManagerDS360
             RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses), out var result);
         }
 
-       static  public void SaveRouteAddresses()
+        static public void SaveRouteAddresses()
         {
-            if(DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses))!= MethodResultStatus.Ok)
+            if (DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses)) != MethodResultStatus.Ok)
             {
                 MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
             }
@@ -72,5 +84,5 @@ namespace ManagerDS360
             return (T)inst?.Invoke(obj, null);
         }
     }
-    
+
 }

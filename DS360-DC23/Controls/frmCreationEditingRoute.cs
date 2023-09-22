@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using VibroMath;
 using System.Diagnostics;
 using ToolTip = System.Windows.Forms.ToolTip;
+using ManagerDS360.Controls;
 
 namespace ManagerDS360
 {
@@ -127,7 +128,7 @@ namespace ManagerDS360
         {
             if (e.Alt == true && e.KeyCode == Keys.S)    // добавить настройку
             {
-                AddSetting();
+                AddSettingDS360();
             }
             if (e.Control == true && e.KeyCode == Keys.A)    //добавить папку
             {
@@ -176,12 +177,12 @@ namespace ManagerDS360
 
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
-            AddSetting();
+            AddSettingDS360();
         }
 
-        private void AddSetting()
+        private void AddSettingDS360()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
             {
                 MessageBox.Show("Настройка не может содержать другие элементы!");
                 return;
@@ -244,6 +245,38 @@ namespace ManagerDS360
             }
             return textNode;
         }
+        private static string GetTextNode(frmCreationDC23Setting editingSettings)
+        {
+            string text = editingSettings.DC23.RouteName;
+            ListBox listBox = editingSettings.GetLstChannaleFirst();
+
+            if (listBox.Items.Count > 0)
+            {
+                text += " [Канал А: .../";
+                if (listBox.Items.Count > 1)
+                {
+                    text += listBox.Items[listBox.Items.Count - 2];
+                    text += "/";
+                }
+                text += listBox.Items[listBox.Items.Count - 1];
+                text += "] ";
+            }
+
+            listBox = editingSettings.GetLstChannelSecond();
+            if (listBox.Items.Count > 0)
+            {
+                text += "] [Канал B: .../";
+                if (listBox.Items.Count > 1)
+                {
+                    text += listBox.Items[listBox.Items.Count - 2];
+                    text += "/";
+                }
+                text += listBox.Items[listBox.Items.Count - 1];
+                text += "]";
+            }
+            return text;
+        }
+
         /// <summary>
         /// редактирование настройки
         /// </summary>
@@ -716,6 +749,44 @@ namespace ManagerDS360
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void butAddDC23_Click(object sender, EventArgs e)
+        {
+            AddSettingDC23();
+        }
+        private void AddSettingDC23()
+        {
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
+            frmCreationDC23Setting editingSettings = new frmCreationDC23Setting();
+            editingSettings.TypeFormOpen = TypeFormOpen.ToСreate;
+
+            //if (chkUseLastSetting.Checked && LastDS360Setting != null)
+            //{
+            //    var DS360Setting = PmData.CloneObj(LastDS360Setting);
+            //    СonfigureEditingSettings(DS360Setting, editingSettings);
+            //}
+            editingSettings.ShowDialog();
+            if (editingSettings.DialogResult != DialogResult.OK)
+            {
+                return;
+            }
+            string textNode = GetTextNode(editingSettings);
+            TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
+            treeNode.DC23 = editingSettings.DC23;
+            //LastDS360Setting = PmData.CloneObj(editingSettings.DS360Setting);
+            if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+            {
+                treRouteTree.Nodes.Add(treeNode);
+                return;
+            }
+            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            SelectedNodeWithSetup.Nodes.Add(treeNode);
+            SelectedNodeWithSetup.Expand();
         }
     }
 }

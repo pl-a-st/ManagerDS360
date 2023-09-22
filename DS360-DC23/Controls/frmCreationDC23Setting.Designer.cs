@@ -41,13 +41,13 @@ namespace ManagerDS360.Controls
             this.butCopy = new System.Windows.Forms.Button();
             this.butPaste = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label3 = new System.Windows.Forms.Label();
             this.lstChannelFirst = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.butChannelFirstUp = new LibControls.ButtonForPicture();
             this.butChannelFirstDown = new LibControls.ButtonForPicture();
             this.lstChannelSecond = new System.Windows.Forms.ListBox();
             this.butChannelSecondUp = new LibControls.ButtonForPicture();
+            this.label3 = new System.Windows.Forms.Label();
             this.butChannelSecondDown = new LibControls.ButtonForPicture();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -85,6 +85,7 @@ namespace ManagerDS360.Controls
             this.butCancel.TabIndex = 14;
             this.butCancel.Text = "Отмена";
             this.butCancel.UseVisualStyleBackColor = true;
+            this.butCancel.Click += new System.EventHandler(this.butCancel_Click);
             // 
             // butSave
             // 
@@ -97,6 +98,7 @@ namespace ManagerDS360.Controls
             this.butSave.TabIndex = 13;
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
+            this.butSave.Click += new System.EventHandler(this.butSave_Click);
             // 
             // butAdd
             // 
@@ -109,6 +111,7 @@ namespace ManagerDS360.Controls
             this.butAdd.TabIndex = 13;
             this.butAdd.Text = "Добавить узел";
             this.butAdd.UseVisualStyleBackColor = true;
+            this.butAdd.Click += new System.EventHandler(this.butAdd_Click);
             // 
             // butChange
             // 
@@ -121,6 +124,7 @@ namespace ManagerDS360.Controls
             this.butChange.TabIndex = 13;
             this.butChange.Text = "Редактировать узел";
             this.butChange.UseVisualStyleBackColor = true;
+            this.butChange.Click += new System.EventHandler(this.butChange_Click);
             // 
             // butDelete
             // 
@@ -133,6 +137,7 @@ namespace ManagerDS360.Controls
             this.butDelete.TabIndex = 13;
             this.butDelete.Text = "Удалить узел";
             this.butDelete.UseVisualStyleBackColor = true;
+            this.butDelete.Click += new System.EventHandler(this.butDelete_Click);
             // 
             // butCopy
             // 
@@ -145,6 +150,7 @@ namespace ManagerDS360.Controls
             this.butCopy.TabIndex = 19;
             this.butCopy.Text = "Копировать узел";
             this.butCopy.UseVisualStyleBackColor = true;
+            this.butCopy.Click += new System.EventHandler(this.butCopy_Click);
             // 
             // butPaste
             // 
@@ -157,6 +163,7 @@ namespace ManagerDS360.Controls
             this.butPaste.TabIndex = 19;
             this.butPaste.Text = "Вставить узел";
             this.butPaste.UseVisualStyleBackColor = true;
+            this.butPaste.Click += new System.EventHandler(this.butPaste_Click);
             // 
             // splitContainer1
             // 
@@ -180,18 +187,8 @@ namespace ManagerDS360.Controls
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.butChannelSecondDown);
             this.splitContainer1.Size = new System.Drawing.Size(582, 371);
-            this.splitContainer1.SplitterDistance = 287;
+            this.splitContainer1.SplitterDistance = 286;
             this.splitContainer1.TabIndex = 20;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(6, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 14);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Канал B";
             // 
             // lstChannelFirst
             // 
@@ -201,7 +198,7 @@ namespace ManagerDS360.Controls
             this.lstChannelFirst.FormattingEnabled = true;
             this.lstChannelFirst.Location = new System.Drawing.Point(3, 23);
             this.lstChannelFirst.Name = "lstChannelFirst";
-            this.lstChannelFirst.Size = new System.Drawing.Size(222, 329);
+            this.lstChannelFirst.Size = new System.Drawing.Size(221, 329);
             this.lstChannelFirst.TabIndex = 0;
             // 
             // label2
@@ -225,7 +222,7 @@ namespace ManagerDS360.Controls
             this.butChannelFirstUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelFirstUp.Location = new System.Drawing.Point(231, 102);
+            this.butChannelFirstUp.Location = new System.Drawing.Point(230, 102);
             this.butChannelFirstUp.Name = "butChannelFirstUp";
             this.butChannelFirstUp.Size = new System.Drawing.Size(33, 39);
             this.butChannelFirstUp.TabIndex = 15;
@@ -242,7 +239,7 @@ namespace ManagerDS360.Controls
             this.butChannelFirstDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelFirstDown.Location = new System.Drawing.Point(231, 193);
+            this.butChannelFirstDown.Location = new System.Drawing.Point(230, 193);
             this.butChannelFirstDown.Name = "butChannelFirstDown";
             this.butChannelFirstDown.Size = new System.Drawing.Size(33, 39);
             this.butChannelFirstDown.TabIndex = 16;
@@ -256,7 +253,7 @@ namespace ManagerDS360.Controls
             this.lstChannelSecond.FormattingEnabled = true;
             this.lstChannelSecond.Location = new System.Drawing.Point(3, 23);
             this.lstChannelSecond.Name = "lstChannelSecond";
-            this.lstChannelSecond.Size = new System.Drawing.Size(238, 329);
+            this.lstChannelSecond.Size = new System.Drawing.Size(239, 329);
             this.lstChannelSecond.TabIndex = 17;
             // 
             // butChannelSecondUp
@@ -270,11 +267,21 @@ namespace ManagerDS360.Controls
             this.butChannelSecondUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelSecondUp.Location = new System.Drawing.Point(247, 102);
+            this.butChannelSecondUp.Location = new System.Drawing.Point(248, 102);
             this.butChannelSecondUp.Name = "butChannelSecondUp";
             this.butChannelSecondUp.Size = new System.Drawing.Size(33, 39);
             this.butChannelSecondUp.TabIndex = 18;
             this.butChannelSecondUp.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(6, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 14);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Канал B";
             // 
             // butChannelSecondDown
             // 
@@ -287,7 +294,7 @@ namespace ManagerDS360.Controls
             this.butChannelSecondDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelSecondDown.Location = new System.Drawing.Point(247, 193);
+            this.butChannelSecondDown.Location = new System.Drawing.Point(248, 193);
             this.butChannelSecondDown.Name = "butChannelSecondDown";
             this.butChannelSecondDown.Size = new System.Drawing.Size(33, 39);
             this.butChannelSecondDown.TabIndex = 19;
@@ -309,7 +316,8 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRouteName);
             this.Name = "frmCreationDC23Setting";
-            this.Text = "frmCreationDC23Setting";
+            this.Text = "Измерение СД-23";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreationDC23Setting_FormClosed);
             this.Load += new System.EventHandler(this.frmCreationDC23Setting_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

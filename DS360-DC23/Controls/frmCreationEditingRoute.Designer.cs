@@ -47,6 +47,7 @@
             this.butDown = new LibControls.ButtonForPicture();
             this.butUp = new LibControls.ButtonForPicture();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.butAddDC23 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -87,7 +88,7 @@
             // 
             this.butAddFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butAddFolder.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddFolder.Location = new System.Drawing.Point(619, 136);
+            this.butAddFolder.Location = new System.Drawing.Point(619, 182);
             this.butAddFolder.Name = "butAddFolder";
             this.butAddFolder.Size = new System.Drawing.Size(157, 40);
             this.butAddFolder.TabIndex = 5;
@@ -103,7 +104,7 @@
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(157, 40);
             this.butAddSetting.TabIndex = 4;
-            this.butAddSetting.Text = "Добавить настройку";
+            this.butAddSetting.Text = "Добавить DS360";
             this.butAddSetting.UseVisualStyleBackColor = true;
             this.butAddSetting.Click += new System.EventHandler(this.butAddSetting_Click);
             this.butAddSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
@@ -112,7 +113,7 @@
             // 
             this.butEditSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butEditSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditSetting.Location = new System.Drawing.Point(619, 209);
+            this.butEditSetting.Location = new System.Drawing.Point(619, 266);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(157, 40);
             this.butEditSetting.TabIndex = 6;
@@ -122,9 +123,9 @@
             // 
             // butDelete
             // 
-            this.butDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butDelete.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butDelete.Location = new System.Drawing.Point(619, 377);
+            this.butDelete.Location = new System.Drawing.Point(619, 457);
             this.butDelete.MinimumSize = new System.Drawing.Size(110, 27);
             this.butDelete.Name = "butDelete";
             this.butDelete.Size = new System.Drawing.Size(157, 40);
@@ -137,7 +138,7 @@
             // 
             this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butSave.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(18, 477);
+            this.butSave.Location = new System.Drawing.Point(18, 555);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(110, 40);
@@ -148,9 +149,9 @@
             // 
             // butAllDelete
             // 
-            this.butAllDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butAllDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butAllDelete.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAllDelete.Location = new System.Drawing.Point(619, 423);
+            this.butAllDelete.Location = new System.Drawing.Point(619, 503);
             this.butAllDelete.Name = "butAllDelete";
             this.butAllDelete.Size = new System.Drawing.Size(157, 40);
             this.butAllDelete.TabIndex = 10;
@@ -162,7 +163,7 @@
             // 
             this.butCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butCancel.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCancel.Location = new System.Drawing.Point(444, 477);
+            this.butCancel.Location = new System.Drawing.Point(444, 555);
             this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
             this.butCancel.Name = "butCancel";
             this.butCancel.Size = new System.Drawing.Size(110, 40);
@@ -188,7 +189,7 @@
             // 
             this.butCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butCopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCopy.Location = new System.Drawing.Point(619, 255);
+            this.butCopy.Location = new System.Drawing.Point(619, 312);
             this.butCopy.Name = "butCopy";
             this.butCopy.Size = new System.Drawing.Size(157, 40);
             this.butCopy.TabIndex = 7;
@@ -200,7 +201,7 @@
             // 
             this.butPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butPaste.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butPaste.Location = new System.Drawing.Point(619, 301);
+            this.butPaste.Location = new System.Drawing.Point(619, 358);
             this.butPaste.Name = "butPaste";
             this.butPaste.Size = new System.Drawing.Size(157, 40);
             this.butPaste.TabIndex = 8;
@@ -218,7 +219,7 @@
             this.treRouteTree.Location = new System.Drawing.Point(18, 76);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(536, 387);
+            this.treRouteTree.Size = new System.Drawing.Size(536, 465);
             this.treRouteTree.TabIndex = 2;
             // 
             // butDown
@@ -232,7 +233,7 @@
             this.butDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDown.Location = new System.Drawing.Point(560, 301);
+            this.butDown.Location = new System.Drawing.Point(560, 358);
             this.butDown.Name = "butDown";
             this.butDown.Size = new System.Drawing.Size(33, 39);
             this.butDown.TabIndex = 14;
@@ -252,7 +253,7 @@
             this.butUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butUp.Location = new System.Drawing.Point(560, 210);
+            this.butUp.Location = new System.Drawing.Point(560, 267);
             this.butUp.Name = "butUp";
             this.butUp.Size = new System.Drawing.Size(33, 39);
             this.butUp.TabIndex = 13;
@@ -265,11 +266,24 @@
             // 
             this.toolTip1.ToolTipTitle = "тест";
             // 
+            // butAddDC23
+            // 
+            this.butAddDC23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butAddDC23.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butAddDC23.Location = new System.Drawing.Point(619, 136);
+            this.butAddDC23.Name = "butAddDC23";
+            this.butAddDC23.Size = new System.Drawing.Size(157, 40);
+            this.butAddDC23.TabIndex = 15;
+            this.butAddDC23.Text = "Добавить СД-23";
+            this.butAddDC23.UseVisualStyleBackColor = true;
+            this.butAddDC23.Click += new System.EventHandler(this.butAddDC23_Click);
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 530);
+            this.ClientSize = new System.Drawing.Size(800, 608);
+            this.Controls.Add(this.butAddDC23);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.treRouteTree);
@@ -320,5 +334,6 @@
         private LibControls.ButtonForPicture butDown;
         private LibControls.ButtonForPicture butUp;
         private System.Windows.Forms.ToolTip toolTip1;
+        internal System.Windows.Forms.Button butAddDC23;
     }
 }

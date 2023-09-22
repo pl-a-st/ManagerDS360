@@ -223,6 +223,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\frmAddChangeNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmAddChangeNode.Designer.cs">
+      <DependentUpon>frmAddChangeNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\frmCreationDC23Setting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,9 @@
     <Compile Include="TreeNodeWithSetup.cs" />
     <EmbeddedResource Include="Controls\frmAboutAuthors.resx">
       <DependentUpon>frmAboutAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmAddChangeNode.resx">
+      <DependentUpon>frmAddChangeNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmCreationDC23Setting.resx">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>

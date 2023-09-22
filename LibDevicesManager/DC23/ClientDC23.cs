@@ -9,6 +9,7 @@ using System.Threading;
 
 namespace Vast.DC23.DataTransferClient
 {
+    [Serializable]
     public class ClientDC23
     {
         public event EventHandler ConnectedEvent;

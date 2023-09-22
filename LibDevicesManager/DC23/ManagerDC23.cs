@@ -15,6 +15,7 @@ namespace LibDevicesManager.DC23
         OutOfTime,
         NoConnect
     }
+    [Serializable]
     public class ManagerDC23
     {
         public static  ClientDC23 Client = new ClientDC23();

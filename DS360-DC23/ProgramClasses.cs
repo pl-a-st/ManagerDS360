@@ -23,7 +23,7 @@ namespace ManagerDS360
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
         public static Dictionary<TestedDevice, string> TestedDevice = new Dictionary<TestedDevice, string>()
         {
-            { ManagerDS360.TestedDevice.None,"Прибор не подключен"},
+            { ManagerDS360.TestedDevice.None,"Нет/отключить"},
             { ManagerDS360.TestedDevice.DC23,@"СД-23"},
         };
         public static Dictionary<PhysicalQuantity, string> PhysicalQuantity = new Dictionary<PhysicalQuantity, string>()

@@ -11,12 +11,19 @@ using System.Windows.Forms;
 
 namespace ManagerDS360.Controls
 {
+    
     public partial class frmCreationDC23Setting : Form
     {
         public ManagerDC23 DC23 = new ManagerDC23();
+        public TypeFormOpen TypeFormOpen = TypeFormOpen.ToСreate;
         public frmCreationDC23Setting()
         {
             InitializeComponent();
+        }
+
+        private void frmCreationDC23Setting_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

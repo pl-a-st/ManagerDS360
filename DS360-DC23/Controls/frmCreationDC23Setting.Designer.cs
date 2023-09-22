@@ -31,38 +31,38 @@ namespace ManagerDS360.Controls
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCreationDC23Setting));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtRouteName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.butCancel = new System.Windows.Forms.Button();
             this.butSave = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.butAdd = new System.Windows.Forms.Button();
+            this.butChange = new System.Windows.Forms.Button();
+            this.butDelete = new System.Windows.Forms.Button();
+            this.butCopy = new System.Windows.Forms.Button();
+            this.butPaste = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label3 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstChannelFirst = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.butUp = new LibControls.ButtonForPicture();
-            this.butDown = new LibControls.ButtonForPicture();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.buttonForPicture1 = new LibControls.ButtonForPicture();
-            this.buttonForPicture2 = new LibControls.ButtonForPicture();
+            this.butChannelFirstUp = new LibControls.ButtonForPicture();
+            this.butChannelFirstDown = new LibControls.ButtonForPicture();
+            this.lstChannelSecond = new System.Windows.Forms.ListBox();
+            this.butChannelSecondUp = new LibControls.ButtonForPicture();
+            this.butChannelSecondDown = new LibControls.ButtonForPicture();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtRouteName
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtRouteName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(17, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(529, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtRouteName.Location = new System.Drawing.Point(17, 32);
+            this.txtRouteName.Name = "txtRouteName";
+            this.txtRouteName.Size = new System.Drawing.Size(529, 20);
+            this.txtRouteName.TabIndex = 1;
             // 
             // label1
             // 
@@ -98,65 +98,65 @@ namespace ManagerDS360.Controls
             this.butSave.Text = "Сохранить";
             this.butSave.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // butAdd
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(605, 84);
-            this.button1.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 40);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Добавить узел";
-            this.button1.UseVisualStyleBackColor = true;
+            this.butAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butAdd.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butAdd.Location = new System.Drawing.Point(605, 84);
+            this.butAdd.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butAdd.Name = "butAdd";
+            this.butAdd.Size = new System.Drawing.Size(148, 40);
+            this.butAdd.TabIndex = 13;
+            this.butAdd.Text = "Добавить узел";
+            this.butAdd.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // butChange
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(605, 130);
-            this.button2.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(148, 40);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Редактировать узел";
-            this.button2.UseVisualStyleBackColor = true;
+            this.butChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butChange.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butChange.Location = new System.Drawing.Point(605, 130);
+            this.butChange.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butChange.Name = "butChange";
+            this.butChange.Size = new System.Drawing.Size(148, 40);
+            this.butChange.TabIndex = 13;
+            this.butChange.Text = "Редактировать узел";
+            this.butChange.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // butDelete
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(605, 383);
-            this.button3.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(148, 40);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "Удалить узел";
-            this.button3.UseVisualStyleBackColor = true;
+            this.butDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butDelete.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butDelete.Location = new System.Drawing.Point(605, 383);
+            this.butDelete.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butDelete.Name = "butDelete";
+            this.butDelete.Size = new System.Drawing.Size(148, 40);
+            this.butDelete.TabIndex = 13;
+            this.butDelete.Text = "Удалить узел";
+            this.butDelete.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // butCopy
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(605, 176);
-            this.button4.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(148, 40);
-            this.button4.TabIndex = 19;
-            this.button4.Text = "Копировать узел";
-            this.button4.UseVisualStyleBackColor = true;
+            this.butCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butCopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butCopy.Location = new System.Drawing.Point(605, 176);
+            this.butCopy.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butCopy.Name = "butCopy";
+            this.butCopy.Size = new System.Drawing.Size(148, 40);
+            this.butCopy.TabIndex = 19;
+            this.butCopy.Text = "Копировать узел";
+            this.butCopy.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // butPaste
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(605, 222);
-            this.button5.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(148, 40);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "Вставить узел";
-            this.button5.UseVisualStyleBackColor = true;
+            this.butPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butPaste.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butPaste.Location = new System.Drawing.Point(605, 222);
+            this.butPaste.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butPaste.Name = "butPaste";
+            this.butPaste.Size = new System.Drawing.Size(148, 40);
+            this.butPaste.TabIndex = 19;
+            this.butPaste.Text = "Вставить узел";
+            this.butPaste.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
@@ -168,17 +168,17 @@ namespace ManagerDS360.Controls
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.lstChannelFirst);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.butUp);
-            this.splitContainer1.Panel1.Controls.Add(this.butDown);
+            this.splitContainer1.Panel1.Controls.Add(this.butChannelFirstUp);
+            this.splitContainer1.Panel1.Controls.Add(this.butChannelFirstDown);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonForPicture1);
+            this.splitContainer1.Panel2.Controls.Add(this.lstChannelSecond);
+            this.splitContainer1.Panel2.Controls.Add(this.butChannelSecondUp);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonForPicture2);
+            this.splitContainer1.Panel2.Controls.Add(this.butChannelSecondDown);
             this.splitContainer1.Size = new System.Drawing.Size(582, 371);
             this.splitContainer1.SplitterDistance = 287;
             this.splitContainer1.TabIndex = 20;
@@ -193,16 +193,16 @@ namespace ManagerDS360.Controls
             this.label3.TabIndex = 3;
             this.label3.Text = "Канал B";
             // 
-            // listBox1
+            // lstChannelFirst
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstChannelFirst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 23);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(222, 329);
-            this.listBox1.TabIndex = 0;
+            this.lstChannelFirst.FormattingEnabled = true;
+            this.lstChannelFirst.Location = new System.Drawing.Point(3, 23);
+            this.lstChannelFirst.Name = "lstChannelFirst";
+            this.lstChannelFirst.Size = new System.Drawing.Size(222, 329);
+            this.lstChannelFirst.TabIndex = 0;
             // 
             // label2
             // 
@@ -214,84 +214,84 @@ namespace ManagerDS360.Controls
             this.label2.TabIndex = 3;
             this.label2.Text = "Канал А";
             // 
-            // butUp
+            // butChannelFirstUp
             // 
-            this.butUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butUp.BackColor = System.Drawing.Color.Transparent;
-            this.butUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butUp.BackgroundImage")));
-            this.butUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butUp.FlatAppearance.BorderSize = 0;
-            this.butUp.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butUp.Location = new System.Drawing.Point(231, 102);
-            this.butUp.Name = "butUp";
-            this.butUp.Size = new System.Drawing.Size(33, 39);
-            this.butUp.TabIndex = 15;
-            this.butUp.UseVisualStyleBackColor = false;
+            this.butChannelFirstUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butChannelFirstUp.BackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butChannelFirstUp.BackgroundImage")));
+            this.butChannelFirstUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butChannelFirstUp.FlatAppearance.BorderSize = 0;
+            this.butChannelFirstUp.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butChannelFirstUp.Location = new System.Drawing.Point(231, 102);
+            this.butChannelFirstUp.Name = "butChannelFirstUp";
+            this.butChannelFirstUp.Size = new System.Drawing.Size(33, 39);
+            this.butChannelFirstUp.TabIndex = 15;
+            this.butChannelFirstUp.UseVisualStyleBackColor = false;
             // 
-            // butDown
+            // butChannelFirstDown
             // 
-            this.butDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butDown.BackColor = System.Drawing.Color.Transparent;
-            this.butDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butDown.BackgroundImage")));
-            this.butDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butDown.FlatAppearance.BorderSize = 0;
-            this.butDown.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDown.Location = new System.Drawing.Point(231, 193);
-            this.butDown.Name = "butDown";
-            this.butDown.Size = new System.Drawing.Size(33, 39);
-            this.butDown.TabIndex = 16;
-            this.butDown.UseVisualStyleBackColor = false;
+            this.butChannelFirstDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butChannelFirstDown.BackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butChannelFirstDown.BackgroundImage")));
+            this.butChannelFirstDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butChannelFirstDown.FlatAppearance.BorderSize = 0;
+            this.butChannelFirstDown.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butChannelFirstDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butChannelFirstDown.Location = new System.Drawing.Point(231, 193);
+            this.butChannelFirstDown.Name = "butChannelFirstDown";
+            this.butChannelFirstDown.Size = new System.Drawing.Size(33, 39);
+            this.butChannelFirstDown.TabIndex = 16;
+            this.butChannelFirstDown.UseVisualStyleBackColor = false;
             // 
-            // listBox2
+            // lstChannelSecond
             // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstChannelSecond.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(3, 23);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(238, 329);
-            this.listBox2.TabIndex = 17;
+            this.lstChannelSecond.FormattingEnabled = true;
+            this.lstChannelSecond.Location = new System.Drawing.Point(3, 23);
+            this.lstChannelSecond.Name = "lstChannelSecond";
+            this.lstChannelSecond.Size = new System.Drawing.Size(238, 329);
+            this.lstChannelSecond.TabIndex = 17;
             // 
-            // buttonForPicture1
+            // butChannelSecondUp
             // 
-            this.buttonForPicture1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonForPicture1.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonForPicture1.BackgroundImage")));
-            this.buttonForPicture1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture1.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture1.Location = new System.Drawing.Point(247, 102);
-            this.buttonForPicture1.Name = "buttonForPicture1";
-            this.buttonForPicture1.Size = new System.Drawing.Size(33, 39);
-            this.buttonForPicture1.TabIndex = 18;
-            this.buttonForPicture1.UseVisualStyleBackColor = false;
+            this.butChannelSecondUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butChannelSecondUp.BackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butChannelSecondUp.BackgroundImage")));
+            this.butChannelSecondUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butChannelSecondUp.FlatAppearance.BorderSize = 0;
+            this.butChannelSecondUp.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butChannelSecondUp.Location = new System.Drawing.Point(247, 102);
+            this.butChannelSecondUp.Name = "butChannelSecondUp";
+            this.butChannelSecondUp.Size = new System.Drawing.Size(33, 39);
+            this.butChannelSecondUp.TabIndex = 18;
+            this.butChannelSecondUp.UseVisualStyleBackColor = false;
             // 
-            // buttonForPicture2
+            // butChannelSecondDown
             // 
-            this.buttonForPicture2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonForPicture2.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonForPicture2.BackgroundImage")));
-            this.buttonForPicture2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture2.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture2.Location = new System.Drawing.Point(247, 193);
-            this.buttonForPicture2.Name = "buttonForPicture2";
-            this.buttonForPicture2.Size = new System.Drawing.Size(33, 39);
-            this.buttonForPicture2.TabIndex = 19;
-            this.buttonForPicture2.UseVisualStyleBackColor = false;
+            this.butChannelSecondDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butChannelSecondDown.BackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butChannelSecondDown.BackgroundImage")));
+            this.butChannelSecondDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butChannelSecondDown.FlatAppearance.BorderSize = 0;
+            this.butChannelSecondDown.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butChannelSecondDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butChannelSecondDown.Location = new System.Drawing.Point(247, 193);
+            this.butChannelSecondDown.Name = "butChannelSecondDown";
+            this.butChannelSecondDown.Size = new System.Drawing.Size(33, 39);
+            this.butChannelSecondDown.TabIndex = 19;
+            this.butChannelSecondDown.UseVisualStyleBackColor = false;
             // 
             // frmCreationDC23Setting
             // 
@@ -299,17 +299,18 @@ namespace ManagerDS360.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 483);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.butPaste);
+            this.Controls.Add(this.butCopy);
             this.Controls.Add(this.butCancel);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.butDelete);
+            this.Controls.Add(this.butChange);
+            this.Controls.Add(this.butAdd);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtRouteName);
             this.Name = "frmCreationDC23Setting";
             this.Text = "frmCreationDC23Setting";
+            this.Load += new System.EventHandler(this.frmCreationDC23Setting_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -322,23 +323,23 @@ namespace ManagerDS360.Controls
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtRouteName;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button butCancel;
         internal System.Windows.Forms.Button butSave;
-        internal System.Windows.Forms.Button button1;
-        internal System.Windows.Forms.Button button2;
-        internal System.Windows.Forms.Button button3;
-        internal System.Windows.Forms.Button button4;
-        internal System.Windows.Forms.Button button5;
+        internal System.Windows.Forms.Button butAdd;
+        internal System.Windows.Forms.Button butChange;
+        internal System.Windows.Forms.Button butDelete;
+        internal System.Windows.Forms.Button butCopy;
+        internal System.Windows.Forms.Button butPaste;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstChannelFirst;
         private System.Windows.Forms.Label label2;
-        private LibControls.ButtonForPicture butUp;
-        private LibControls.ButtonForPicture butDown;
-        private System.Windows.Forms.ListBox listBox2;
-        private LibControls.ButtonForPicture buttonForPicture1;
+        private LibControls.ButtonForPicture butChannelFirstUp;
+        private LibControls.ButtonForPicture butChannelFirstDown;
+        private System.Windows.Forms.ListBox lstChannelSecond;
+        private LibControls.ButtonForPicture butChannelSecondUp;
         private System.Windows.Forms.Label label3;
-        private LibControls.ButtonForPicture buttonForPicture2;
+        private LibControls.ButtonForPicture butChannelSecondDown;
     }
 }

@@ -61,7 +61,10 @@ namespace Vast.DC23.DataTransferClient
             {
                 m_ServerConnected = false;
                 if (DisconnectedEvent != null)
+                {
                     ThreadPool.QueueUserWorkItem(state => DisconnectedEvent(this, EventArgs.Empty));
+                }
+                   
             }
         }
 
@@ -162,6 +165,10 @@ namespace Vast.DC23.DataTransferClient
                     m_disconnecting = true;
                     if (m_connected)
                     {
+                        string cmd = "CLIENT_DISCONNECTING ";
+                        Byte[] sb = new Byte[1024];
+                        sb = Encoding.Unicode.GetBytes(cmd);
+                        clientsock?.Send(sb, sb.Length, 0);
                         if (clientsock != null)
                         {
                             if (!clientsock.Connected)
@@ -170,12 +177,9 @@ namespace Vast.DC23.DataTransferClient
                         else
                             return;
 
-                        string cmd = "CLIENT_DISCONNECTING ";
-                        Byte[] sb = new Byte[1024];
-                        sb = Encoding.Unicode.GetBytes(cmd);
-                        clientsock.Send(sb, sb.Length, 0);
+                        
                         //clientsock.Close();
-                        //clientsock = null;
+                        clientsock = null;
                     }
                     else
                     {
@@ -189,7 +193,14 @@ namespace Vast.DC23.DataTransferClient
             finally
             {
                 OnServerDisconnected();
-                DisconnectedEvent(this, EventArgs.Empty);
+                try
+                {
+                    DisconnectedEvent(this, EventArgs.Empty);
+                }
+                catch
+                {
+
+                }
                 m_disconnecting = false;
             }
         }
@@ -864,7 +875,9 @@ namespace Vast.DC23.DataTransferClient
                 //if (wasDisconnectOnSocketExc)
                 {
                     if (serversocket.Connected)
+                    {
                         serversocket.Disconnect(true);
+                    }
                     serversocket.Close();
                     //if (AutoRestartServer)
                     //    Start();

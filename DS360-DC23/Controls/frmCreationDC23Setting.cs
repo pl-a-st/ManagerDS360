@@ -68,7 +68,7 @@ namespace ManagerDS360.Controls
         {
             if (IsItemNotSelected())
             {
-                MessageBox.Show("Не выбран канал или узел!");
+                MessageBox.Show("Не выбран узел!");
                 return;
             }
             FrmAddChangeNode.TypeFormOpen = TypeFormOpen.ToChange;
@@ -76,34 +76,33 @@ namespace ManagerDS360.Controls
             {
                 return;
             }
-            if (lstChannelFirst.Focused)
+            if (lstChannelFirst.SelectedIndex != -1)
             {
                 lstChannelFirst.Items[lstChannelFirst.SelectedIndex] = FrmAddChangeNode.GetTxtNameNode().Text;
             }
-            if (lstChannelSecond.Focused)
+            if (lstChannelSecond.SelectedIndex != -1)
             {
-                lstChannelSecond.Items[lstChannelFirst.SelectedIndex] = FrmAddChangeNode.GetTxtNameNode().Text;
+                lstChannelSecond.Items[lstChannelSecond.SelectedIndex] = FrmAddChangeNode.GetTxtNameNode().Text;
             }
         }
 
         private bool IsItemNotSelected()
         {
-            return (lstChannelFirst.SelectedIndex == -1 && lstChannelSecond.SelectedIndex == -1) ||
-                (!lstChannelFirst.Focused && !lstChannelSecond.Focused);
+            return (lstChannelFirst.SelectedIndex == -1 && lstChannelSecond.SelectedIndex == -1);
         }
 
         private void butCopy_Click(object sender, EventArgs e)
         {
             if (IsItemNotSelected())
             {
-                MessageBox.Show("Не выбран канал или узел!");
+                MessageBox.Show("Не выбран узел!");
                 return;
             }
-            if (lstChannelFirst.Focused)
+            if (lstChannelFirst.SelectedIndex != -1)
             {
                 StringToCopy = lstChannelFirst.Items[lstChannelFirst.SelectedIndex].ToString();
             }
-            if (lstChannelSecond.Focused)
+            if (lstChannelSecond.SelectedIndex != -1)
             {
                 StringToCopy = lstChannelSecond.Items[lstChannelFirst.SelectedIndex].ToString();
             }
@@ -111,16 +110,16 @@ namespace ManagerDS360.Controls
 
         private void butPaste_Click(object sender, EventArgs e)
         {
-            if ((!lstChannelFirst.Focused && !lstChannelSecond.Focused))
+            if (IsItemNotSelected())
             {
                 MessageBox.Show("Не выбран канал!");
                 return;
             }
-            if (lstChannelFirst.Focused)
+            if (lstChannelFirst.SelectedIndex != -1)
             {
                 lstChannelFirst.Items.Add(StringToCopy);
             }
-            if (lstChannelSecond.Focused)
+            if (lstChannelSecond.SelectedIndex != -1)
             {
                 lstChannelSecond.Items.Add(StringToCopy);
             }
@@ -133,22 +132,38 @@ namespace ManagerDS360.Controls
                 MessageBox.Show("Не выбран канал или узел!");
                 return;
             }
-            if (lstChannelFirst.Focused)
+            if (lstChannelFirst.SelectedIndex != -1)
             {
                 int selectIndex = lstChannelFirst.SelectedIndex;
                 lstChannelFirst.Items.RemoveAt(selectIndex);
                 if (lstChannelFirst.Items.Count > 0)
                 {
-                    lstChannelFirst.SelectedIndex = selectIndex;
+                    if (lstChannelFirst.Items.Count == selectIndex)
+                    {
+                        lstChannelFirst.SelectedIndex = selectIndex - 1;
+
+                    }
+                    else
+                    {
+                        lstChannelFirst.SelectedIndex = selectIndex;
+                    }
                 }
             }
-            if (lstChannelSecond.Focused)
+            if (lstChannelSecond.SelectedIndex != -1)
             {
                 int selectIndex = lstChannelSecond.SelectedIndex;
                 lstChannelSecond.Items.RemoveAt(selectIndex);
                 if (lstChannelFirst.Items.Count > 0)
                 {
-                    lstChannelSecond.SelectedIndex = selectIndex;
+                    if (lstChannelSecond.Items.Count == selectIndex)
+                    {
+                        lstChannelSecond.SelectedIndex = selectIndex - 1;
+
+                    }
+                    else
+                    {
+                        lstChannelSecond.SelectedIndex = selectIndex;
+                    }
                 }
             }
         }
@@ -163,11 +178,11 @@ namespace ManagerDS360.Controls
         private string GetAddress(ListBox lst)
         {
             string address = txtRouteName.Text;
-            foreach(string str in lst.Items)
+            foreach (string str in lst.Items)
             {
                 address += $"/{str}";
             }
-            address = address.Replace(" ", "_"); 
+            address = address.Replace(" ", "_");
             return address;
         }
 
@@ -182,6 +197,72 @@ namespace ManagerDS360.Controls
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void lstChannelFirst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstChannelFirst.SelectedIndex == -1)
+            {
+                return;
+            }
+            lstChannelSecond.SelectedIndex = -1;
+        }
+
+        private void lstChannelSecond_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstChannelSecond.SelectedIndex == -1)
+            {
+                return;
+            }
+            lstChannelFirst.SelectedIndex = -1;
+        }
+
+        private void butChannelFirstUp_Click(object sender, EventArgs e)
+        {
+            ItemUp(lstChannelFirst);
+        }
+        private void butChannelSecondUp_Click(object sender, EventArgs e)
+        {
+            ItemUp(lstChannelSecond);
+        }
+        private void butChannelFirstDown_Click(object sender, EventArgs e)
+        {
+            ItemDown(lstChannelFirst);
+        }
+        private void butChannelSecondDown_Click(object sender, EventArgs e)
+        {
+            ItemDown(lstChannelSecond);
+        }
+         
+        private void ItemUp(ListBox lst)
+        {
+            if (lst.SelectedIndex == -1)
+            {
+                return;
+            }
+            var item = lst.SelectedItem;
+            int index = lst.SelectedIndex;
+            if (index > 0)
+            {
+                lst.Items.RemoveAt(index);
+                lst.Items.Insert(index - 1, item);
+                lst.SelectedIndex = index - 1;
+            }
+        }
+        private void ItemDown(ListBox lst)
+        {
+            if (lst.SelectedIndex == -1)
+            {
+                return;
+            }
+            var item = lst.SelectedItem;
+            int index = lst.SelectedIndex;
+            if (index < lst.Items.Count - 1)
+            {
+                lst.Items.RemoveAt(index);
+                lst.Items.Insert(index +1, item);
+                lst.SelectedIndex = index+1 ;
             }
         }
     }

@@ -110,6 +110,7 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.butCancel);
             this.Controls.Add(this.butSave);
             this.Name = "frmAddChangeNode";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавить узел";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAddChangeNode_FormClosed);
             this.Load += new System.EventHandler(this.frmAddChangeNode_Load);

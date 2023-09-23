@@ -187,7 +187,7 @@ namespace ManagerDS360.Controls
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.butChannelSecondDown);
             this.splitContainer1.Size = new System.Drawing.Size(582, 371);
-            this.splitContainer1.SplitterDistance = 286;
+            this.splitContainer1.SplitterDistance = 294;
             this.splitContainer1.TabIndex = 20;
             // 
             // lstChannelFirst
@@ -198,8 +198,9 @@ namespace ManagerDS360.Controls
             this.lstChannelFirst.FormattingEnabled = true;
             this.lstChannelFirst.Location = new System.Drawing.Point(3, 23);
             this.lstChannelFirst.Name = "lstChannelFirst";
-            this.lstChannelFirst.Size = new System.Drawing.Size(221, 329);
+            this.lstChannelFirst.Size = new System.Drawing.Size(229, 329);
             this.lstChannelFirst.TabIndex = 0;
+            this.lstChannelFirst.SelectedIndexChanged += new System.EventHandler(this.lstChannelFirst_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -222,11 +223,12 @@ namespace ManagerDS360.Controls
             this.butChannelFirstUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelFirstUp.Location = new System.Drawing.Point(230, 102);
+            this.butChannelFirstUp.Location = new System.Drawing.Point(238, 102);
             this.butChannelFirstUp.Name = "butChannelFirstUp";
             this.butChannelFirstUp.Size = new System.Drawing.Size(33, 39);
             this.butChannelFirstUp.TabIndex = 15;
             this.butChannelFirstUp.UseVisualStyleBackColor = false;
+            this.butChannelFirstUp.Click += new System.EventHandler(this.butChannelFirstUp_Click);
             // 
             // butChannelFirstDown
             // 
@@ -239,11 +241,12 @@ namespace ManagerDS360.Controls
             this.butChannelFirstDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelFirstDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelFirstDown.Location = new System.Drawing.Point(230, 193);
+            this.butChannelFirstDown.Location = new System.Drawing.Point(238, 193);
             this.butChannelFirstDown.Name = "butChannelFirstDown";
             this.butChannelFirstDown.Size = new System.Drawing.Size(33, 39);
             this.butChannelFirstDown.TabIndex = 16;
             this.butChannelFirstDown.UseVisualStyleBackColor = false;
+            this.butChannelFirstDown.Click += new System.EventHandler(this.butChannelFirstDown_Click);
             // 
             // lstChannelSecond
             // 
@@ -253,8 +256,9 @@ namespace ManagerDS360.Controls
             this.lstChannelSecond.FormattingEnabled = true;
             this.lstChannelSecond.Location = new System.Drawing.Point(3, 23);
             this.lstChannelSecond.Name = "lstChannelSecond";
-            this.lstChannelSecond.Size = new System.Drawing.Size(239, 329);
+            this.lstChannelSecond.Size = new System.Drawing.Size(231, 329);
             this.lstChannelSecond.TabIndex = 17;
+            this.lstChannelSecond.SelectedIndexChanged += new System.EventHandler(this.lstChannelSecond_SelectedIndexChanged);
             // 
             // butChannelSecondUp
             // 
@@ -267,11 +271,12 @@ namespace ManagerDS360.Controls
             this.butChannelSecondUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelSecondUp.Location = new System.Drawing.Point(248, 102);
+            this.butChannelSecondUp.Location = new System.Drawing.Point(240, 102);
             this.butChannelSecondUp.Name = "butChannelSecondUp";
             this.butChannelSecondUp.Size = new System.Drawing.Size(33, 39);
             this.butChannelSecondUp.TabIndex = 18;
             this.butChannelSecondUp.UseVisualStyleBackColor = false;
+            this.butChannelSecondUp.Click += new System.EventHandler(this.butChannelSecondUp_Click);
             // 
             // label3
             // 
@@ -294,11 +299,12 @@ namespace ManagerDS360.Controls
             this.butChannelSecondDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butChannelSecondDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butChannelSecondDown.Location = new System.Drawing.Point(248, 193);
+            this.butChannelSecondDown.Location = new System.Drawing.Point(240, 193);
             this.butChannelSecondDown.Name = "butChannelSecondDown";
             this.butChannelSecondDown.Size = new System.Drawing.Size(33, 39);
             this.butChannelSecondDown.TabIndex = 19;
             this.butChannelSecondDown.UseVisualStyleBackColor = false;
+            this.butChannelSecondDown.Click += new System.EventHandler(this.butChannelSecondDown_Click);
             // 
             // frmCreationDC23Setting
             // 
@@ -316,6 +322,7 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRouteName);
             this.Name = "frmCreationDC23Setting";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Измерение СД-23";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreationDC23Setting_FormClosed);
             this.Load += new System.EventHandler(this.frmCreationDC23Setting_Load);

@@ -33,7 +33,7 @@ namespace ManagerDS360
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
         }
-       
+
         private async Task SetTestedDevicesList()
         {
             await Task.Delay(10);
@@ -47,18 +47,18 @@ namespace ManagerDS360
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
             var client = ManagerDC23.Client;
-            if (PmData.GetEnumFromString(PmData.TestedDevice,cboTestedDevice.Text)== TestedDevice.DC23)
+            if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.DC23)
             {
-                
+
                 client.ConnectedEvent += Client_ConnectedEvent;
                 client.DisconnectedEvent += Client_DisconnectedEvent;
                 Thread thr = new Thread(() => client.Connect());
                 thr.IsBackground = true;
-                Invoke(new Action (() =>
-                {
-                    lblTestedDevice.ForeColor = Color.Black;
-                    lblTestedDevice.Text = "Устанавливается соединение...";
-                }));
+                Invoke(new Action(() =>
+               {
+                   lblTestedDevice.ForeColor = Color.Black;
+                   lblTestedDevice.Text = "Устанавливается соединение...";
+               }));
                 thr.Start();
             }
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.None)
@@ -79,7 +79,7 @@ namespace ManagerDS360
                 client.ConnectedEvent -= Client_ConnectedEvent;
                 client.DisconnectedEvent -= Client_DisconnectedEvent;
             }));
-            
+
         }
 
         private void Client_ConnectedEvent(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace ManagerDS360
                 lblTestedDevice.ForeColor = Color.Green;
                 lblTestedDevice.Text = "Соединение установлено";
             }));
-            
+
         }
 
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
@@ -128,21 +128,65 @@ namespace ManagerDS360
             {
                 return;
             }
-            if (selectedNode.NodeType != NodeType.Setting)
+            if (selectedNode.NodeType == NodeType.Folder)
             {
                 return;
             }
-            selectedNode.ImageIndex = 2;
-            selectedNode.SelectedImageIndex = 2;
-            if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
+            if (selectedNode.NodeType == NodeType.Setting)
             {
-                MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
-                selectedNode.ImageIndex = 3;
-                selectedNode.SelectedImageIndex = 3;
+                selectedNode.ImageIndex = 2;
+                selectedNode.SelectedImageIndex = 2;
+                if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
+                {
+                    MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
+                    selectedNode.ImageIndex = 3;
+                    selectedNode.SelectedImageIndex = 3;
+                    return;
+                }
+                selectedNode.ImageIndex = 4;
+                selectedNode.SelectedImageIndex = 4;
                 return;
             }
-            selectedNode.ImageIndex = 4;
-            selectedNode.SelectedImageIndex = 4;
+            if (selectedNode.NodeType == NodeType.DC23)
+            {
+                if (!ManagerDC23.Client.Connected)
+                {
+                    MessageBox.Show($"Отсутсвует соединение!");
+                    return;
+                }
+                if (selectedNode.DC23.OpenRoute()!= ResultCommandDC23.Success)
+                {
+                    MessageBox.Show($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}");
+                    selectedNode.ImageIndex = 6; 
+                    selectedNode.SelectedImageIndex = 6;
+                    return;
+                }
+                if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
+                {
+                    MessageBox.Show($"Не удалось привязать канал А");
+                    selectedNode.ImageIndex = 6;
+                    selectedNode.SelectedImageIndex = 6;
+                    return;
+                }
+                if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
+                {
+                    MessageBox.Show($"Не удалось привязать канал В");
+                    selectedNode.ImageIndex = 6;
+                    selectedNode.SelectedImageIndex = 6;
+                    return;
+                }
+                if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
+                {
+                    MessageBox.Show($"Не удалось произвести измерение");
+                    selectedNode.ImageIndex = 6;
+                    selectedNode.SelectedImageIndex = 6;
+                    return;
+                }
+                selectedNode.ImageIndex = 7;
+                selectedNode.SelectedImageIndex = 7;
+                return;
+            }
+
         }
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -311,7 +355,7 @@ namespace ManagerDS360
                 treRouteTree.SelectedNode.NextVisibleNode.Expand();
             }
             treRouteTree.SelectedNode = treRouteTree.SelectedNode.NextVisibleNode;
-            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
             {
                 SelectNextSetting();
             }

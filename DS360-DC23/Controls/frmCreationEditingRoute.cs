@@ -19,6 +19,7 @@ using VibroMath;
 using System.Diagnostics;
 using ToolTip = System.Windows.Forms.ToolTip;
 using ManagerDS360.Controls;
+using LibDevicesManager.DC23;
 
 namespace ManagerDS360
 {
@@ -38,6 +39,7 @@ namespace ManagerDS360
         public TypeFormOpen TypeFormOpen;
         public FileInfo FileInfo;
         private DS360SettingVibroSigParam LastDS360Setting;
+        private ManagerDC23 LastDC23 = new ManagerDC23();
 
         public frmCreationEditingRoute()
         {
@@ -319,6 +321,39 @@ namespace ManagerDS360
                 {
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
+            }
+            if(selectedNode.NodeType == NodeType.DC23)
+            {
+                frmCreationDC23Setting frmCreationDC23Setting = new frmCreationDC23Setting();
+                frmCreationDC23Setting.DC23 = selectedNode.DC23;
+                GetFrmSettingsFrovDC23(selectedNode.DC23, frmCreationDC23Setting);
+
+                if (frmCreationDC23Setting.ShowDialog() == DialogResult.OK)
+                {
+                    selectedNode.Text = GetTextNode(frmCreationDC23Setting);
+                }
+                return;
+            }
+        }
+
+        private static void GetFrmSettingsFrovDC23(ManagerDC23 dc23, frmCreationDC23Setting frmCreationDC23Setting)
+        {
+            frmCreationDC23Setting.GetTxtRoutName().Text = dc23.RouteName;
+            foreach (string str in dc23.СhannelFirstAddress.Replace("_", " ").Split('/'))
+            {
+                if (str == dc23.RouteName)
+                {
+                    continue;
+                }
+                frmCreationDC23Setting.GetLstChannaleFirst().Items.Add(str);
+            }
+            foreach (string str in dc23.СhannelSecondAddress.Replace("_", " ").Split('/'))
+            {
+                if (str == dc23.RouteName)
+                {
+                    continue;
+                }
+                frmCreationDC23Setting.GetLstChannelSecond().Items.Add(str);
             }
         }
 
@@ -765,11 +800,10 @@ namespace ManagerDS360
             frmCreationDC23Setting editingSettings = new frmCreationDC23Setting();
             editingSettings.TypeFormOpen = TypeFormOpen.ToСreate;
 
-            //if (chkUseLastSetting.Checked && LastDS360Setting != null)
-            //{
-            //    var DS360Setting = PmData.CloneObj(LastDS360Setting);
-            //    СonfigureEditingSettings(DS360Setting, editingSettings);
-            //}
+            if (chkUseLastSetting.Checked && LastDC23 != null)
+            {
+                GetFrmSettingsFrovDC23(LastDC23, editingSettings);
+            }
             editingSettings.ShowDialog();
             if (editingSettings.DialogResult != DialogResult.OK)
             {
@@ -778,7 +812,7 @@ namespace ManagerDS360
             string textNode = GetTextNode(editingSettings);
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
             treeNode.DC23 = editingSettings.DC23;
-            //LastDS360Setting = PmData.CloneObj(editingSettings.DS360Setting);
+            LastDC23= PmData.CloneObj(editingSettings.DC23);
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNode);

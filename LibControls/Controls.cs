@@ -183,7 +183,7 @@ namespace LibControls
             if (NodeType == NodeType.Setting)
             {
                 this.ImageIndex = 1;
-                this.SelectedImageIndex = 5;
+                this.SelectedImageIndex = 1;
             }
             if (NodeType == NodeType.DC23)
             {
@@ -195,6 +195,7 @@ namespace LibControls
         {
             TreeNodeWithSetting treeNodeWithSetting = new TreeNodeWithSetting(this.NodeType, this.Text);
             treeNodeWithSetting.DS360Setting = DS360Setting.CloneObj();
+            treeNodeWithSetting.DC23 = DC23.CloneObj();
             if (this.IsExpanded)
             {
                 treeNodeWithSetting.Expand();
@@ -223,7 +224,8 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Настройка_красная);
             ImageList.Images.Add(Properties.Resources.Настройка_зеленая);
             ImageList.Images.Add(Properties.Resources.DC23_серый_);
-
+            ImageList.Images.Add(Properties.Resources.DC23_красный);
+            ImageList.Images.Add(Properties.Resources.DC23_зеленый);
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {

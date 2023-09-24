@@ -98,7 +98,8 @@ namespace LibControls
     {
         Folder,
         Setting,
-        DC23
+        DC23,
+        Message
     }
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
@@ -155,6 +156,7 @@ namespace LibControls
             }
         }
 
+
         protected override void Deserialize(SerializationInfo serializationInfo, StreamingContext context)
         {
             base.Deserialize(serializationInfo, context);
@@ -189,6 +191,11 @@ namespace LibControls
             {
                 this.ImageIndex = 5;
                 this.SelectedImageIndex = 5;
+            }
+            if (NodeType == NodeType.Message)
+            {
+                this.ImageIndex = 8;
+                this.SelectedImageIndex = 8;
             }
         }
         public TreeNodeWithSetting Copy()
@@ -226,6 +233,21 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.DC23_серый_);
             ImageList.Images.Add(Properties.Resources.DC23_красный);
             ImageList.Images.Add(Properties.Resources.DC23_зеленый);
+            ImageList.Images.Add(Properties.Resources.Message_серый);
+            ImageList.Images.Add(Properties.Resources.Message_зеленый);
+        }
+        protected override  void OnAfterCheck(TreeViewEventArgs e)
+        {
+            foreach (TreeNode node in e.Node.Nodes)
+            {
+                node.Checked = e.Node.Checked;
+            }
+            base.OnAfterCheck(e);
+        }
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x203) { m.Result = IntPtr.Zero; }
+            else base.WndProc(ref m);
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {

@@ -160,5 +160,11 @@
   <ItemGroup>
     <None Include="Resources\DC23_красный.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Message_серый.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Message_зеленый.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

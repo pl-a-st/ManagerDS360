@@ -33,7 +33,6 @@
             this.txtNameRoute = new System.Windows.Forms.TextBox();
             this.lblRouteName = new System.Windows.Forms.Label();
             this.lblRouteTree = new System.Windows.Forms.Label();
-            this.butAddFolder = new System.Windows.Forms.Button();
             this.butAddSetting = new System.Windows.Forms.Button();
             this.butEditSetting = new System.Windows.Forms.Button();
             this.butDelete = new System.Windows.Forms.Button();
@@ -47,7 +46,10 @@
             this.butDown = new LibControls.ButtonForPicture();
             this.butUp = new LibControls.ButtonForPicture();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.butAddDC23 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboSettingsType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtNameRoute
@@ -84,27 +86,14 @@
             this.lblRouteTree.Text = "Дерево маршрута";
             this.lblRouteTree.Click += new System.EventHandler(this.lblRouteTree_Click);
             // 
-            // butAddFolder
-            // 
-            this.butAddFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAddFolder.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddFolder.Location = new System.Drawing.Point(619, 182);
-            this.butAddFolder.Name = "butAddFolder";
-            this.butAddFolder.Size = new System.Drawing.Size(157, 40);
-            this.butAddFolder.TabIndex = 5;
-            this.butAddFolder.Text = "Добавить папку";
-            this.butAddFolder.UseVisualStyleBackColor = true;
-            this.butAddFolder.Click += new System.EventHandler(this.butAddFolder_Click);
-            // 
             // butAddSetting
             // 
-            this.butAddSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butAddSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddSetting.Location = new System.Drawing.Point(619, 90);
+            this.butAddSetting.Location = new System.Drawing.Point(6, 81);
             this.butAddSetting.Name = "butAddSetting";
             this.butAddSetting.Size = new System.Drawing.Size(157, 40);
             this.butAddSetting.TabIndex = 4;
-            this.butAddSetting.Text = "Добавить DS360";
+            this.butAddSetting.Text = "Добавить настройку";
             this.butAddSetting.UseVisualStyleBackColor = true;
             this.butAddSetting.Click += new System.EventHandler(this.butAddSetting_Click);
             this.butAddSetting.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
@@ -174,10 +163,9 @@
             // 
             // chkUseLastSetting
             // 
-            this.chkUseLastSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkUseLastSetting.AutoSize = true;
             this.chkUseLastSetting.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkUseLastSetting.Location = new System.Drawing.Point(619, 75);
+            this.chkUseLastSetting.Location = new System.Drawing.Point(6, 66);
             this.chkUseLastSetting.Name = "chkUseLastSetting";
             this.chkUseLastSetting.Size = new System.Drawing.Size(157, 17);
             this.chkUseLastSetting.TabIndex = 3;
@@ -266,24 +254,44 @@
             // 
             this.toolTip1.ToolTipTitle = "тест";
             // 
-            // butAddDC23
+            // groupBox1
             // 
-            this.butAddDC23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAddDC23.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butAddDC23.Location = new System.Drawing.Point(619, 136);
-            this.butAddDC23.Name = "butAddDC23";
-            this.butAddDC23.Size = new System.Drawing.Size(157, 40);
-            this.butAddDC23.TabIndex = 15;
-            this.butAddDC23.Text = "Добавить СД-23";
-            this.butAddDC23.UseVisualStyleBackColor = true;
-            this.butAddDC23.Click += new System.EventHandler(this.butAddDC23_Click);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.cboSettingsType);
+            this.groupBox1.Controls.Add(this.butAddSetting);
+            this.groupBox1.Controls.Add(this.chkUseLastSetting);
+            this.groupBox1.Location = new System.Drawing.Point(614, 76);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(167, 127);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            // 
+            // cboSettingsType
+            // 
+            this.cboSettingsType.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cboSettingsType.FormattingEnabled = true;
+            this.cboSettingsType.Location = new System.Drawing.Point(6, 31);
+            this.cboSettingsType.Name = "cboSettingsType";
+            this.cboSettingsType.Size = new System.Drawing.Size(156, 24);
+            this.cboSettingsType.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(9, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Тип настройки";
             // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 608);
-            this.Controls.Add(this.butAddDC23);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
             this.Controls.Add(this.treRouteTree);
@@ -294,12 +302,9 @@
             this.Controls.Add(this.butPaste);
             this.Controls.Add(this.butCopy);
             this.Controls.Add(this.butEditSetting);
-            this.Controls.Add(this.butAddSetting);
-            this.Controls.Add(this.butAddFolder);
             this.Controls.Add(this.lblRouteTree);
             this.Controls.Add(this.lblRouteName);
             this.Controls.Add(this.txtNameRoute);
-            this.Controls.Add(this.chkUseLastSetting);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 519);
@@ -310,6 +315,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreationEditingRoute_FormClosed);
             this.Load += new System.EventHandler(this.frmCreationEditingRoute_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +327,6 @@
         internal System.Windows.Forms.TextBox txtNameRoute;
         internal System.Windows.Forms.Label lblRouteName;
         internal System.Windows.Forms.Label lblRouteTree;
-        internal System.Windows.Forms.Button butAddFolder;
         internal System.Windows.Forms.Button butAddSetting;
         internal System.Windows.Forms.Button butEditSetting;
         internal System.Windows.Forms.Button butDelete;
@@ -334,6 +340,8 @@
         private LibControls.ButtonForPicture butDown;
         private LibControls.ButtonForPicture butUp;
         private System.Windows.Forms.ToolTip toolTip1;
-        internal System.Windows.Forms.Button butAddDC23;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboSettingsType;
     }
 }

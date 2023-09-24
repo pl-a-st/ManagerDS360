@@ -24,9 +24,23 @@ namespace ManagerDS360
         ChannelSecond,
         ChannelFirstAndSecond
     }
+    public enum SettingsType
+    {
+        Folder,
+        DS360,
+        DC23,
+        Message
+    }
     public static class PmData
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
+        public static Dictionary<SettingsType, string> SettingsType = new Dictionary<SettingsType, string>()
+        {
+            { ManagerDS360.SettingsType.Folder, "Папка"},
+            { ManagerDS360.SettingsType.DS360,"DS360"},
+            { ManagerDS360.SettingsType.DC23,"СД-23"},
+            { ManagerDS360.SettingsType.Message,"Сообщение"},
+        };
         public static Dictionary<Channel, string> Channel = new Dictionary<Channel, string>()
         {
             { ManagerDS360.Channel.ChannelFirst, "Канал А"},

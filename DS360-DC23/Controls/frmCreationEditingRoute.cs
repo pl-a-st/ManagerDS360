@@ -46,11 +46,20 @@ namespace ManagerDS360
             InitializeComponent();
         }
 
-        public void frmCreationEditingRoute_Load(object sender, EventArgs e)
+        public async void frmCreationEditingRoute_Load(object sender, EventArgs e)
         {
             SetToolTipes();
+            await SetSettingTypeList();
         }
-
+        private async Task SetSettingTypeList()
+        {
+            await Task.Delay(10);
+            var elements = PmData.SettingsType.Values.ToArray();
+            cboSettingsType.BeginUpdate();
+            cboSettingsType.Items.AddRange(elements);
+            cboSettingsType.SelectedIndex = (int)TestedDevice.None;
+            cboSettingsType.EndUpdate();
+        }
         private void SetToolTipes()
         {
             ToolTip toolTip1 = new ToolTip();
@@ -60,7 +69,7 @@ namespace ManagerDS360
             toolTip1.ShowAlways = true;
 
             toolTip1.SetToolTip(this.butAddSetting, "ALT+S");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A");
+            
             toolTip1.SetToolTip(this.butEditSetting, "CTRL+R");
             toolTip1.SetToolTip(this.butCopy, "Alt+C");
             toolTip1.SetToolTip(this.butPaste, "Alt+V");
@@ -70,7 +79,7 @@ namespace ManagerDS360
             toolTip1.SetToolTip(this.butCancel, "CTRL+X");
             toolTip1.SetToolTip(this.butUp, "Shift+Up");
             toolTip1.SetToolTip(this.butDown, "Shift+Down");
-            toolTip1.SetToolTip(this.butAddFolder, "CTRL+A ");
+            
         }
         /// <summary>
         /// Кнопка добавить папку
@@ -179,9 +188,47 @@ namespace ManagerDS360
 
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
-            AddSettingDS360();
-        }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString())== SettingsType.DS360)
+            {
+                AddSettingDS360();
+            }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.DC23)
+            {
+                AddSettingDC23();
+            }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.Folder)
+            {
+                AddFolder();
+            }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.Message)
+            {
+                AddMessage();
+            }
 
+        }
+        private void AddMessage()
+        {
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
+            frmInputName frmInputName = new frmInputName();
+            frmInputName.ShowDialog();
+            if(frmInputName.SaveName != SaveName.SaveName)
+            {
+                return;
+            }
+            TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Message, frmInputName.txtNameSet.Text);
+            if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+            {
+                treRouteTree.Nodes.Add(treeNode);
+                return;
+            }
+            TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            SelectedNodeWithSetup.Nodes.Add(treeNode);
+            SelectedNodeWithSetup.Expand();
+        }
         private void AddSettingDS360()
         {
             if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)

@@ -186,6 +186,13 @@ namespace ManagerDS360
                 selectedNode.SelectedImageIndex = 7;
                 return;
             }
+            if(selectedNode.NodeType == NodeType.Message)
+            {
+                MessageBox.Show(selectedNode.Text);
+                selectedNode.ImageIndex = 9;
+                selectedNode.SelectedImageIndex = 9;
+                return;
+            }
 
         }
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,6 +16,7 @@ namespace LibControls
 {
     public class ButtonForPicture : Button
     {
+        List<Image> Images = new List<Image>();
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -23,8 +25,20 @@ namespace LibControls
             this.FlatAppearance.MouseDownBackColor = Color.Transparent;
             this.FlatAppearance.MouseOverBackColor = Color.Transparent;
             this.FlatAppearance.BorderSize = 0;
-            this.ImageList = new ImageList();
+            ImageList images = new ImageList();
+            this.ImageList = images;
+            this.ImageList.ImageSize = new Size(256, 256);
             this.BackColor = Color.Transparent;
+        }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            
+            if (Images.Count == 0 && this.BackgroundImage != null)
+            {
+                Images.Add(this.BackgroundImage);
+                Images.Add(DoDark(new Bitmap(this.BackgroundImage)));
+            }
         }
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
@@ -41,18 +55,44 @@ namespace LibControls
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            if (this.ImageList.Images.Count > 1)
+            if (Images.Count > 1)
             {
-                this.BackgroundImage = this.ImageList.Images[1];
+                this.BackgroundImage = Images[1];
             }
         }
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (this.ImageList.Images.Count > 0)
+            if (Images.Count > 0)
             {
-                this.BackgroundImage = this.ImageList.Images[0];
+                this.BackgroundImage = Images[0];
             }
+        }
+        private Bitmap DoDark(Bitmap bmp)
+        {
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    Color p = bmp.GetPixel(i, j);
+                    int a = p.A;
+                    if (a == 0)
+                    {
+                        continue;
+                    }
+                    int r = p.R - 20;
+                    int g = p.G - 20;
+                    int b = p.B - 20;
+                    if (r < 0)
+                        r = 0;
+                    if (g < 0)
+                        g = 0;
+                    if (b < 0)
+                        b = 0;
+                    bmp.SetPixel(i, j, Color.FromArgb(a, r, g, b));
+                }
+            }
+            return bmp;
         }
     }
     public enum Access
@@ -220,6 +260,8 @@ namespace LibControls
     {
         public TreeNodeWithSetting CopyTreeNodeWithSetup;
         private TreeNode LastSelectedTreeNode;
+        private bool _isChackingChaild = false;
+        private bool _isChackingParant = false;
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -236,13 +278,54 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Message_серый);
             ImageList.Images.Add(Properties.Resources.Message_зеленый);
         }
-        protected override  void OnAfterCheck(TreeViewEventArgs e)
+        protected override void OnAfterCheck(TreeViewEventArgs e)
         {
-            foreach (TreeNode node in e.Node.Nodes)
-            {
-                node.Checked = e.Node.Checked;
-            }
             base.OnAfterCheck(e);
+            if (!_isChackingParant)
+            {
+                foreach (TreeNode node in e.Node.Nodes)
+                {
+                    _isChackingChaild = true;
+                    node.Checked = e.Node.Checked;
+                    _isChackingChaild = false;
+                }
+            }
+            CheckParant(e.Node);
+        }
+        private void CheckParant(TreeNode node)
+        {
+            if (_isChackingChaild)
+            {
+                return;
+            }
+            if (node.Parent == null)
+            {
+                return;
+            }
+            if (!node.Checked)
+            {
+                _isChackingParant = true;
+                node.Parent.Checked = false;
+                _isChackingParant = false;
+                return;
+            }
+            foreach (TreeNode ParantesNode in node.Parent.Nodes)
+            {
+                if (ParantesNode == node)
+                {
+                    continue;
+                }
+                if (!ParantesNode.Checked)
+                {
+                    _isChackingParant = true;
+                    node.Parent.Checked = false;
+                    _isChackingParant = false;
+                    return;
+                }
+            }
+            _isChackingParant = true;
+            node.Parent.Checked = true;
+            _isChackingParant = false;
         }
         protected override void WndProc(ref Message m)
         {

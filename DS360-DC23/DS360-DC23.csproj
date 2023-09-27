@@ -423,6 +423,8 @@
     <None Include="Resources\Логотип ВАСТ цветной.png" />
     <None Include="Resources\Логотип ВАСТ.png" />
     <None Include="Resources\Логотип ВАСТ темный.png" />
+    <None Include="Resources\Стоп_серый.png" />
+    <None Include="Resources\Заготовки.png" />
     <Content Include="значок_синус %284%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

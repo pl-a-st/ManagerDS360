@@ -21,6 +21,8 @@ namespace ManagerDS360
 {
     public partial class frmManagerDS360 : Form
     {
+        static CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
+        CancellationToken Token = CancelTokenSource.Token;
         public frmManagerDS360()
         {
             InitializeComponent();
@@ -121,79 +123,156 @@ namespace ManagerDS360
             editingSettings.Text = "Отправка настройки в генератор";
             editingSettings.ShowDialog();
         }
-        private void SendNodeSetting()
+        private Result SendNodeSetting()
         {
-            var selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting;
+
+            TreeNodeWithSetting selectedNode = null;
+            Invoke(new Action(() => { selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting; }));
             if (selectedNode == null)
             {
-                return;
+                return Result.Success;
             }
             if (selectedNode.NodeType == NodeType.Folder)
             {
-                return;
+                return Result.Success;
             }
             if (selectedNode.NodeType == NodeType.Setting)
             {
-                selectedNode.ImageIndex = 2;
-                selectedNode.SelectedImageIndex = 2;
+                BeginInvoke(new Action(() =>
+                {
+                    selectedNode.ImageIndex = 2;
+                    selectedNode.SelectedImageIndex = 2;
+                }));
                 if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
                 {
-                    MessageBox.Show(selectedNode.DS360Setting.ResultMessage);
-                    selectedNode.ImageIndex = 3;
-                    selectedNode.SelectedImageIndex = 3;
-                    return;
+                    MessageBox.Show(
+                       selectedNode.DS360Setting.ResultMessage,
+                       "Предупреждение",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning,
+                       MessageBoxDefaultButton.Button1,
+                       MessageBoxOptions.RightAlign);
+                    
+                    BeginInvoke(new Action(() =>
+                    {
+                        selectedNode.ImageIndex = 3;
+                        selectedNode.SelectedImageIndex = 3;
+                    }));
+                    return Result.Failure;
                 }
-                selectedNode.ImageIndex = 4;
-                selectedNode.SelectedImageIndex = 4;
-                return;
+                BeginInvoke(new Action(() =>
+                {
+                    selectedNode.ImageIndex = 4;
+                    selectedNode.SelectedImageIndex = 4;
+                }));
+
+                return Result.Success;
             }
             if (selectedNode.NodeType == NodeType.DC23)
             {
-                if (!ManagerDC23.Client.Connected)
+                if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
                 {
-                    MessageBox.Show($"Отсутсвует соединение!");
-                    return;
+                    MessageBox.Show(
+                        "Отсутсвует соединение!",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                    return Result.Failure;
                 }
-                if (selectedNode.DC23.OpenRoute()!= ResultCommandDC23.Success)
+                if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}");
-                    selectedNode.ImageIndex = 6; 
-                    selectedNode.SelectedImageIndex = 6;
-                    return;
+                    MessageBox.Show(
+                        $"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                    BeginInvoke(new Action(() =>
+                    {
+                        selectedNode.ImageIndex = 6;
+                        selectedNode.SelectedImageIndex = 6;
+                    }));
+                    return Result.Failure;
                 }
                 if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
                 {
+                    MessageBox.Show(
+                        "Не удалось привязать канал А",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
                     MessageBox.Show($"Не удалось привязать канал А");
-                    selectedNode.ImageIndex = 6;
-                    selectedNode.SelectedImageIndex = 6;
-                    return;
+                    BeginInvoke(new Action(() =>
+                    {
+                        selectedNode.ImageIndex = 6;
+                        selectedNode.SelectedImageIndex = 6;
+                    }));
+                    return Result.Failure;
                 }
                 if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show($"Не удалось привязать канал В");
-                    selectedNode.ImageIndex = 6;
-                    selectedNode.SelectedImageIndex = 6;
-                    return;
+                    MessageBox.Show(
+                        "Не удалось привязать канал В",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                    BeginInvoke(new Action(() =>
+                    {
+                        selectedNode.ImageIndex = 6;
+                        selectedNode.SelectedImageIndex = 6;
+                    }));
+                    return Result.Failure;
                 }
                 if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show($"Не удалось произвести измерение");
-                    selectedNode.ImageIndex = 6;
-                    selectedNode.SelectedImageIndex = 6;
-                    return;
-                }
-                selectedNode.ImageIndex = 7;
-                selectedNode.SelectedImageIndex = 7;
-                return;
-            }
-            if(selectedNode.NodeType == NodeType.Message)
-            {
-                MessageBox.Show(selectedNode.Text);
-                selectedNode.ImageIndex = 9;
-                selectedNode.SelectedImageIndex = 9;
-                return;
-            }
+                    MessageBox.Show(
+                        "Не удалось произвести измерение",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                    BeginInvoke(new Action(() =>
+                    {
+                        selectedNode.ImageIndex = 6;
+                        selectedNode.SelectedImageIndex = 6;
+                    }));
 
+                    return Result.Failure;
+                }
+                BeginInvoke(new Action(() =>
+                {
+                    selectedNode.ImageIndex = 7;
+                    selectedNode.SelectedImageIndex = 7;
+                }));
+
+                return Result.Success;
+            }
+            if (selectedNode.NodeType == NodeType.Message)
+            {
+                MessageBox.Show(
+                       selectedNode.Text,
+                       "Сообщение",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Information,
+                       MessageBoxDefaultButton.Button1,
+                       MessageBoxOptions.DefaultDesktopOnly);
+                BeginInvoke(new Action(() =>
+                {
+                    selectedNode.ImageIndex = 9;
+                    selectedNode.SelectedImageIndex = 9;
+                }));
+
+                return Result.Success;
+            }
+            return Result.Success;
         }
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -203,6 +282,10 @@ namespace ManagerDS360
             }
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
+            foreach(TreeNode node in treRouteTree.Nodes)
+            {
+                node.Checked = true;
+            }
             if (treRouteTree.Nodes.Count > 0)
             {
                 treRouteTree.SelectedNode = treRouteTree.Nodes[0];
@@ -555,6 +638,80 @@ namespace ManagerDS360
         private void cboTestedDevice_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonForPicture1_VisibleChanged(object sender, EventArgs e)
+        {
+            butStopTest.ImageList.Images.Add(Properties.Resources.Стоп_серый);
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonForPicture2_Click(object sender, EventArgs e)
+        {
+            Task task = new Task(SendAllChacked, Token);
+            task.Start();
+            lblTestStatus.Text = "Испытание начато";
+
+        }
+
+        private void SendAllChacked()
+        {
+            List<TreeNode> chackedNode = new List<TreeNode>();
+            GetChakedNodes(chackedNode, treRouteTree.Nodes);
+            BeginInvoke(new Action(() => { treRouteTree.Enabled = false; }));
+
+            foreach (TreeNode node in chackedNode)
+            {
+                if (Token.IsCancellationRequested)
+                {
+                    CancelTokenSource.Dispose();
+                    CancelTokenSource = new CancellationTokenSource();
+                    Token = CancelTokenSource.Token;
+                    MessageBox.Show("Измерение прервано пользователем", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                    BeginInvoke(new Action(() => { treRouteTree.Enabled = true; }));
+                    BeginInvoke(new Action(() => { lblTestStatus.Text = "Испытание прервано пользователем"; }));
+
+                    return;
+                }
+                BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));
+
+                if (SendNodeSetting() != Result.Success)
+                {
+                    CancelTokenSource.Dispose();
+                    CancelTokenSource = new CancellationTokenSource();
+                    Token = CancelTokenSource.Token;
+                    break;
+                }
+            }
+            BeginInvoke(new Action(() => { lblTestStatus.Text = "Испытание закончено"; }));
+            BeginInvoke(new Action(() => { treRouteTree.Enabled = true; }));
+
+        }
+
+        private void GetChakedNodes(List<TreeNode> chackedNode, TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                if (node.Checked)
+                {
+                    chackedNode.Add(node);
+                }
+                if (node.Nodes.Count > 0)
+                {
+                    GetChakedNodes(chackedNode, node.Nodes);
+                }
+            }
+        }
+
+        private void buttonForPicture1_Click(object sender, EventArgs e)
+        {
+            CancelTokenSource.Cancel();
+            lblTestStatus.Text = "Идет остановка испытаний!!!";
         }
     }
 }

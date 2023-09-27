@@ -168,7 +168,7 @@ namespace Vast.DC23.DataTransferClient
                     {
                         string cmd = "CLIENT_DISCONNECTING ";
                         Byte[] sb = new Byte[1024];
-                        sb = Encoding.Unicode.GetBytes(cmd);
+                        sb = Encoding.Unicode.GetBytes(cmd);                        
                         clientsock?.Send(sb, sb.Length, 0);
                         if (clientsock != null)
                         {

@@ -46,11 +46,16 @@ namespace ManagerDS360 {
             this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cboTestedDevice = new System.Windows.Forms.ComboBox();
             this.lblTestedDevice = new System.Windows.Forms.Label();
+            this.butStartTest = new LibControls.ButtonForPicture();
+            this.butStopTest = new LibControls.ButtonForPicture();
             this.butLable = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.lblTestStatus = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -58,6 +63,7 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,11 +117,11 @@ namespace ManagerDS360 {
             // 
             this.lblSelectedNode.AutoSize = true;
             this.lblSelectedNode.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSelectedNode.Location = new System.Drawing.Point(26, 20);
+            this.lblSelectedNode.Location = new System.Drawing.Point(11, 16);
             this.lblSelectedNode.Name = "lblSelectedNode";
-            this.lblSelectedNode.Size = new System.Drawing.Size(174, 28);
+            this.lblSelectedNode.Size = new System.Drawing.Size(206, 14);
             this.lblSelectedNode.TabIndex = 18;
-            this.lblSelectedNode.Text = "Отправить настройку \r\nиз маршрута в генератор";
+            this.lblSelectedNode.Text = "Активировать команду дерева";
             this.lblSelectedNode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
@@ -126,9 +132,9 @@ namespace ManagerDS360 {
             this.groupBox1.Controls.Add(this.butPrevious);
             this.groupBox1.Controls.Add(this.lblSelectedNode);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(15, 225);
+            this.groupBox1.Location = new System.Drawing.Point(15, 201);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 156);
+            this.groupBox1.Size = new System.Drawing.Size(230, 114);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
@@ -136,14 +142,14 @@ namespace ManagerDS360 {
             // 
             this.butPlay.AutoSize = true;
             this.butPlay.BackColor = System.Drawing.Color.Transparent;
-            this.butPlay.BackgroundImage = global::ManagerDS360.Properties.Resources.Play;
+            this.butPlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butPlay.BackgroundImage")));
             this.butPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.butPlay.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butPlay.FlatAppearance.BorderSize = 0;
             this.butPlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butPlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPlay.Location = new System.Drawing.Point(92, 80);
+            this.butPlay.Location = new System.Drawing.Point(94, 46);
             this.butPlay.Name = "butPlay";
             this.butPlay.Size = new System.Drawing.Size(54, 54);
             this.butPlay.TabIndex = 23;
@@ -158,14 +164,14 @@ namespace ManagerDS360 {
             // 
             this.butNext.AutoSize = true;
             this.butNext.BackColor = System.Drawing.Color.Transparent;
-            this.butNext.BackgroundImage = global::ManagerDS360.Properties.Resources.следующий;
+            this.butNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butNext.BackgroundImage")));
             this.butNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.butNext.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butNext.FlatAppearance.BorderSize = 0;
             this.butNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNext.Location = new System.Drawing.Point(162, 89);
+            this.butNext.Location = new System.Drawing.Point(164, 55);
             this.butNext.Name = "butNext";
             this.butNext.Size = new System.Drawing.Size(55, 36);
             this.butNext.TabIndex = 23;
@@ -180,14 +186,14 @@ namespace ManagerDS360 {
             // 
             this.butPrevious.AutoSize = true;
             this.butPrevious.BackColor = System.Drawing.Color.Transparent;
-            this.butPrevious.BackgroundImage = global::ManagerDS360.Properties.Resources.предыдущий;
+            this.butPrevious.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butPrevious.BackgroundImage")));
             this.butPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.butPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butPrevious.FlatAppearance.BorderSize = 0;
             this.butPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPrevious.Location = new System.Drawing.Point(12, 90);
+            this.butPrevious.Location = new System.Drawing.Point(14, 56);
             this.butPrevious.Name = "butPrevious";
             this.butPrevious.Size = new System.Drawing.Size(55, 36);
             this.butPrevious.TabIndex = 23;
@@ -301,6 +307,7 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox3);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.butLable);
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
@@ -314,9 +321,35 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel2.Controls.Add(this.treRouteTree);
             this.splitContainer1.Panel2.Controls.Add(this.cboSavedRoutes);
             this.splitContainer1.Panel2.Controls.Add(this.labelRoute);
-            this.splitContainer1.Size = new System.Drawing.Size(1024, 564);
+            this.splitContainer1.Size = new System.Drawing.Size(1024, 688);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.lblTestStatus);
+            this.groupBox3.Controls.Add(this.butStartTest);
+            this.groupBox3.Controls.Add(this.butStopTest);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(15, 321);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(230, 147);
+            this.groupBox3.TabIndex = 24;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(17, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 28);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Выполнить последовательно\r\n команды";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox2
             // 
@@ -348,11 +381,46 @@ namespace ManagerDS360 {
             this.lblTestedDevice.TabIndex = 0;
             this.lblTestedDevice.Text = "Подключить поверяемый прибор";
             // 
+            // butStartTest
+            // 
+            this.butStartTest.BackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Заготовки;
+            this.butStartTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butStartTest.FlatAppearance.BorderSize = 0;
+            this.butStartTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butStartTest.Location = new System.Drawing.Point(131, 55);
+            this.butStartTest.Name = "butStartTest";
+            this.butStartTest.Size = new System.Drawing.Size(65, 56);
+            this.butStartTest.TabIndex = 20;
+            this.butStartTest.UseVisualStyleBackColor = false;
+            this.butStartTest.Click += new System.EventHandler(this.buttonForPicture2_Click);
+            // 
+            // butStopTest
+            // 
+            this.butStopTest.BackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Стоп_серый;
+            this.butStopTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butStopTest.FlatAppearance.BorderSize = 0;
+            this.butStopTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butStopTest.Location = new System.Drawing.Point(49, 56);
+            this.butStopTest.Name = "butStopTest";
+            this.butStopTest.Size = new System.Drawing.Size(66, 52);
+            this.butStopTest.TabIndex = 19;
+            this.butStopTest.UseVisualStyleBackColor = false;
+            this.butStopTest.VisibleChanged += new System.EventHandler(this.buttonForPicture1_VisibleChanged);
+            this.butStopTest.Click += new System.EventHandler(this.buttonForPicture1_Click);
+            // 
             // butLable
             // 
             this.butLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butLable.BackColor = System.Drawing.Color.Transparent;
-            this.butLable.BackgroundImage = global::ManagerDS360.Properties.Resources.Логотип_ВАСТ;
+            this.butLable.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butLable.BackgroundImage")));
             this.butLable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.butLable.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.butLable.FlatAppearance.BorderSize = 0;
@@ -360,14 +428,12 @@ namespace ManagerDS360 {
             this.butLable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butLable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butLable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butLable.Location = new System.Drawing.Point(15, 436);
+            this.butLable.Location = new System.Drawing.Point(15, 560);
             this.butLable.Name = "butLable";
             this.butLable.Size = new System.Drawing.Size(217, 102);
             this.butLable.TabIndex = 20;
             this.butLable.UseVisualStyleBackColor = false;
             this.butLable.Click += new System.EventHandler(this.butLable_Click);
-            this.butLable.MouseEnter += new System.EventHandler(this.butLable_MouseEnter);
-            this.butLable.MouseLeave += new System.EventHandler(this.butLable_MouseLeave);
             // 
             // treRouteTree
             // 
@@ -377,17 +443,28 @@ namespace ManagerDS360 {
             this.treRouteTree.CheckBoxes = true;
             this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(6, 59);
+            this.treRouteTree.Location = new System.Drawing.Point(6, 56);
             this.treRouteTree.Name = "treRouteTree";
             this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(752, 490);
+            this.treRouteTree.Size = new System.Drawing.Size(752, 614);
             this.treRouteTree.TabIndex = 7;
+            // 
+            // lblTestStatus
+            // 
+            this.lblTestStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTestStatus.AutoSize = true;
+            this.lblTestStatus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTestStatus.Location = new System.Drawing.Point(17, 128);
+            this.lblTestStatus.Name = "lblTestStatus";
+            this.lblTestStatus.Size = new System.Drawing.Size(0, 16);
+            this.lblTestStatus.TabIndex = 21;
+            this.lblTestStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 591);
+            this.ClientSize = new System.Drawing.Size(1024, 715);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -412,6 +489,8 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -445,6 +524,11 @@ namespace ManagerDS360 {
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cboTestedDevice;
         private System.Windows.Forms.Label lblTestedDevice;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label1;
+        private LibControls.ButtonForPicture butStopTest;
+        private LibControls.ButtonForPicture butStartTest;
+        private System.Windows.Forms.Label lblTestStatus;
     }
 }
 

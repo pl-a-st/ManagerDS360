@@ -145,16 +145,17 @@ namespace ManagerDS360
                 }));
                 if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
                 {
-                    MessageBox.Show(
-                       selectedNode.DS360Setting.ResultMessage,
-                       "Предупреждение",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Warning,
-                       MessageBoxDefaultButton.Button1,
-                       MessageBoxOptions.RightAlign);
-                    
+
+
                     BeginInvoke(new Action(() =>
                     {
+                        MessageBox.Show(
+                           this,
+                           selectedNode.DS360Setting.ResultMessage,
+                           "Предупреждение",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Warning,
+                           MessageBoxDefaultButton.Button1);
                         selectedNode.ImageIndex = 3;
                         selectedNode.SelectedImageIndex = 3;
                     }));
@@ -173,6 +174,7 @@ namespace ManagerDS360
                 if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
                 {
                     MessageBox.Show(
+                        this,
                         "Отсутсвует соединение!",
                         "Предупреждение",
                         MessageBoxButtons.OK,
@@ -183,15 +185,16 @@ namespace ManagerDS360
                 }
                 if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show(
-                        $"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}",
-                        "Предупреждение",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
+                    
                     BeginInvoke(new Action(() =>
                     {
+                        MessageBox.Show(
+                           this,
+                           $"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}",
+                           "Предупреждение",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Warning,
+                           MessageBoxDefaultButton.Button1);
                         selectedNode.ImageIndex = 6;
                         selectedNode.SelectedImageIndex = 6;
                     }));
@@ -199,16 +202,15 @@ namespace ManagerDS360
                 }
                 if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show(
-                        "Не удалось привязать канал А",
-                        "Предупреждение",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
-                    MessageBox.Show($"Не удалось привязать канал А");
                     BeginInvoke(new Action(() =>
                     {
+                        MessageBox.Show(
+                           this,
+                           "Не удалось привязать канал А",
+                           "Предупреждение",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Warning,
+                           MessageBoxDefaultButton.Button1);
                         selectedNode.ImageIndex = 6;
                         selectedNode.SelectedImageIndex = 6;
                     }));
@@ -216,15 +218,15 @@ namespace ManagerDS360
                 }
                 if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show(
-                        "Не удалось привязать канал В",
-                        "Предупреждение",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
                     BeginInvoke(new Action(() =>
                     {
+                        MessageBox.Show(
+                            this,
+                            "Не удалось привязать канал В",
+                            "Предупреждение",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning,
+                            MessageBoxDefaultButton.Button1);
                         selectedNode.ImageIndex = 6;
                         selectedNode.SelectedImageIndex = 6;
                     }));
@@ -232,15 +234,15 @@ namespace ManagerDS360
                 }
                 if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
                 {
-                    MessageBox.Show(
-                        "Не удалось произвести измерение",
-                        "Предупреждение",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
                     BeginInvoke(new Action(() =>
                     {
+                        MessageBox.Show(
+                           this,
+                           "Не удалось произвести измерение",
+                           "Предупреждение",
+                           MessageBoxButtons.OK,
+                           MessageBoxIcon.Warning,
+                           MessageBoxDefaultButton.Button1);
                         selectedNode.ImageIndex = 6;
                         selectedNode.SelectedImageIndex = 6;
                     }));
@@ -257,15 +259,16 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.Message)
             {
-                MessageBox.Show(
-                       selectedNode.Text,
-                       "Сообщение",
-                       MessageBoxButtons.OK,
-                       MessageBoxIcon.Information,
-                       MessageBoxDefaultButton.Button1,
-                       MessageBoxOptions.DefaultDesktopOnly);
+
                 BeginInvoke(new Action(() =>
                 {
+                    MessageBox.Show(
+                          this,
+                          selectedNode.Text,
+                          "Сообщение",
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Information,
+                          MessageBoxDefaultButton.Button1);
                     selectedNode.ImageIndex = 9;
                     selectedNode.SelectedImageIndex = 9;
                 }));
@@ -282,7 +285,7 @@ namespace ManagerDS360
             }
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
-            foreach(TreeNode node in treRouteTree.Nodes)
+            foreach (TreeNode node in treRouteTree.Nodes)
             {
                 node.Checked = true;
             }
@@ -672,10 +675,17 @@ namespace ManagerDS360
                     CancelTokenSource.Dispose();
                     CancelTokenSource = new CancellationTokenSource();
                     Token = CancelTokenSource.Token;
-                    MessageBox.Show("Измерение прервано пользователем", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                    BeginInvoke(new Action(() => { treRouteTree.Enabled = true; }));
-                    BeginInvoke(new Action(() => { lblTestStatus.Text = "Испытание прервано пользователем"; }));
-
+                    BeginInvoke(new Action(() => 
+                    {
+                        MessageBox.Show(
+                           this, 
+                           "Измерение прервано пользователем",
+                           "Сообщение", MessageBoxButtons.OK,
+                           MessageBoxIcon.Information,
+                           MessageBoxDefaultButton.Button1);
+                        treRouteTree.Enabled = true;
+                        lblTestStatus.Text = "Испытание прервано пользователем";
+                    }));
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));

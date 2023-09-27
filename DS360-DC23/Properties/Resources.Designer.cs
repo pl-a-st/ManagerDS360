@@ -145,6 +145,16 @@ namespace ManagerDS360.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Заготовки {
+            get {
+                object obj = ResourceManager.GetObject("Заготовки", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Логотип_ВАСТ {
             get {
                 object obj = ResourceManager.GetObject("Логотип_ВАСТ", resourceCulture);
@@ -208,6 +218,26 @@ namespace ManagerDS360.Properties {
         internal static System.Drawing.Bitmap следующий_2 {
             get {
                 object obj = ResourceManager.GetObject("следующий_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Стоп_серый {
+            get {
+                object obj = ResourceManager.GetObject("Стоп_серый", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Стоп_серый1 {
+            get {
+                object obj = ResourceManager.GetObject("Стоп_серый1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

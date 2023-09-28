@@ -35,7 +35,7 @@ namespace LibDevicesManager.DC23
             get;
             private set;
         } = string.Empty;
-
+        public int TimeToAnswer = 30;
         public void SetRouteName(string address)
         {
             RouteName = address;
@@ -74,7 +74,7 @@ namespace LibDevicesManager.DC23
             return SendComand(command, successAnswer);
         }
 
-        private static ResultCommandDC23 SendComand(string command, string successAnswer)
+        private  ResultCommandDC23 SendComand(string command, string successAnswer)
         {
             if (!Client.Connected)
             {
@@ -84,7 +84,7 @@ namespace LibDevicesManager.DC23
             bool isAnswerBeenReceived = false;
             ResultCommandDC23 resultCommandDC23 = ResultCommandDC23.Exception;
             Client.SendCommandDC23(command);
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < this.TimeToAnswer*10; i++)
             {
                 if (isAnswerBeenReceived)
                 {
@@ -122,5 +122,52 @@ namespace LibDevicesManager.DC23
             }
         }
 
+        private static ResultCommandDC23 SendComand(string command, string successAnswer, int timeToAnswer)
+        {
+            if (!Client.Connected)
+            {
+                return ResultCommandDC23.NoConnect;
+            }
+            Client.ReceivedMessageDC23Event += Client_ReceivedMessageDC23Event;
+            bool isAnswerBeenReceived = false;
+            ResultCommandDC23 resultCommandDC23 = ResultCommandDC23.Exception;
+            Client.SendCommandDC23(command);
+            for (int i = 0; i < timeToAnswer*10; i++)
+            {
+                if (isAnswerBeenReceived)
+                {
+                    Client.ReceivedMessageDC23Event -= Client_ReceivedMessageDC23Event;
+                    return resultCommandDC23;
+                }
+                Thread.Sleep(100);
+            }
+            Client.ReceivedMessageDC23Event -= Client_ReceivedMessageDC23Event;
+            return ResultCommandDC23.OutOfTime;
+
+            void Client_ReceivedMessageDC23Event(string message)
+            {
+                if (message.Contains(successAnswer))
+                {
+                    resultCommandDC23 = ResultCommandDC23.Success;
+                }
+                if (message.Contains("EXCEPTION"))
+                {
+                    resultCommandDC23 = ResultCommandDC23.Exception;
+                }
+                if (message.Contains("NOT_FOUND"))
+                {
+                    resultCommandDC23 = ResultCommandDC23.NotFound;
+                }
+                if (message.Contains("NOT_FIND"))
+                {
+                    resultCommandDC23 = ResultCommandDC23.NotFound;
+                }
+                if (message.Contains("WAITING_TIME_EXCEEDED"))
+                {
+                    resultCommandDC23 = ResultCommandDC23.OutOfTime;
+                }
+                isAnswerBeenReceived = true;
+            }
+        }
     }
 }

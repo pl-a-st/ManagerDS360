@@ -34,6 +34,7 @@ namespace ManagerDS360
             SetToolTipes();
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
+            
         }
 
         private async Task SetTestedDevicesList()
@@ -96,6 +97,9 @@ namespace ManagerDS360
 
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
+            var client = ManagerDC23.Client;
+            client.Disconnect();
+            client.CancelConnecting();
         }
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
@@ -173,14 +177,16 @@ namespace ManagerDS360
             {
                 if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
                 {
-                    MessageBox.Show(
-                        this,
-                        "Отсутсвует соединение!",
-                        "Предупреждение",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
+                    BeginInvoke(new Action(() =>
+                    {
+                        MessageBox.Show(
+                       this,
+                       "Отсутсвует соединение!",
+                       "Предупреждение",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning,
+                       MessageBoxDefaultButton.Button1);
+                    }));
                     return Result.Failure;
                 }
                 if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
@@ -653,21 +659,58 @@ namespace ManagerDS360
         {
 
         }
-
-        private void buttonForPicture2_Click(object sender, EventArgs e)
+        enum TestStatus
         {
+            Started,
+            Stoped
+        }
+        private async void butStartTest_Click(object sender, EventArgs e)
+        {
+            butStopTest.Click+= butStop_Click; 
+
             Task task = new Task(SendAllChacked, Token);
             task.Start();
             lblTestStatus.Text = "Испытание начато";
-
+            Task task1 = new Task((Action)(()=>Blink(task)));
+            task1.Start();
+            SetControlsEnabledForTest(TestStatus.Started);
+        }
+        private async void Blink(Task task)
+        {
+            while (task.Status == TaskStatus.Running)
+            {
+                await Task.Delay(500);
+                BeginInvoke( (Action)(() => { lblTestStatus.Visible = !lblTestStatus.Visible; }));
+            }
+            BeginInvoke((Action)(() => { lblTestStatus.Visible = true; }));
+        }
+        private void SetControlsEnabledForTest(TestStatus testStatus)
+        {
+            bool enabled = false;
+            if (testStatus == TestStatus.Started)
+            {
+                enabled = false;
+            }
+            if (testStatus == TestStatus.Stoped)
+            {
+                enabled = true;
+            }
+            foreach (Control control in splitContainer1.Panel1.Controls)
+            {
+                control.Enabled = enabled;
+            }
+            foreach (Control control in splitContainer1.Panel2.Controls)
+            {
+                control.Enabled = enabled;
+            }
+            butStopTest.Enabled = true; 
+            lblTestStatus.Enabled = true;
         }
 
         private void SendAllChacked()
         {
             List<TreeNode> chackedNode = new List<TreeNode>();
             GetChakedNodes(chackedNode, treRouteTree.Nodes);
-            BeginInvoke(new Action(() => { treRouteTree.Enabled = false; }));
-
             foreach (TreeNode node in chackedNode)
             {
                 if (Token.IsCancellationRequested)
@@ -685,6 +728,7 @@ namespace ManagerDS360
                            MessageBoxDefaultButton.Button1);
                         treRouteTree.Enabled = true;
                         lblTestStatus.Text = "Испытание прервано пользователем";
+                        SetControlsEnabledForTest(TestStatus.Stoped);
                     }));
                     return;
                 }
@@ -699,7 +743,7 @@ namespace ManagerDS360
                 }
             }
             BeginInvoke(new Action(() => { lblTestStatus.Text = "Испытание закончено"; }));
-            BeginInvoke(new Action(() => { treRouteTree.Enabled = true; }));
+            BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
 
         }
 
@@ -718,10 +762,16 @@ namespace ManagerDS360
             }
         }
 
-        private void buttonForPicture1_Click(object sender, EventArgs e)
+        private void butStop_Click(object sender, EventArgs e)
         {
             CancelTokenSource.Cancel();
             lblTestStatus.Text = "Идет остановка испытаний!!!";
+            butStopTest.Click -= butStop_Click;
+        }
+
+        private void groupBox3_Enter_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

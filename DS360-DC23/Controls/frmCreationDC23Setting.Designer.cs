@@ -49,6 +49,9 @@ namespace ManagerDS360.Controls
             this.butChannelSecondUp = new LibControls.ButtonForPicture();
             this.label3 = new System.Windows.Forms.Label();
             this.butChannelSecondDown = new LibControls.ButtonForPicture();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtTimeToAnswer = new LibControls.ModifiedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,7 +64,7 @@ namespace ManagerDS360.Controls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRouteName.Location = new System.Drawing.Point(17, 32);
             this.txtRouteName.Name = "txtRouteName";
-            this.txtRouteName.Size = new System.Drawing.Size(529, 20);
+            this.txtRouteName.Size = new System.Drawing.Size(296, 20);
             this.txtRouteName.TabIndex = 1;
             // 
             // label1
@@ -306,11 +309,40 @@ namespace ManagerDS360.Controls
             this.butChannelSecondDown.UseVisualStyleBackColor = false;
             this.butChannelSecondDown.Click += new System.EventHandler(this.butChannelSecondDown_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(321, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(189, 14);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Время ожидания измерения";
+            // 
+            // txtTimeToAnswer
+            // 
+            this.txtTimeToAnswer.Location = new System.Drawing.Point(324, 32);
+            this.txtTimeToAnswer.Name = "txtTimeToAnswer";
+            this.txtTimeToAnswer.Size = new System.Drawing.Size(100, 20);
+            this.txtTimeToAnswer.TabIndex = 21;
+            this.txtTimeToAnswer.Text = "30";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(430, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 14);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "c";
+            // 
             // frmCreationDC23Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 483);
+            this.Controls.Add(this.txtTimeToAnswer);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.butPaste);
             this.Controls.Add(this.butCopy);
@@ -319,6 +351,8 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.butChange);
             this.Controls.Add(this.butAdd);
             this.Controls.Add(this.butSave);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRouteName);
             this.Name = "frmCreationDC23Setting";
@@ -356,5 +390,8 @@ namespace ManagerDS360.Controls
         private LibControls.ButtonForPicture butChannelSecondUp;
         private System.Windows.Forms.Label label3;
         private LibControls.ButtonForPicture butChannelSecondDown;
+        private System.Windows.Forms.Label label4;
+        private LibControls.ModifiedTextBox txtTimeToAnswer;
+        private System.Windows.Forms.Label label5;
     }
 }

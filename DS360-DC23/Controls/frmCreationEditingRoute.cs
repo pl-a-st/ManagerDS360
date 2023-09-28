@@ -386,6 +386,7 @@ namespace ManagerDS360
         private static void GetFrmSettingsFrovDC23(ManagerDC23 dc23, frmCreationDC23Setting frmCreationDC23Setting)
         {
             frmCreationDC23Setting.GetTxtRoutName().Text = dc23.RouteName;
+            frmCreationDC23Setting.GetTxtTimeToAnswer().Text = dc23.TimeToAnswer.ToString() ?? "30";
             foreach (string str in dc23.СhannelFirstAddress.Replace("_", " ").Split('/'))
             {
                 if (str == dc23.RouteName)

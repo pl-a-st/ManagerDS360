@@ -37,6 +37,11 @@ namespace ManagerDS360.Controls
             return lstChannelSecond;
         }
 
+        public TextBox GetTxtTimeToAnswer()
+        {
+            return txtTimeToAnswer;
+        }
+
         private void frmCreationDC23Setting_Load(object sender, EventArgs e)
         {
             //DialogResult = DialogResult.Cancel;
@@ -174,6 +179,7 @@ namespace ManagerDS360.Controls
             DC23.SetRouteName(txtRouteName.Text);
             DC23.SetСhannelFirstAddress(GetAddress(lstChannelFirst));
             DC23.SetСhannelSecondAddress(GetAddress(lstChannelSecond));
+            DC23.TimeToAnswer = int.Parse(txtTimeToAnswer.Text);
         }
         private string GetAddress(ListBox lst)
         {

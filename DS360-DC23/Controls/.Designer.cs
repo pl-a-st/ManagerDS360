@@ -54,7 +54,7 @@ namespace ManagerDS360 {
             this.butLable = new LibControls.ButtonForPicture();
             this.butStopTest = new LibControls.ButtonForPicture();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.grpTest = new System.Windows.Forms.GroupBox();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -315,7 +315,7 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
             this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox3);
+            this.splitContainer1.Panel1.Controls.Add(this.grpTest);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             this.splitContainer1.Panel1MinSize = 250;
             // 
@@ -330,10 +330,9 @@ namespace ManagerDS360 {
             // 
             // lblTestStatus
             // 
-            this.lblTestStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTestStatus.AutoSize = true;
             this.lblTestStatus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTestStatus.Location = new System.Drawing.Point(22, 451);
+            this.lblTestStatus.Location = new System.Drawing.Point(22, 444);
             this.lblTestStatus.Name = "lblTestStatus";
             this.lblTestStatus.Size = new System.Drawing.Size(0, 16);
             this.lblTestStatus.TabIndex = 25;
@@ -379,7 +378,7 @@ namespace ManagerDS360 {
             this.butStartTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butStartTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butStartTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butStartTest.Location = new System.Drawing.Point(136, 378);
+            this.butStartTest.Location = new System.Drawing.Point(142, 378);
             this.butStartTest.Name = "butStartTest";
             this.butStartTest.Size = new System.Drawing.Size(65, 56);
             this.butStartTest.TabIndex = 24;
@@ -415,7 +414,7 @@ namespace ManagerDS360 {
             this.butStopTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butStopTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butStopTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butStopTest.Location = new System.Drawing.Point(54, 379);
+            this.butStopTest.Location = new System.Drawing.Point(56, 379);
             this.butStopTest.Name = "butStopTest";
             this.butStopTest.Size = new System.Drawing.Size(66, 52);
             this.butStopTest.TabIndex = 23;
@@ -425,21 +424,21 @@ namespace ManagerDS360 {
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(22, 337);
+            this.label1.Location = new System.Drawing.Point(28, 337);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(194, 28);
             this.label1.TabIndex = 22;
             this.label1.Text = "Выполнить последовательно\r\n команды";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox3
+            // grpTest
             // 
-            this.groupBox3.Location = new System.Drawing.Point(12, 321);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(235, 159);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter_1);
+            this.grpTest.Location = new System.Drawing.Point(15, 321);
+            this.grpTest.Name = "grpTest";
+            this.grpTest.Size = new System.Drawing.Size(227, 159);
+            this.grpTest.TabIndex = 26;
+            this.grpTest.TabStop = false;
+            this.grpTest.Enter += new System.EventHandler(this.groupBox3_Enter_1);
             // 
             // treRouteTree
             // 
@@ -522,7 +521,7 @@ namespace ManagerDS360 {
         private LibControls.ButtonForPicture butStartTest;
         private LibControls.ButtonForPicture butStopTest;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox grpTest;
     }
 }
 

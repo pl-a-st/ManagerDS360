@@ -214,12 +214,20 @@ namespace ManagerDS360
                 return;
             }
             frmInputName frmInputName = new frmInputName();
+            frmInputName.label1.Text = "Текст сообщения";
+            CheckBox stopTest = new CheckBox();
+            stopTest.AutoSize = true;
+            stopTest.Text = "Останавливать испытание";
+            stopTest.Location = new Point(frmInputName.txtNameSet.Location.X, frmInputName.txtNameSet.Location.Y + frmInputName.txtNameSet.Height + 5);
+            stopTest.Text = "Останавливать испытание";
+            frmInputName.Controls.Add(stopTest);
             frmInputName.ShowDialog();
             if(frmInputName.SaveName != SaveName.SaveName)
             {
                 return;
             }
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.Message, frmInputName.txtNameSet.Text);
+            treeNode.StopTest = stopTest.Checked;
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNode);

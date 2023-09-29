@@ -98,8 +98,11 @@ namespace ManagerDS360
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
             var client = ManagerDC23.Client;
-            client.Disconnect();
-            client.CancelConnecting();
+            if(client!=null && client.Connected)
+            {
+                client.Disconnect();
+                client.CancelConnecting();
+            } 
         }
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
@@ -266,7 +269,7 @@ namespace ManagerDS360
             if (selectedNode.NodeType == NodeType.Message)
             {
 
-                BeginInvoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
                     MessageBox.Show(
                           this,
@@ -278,7 +281,10 @@ namespace ManagerDS360
                     selectedNode.ImageIndex = 9;
                     selectedNode.SelectedImageIndex = 9;
                 }));
-
+                if (selectedNode.StopTest)
+                {
+                    return Result.Failure;
+                }
                 return Result.Success;
             }
             return Result.Success;
@@ -666,15 +672,24 @@ namespace ManagerDS360
         }
         private async void butStartTest_Click(object sender, EventArgs e)
         {
-            butStopTest.Click+= butStop_Click; 
+            butStopTest.Click += butStop_Click;
 
             Task task = new Task(SendAllChacked, Token);
             task.Start();
-            lblTestStatus.Text = "Испытание начато";
-            Task task1 = new Task((Action)(()=>Blink(task)));
+            SetLocationLblTestStatus("Идет испытание!!!");
+            Task task1 = new Task((Action)(() => Blink(task)));
             task1.Start();
             SetControlsEnabledForTest(TestStatus.Started);
         }
+
+        private void SetLocationLblTestStatus(string message)
+        {
+            lblTestStatus.Text = message;
+            lblTestStatus.Location = new Point(
+                grpTest.Location.X + grpTest.Width / 2 - lblTestStatus.Width / 2,
+                lblTestStatus.Location.Y);
+        }
+
         private async void Blink(Task task)
         {
             while (task.Status == TaskStatus.Running)
@@ -710,7 +725,8 @@ namespace ManagerDS360
         private void SendAllChacked()
         {
             List<TreeNode> chackedNode = new List<TreeNode>();
-            GetChakedNodes(chackedNode, treRouteTree.Nodes);
+            bool doOnlyAfterSelected = true;
+            GetChakedNodes(chackedNode, treRouteTree.Nodes, ref doOnlyAfterSelected) ;
             foreach (TreeNode node in chackedNode)
             {
                 if (Token.IsCancellationRequested)
@@ -727,7 +743,7 @@ namespace ManagerDS360
                            MessageBoxIcon.Information,
                            MessageBoxDefaultButton.Button1);
                         treRouteTree.Enabled = true;
-                        lblTestStatus.Text = "Испытание прервано пользователем";
+                        SetLocationLblTestStatus("Испытание прервано\n пользователем");
                         SetControlsEnabledForTest(TestStatus.Stoped);
                     }));
                     return;
@@ -742,22 +758,28 @@ namespace ManagerDS360
                     break;
                 }
             }
-            BeginInvoke(new Action(() => { lblTestStatus.Text = "Испытание закончено"; }));
+            BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание закончено"); }));
             BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
 
         }
 
-        private void GetChakedNodes(List<TreeNode> chackedNode, TreeNodeCollection nodes)
+        private void GetChakedNodes(List<TreeNode> chackedNode, TreeNodeCollection nodes, ref bool doOnlyAfterSelected)
         {
             foreach (TreeNode node in nodes)
             {
-                if (node.Checked)
+                bool isSelected = false;
+                Invoke((Action)(() => { isSelected = node.IsSelected; }));
+                if (isSelected)
+                {
+                    doOnlyAfterSelected = false;
+                }
+                if (!doOnlyAfterSelected && node.Checked)
                 {
                     chackedNode.Add(node);
                 }
                 if (node.Nodes.Count > 0)
                 {
-                    GetChakedNodes(chackedNode, node.Nodes);
+                    GetChakedNodes(chackedNode, node.Nodes, ref doOnlyAfterSelected);
                 }
             }
         }
@@ -765,7 +787,8 @@ namespace ManagerDS360
         private void butStop_Click(object sender, EventArgs e)
         {
             CancelTokenSource.Cancel();
-            lblTestStatus.Text = "Идет остановка испытаний!!!";
+            SetLocationLblTestStatus("Идет остановка \n испытания!!!");
+           
             butStopTest.Click -= butStop_Click;
         }
 

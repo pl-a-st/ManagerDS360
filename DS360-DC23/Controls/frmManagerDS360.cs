@@ -52,16 +52,15 @@ namespace ManagerDS360
             var client = ManagerDC23.Client;
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.DC23)
             {
-
                 client.ConnectedEvent += Client_ConnectedEvent;
                 client.DisconnectedEvent += Client_DisconnectedEvent;
                 Thread thr = new Thread(() => client.Connect());
                 thr.IsBackground = true;
                 Invoke(new Action(() =>
-               {
-                   lblTestedDevice.ForeColor = Color.Black;
-                   lblTestedDevice.Text = "Устанавливается соединение...";
-               }));
+                    {
+                       lblTestedDevice.ForeColor = Color.Black;
+                       lblTestedDevice.Text = "Устанавливается соединение...";
+                    }));
                 thr.Start();
             }
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.None)
@@ -132,7 +131,6 @@ namespace ManagerDS360
         }
         private Result SendNodeSetting()
         {
-
             TreeNodeWithSetting selectedNode = null;
             Invoke(new Action(() => { selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting; }));
             if (selectedNode == null)
@@ -145,150 +143,120 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.Setting)
             {
-                BeginInvoke(new Action(() =>
-                {
-                    selectedNode.ImageIndex = 2;
-                    selectedNode.SelectedImageIndex = 2;
-                }));
-                if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
-                {
-
-
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
-                           this,
-                           selectedNode.DS360Setting.ResultMessage,
-                           "Предупреждение",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Warning,
-                           MessageBoxDefaultButton.Button1);
-                        selectedNode.ImageIndex = 3;
-                        selectedNode.SelectedImageIndex = 3;
-                    }));
-                    return Result.Failure;
-                }
-                BeginInvoke(new Action(() =>
-                {
-                    selectedNode.ImageIndex = 4;
-                    selectedNode.SelectedImageIndex = 4;
-                }));
-
-                return Result.Success;
+                return MakeOperationsForDS360(selectedNode);
             }
             if (selectedNode.NodeType == NodeType.DC23)
             {
-                if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
+                return MakeOperationForDC23(selectedNode);
+            }
+            if (selectedNode.NodeType == NodeType.Message)
+            {
+                return MakeOperationsForMessge(selectedNode);
+            }
+            return Result.Success;
+        }
+        private Result MakeOperationsForMessge(TreeNodeWithSetting selectedNode)
+        {
+            Invoke(new Action(() =>
+            {
+                MessageBox.Show(
+                      this,
+                      selectedNode.Text,
+                      "Сообщение",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Information,
+                      MessageBoxDefaultButton.Button1);
+                selectedNode.ImageIndex = 9;
+                selectedNode.SelectedImageIndex = 9;
+            }));
+            if (selectedNode.StopTest)
+            {
+                return Result.Failure;
+            }
+            return Result.Success;
+        }
+        private Result MakeOperationForDC23(TreeNodeWithSetting selectedNode)
+        {
+            if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
+            {
+                AcyncShowMassageAndChangePicture("Отсутсвует соединение!", selectedNode);
+                return Result.Failure;
+            }
+            if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
+            {
+                AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}", selectedNode);
+                return Result.Failure;
+            }
+            if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
+            {
+                AcyncShowMassageAndChangePicture("Не удалось привязать канал А", selectedNode);
+                return Result.Failure;
+            }
+            if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
+            {
+                AcyncShowMassageAndChangePicture("Не удалось привязать канал В", selectedNode);
+                return Result.Failure;
+            }
+            if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
+            {
+                AcyncShowMassageAndChangePicture("Не удалось произвести измерение", selectedNode);
+                return Result.Failure;
+            }
+            BeginInvoke(new Action(() =>
+            {
+                selectedNode.ImageIndex = 7;
+                selectedNode.SelectedImageIndex = 7;
+            }));
+            return Result.Success;
+        }
+
+        private void AcyncShowMassageAndChangePicture(string massege, TreeNodeWithSetting selectedNode)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                MessageBox.Show(
+                   this,
+                   massege,
+                   "Предупреждение",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning,
+                   MessageBoxDefaultButton.Button1);
+                selectedNode.ImageIndex = 6;
+                selectedNode.SelectedImageIndex = 6;
+            }));
+        }
+
+        private Result MakeOperationsForDS360(TreeNodeWithSetting selectedNode)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                selectedNode.ImageIndex = 2;
+                selectedNode.SelectedImageIndex = 2;
+            }));
+            if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
+            {
+                BeginInvoke(new Action(() =>
                 {
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
+                    MessageBox.Show(
                        this,
-                       "Отсутсвует соединение!",
+                       selectedNode.DS360Setting.ResultMessage,
                        "Предупреждение",
                        MessageBoxButtons.OK,
                        MessageBoxIcon.Warning,
                        MessageBoxDefaultButton.Button1);
-                    }));
-                    return Result.Failure;
-                }
-                if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
-                {
-                    
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
-                           this,
-                           $"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}",
-                           "Предупреждение",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Warning,
-                           MessageBoxDefaultButton.Button1);
-                        selectedNode.ImageIndex = 6;
-                        selectedNode.SelectedImageIndex = 6;
-                    }));
-                    return Result.Failure;
-                }
-                if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
-                {
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
-                           this,
-                           "Не удалось привязать канал А",
-                           "Предупреждение",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Warning,
-                           MessageBoxDefaultButton.Button1);
-                        selectedNode.ImageIndex = 6;
-                        selectedNode.SelectedImageIndex = 6;
-                    }));
-                    return Result.Failure;
-                }
-                if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
-                {
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
-                            this,
-                            "Не удалось привязать канал В",
-                            "Предупреждение",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning,
-                            MessageBoxDefaultButton.Button1);
-                        selectedNode.ImageIndex = 6;
-                        selectedNode.SelectedImageIndex = 6;
-                    }));
-                    return Result.Failure;
-                }
-                if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
-                {
-                    BeginInvoke(new Action(() =>
-                    {
-                        MessageBox.Show(
-                           this,
-                           "Не удалось произвести измерение",
-                           "Предупреждение",
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Warning,
-                           MessageBoxDefaultButton.Button1);
-                        selectedNode.ImageIndex = 6;
-                        selectedNode.SelectedImageIndex = 6;
-                    }));
-
-                    return Result.Failure;
-                }
-                BeginInvoke(new Action(() =>
-                {
-                    selectedNode.ImageIndex = 7;
-                    selectedNode.SelectedImageIndex = 7;
+                    selectedNode.ImageIndex = 3;
+                    selectedNode.SelectedImageIndex = 3;
                 }));
-
-                return Result.Success;
+                return Result.Failure;
             }
-            if (selectedNode.NodeType == NodeType.Message)
+            BeginInvoke(new Action(() =>
             {
-
-                Invoke(new Action(() =>
-                {
-                    MessageBox.Show(
-                          this,
-                          selectedNode.Text,
-                          "Сообщение",
-                          MessageBoxButtons.OK,
-                          MessageBoxIcon.Information,
-                          MessageBoxDefaultButton.Button1);
-                    selectedNode.ImageIndex = 9;
-                    selectedNode.SelectedImageIndex = 9;
-                }));
-                if (selectedNode.StopTest)
-                {
-                    return Result.Failure;
-                }
-                return Result.Success;
-            }
+                selectedNode.ImageIndex = 4;
+                selectedNode.SelectedImageIndex = 4;
+            }));
             return Result.Success;
         }
+
         private void cboSavedRoutes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboSavedRoutes.SelectedIndex == -1)
@@ -348,7 +316,7 @@ namespace ManagerDS360
                 c.Enabled = false;
             }
             Panel panel = new Panel();
-            InsertControls(panel, new ProgressBar(), new Label());
+            InsertControlsForWating(panel, new ProgressBar(), new Label());
             Task getComes = new Task(() => DS360Setting.SetFirstDS360AsDefault());
             await Task.Run(() => getComes.Start());
             await Task.Run(() => getComes.Wait());
@@ -364,7 +332,7 @@ namespace ManagerDS360
                 c.Enabled = true;
             }
         }
-        private void InsertControls(Panel panel, ProgressBar progressBar, Label label)
+        private void InsertControlsForWating(Panel panel, ProgressBar progressBar, Label label)
         {
             panel.Height = (int)(this.Height / 3);
             panel.Width = (int)(this.Width / 2);
@@ -673,12 +641,11 @@ namespace ManagerDS360
         private async void butStartTest_Click(object sender, EventArgs e)
         {
             butStopTest.Click += butStop_Click;
-
-            Task task = new Task(SendAllChacked, Token);
-            task.Start();
+            Task taskSend = new Task(SendAllChacked, Token);
+            taskSend.Start();
             SetLocationLblTestStatus("Идет испытание!!!");
-            Task task1 = new Task((Action)(() => Blink(task)));
-            task1.Start();
+            Task taskBlink = new Task((Action)(() => Blink(taskSend)));
+            taskBlink.Start();
             SetControlsEnabledForTest(TestStatus.Started);
         }
 
@@ -734,17 +701,9 @@ namespace ManagerDS360
                     CancelTokenSource.Dispose();
                     CancelTokenSource = new CancellationTokenSource();
                     Token = CancelTokenSource.Token;
-                    BeginInvoke(new Action(() => 
+                    BeginInvoke(new Action(() =>
                     {
-                        MessageBox.Show(
-                           this, 
-                           "Измерение прервано пользователем",
-                           "Сообщение", MessageBoxButtons.OK,
-                           MessageBoxIcon.Information,
-                           MessageBoxDefaultButton.Button1);
-                        treRouteTree.Enabled = true;
-                        SetLocationLblTestStatus("Испытание прервано\n пользователем");
-                        SetControlsEnabledForTest(TestStatus.Stoped);
+                        SetVisualForStop();
                     }));
                     return;
                 }
@@ -760,9 +719,19 @@ namespace ManagerDS360
             }
             BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание закончено"); }));
             BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
-
         }
-
+        private void SetVisualForStop()
+        {
+            MessageBox.Show(
+               this,
+               "Измерение прервано пользователем",
+               "Сообщение", MessageBoxButtons.OK,
+               MessageBoxIcon.Information,
+               MessageBoxDefaultButton.Button1);
+            treRouteTree.Enabled = true;
+            SetLocationLblTestStatus("Испытание прервано\n пользователем");
+            SetControlsEnabledForTest(TestStatus.Stoped);
+        }
         private void GetChakedNodes(List<TreeNode> chackedNode, TreeNodeCollection nodes, ref bool doOnlyAfterSelected)
         {
             foreach (TreeNode node in nodes)
@@ -783,16 +752,19 @@ namespace ManagerDS360
                 }
             }
         }
-
         private void butStop_Click(object sender, EventArgs e)
         {
             CancelTokenSource.Cancel();
             SetLocationLblTestStatus("Идет остановка \n испытания!!!");
-           
             butStopTest.Click -= butStop_Click;
         }
 
         private void groupBox3_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butStopTest_Click(object sender, EventArgs e)
         {
 
         }

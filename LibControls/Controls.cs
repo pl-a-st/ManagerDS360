@@ -151,6 +151,7 @@ namespace LibControls
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
         public ManagerDC23 DC23 = new ManagerDC23();
+        public Boolean StopTest = false;
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {
             this.NodeType = nodeType;
@@ -182,6 +183,7 @@ namespace LibControls
                 });
             actions.Add(() => SetImage());
             actions.Add(() => this.DC23 = (ManagerDC23)info.GetValue("DC23", this.DC23.GetType()));
+            actions.Add(() => this.StopTest = (bool)info.GetValue("StopTest", this.StopTest.GetType()));
             foreach (Action action in actions)
             {
                 try
@@ -213,6 +215,7 @@ namespace LibControls
             this.Nodes.CopyTo(treeNodeWithSettings, 0);
             si.AddValue("treeNodeWithSettings", treeNodeWithSettings);
             si.AddValue("IsExpand", this.IsExpanded);
+            si.AddValue("StopTest", this.StopTest);
         }
 
         private void SetImage()

@@ -55,10 +55,7 @@ namespace ManagerDS360.Controls
 
         private void frmAddChangeNode_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                DialogResult = DialogResult.Cancel;
-            }
+           
         }
     }
 }

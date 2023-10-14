@@ -213,16 +213,9 @@ namespace ManagerDS360
                 MessageBox.Show("Настройка не может содержать другие элементы!");
                 return;
             }
-            frmInputName frmInputName = new frmInputName();
-            frmInputName.label1.Text = "Текст сообщения";
-            CheckBox stopTest = new CheckBox();
-            stopTest.AutoSize = true;
-            stopTest.Text = "Останавливать испытание";
-            stopTest.Location = new Point(frmInputName.txtNameSet.Location.X, frmInputName.txtNameSet.Location.Y + frmInputName.txtNameSet.Height + 5);
-            stopTest.Text = "Останавливать испытание";
-            frmInputName.Controls.Add(stopTest);
+            frmInputName frmInputName= GetFrmInputName(out CheckBox stopTest);
             frmInputName.ShowDialog();
-            if(frmInputName.SaveName != SaveName.SaveName)
+            if (frmInputName.SaveName != SaveName.SaveName)
             {
                 return;
             }
@@ -237,6 +230,21 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Nodes.Add(treeNode);
             SelectedNodeWithSetup.Expand();
         }
+
+        private frmInputName GetFrmInputName( out CheckBox stopTest)
+        {
+            frmInputName frmInputName = new frmInputName();
+            frmInputName = new frmInputName();
+            frmInputName.label1.Text = "Текст сообщения";
+            stopTest = new CheckBox();
+            stopTest.AutoSize = true;
+            stopTest.Text = "Останавливать испытание";
+            stopTest.Location = new Point(frmInputName.txtNameSet.Location.X, frmInputName.txtNameSet.Location.Y + frmInputName.txtNameSet.Height + 5);
+            stopTest.Text = "Останавливать испытание";
+            frmInputName.Controls.Add(stopTest);
+            return frmInputName;
+        }
+
         private void AddSettingDS360()
         {
             if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
@@ -386,6 +394,18 @@ namespace ManagerDS360
                 if (frmCreationDC23Setting.ShowDialog() == DialogResult.OK)
                 {
                     selectedNode.Text = GetTextNode(frmCreationDC23Setting);
+                }
+                return;
+            }
+            if(selectedNode.NodeType == NodeType.Message)
+            {
+                frmInputName frmInputName = GetFrmInputName(out CheckBox stopTest);
+                frmInputName.txtNameSet.Text = selectedNode.Text;
+                stopTest.Checked = selectedNode.StopTest;
+                if(frmInputName.ShowDialog() == DialogResult.OK)
+                {
+                    selectedNode.Text = frmInputName.txtNameSet.Text;
+                    selectedNode.StopTest = stopTest.Checked;
                 }
                 return;
             }

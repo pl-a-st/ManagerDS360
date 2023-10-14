@@ -22,6 +22,7 @@ namespace ManagerDS360
         private void btnCancel_Click(object sender, EventArgs e)
         {
             SaveName = SaveName.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
@@ -33,6 +34,7 @@ namespace ManagerDS360
                 return;
             }
             SaveName = SaveName.SaveName;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -46,6 +48,15 @@ namespace ManagerDS360
 
             toolTip1.SetToolTip(this.btnSave, "CTRL+S");
             toolTip1.SetToolTip(this.btnCancel, "CTRL+X");
+            this.FormClosing += FrmInputName_FormClosing;
+        }
+
+        private void FrmInputName_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
         }
 
         private void txtNameSet_TextChanged(object sender, EventArgs e)
@@ -61,6 +72,7 @@ namespace ManagerDS360
                     return;
                 }
                 SaveName = SaveName.SaveName;
+                DialogResult = DialogResult.OK;
                 Close();
             }
             if (e.Control == true && e.KeyCode == Keys.X)    // закрыть

@@ -694,6 +694,19 @@ namespace ManagerDS360
             List<TreeNode> chackedNode = new List<TreeNode>();
             bool doOnlyAfterSelected = true;
             GetChakedNodes(chackedNode, treRouteTree.Nodes, ref doOnlyAfterSelected) ;
+            if (chackedNode.Count == 0)
+            {
+                Invoke(new Action(() =>
+                {
+                    MessageBox.Show(
+                          this,
+                          "Не выбран узел для начала испытаний",
+                          "Сообщение",
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Information,
+                          MessageBoxDefaultButton.Button1);
+                }));
+            }
             foreach (TreeNode node in chackedNode)
             {
                 if (Token.IsCancellationRequested)
@@ -705,6 +718,7 @@ namespace ManagerDS360
                     {
                         SetVisualForStop();
                     }));
+                    butStopTest.Click -= butStop_Click;
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));
@@ -714,11 +728,16 @@ namespace ManagerDS360
                     CancelTokenSource.Dispose();
                     CancelTokenSource = new CancellationTokenSource();
                     Token = CancelTokenSource.Token;
-                    break;
+                    BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание остановлено"); }));
+                    BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
+                    butStopTest.Click -= butStop_Click;
+                    return;
                 }
             }
             BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание закончено"); }));
             BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
+            butStopTest.Click -= butStop_Click;
+
         }
         private void SetVisualForStop()
         {

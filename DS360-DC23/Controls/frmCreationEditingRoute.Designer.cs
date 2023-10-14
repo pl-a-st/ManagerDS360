@@ -47,8 +47,8 @@
             this.butUp = new LibControls.ButtonForPicture();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cboSettingsType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cboSettingsType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,6 +209,11 @@
             this.treRouteTree.SelectedImageIndex = 0;
             this.treRouteTree.Size = new System.Drawing.Size(536, 465);
             this.treRouteTree.TabIndex = 2;
+            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect_1);
+            this.treRouteTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseClick);
+            this.treRouteTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseDoubleClick);
+            this.treRouteTree.DoubleClick += new System.EventHandler(this.treRouteTree_DoubleClick);
+            this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
             // butDown
             // 
@@ -267,15 +272,6 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             // 
-            // cboSettingsType
-            // 
-            this.cboSettingsType.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cboSettingsType.FormattingEnabled = true;
-            this.cboSettingsType.Location = new System.Drawing.Point(6, 31);
-            this.cboSettingsType.Name = "cboSettingsType";
-            this.cboSettingsType.Size = new System.Drawing.Size(156, 24);
-            this.cboSettingsType.TabIndex = 5;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -285,6 +281,15 @@
             this.label1.Size = new System.Drawing.Size(109, 16);
             this.label1.TabIndex = 6;
             this.label1.Text = "Тип настройки";
+            // 
+            // cboSettingsType
+            // 
+            this.cboSettingsType.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cboSettingsType.FormattingEnabled = true;
+            this.cboSettingsType.Location = new System.Drawing.Point(6, 31);
+            this.cboSettingsType.Name = "cboSettingsType";
+            this.cboSettingsType.Size = new System.Drawing.Size(156, 24);
+            this.cboSettingsType.TabIndex = 5;
             // 
             // frmCreationEditingRoute
             // 

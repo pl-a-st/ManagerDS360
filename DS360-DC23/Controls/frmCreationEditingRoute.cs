@@ -898,5 +898,30 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Nodes.Add(treeNode);
             SelectedNodeWithSetup.Expand();
         }
+
+        private void treRouteTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+           
+        }
+
+        private void treRouteTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+        }
+
+        private void treRouteTree_AfterSelect_1(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void treRouteTree_DoubleClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void treRouteTree_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            EditSetting();
+        }
     }
 }

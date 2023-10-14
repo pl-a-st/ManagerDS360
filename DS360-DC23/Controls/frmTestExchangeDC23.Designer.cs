@@ -45,6 +45,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblConectStatus
@@ -58,6 +59,7 @@
             // 
             // butDisconect
             // 
+            this.butDisconect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butDisconect.Location = new System.Drawing.Point(438, 406);
             this.butDisconect.Name = "butDisconect";
             this.butDisconect.Size = new System.Drawing.Size(144, 23);
@@ -68,6 +70,7 @@
             // 
             // txtRouteName
             // 
+            this.txtRouteName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRouteName.Enabled = false;
             this.txtRouteName.Location = new System.Drawing.Point(588, 64);
             this.txtRouteName.Name = "txtRouteName";
@@ -77,6 +80,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(585, 48);
@@ -87,6 +91,7 @@
             // 
             // txtNodeAddressChannelA
             // 
+            this.txtNodeAddressChannelA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNodeAddressChannelA.Enabled = false;
             this.txtNodeAddressChannelA.Location = new System.Drawing.Point(588, 121);
             this.txtNodeAddressChannelA.Name = "txtNodeAddressChannelA";
@@ -97,6 +102,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Enabled = false;
             this.label2.Location = new System.Drawing.Point(585, 105);
@@ -107,6 +113,7 @@
             // 
             // butOpenRoute
             // 
+            this.butOpenRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butOpenRoute.Enabled = false;
             this.butOpenRoute.Location = new System.Drawing.Point(438, 39);
             this.butOpenRoute.Name = "butOpenRoute";
@@ -118,6 +125,7 @@
             // 
             // butSetChannelA
             // 
+            this.butSetChannelA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butSetChannelA.Enabled = false;
             this.butSetChannelA.Location = new System.Drawing.Point(438, 105);
             this.butSetChannelA.Name = "butSetChannelA";
@@ -129,6 +137,7 @@
             // 
             // txtNodeAddressChannelB
             // 
+            this.txtNodeAddressChannelB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNodeAddressChannelB.Enabled = false;
             this.txtNodeAddressChannelB.Location = new System.Drawing.Point(591, 177);
             this.txtNodeAddressChannelB.Name = "txtNodeAddressChannelB";
@@ -139,6 +148,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(588, 161);
@@ -149,6 +159,7 @@
             // 
             // butSetChannelB
             // 
+            this.butSetChannelB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butSetChannelB.Enabled = false;
             this.butSetChannelB.Location = new System.Drawing.Point(438, 163);
             this.butSetChannelB.Name = "butSetChannelB";
@@ -160,6 +171,7 @@
             // 
             // butMeas
             // 
+            this.butMeas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butMeas.Enabled = false;
             this.butMeas.Location = new System.Drawing.Point(439, 244);
             this.butMeas.Name = "butMeas";
@@ -184,6 +196,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(438, 68);
             this.button1.Name = "button1";
@@ -195,6 +208,7 @@
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(439, 134);
             this.button2.Name = "button2";
@@ -206,6 +220,7 @@
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(438, 192);
             this.button3.Name = "button3";
@@ -217,6 +232,7 @@
             // 
             // button4
             // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.Enabled = false;
             this.button4.Location = new System.Drawing.Point(439, 273);
             this.button4.Name = "button4";
@@ -226,12 +242,25 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Enabled = false;
+            this.button5.Location = new System.Drawing.Point(441, 326);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(141, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Получить Адерса";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // frmTestExchangeDC23
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1093, 450);
             this.Controls.Add(this.txtMessages);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.butMeas);
             this.Controls.Add(this.button3);
@@ -276,5 +305,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

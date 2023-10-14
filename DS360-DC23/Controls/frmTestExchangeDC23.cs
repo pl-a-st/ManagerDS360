@@ -147,6 +147,12 @@ namespace ManagerDS360
         {
             ManagerDC23 DC23 = new ManagerDC23();
             txtMessages.Text += DateTime.Now.ToShortTimeString() + " " + DC23.Meas().ToString() + "\r\n";
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Client.SendCommandDC23($"CONTROL_FROM_PC_GET_NODE_ADRESES");
         }
     }
 }

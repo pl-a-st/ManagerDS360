@@ -64,7 +64,7 @@ namespace ManagerDS360.Controls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRouteName.Location = new System.Drawing.Point(17, 32);
             this.txtRouteName.Name = "txtRouteName";
-            this.txtRouteName.Size = new System.Drawing.Size(296, 20);
+            this.txtRouteName.Size = new System.Drawing.Size(271, 20);
             this.txtRouteName.TabIndex = 1;
             // 
             // label1
@@ -313,7 +313,7 @@ namespace ManagerDS360.Controls
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(321, 10);
+            this.label4.Location = new System.Drawing.Point(315, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(189, 14);
             this.label4.TabIndex = 2;
@@ -321,9 +321,9 @@ namespace ManagerDS360.Controls
             // 
             // txtTimeToAnswer
             // 
-            this.txtTimeToAnswer.Location = new System.Drawing.Point(324, 32);
+            this.txtTimeToAnswer.Location = new System.Drawing.Point(318, 32);
             this.txtTimeToAnswer.Name = "txtTimeToAnswer";
-            this.txtTimeToAnswer.Size = new System.Drawing.Size(100, 20);
+            this.txtTimeToAnswer.Size = new System.Drawing.Size(61, 20);
             this.txtTimeToAnswer.TabIndex = 21;
             this.txtTimeToAnswer.Text = "30";
             // 
@@ -331,7 +331,7 @@ namespace ManagerDS360.Controls
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(430, 34);
+            this.label5.Location = new System.Drawing.Point(385, 34);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 14);
             this.label5.TabIndex = 2;

@@ -23,6 +23,7 @@ namespace ManagerDS360
     {
         static CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
         CancellationToken Token = CancelTokenSource.Token;
+        static string LastRouteName = string.Empty;
         public frmManagerDS360()
         {
             InitializeComponent();
@@ -182,10 +183,14 @@ namespace ManagerDS360
                 AcyncShowMassageAndChangePicture("Отсутсвует соединение!", selectedNode);
                 return Result.Failure;
             }
-            if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
+            if(LastRouteName != selectedNode.DC23.RouteName)
             {
-                AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}", selectedNode);
-                return Result.Failure;
+                if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
+                {
+                    AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}", selectedNode);
+                    return Result.Failure;
+                }
+                LastRouteName = selectedNode.DC23.RouteName;
             }
             if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
             {
@@ -719,6 +724,7 @@ namespace ManagerDS360
                         SetVisualForStop();
                     }));
                     butStopTest.Click -= butStop_Click;
+                    LastRouteName = string.Empty;
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));
@@ -737,7 +743,7 @@ namespace ManagerDS360
             BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание закончено"); }));
             BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
             butStopTest.Click -= butStop_Click;
-
+            LastRouteName = string.Empty;
         }
         private void SetVisualForStop()
         {

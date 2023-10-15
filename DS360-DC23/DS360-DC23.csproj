@@ -235,6 +235,12 @@
     <Compile Include="Controls\frmCreationDC23Setting.Designer.cs">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\frmGetAllNodeAddressesFromRoute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmGetAllNodeAddressesFromRoute.Designer.cs">
+      <DependentUpon>frmGetAllNodeAddressesFromRoute.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAO.cs" />
     <Compile Include="Controls\frmAboutAuthors.cs">
       <SubType>Form</SubType>
@@ -309,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmDefaultGenerator.resx">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmGetAllNodeAddressesFromRoute.resx">
+      <DependentUpon>frmGetAllNodeAddressesFromRoute.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmInputName.resx">
       <DependentUpon>frmInputName.cs</DependentUpon>

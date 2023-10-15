@@ -69,7 +69,7 @@ namespace ManagerDS360
             }
             if(status == ConectStatus.Conected)
             {
-                this.Invoke(new Action(() => { 
+                this?.Invoke(new Action(() => { 
                     lblConectStatus.Text = "Соединение с прибором установлено";
                     foreach (Control control in this.Controls)
                     {

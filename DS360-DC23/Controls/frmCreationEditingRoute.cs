@@ -69,7 +69,7 @@ namespace ManagerDS360
             toolTip1.ShowAlways = true;
 
             toolTip1.SetToolTip(this.butAddSetting, "ALT+S");
-            
+
             toolTip1.SetToolTip(this.butEditSetting, "CTRL+R");
             toolTip1.SetToolTip(this.butCopy, "Alt+C");
             toolTip1.SetToolTip(this.butPaste, "Alt+V");
@@ -79,7 +79,7 @@ namespace ManagerDS360
             toolTip1.SetToolTip(this.butCancel, "CTRL+X");
             toolTip1.SetToolTip(this.butUp, "Shift+Up");
             toolTip1.SetToolTip(this.butDown, "Shift+Down");
-            
+
         }
         /// <summary>
         /// Кнопка добавить папку
@@ -188,7 +188,7 @@ namespace ManagerDS360
 
         internal void butAddSetting_Click(object sender, EventArgs e)
         {
-            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString())== SettingsType.DS360)
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.DS360)
             {
                 AddSettingDS360();
             }
@@ -204,6 +204,46 @@ namespace ManagerDS360
             {
                 AddMessage();
             }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.AllDC23InRoute)
+            {
+                if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+                {
+                    MessageBox.Show("Настройка не может содержать другие элементы!");
+                    return;
+                }
+                var frmGetNodeAddresses = new frmGetAllNodeAddressesFromRoute();
+                frmGetNodeAddresses.ShowDialog();
+                if (frmGetNodeAddresses.DialogResult == DialogResult.OK)
+                {
+                    for (int i = 0; i < frmGetNodeAddresses.lstAddresses.Items.Count; i += 2)
+                    {
+                        ManagerDC23 dc23 = new ManagerDC23();
+                        dc23.TimeToAnswer = 60;
+                        dc23.SetRouteName(frmGetNodeAddresses.txtRouteName.Text);
+                        dc23.SetСhannelFirstAddress(frmGetNodeAddresses.lstAddresses.Items[i].ToString());
+                        string channelB = string.Empty;
+                        if (i+1< frmGetNodeAddresses.lstAddresses.Items.Count)
+                        {
+                            channelB = frmGetNodeAddresses.lstAddresses.Items[i + 1].ToString();
+                            dc23.SetСhannelSecondAddress(channelB);
+
+                        }
+                        string textNode = GetTextNode(frmGetNodeAddresses.txtRouteName.Text,
+                            frmGetNodeAddresses.lstAddresses.Items[i].ToString(),
+                            channelB);
+                        TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
+                        treeNode.DC23 = dc23;
+                        if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+                        {
+                            treRouteTree.Nodes.Add(treeNode);
+                            continue;
+                        }
+                        TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+                        SelectedNodeWithSetup.Nodes.Add(treeNode);
+                        SelectedNodeWithSetup.Expand();
+                    }
+                }
+            }
 
         }
         private void AddMessage()
@@ -213,7 +253,7 @@ namespace ManagerDS360
                 MessageBox.Show("Настройка не может содержать другие элементы!");
                 return;
             }
-            frmInputName frmInputName= GetFrmInputName(out CheckBox stopTest);
+            frmInputName frmInputName = GetFrmInputName(out CheckBox stopTest);
             frmInputName.ShowDialog();
             if (frmInputName.SaveName != SaveName.SaveName)
             {
@@ -231,7 +271,7 @@ namespace ManagerDS360
             SelectedNodeWithSetup.Expand();
         }
 
-        private frmInputName GetFrmInputName( out CheckBox stopTest)
+        private frmInputName GetFrmInputName(out CheckBox stopTest)
         {
             frmInputName frmInputName = new frmInputName();
             frmInputName = new frmInputName();
@@ -310,6 +350,37 @@ namespace ManagerDS360
             }
             return textNode;
         }
+        private static string GetTextNode(string routeName, string chanellA, string channelB)
+        {
+            string text = routeName;
+            var listBox = new List<string>(chanellA.Split('/'));
+
+            if (listBox.Count > 0)
+            {
+                text += " [Канал А: .../";
+                if (listBox.Count > 1)
+                {
+                    text += listBox[listBox.Count - 2].Replace("_"," ");
+                    text += "/";
+                }
+                text += listBox[listBox.Count - 1].Replace("_", " ");
+                text += "] ";
+            }
+
+            listBox = new List<string>(channelB.Split('/')); ;
+            if (listBox.Count > 0)
+            {
+                text += "] [Канал B: .../";
+                if (listBox.Count > 1)
+                {
+                    text += listBox[listBox.Count - 2].Replace("_", " ");
+                    text += "/";
+                }
+                text += listBox[listBox.Count - 1].Replace("_", " ");
+                text += "]";
+            }
+            return text;
+        }
         private static string GetTextNode(frmCreationDC23Setting editingSettings)
         {
             string text = editingSettings.DC23.RouteName;
@@ -385,7 +456,7 @@ namespace ManagerDS360
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                 }
             }
-            if(selectedNode.NodeType == NodeType.DC23)
+            if (selectedNode.NodeType == NodeType.DC23)
             {
                 frmCreationDC23Setting frmCreationDC23Setting = new frmCreationDC23Setting();
                 frmCreationDC23Setting.DC23 = selectedNode.DC23;
@@ -397,12 +468,12 @@ namespace ManagerDS360
                 }
                 return;
             }
-            if(selectedNode.NodeType == NodeType.Message)
+            if (selectedNode.NodeType == NodeType.Message)
             {
                 frmInputName frmInputName = GetFrmInputName(out CheckBox stopTest);
                 frmInputName.txtNameSet.Text = selectedNode.Text;
                 stopTest.Checked = selectedNode.StopTest;
-                if(frmInputName.ShowDialog() == DialogResult.OK)
+                if (frmInputName.ShowDialog() == DialogResult.OK)
                 {
                     selectedNode.Text = frmInputName.txtNameSet.Text;
                     selectedNode.StopTest = stopTest.Checked;
@@ -888,7 +959,7 @@ namespace ManagerDS360
             string textNode = GetTextNode(editingSettings);
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
             treeNode.DC23 = editingSettings.DC23;
-            LastDC23= PmData.CloneObj(editingSettings.DC23);
+            LastDC23 = PmData.CloneObj(editingSettings.DC23);
             if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
             {
                 treRouteTree.Nodes.Add(treeNode);
@@ -901,7 +972,7 @@ namespace ManagerDS360
 
         private void treRouteTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-           
+
         }
 
         private void treRouteTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -916,7 +987,7 @@ namespace ManagerDS360
 
         private void treRouteTree_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void treRouteTree_MouseDoubleClick(object sender, MouseEventArgs e)

@@ -337,9 +337,10 @@ namespace LibControls
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            base.OnMouseDown(e);
+            
             DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode = null;
+            base.OnMouseDown(e);
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {

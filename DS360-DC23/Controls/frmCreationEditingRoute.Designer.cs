@@ -314,7 +314,7 @@
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(816, 519);
             this.Name = "frmCreationEditingRoute";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Создание и редактирование маршрута";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCreationEditingRoute_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreationEditingRoute_FormClosed);

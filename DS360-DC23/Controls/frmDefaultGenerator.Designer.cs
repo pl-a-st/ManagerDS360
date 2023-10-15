@@ -121,7 +121,7 @@
             this.MaximumSize = new System.Drawing.Size(435, 277);
             this.MinimumSize = new System.Drawing.Size(435, 277);
             this.Name = "frmManagerRoutse";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Назначение генератора по умолчанию";
             this.Load += new System.EventHandler(this.frmDefaultGenerator_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);

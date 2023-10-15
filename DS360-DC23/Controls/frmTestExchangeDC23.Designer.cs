@@ -278,6 +278,7 @@
             this.Controls.Add(this.butDisconect);
             this.Controls.Add(this.lblConectStatus);
             this.Name = "frmTestExchangeDC23";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmTestExchangeDC23";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTestExchangeDC23_FormClosing);
             this.Load += new System.EventHandler(this.frmTestExchangeDC23_Load);

@@ -198,7 +198,7 @@
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(588, 492);
             this.Name = "frmEditingRoutes";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Редактирование сохраненных маршрутов";
             this.Load += new System.EventHandler(this.frmEditingRoutes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);

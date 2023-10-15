@@ -171,6 +171,7 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lstAddresses);
             this.Name = "frmGetAllNodeAddressesFromRoute";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Получение адресов узлов из маршрута";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmGetAllNodeAddressesFromRoute_FormClosing);
             this.Load += new System.EventHandler(this.frmGetAllNodeAddressesFromRoute_Load);

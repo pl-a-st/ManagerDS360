@@ -45,6 +45,7 @@
             this.cboDetector2 = new System.Windows.Forms.ComboBox();
             this.lblValue = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.numComName = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
@@ -58,7 +59,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtOffset = new LibControls.ModifiedTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numComName)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -258,6 +258,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Подключение";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(281, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 14);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "COM";
+            // 
             // numComName
             // 
             this.numComName.DecimalPlaces = 1;
@@ -418,15 +427,6 @@
             this.txtOffset.Text = "0";
             this.txtOffset.TextChanged += new System.EventHandler(this.txtOffset_TextChanged);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(281, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 14);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "COM";
-            // 
             // frmCreationEditingSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,7 +442,7 @@
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(450, 450);
             this.Name = "frmCreationEditingSettings";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = ",";
             this.Load += new System.EventHandler(this.frmCreationEditingSettings_Load);
             this.groupBox1.ResumeLayout(false);

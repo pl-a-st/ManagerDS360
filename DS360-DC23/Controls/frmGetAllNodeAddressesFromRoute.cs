@@ -104,7 +104,11 @@ namespace ManagerDS360.Controls
 
         private async void button2_Click(object sender, EventArgs e)
         {
+            await GetAllAddressNodeWithProgessBar();
+        }
 
+        private async Task GetAllAddressNode()
+        {
             ManagerDC23.Client.ReceivedMessageDC23Event += Client_ReceivedMessageDC23Event;
             ManagerDC23 DC23 = new ManagerDC23();
             DC23.SetRouteName(txtRouteName.Text);
@@ -117,10 +121,58 @@ namespace ManagerDS360.Controls
             ManagerDC23.Client.SendCommandDC23($"CONTROL_FROM_PC_GET_NODE_ADRESES");
             while (!IsNodeAdresesAnswerFinish)
             {
-                await Task.Delay(300);
+                Task.Delay(300);
             }
             ManagerDC23.Client.ReceivedMessageDC23Event -= Client_ReceivedMessageDC23Event;
             AcyncShowMassageAndChangePicture("Все узлы получены.");
+        }
+
+        private async Task GetAllAddressNodeWithProgessBar()
+        {
+            foreach (Control c in this.Controls)
+            {
+                c.Enabled = false;
+            }
+            Panel panel = new Panel();
+            InsertControlsForWating(panel, new ProgressBar(), new Label());
+            Task getComes = new Task(action: () => GetAllAddressNode());
+            await Task.Run(() => getComes.Start());
+            await Task.Run(() => getComes.Wait());
+            panel.Dispose();
+            foreach (Control c in this.Controls)
+            {
+                c.Enabled = true;
+            }
+        }
+        private void InsertControlsForWating(Panel panel, ProgressBar progressBar, Label label)
+        {
+            panel.Height = (int)(this.Height / 3);
+            panel.Width = (int)(this.Width / 2);
+            panel.BackColor = Color.DarkGray;
+            panel.Location = new Point(
+                x: this.Width / 2 - panel.Width / 2,
+                y: this.Height / 2 - panel.Height / 2);
+            progressBar.Width = this.Width / 3;
+            progressBar.Height = this.Height / 6;
+            progressBar.Location = new Point(
+                x: panel.Width / 2 - progressBar.Width / 2,
+                y: panel.Height / 2 - progressBar.Height / 2);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.MarqueeAnimationSpeed = 1;
+            label.AutoSize = true;
+            label.Font = new Font("Verdana", 9, FontStyle.Regular);
+            label.Text = "Идет получение адресов узлов";
+            label.BackColor = Color.Transparent;
+            label.Parent = progressBar;
+            label.Location = new Point(
+                x: panel.Width / 2 - label.PreferredWidth / 2,
+                y: progressBar.Location.Y - label.Height);
+            panel.Controls.Add(progressBar);
+            panel.Controls.Add(label);
+            this.Controls.Add(panel);
+            panel.BringToFront();
+            progressBar.BringToFront();
+            label.BringToFront();
         }
         private void AcyncShowMassageAndChangePicture(string massege)
         {

@@ -191,6 +191,7 @@ namespace ManagerDS360
                     return Result.Failure;
                 }
                 LastRouteName = selectedNode.DC23.RouteName;
+                Thread.Sleep(300);
             }
             if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
             {
@@ -645,6 +646,7 @@ namespace ManagerDS360
         }
         private async void butStartTest_Click(object sender, EventArgs e)
         {
+            LastRouteName = string.Empty;
             butStopTest.Click += butStop_Click;
             Task taskSend = new Task(SendAllChacked, Token);
             taskSend.Start();
@@ -739,6 +741,7 @@ namespace ManagerDS360
                     butStopTest.Click -= butStop_Click;
                     return;
                 }
+                Thread.Sleep(300);
             }
             BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание закончено"); }));
             BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));

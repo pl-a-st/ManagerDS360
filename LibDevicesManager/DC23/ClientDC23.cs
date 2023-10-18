@@ -646,7 +646,7 @@ namespace Vast.DC23.DataTransferClient
                     string parm1 = "";
                     if (execmd.Contains("ANSWER"))
                     {
-                        ReceivedMessageDC23Event.Invoke(execmd);
+                        ReceivedMessageDC23Event?.Invoke(execmd);
                         continue;
                     }
                     if (execmd == "SERVER")

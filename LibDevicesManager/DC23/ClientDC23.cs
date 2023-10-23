@@ -63,7 +63,18 @@ namespace Vast.DC23.DataTransferClient
                 m_ServerConnected = false;
                 if (DisconnectedEvent != null)
                 {
-                    ThreadPool.QueueUserWorkItem(state => DisconnectedEvent(this, EventArgs.Empty));
+                    
+                    ThreadPool.QueueUserWorkItem(state =>
+                    {
+                        try
+                        {
+                            DisconnectedEvent(this, EventArgs.Empty);
+                        }
+                        catch
+                        {
+
+                        }
+                    });
                 }
                    
             }
@@ -203,7 +214,11 @@ namespace Vast.DC23.DataTransferClient
                 OnServerDisconnected();
                 try
                 {
-                    DisconnectedEvent(this, EventArgs.Empty);
+                    if(DisconnectedEvent != null)
+                    {
+                        DisconnectedEvent(this, EventArgs.Empty);
+                    }
+                    
                 }
                 catch
                 {

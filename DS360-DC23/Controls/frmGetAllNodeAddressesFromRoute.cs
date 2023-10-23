@@ -65,8 +65,16 @@ namespace ManagerDS360.Controls
                 lblTestedDevice.ForeColor = Color.Red;
                 lblTestedDevice.Text = "Соединение разорвано";
                 cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
-                client.ConnectedEvent -= Client_ConnectedEvent;
-                client.DisconnectedEvent -= Client_DisconnectedEvent;
+                try
+                {
+                    client.ConnectedEvent -= Client_ConnectedEvent;
+                }
+                catch{}
+                try
+                {
+                    client.DisconnectedEvent -= Client_DisconnectedEvent;
+                }
+                catch{}
             }));
 
         }
@@ -94,8 +102,16 @@ namespace ManagerDS360.Controls
                 client.Disconnect();
                 client.CancelConnecting();
             }
-            client.ConnectedEvent -= Client_ConnectedEvent;
-            client.DisconnectedEvent -= Client_DisconnectedEvent;
+            try
+            {
+                client.ConnectedEvent -= Client_ConnectedEvent;
+            }
+            catch { }
+            try
+            {
+                client.DisconnectedEvent -= Client_DisconnectedEvent;
+            }
+            catch { }
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult = DialogResult.Cancel;

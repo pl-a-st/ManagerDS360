@@ -50,6 +50,7 @@ namespace ManagerDS360
 
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LastRouteName = string.Empty;
             var client = ManagerDC23.Client;
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.DC23)
             {
@@ -79,8 +80,16 @@ namespace ManagerDS360
                 lblTestedDevice.ForeColor = Color.Red;
                 lblTestedDevice.Text = "Соединение разорвано";
                 cboTestedDevice.SelectedIndex = (int)TestedDevice.None;
-                client.ConnectedEvent -= Client_ConnectedEvent;
-                client.DisconnectedEvent -= Client_DisconnectedEvent;
+                try
+                {
+                    client.ConnectedEvent -= Client_ConnectedEvent;
+                }
+                catch { }
+                try
+                {
+                    client.DisconnectedEvent -= Client_DisconnectedEvent;
+                }
+                catch { }
             }));
 
         }
@@ -191,23 +200,26 @@ namespace ManagerDS360
                     return Result.Failure;
                 }
                 LastRouteName = selectedNode.DC23.RouteName;
-                Thread.Sleep(300);
+                Thread.Sleep(1000);
             }
             if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось привязать канал А", selectedNode);
                 return Result.Failure;
             }
+            Thread.Sleep(300);
             if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось привязать канал В", selectedNode);
                 return Result.Failure;
             }
+            Thread.Sleep(300);
             if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось произвести измерение", selectedNode);
                 return Result.Failure;
             }
+
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 7;
@@ -269,6 +281,7 @@ namespace ManagerDS360
             {
                 return;
             }
+            LastRouteName = string.Empty;
             treRouteTree.Nodes.Clear();
             treRouteTree.LoadTreeNodesWithSeetings(PmData.RouteAddresses[cboSavedRoutes.SelectedIndex]);
             foreach (TreeNode node in treRouteTree.Nodes)
@@ -626,7 +639,7 @@ namespace ManagerDS360
 
         private void cboTestedDevice_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
+            //записан в Load формы
         }
 
         private void buttonForPicture1_VisibleChanged(object sender, EventArgs e)
@@ -646,7 +659,7 @@ namespace ManagerDS360
         }
         private async void butStartTest_Click(object sender, EventArgs e)
         {
-            LastRouteName = string.Empty;
+            //LastRouteName = string.Empty;
             butStopTest.Click += butStop_Click;
             Task taskSend = new Task(SendAllChacked, Token);
             taskSend.Start();
@@ -726,7 +739,7 @@ namespace ManagerDS360
                         SetVisualForStop();
                     }));
                     butStopTest.Click -= butStop_Click;
-                    LastRouteName = string.Empty;
+                    //LastRouteName = string.Empty;
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));

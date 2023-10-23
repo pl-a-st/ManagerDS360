@@ -51,7 +51,7 @@ namespace LibDevicesManager.DC23
 
         public ResultCommandDC23 OpenRoute()
         {
-            string command = $"CONTROL_FROM_PC_OPEN_ROUTE_<{RouteName}>";
+            string command = $"CONTROL_FROM_PC_OPEN_ROUTE_<{RouteName.Replace(" ","_")}>";
             string successAnswer = "IS_OPEN";
             return SendComand(command, successAnswer);
         }
@@ -83,7 +83,7 @@ namespace LibDevicesManager.DC23
             Client.ReceivedMessageDC23Event += Client_ReceivedMessageDC23Event;
             bool isAnswerBeenReceived = false;
             ResultCommandDC23 resultCommandDC23 = ResultCommandDC23.Exception;
-            Client.SendCommandDC23(command);
+            Client.SendCommandDC23(command.Replace(" ", "_"));
             for (int i = 0; i < this.TimeToAnswer*10; i++)
             {
                 if (isAnswerBeenReceived)

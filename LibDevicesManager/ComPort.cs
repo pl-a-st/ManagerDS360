@@ -32,6 +32,7 @@ namespace LibDevicesManager
         private static int baudRate = 9600;
         private static Parity parity = Parity.None;
         private static StopBits stopBits = StopBits.Two;
+        //private static StartBits startBits
         private static bool dtrEnable = true;
         private static int readTimeout = 100;
         private static int writeTimeout = 100;
@@ -111,7 +112,7 @@ namespace LibDevicesManager
                 {
                     checkString = Receive(port);
                 }
-                while (!checkString.StartsWith("Ошибка"));
+                while (!checkString.StartsWith("Ошибка")); //AAS: возможно изменить критерий выхода из цикла?
             }
         }
         public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port) //AAS: добавить поддержку моделей Agilent
@@ -272,9 +273,13 @@ namespace LibDevicesManager
         private static void SetPortSettingForAgilent34401A() //AAS: дописать по документации 34401A
         {
             baudRate = 9600;
+            parity = Parity.None;  //AAS: проверить! по дефолту стоит Parity.Even
+            stopBits = StopBits.Two;
+            dtrEnable = true;   //AAS: проверить!
+            readTimeout = 100;
+            writeTimeout = 100;
             /*
-            parity = Parity.None;
-            stopBits = StopBits.One;
+            
             dtrEnable = false;
             readTimeout = 500;
             writeTimeout = 500;

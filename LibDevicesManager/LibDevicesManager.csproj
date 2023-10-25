@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agilent34401A.cs" />
     <Compile Include="DC23\ClientDC23.cs" />
     <Compile Include="ComPort.cs" />
     <Compile Include="DC23\ManagerDC23.cs" />

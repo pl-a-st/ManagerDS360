@@ -195,8 +195,6 @@ namespace Vast.DC23.DataTransferClient
                         }
                         else
                             return;
-
-                        
                         //clientsock.Close();
                         clientsock = null;
                     }
@@ -897,10 +895,10 @@ namespace Vast.DC23.DataTransferClient
 
                 //if (wasDisconnectOnSocketExc)
                 {
-                    if (serversocket.Connected)
-                    {
-                        serversocket.Disconnect(true);
-                    }
+                    //if (serversocket.Connected)
+                    //{
+                    //    serversocket.Disconnect(true);
+                    //}
                     serversocket.Close();
                     //if (AutoRestartServer)
                     //    Start();

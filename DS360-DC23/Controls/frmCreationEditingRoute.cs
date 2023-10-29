@@ -360,10 +360,10 @@ namespace ManagerDS360
                 text += " [Канал А: .../";
                 if (listBox.Count > 1)
                 {
-                    text += listBox[listBox.Count - 2].Replace("_"," ");
+                    text += listBox[listBox.Count - 2].Replace("%SP%"," ").Replace("%BS%","/");
                     text += "/";
                 }
-                text += listBox[listBox.Count - 1].Replace("_", " ");
+                text += listBox[listBox.Count - 1].Replace("%SP%", " ").Replace("%BS%", "/");
                 text += "] ";
             }
 
@@ -373,17 +373,17 @@ namespace ManagerDS360
                 text += "] [Канал B: .../";
                 if (listBox.Count > 1)
                 {
-                    text += listBox[listBox.Count - 2].Replace("_", " ");
+                    text += listBox[listBox.Count - 2].Replace("%SP%", " ").Replace("%BS%", "/");
                     text += "/";
                 }
-                text += listBox[listBox.Count - 1].Replace("_", " ");
+                text += listBox[listBox.Count - 1].Replace("%SP%", " ").Replace("%BS%", "/");
                 text += "]";
             }
             return text;
         }
         private static string GetTextNode(frmCreationDC23Setting editingSettings)
         {
-            string text = editingSettings.DC23.RouteName;
+            string text = editingSettings.DC23.GetRouteNameWithoutCharProtection();
             ListBox listBox = editingSettings.GetLstChannaleFirst();
 
             if (listBox.Items.Count > 0)
@@ -460,7 +460,7 @@ namespace ManagerDS360
             {
                 frmCreationDC23Setting frmCreationDC23Setting = new frmCreationDC23Setting();
                 frmCreationDC23Setting.DC23 = selectedNode.DC23;
-                GetFrmSettingsFrovDC23(selectedNode.DC23, frmCreationDC23Setting);
+                GetFrmSettingsFromDC23(selectedNode.DC23, frmCreationDC23Setting);
 
                 if (frmCreationDC23Setting.ShowDialog() == DialogResult.OK)
                 {
@@ -482,26 +482,28 @@ namespace ManagerDS360
             }
         }
 
-        private static void GetFrmSettingsFrovDC23(ManagerDC23 dc23, frmCreationDC23Setting frmCreationDC23Setting)
+        private static void GetFrmSettingsFromDC23(ManagerDC23 dc23, frmCreationDC23Setting frmCreationDC23Setting)
         {
-            frmCreationDC23Setting.GetTxtRoutName().Text = dc23.RouteName;
+            frmCreationDC23Setting.GetTxtRoutName().Text = dc23.GetRouteNameWithoutCharProtection();
             frmCreationDC23Setting.GetTxtTimeToAnswer().Text = dc23.TimeToAnswer.ToString() ?? "30";
-            foreach (string str in dc23.СhannelFirstAddress.Replace("_", " ").Split('/'))
-            {
-                if (str == dc23.RouteName)
-                {
-                    continue;
-                }
-                frmCreationDC23Setting.GetLstChannaleFirst().Items.Add(str);
-            }
-            foreach (string str in dc23.СhannelSecondAddress.Replace("_", " ").Split('/'))
-            {
-                if (str == dc23.RouteName)
-                {
-                    continue;
-                }
-                frmCreationDC23Setting.GetLstChannelSecond().Items.Add(str);
-            }
+            frmCreationDC23Setting.GetLstChannaleFirst().Items.AddRange(ManagerDC23.GetListBoxFromAddress(dc23.СhannelFirstAddress).Items);
+            frmCreationDC23Setting.GetLstChannelSecond().Items.AddRange(ManagerDC23.GetListBoxFromAddress(dc23.СhannelSecondAddress).Items);
+            //foreach (string str in dc23.СhannelFirstAddress.Replace("_", " ").Split('/'))
+            //{
+            //    if (str == dc23.RouteName)
+            //    {
+            //        continue;
+            //    }
+            //    frmCreationDC23Setting.GetLstChannaleFirst().Items.Add(str);
+            //}
+            //foreach (string str in dc23.СhannelSecondAddress.Replace("_", " ").Split('/'))
+            //{
+            //    if (str == dc23.RouteName)
+            //    {
+            //        continue;
+            //    }
+            //    frmCreationDC23Setting.GetLstChannelSecond().Items.Add(str);
+            //}
         }
 
         private async void СonfigureEditingSettings(DS360SettingVibroSigParam dS360, frmCreationEditingSettings editingSettings)
@@ -949,7 +951,7 @@ namespace ManagerDS360
 
             if (chkUseLastSetting.Checked && LastDC23 != null)
             {
-                GetFrmSettingsFrovDC23(LastDC23, editingSettings);
+                GetFrmSettingsFromDC23(LastDC23, editingSettings);
             }
             editingSettings.ShowDialog();
             if (editingSettings.DialogResult != DialogResult.OK)

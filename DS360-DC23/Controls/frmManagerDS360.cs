@@ -196,24 +196,30 @@ namespace ManagerDS360
             {
                 if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
                 {
-                    AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.RouteName}", selectedNode);
+                    AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.GetRouteNameWithoutCharProtection()}", selectedNode);
                     return Result.Failure;
                 }
                 LastRouteName = selectedNode.DC23.RouteName;
                 Thread.Sleep(1000);
             }
-            if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
+            if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelFirstAddress))
             {
-                AcyncShowMassageAndChangePicture("Не удалось привязать канал А", selectedNode);
-                return Result.Failure;
+                if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
+                {
+                    AcyncShowMassageAndChangePicture("Не удалось привязать канал А", selectedNode);
+                    return Result.Failure;
+                }
+                Thread.Sleep(300);
             }
-            Thread.Sleep(300);
-            if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
+            if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelSecondAddress))
             {
-                AcyncShowMassageAndChangePicture("Не удалось привязать канал В", selectedNode);
-                return Result.Failure;
+                if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
+                {
+                    AcyncShowMassageAndChangePicture("Не удалось привязать канал В", selectedNode);
+                    return Result.Failure;
+                }
+                Thread.Sleep(300);
             }
-            Thread.Sleep(300);
             if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось произвести измерение", selectedNode);
@@ -292,6 +298,7 @@ namespace ManagerDS360
             {
                 treRouteTree.SelectedNode = treRouteTree.Nodes[0];
             }
+            treRouteTree.Focus();
         }
         private void SetToolTipes()
         {

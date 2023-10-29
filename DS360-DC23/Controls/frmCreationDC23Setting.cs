@@ -77,6 +77,14 @@ namespace ManagerDS360.Controls
                 return;
             }
             FrmAddChangeNode.TypeFormOpen = TypeFormOpen.ToChange;
+            if (lstChannelFirst.SelectedIndex != -1)
+            {
+                FrmAddChangeNode.GetTxtNameNode().Text = lstChannelFirst.Items[lstChannelFirst.SelectedIndex].ToString();
+            }
+            if (lstChannelSecond.SelectedIndex != -1)
+            {
+                FrmAddChangeNode.GetTxtNameNode().Text = lstChannelSecond.Items[lstChannelSecond.SelectedIndex].ToString();
+            }
             if (FrmAddChangeNode.ShowDialog() != DialogResult.OK)
             {
                 return;
@@ -177,8 +185,8 @@ namespace ManagerDS360.Controls
         {
             DialogResult = DialogResult.OK;
             DC23.SetRouteName(txtRouteName.Text);
-            DC23.SetСhannelFirstAddress(GetAddress(lstChannelFirst));
-            DC23.SetСhannelSecondAddress(GetAddress(lstChannelSecond));
+            DC23.SetСhannelFirstAddress(ManagerDC23.GetAddressFromListBox(lstChannelFirst));
+            DC23.SetСhannelSecondAddress(ManagerDC23.GetAddressFromListBox(lstChannelSecond));
             DC23.TimeToAnswer = int.Parse(txtTimeToAnswer.Text);
         }
         private string GetAddress(ListBox lst)
@@ -240,7 +248,7 @@ namespace ManagerDS360.Controls
         {
             ItemDown(lstChannelSecond);
         }
-         
+
         private void ItemUp(ListBox lst)
         {
             if (lst.SelectedIndex == -1)
@@ -267,8 +275,8 @@ namespace ManagerDS360.Controls
             if (index < lst.Items.Count - 1)
             {
                 lst.Items.RemoveAt(index);
-                lst.Items.Insert(index +1, item);
-                lst.SelectedIndex = index+1 ;
+                lst.Items.Insert(index + 1, item);
+                lst.SelectedIndex = index + 1;
             }
         }
     }

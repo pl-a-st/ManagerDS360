@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using Vast.DC23.DataTransferClient;
 
 namespace LibDevicesManager.DC23
@@ -36,9 +37,13 @@ namespace LibDevicesManager.DC23
             private set;
         } = string.Empty;
         public int TimeToAnswer = 30;
-        public void SetRouteName(string address)
+        public void SetRouteName(string routName)
         {
-            RouteName = address;
+            RouteName = routName.Replace("/", "%BS%").Replace(" ", "%SP%");
+        }
+        public string GetRouteNameWithoutCharProtection()
+        {
+            return RouteName.Replace("%BS%", "/").Replace("%SP%", " ");
         }
         public void SetСhannelFirstAddress(string address)
         {
@@ -48,10 +53,9 @@ namespace LibDevicesManager.DC23
         {
             СhannelSecondAddress = address;
         }
-
         public ResultCommandDC23 OpenRoute()
         {
-            string command = $"CONTROL_FROM_PC_OPEN_ROUTE_<{RouteName.Replace(" ","_")}>";
+            string command = $"CONTROL_FROM_PC_OPEN_ROUTE_<{RouteName}>";
             string successAnswer = "IS_OPEN";
             return SendComand(command, successAnswer);
         }
@@ -73,7 +77,50 @@ namespace LibDevicesManager.DC23
             string successAnswer = "FINISH";
             return SendComand(command, successAnswer);
         }
-
+        public static string GetAddressFromListString(List<string> strings)
+        {
+            string address= string.Empty;
+            foreach(string str in strings)
+            {
+                if(str == string.Empty || str == "")
+                {
+                    continue;
+                }
+                str.Replace("/", "%BS%").Replace(" ", "%SP%");
+                address = address != string.Empty ? address + "/" : address;
+                address += str;
+            }
+            return address;
+        }
+        public static string GetAddressFromListBox(ListBox strings)
+        {
+            string address = string.Empty;
+            for (int i=0;i< strings.Items.Count;i++)
+            {
+                string str = strings.Items[i].ToString();
+                if ( str == string.Empty || str == "")
+                {
+                    continue;
+                }
+                str=str.Replace("/", "%BS%").Replace(" ", "%SP%");
+                address = address != string.Empty ? address + "/" : address;
+                address += str;
+            }
+            return address;
+        }
+        public static ListBox GetListBoxFromAddress(string address)
+        {
+            ListBox strings = new ListBox();
+            foreach (string str in address.Split('/'))
+            {
+                if (str == string.Empty || str == "")
+                {
+                    continue;
+                }
+                strings.Items.Add(str.Replace("%BS%", "/").Replace("%SP%", " "));
+            }
+            return strings;
+        }
         private  ResultCommandDC23 SendComand(string command, string successAnswer)
         {
             if (!Client.Connected)
@@ -121,7 +168,6 @@ namespace LibDevicesManager.DC23
                 isAnswerBeenReceived = true;
             }
         }
-
         private static ResultCommandDC23 SendComand(string command, string successAnswer, int timeToAnswer)
         {
             if (!Client.Connected)

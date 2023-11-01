@@ -12,7 +12,7 @@ namespace LibDevicesManager
 {
     public enum Result
     {
-        Success, Failure, Exception, ParamError, AcsessError
+        Success, Failure, Exception, ParamError, AcsessError, Canceled
     }
     public enum DeviceType
     {
@@ -160,7 +160,7 @@ namespace LibDevicesManager
                 do
                 {
                     checkString = Receive(port);
-                } 
+                }
                 while (!checkString.StartsWith("Ошибка"));
             }
         }

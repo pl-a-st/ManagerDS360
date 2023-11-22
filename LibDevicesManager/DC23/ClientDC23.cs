@@ -61,10 +61,9 @@ namespace Vast.DC23.DataTransferClient
             if (m_ServerConnected)
             {
                 m_ServerConnected = false;
-                if (DisconnectedEvent != null)
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    
-                    ThreadPool.QueueUserWorkItem(state =>
+                    if (DisconnectedEvent != null)
                     {
                         try
                         {
@@ -74,9 +73,8 @@ namespace Vast.DC23.DataTransferClient
                         {
 
                         }
-                    });
-                }
-                   
+                    }
+                });
             }
         }
 
@@ -106,6 +104,64 @@ namespace Vast.DC23.DataTransferClient
         private bool m_connected = false;
         private AutoResetEvent m_connectEvent;
 
+        public void Connect(CancellationToken token)
+        {
+            m_connectEvent = new AutoResetEvent(false);
+
+
+            try
+            {
+                serversocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serversocket.Blocking = true;
+
+                //IPHostEntry IPHost = Dns.Resolve(textBox1.Text);
+                //string[] aliases = IPHost.Aliases;
+                //IPAddress[] addr = IPHost.AddressList;
+                IPAddress ipaddress = IPAddress.Parse("169.254.0.82");
+
+                IPEndPoint ipepServer = new IPEndPoint(ipaddress, 8090);
+                m_connected = false;
+                m_cancelConnect = false;
+                while (!m_connected)
+                {
+                    try
+                    {
+                        serversocket.Connect(ipepServer);
+                        m_connected = true;
+                    }
+                    catch (SocketException)
+                    {
+                        Thread.Sleep(100);
+                        m_connected = false;
+
+                    }
+                    if (token.IsCancellationRequested)
+                    {
+                        serversocket.Close();
+                        serversocket.Dispose();
+                        serversocket = null;
+                        return;
+                    }
+
+                }
+
+                clientsock = serversocket;
+
+                Thread MainThread = new Thread(new ThreadStart(listenclient));
+                MainThread.IsBackground = true;
+                MainThread.Start();
+
+                m_connectEvent.WaitOne();
+
+            }
+            catch (SocketException se)
+            {
+                //FrameworkTools.ErrorProcessing.WriteInfo("socket exception in connect");
+                //Console.WriteLine(se.Message);
+                //AppendText(se.Message);
+            }
+
+        }
         public void Connect()
         {
             m_connectEvent = new AutoResetEvent(false);
@@ -188,14 +244,16 @@ namespace Vast.DC23.DataTransferClient
                         {
                             return;
                         }
-                        if (clientsock != null)
-                        {
-                            if (!clientsock.Connected)
-                                return;
-                        }
-                        else
-                            return;
-                        //clientsock.Close();
+
+                        //if (clientsock != null)
+                        //{
+                        //    if (!clientsock.Connected)
+                        //        return;
+                        //}
+                        //else
+                        //    return;
+                        clientsock?.Close();
+                        clientsock?.Dispose();
                         clientsock = null;
                     }
                     else
@@ -212,11 +270,11 @@ namespace Vast.DC23.DataTransferClient
                 OnServerDisconnected();
                 try
                 {
-                    if(DisconnectedEvent != null)
+                    if (DisconnectedEvent != null)
                     {
                         DisconnectedEvent(this, EventArgs.Empty);
                     }
-                    
+
                 }
                 catch
                 {
@@ -274,7 +332,6 @@ namespace Vast.DC23.DataTransferClient
         public void SendState(string state)
         {
             Socket sock = clientsock;
-
             string cmd = "STATE " + state;
             byte[] b = System.Text.Encoding.Unicode.GetBytes(cmd);
             sock.Send(b, b.Length, 0);
@@ -668,7 +725,7 @@ namespace Vast.DC23.DataTransferClient
 
                         OnServerConnected();
                         AppendText("Connected TO Server :" + cmdList[1]);
-                        
+
                         continue;
                     }
 
@@ -713,7 +770,7 @@ namespace Vast.DC23.DataTransferClient
                         byte[] dataBuf = new byte[1000];
                         using (NetworkStream netStream = new NetworkStream(sock))
                         {
-                            while(readedSize < dataSize)
+                            while (readedSize < dataSize)
                             {
                                 int partSize = netStream.Read(dataBuf, 0, dataBuf.Length);
                                 for (int i = 0; i < partSize; i++)
@@ -725,7 +782,7 @@ namespace Vast.DC23.DataTransferClient
                         }
                         string strAnswer = System.Text.Encoding.Unicode.GetString(allAnswerData);
                         string[] lines = strAnswer.Split('\n');
-                        for (int i = 0; i <lines.Length - 1; i++)
+                        for (int i = 0; i < lines.Length - 1; i++)
                         {
                             lines[i] = lines[i].Substring(0, lines[i].Length - 1);
                             m_enumRespond.Add(lines[i]);
@@ -880,10 +937,6 @@ namespace Vast.DC23.DataTransferClient
 
                 Thread.CurrentThread.Abort();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
             finally
             {
                 m_manResetEvent.Set();
@@ -893,13 +946,13 @@ namespace Vast.DC23.DataTransferClient
                     m_copyFileToDeviceResetEvent.Set();
                 }
 
-                //if (wasDisconnectOnSocketExc)
+                if (wasDisconnectOnSocketExc)
                 {
-                    //if (serversocket.Connected)
-                    //{
-                    //    serversocket.Disconnect(true);
-                    //}
-                    serversocket.Close();
+                    if (serversocket.Connected)
+                    {
+                        serversocket?.Disconnect(true);
+                    }
+                    serversocket?.Close();
                     //if (AutoRestartServer)
                     //    Start();
                 }
@@ -952,10 +1005,10 @@ namespace Vast.DC23.DataTransferClient
                     byte[] buffer = new byte[1024];
                     //Read from the Network Stream
                     int i = nfs.Read(buffer, 0, buffer.Length);
-                    fout.Write(buffer, 0, (int) i);
+                    fout.Write(buffer, 0, (int)i);
                     rby = rby + i;
 
-                    int pc = (int) (((double) rby/(double) size)*100.00);
+                    int pc = (int)(((double)rby / (double)size) * 100.00);
                     string perc = pc.ToString() + "%";
                     //listView3.Items[cnt].SubItems[3].Text = perc;
                     //listView3.Items[cnt].SubItems[2].Text = rby.ToString();
@@ -1026,7 +1079,7 @@ namespace Vast.DC23.DataTransferClient
                     //Increase the bytes Read counter
                     rdby = rdby + len;
 
-                    int pc = (int) (((double) rdby/(double) total)*100.00);
+                    int pc = (int)(((double)rdby / (double)total) * 100.00);
                     string perc = pc.ToString() + "%";
                     //listView4.Items[cnt].SubItems[3].Text = perc;
                     //listView4.Items[cnt].SubItems[2].Text = rdby.ToString();

@@ -123,6 +123,7 @@ namespace LibDevicesManager.DC23
         }
         private  ResultCommandDC23 SendComand(string command, string successAnswer)
         {
+            Client.ReceivedMessageDC23Event -= Client_ReceivedMessageDC23Event;
             if (!Client.Connected)
             {
                 return ResultCommandDC23.NoConnect;

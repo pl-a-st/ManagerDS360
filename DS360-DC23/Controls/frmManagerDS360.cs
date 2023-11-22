@@ -22,7 +22,9 @@ namespace ManagerDS360
     public partial class frmManagerDS360 : Form
     {
         static CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
-        CancellationToken Token = CancelTokenSource.Token;
+        CancellationToken TokenForTest = CancelTokenSource.Token;
+        static CancellationTokenSource CancelTokenConnect = new CancellationTokenSource();
+        CancellationToken TokenForConnect = CancelTokenConnect.Token;
         static string LastRouteName = string.Empty;
         public frmManagerDS360()
         {
@@ -35,7 +37,8 @@ namespace ManagerDS360
             SetToolTipes();
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
-            
+            frmDevicePlugIn frmDevicePlugIn = new frmDevicePlugIn();
+            frmDevicePlugIn.ShowDialog();
         }
 
         private async Task SetTestedDevicesList()
@@ -50,25 +53,43 @@ namespace ManagerDS360
 
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LastRouteName = string.Empty;
+            Task task =null;
             var client = ManagerDC23.Client;
+
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.DC23)
             {
+                CancelTokenConnect.Dispose();
+                CancelTokenConnect = new CancellationTokenSource();
+                TokenForConnect = CancelTokenConnect.Token;
+                
+                task = new Task(() => client.Connect(TokenForConnect), TokenForConnect);
+                LastRouteName = string.Empty;
                 client.ConnectedEvent += Client_ConnectedEvent;
                 client.DisconnectedEvent += Client_DisconnectedEvent;
-                Thread thr = new Thread(() => client.Connect());
-                thr.IsBackground = true;
+              
                 Invoke(new Action(() =>
                     {
                        lblTestedDevice.ForeColor = Color.Black;
                        lblTestedDevice.Text = "Устанавливается соединение...";
                     }));
-                thr.Start();
+                //thr.Start();
+                task.Start();
             }
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.None)
             {
-                client.Disconnect();
+                CancelTokenConnect.Cancel();
+                do
+                {
+                    client.Disconnect();
+                    
+                    
+                }
+                while (client.Connected);
                 client.CancelConnecting();
+                while (task!= null && task.Status== TaskStatus.Running)
+                {
+                    Task.Delay(100);
+                }
             }
         }
 
@@ -202,6 +223,10 @@ namespace ManagerDS360
                 LastRouteName = selectedNode.DC23.RouteName;
                 Thread.Sleep(1000);
             }
+            if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
+            {
+                return Result.Canceled;
+            }
             if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelFirstAddress))
             {
                 if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
@@ -210,6 +235,10 @@ namespace ManagerDS360
                     return Result.Failure;
                 }
                 Thread.Sleep(300);
+            }
+            if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
+            {
+                return Result.Canceled;
             }
             if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelSecondAddress))
             {
@@ -220,12 +249,19 @@ namespace ManagerDS360
                 }
                 Thread.Sleep(300);
             }
+            if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
+            {
+                return Result.Canceled;
+            }
             if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось произвести измерение", selectedNode);
                 return Result.Failure;
             }
-
+            if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
+            {
+                return Result.Canceled;
+            }
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 7;
@@ -668,7 +704,7 @@ namespace ManagerDS360
         {
             //LastRouteName = string.Empty;
             butStopTest.Click += butStop_Click;
-            Task taskSend = new Task(SendAllChacked, Token);
+            Task taskSend = new Task(SendAllChacked, TokenForTest);
             taskSend.Start();
             SetLocationLblTestStatus("Идет испытание!!!");
             Task taskBlink = new Task((Action)(() => Blink(taskSend)));
@@ -736,29 +772,28 @@ namespace ManagerDS360
             }
             foreach (TreeNode node in chackedNode)
             {
-                if (Token.IsCancellationRequested)
+                if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
                 {
-                    CancelTokenSource.Dispose();
-                    CancelTokenSource = new CancellationTokenSource();
-                    Token = CancelTokenSource.Token;
-                    BeginInvoke(new Action(() =>
-                    {
-                        SetVisualForStop();
-                    }));
-                    butStopTest.Click -= butStop_Click;
-                    //LastRouteName = string.Empty;
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));
-
-                if (SendNodeSetting() != Result.Success)
+                Result result = SendNodeSetting();
+                if (result != Result.Success)
                 {
+                    if (result == Result.Canceled)
+                    {
+                        return;
+                    }
                     CancelTokenSource.Dispose();
                     CancelTokenSource = new CancellationTokenSource();
-                    Token = CancelTokenSource.Token;
+                    TokenForTest = CancelTokenSource.Token;
                     BeginInvoke(new Action(() => { SetLocationLblTestStatus("Испытание остановлено"); }));
                     BeginInvoke(new Action(() => { SetControlsEnabledForTest(TestStatus.Stoped); }));
                     butStopTest.Click -= butStop_Click;
+                    return;
+                }
+                if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
+                {
                     return;
                 }
                 Thread.Sleep(300);
@@ -768,6 +803,33 @@ namespace ManagerDS360
             butStopTest.Click -= butStop_Click;
             LastRouteName = string.Empty;
         }
+       public enum TokenStatus
+        {
+            InWork,
+            Canceled
+        }
+        private TokenStatus IsTokenCancelAndServiceCancel()
+        {
+            if (TokenForTest == null)
+            {
+                return TokenStatus.Canceled;
+            }
+            if (TokenForTest.IsCancellationRequested)
+            {
+                CancelTokenSource.Dispose();
+                CancelTokenSource = new CancellationTokenSource();
+                TokenForTest = CancelTokenSource.Token;
+                BeginInvoke(new Action(() =>
+                {
+                    SetVisualForStop();
+                }));
+                butStopTest.Click -= butStop_Click;
+                //LastRouteName = string.Empty;
+                return TokenStatus.Canceled;
+            }
+            return TokenStatus.InWork;
+        }
+
         private void SetVisualForStop()
         {
             MessageBox.Show(
@@ -814,7 +876,7 @@ namespace ManagerDS360
 
         private void butStopTest_Click(object sender, EventArgs e)
         {
-
+            //привязываетсяя в методе butStartTest_Click
         }
     }
 }

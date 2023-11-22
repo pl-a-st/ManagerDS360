@@ -185,6 +185,26 @@ namespace ManagerDS360.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Обновить9 {
+            get {
+                object obj = ResourceManager.GetObject("Обновить9", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Обновл_точ {
+            get {
+                object obj = ResourceManager.GetObject("Обновл точ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap предыдущий {
             get {
                 object obj = ResourceManager.GetObject("предыдущий", resourceCulture);

@@ -148,8 +148,8 @@
   <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="kletka-siniy-razmetka" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kletka-siniy-razmetka.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Заготовки" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Заготовки.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Стоп_серый" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Стоп_серый.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,11 +160,17 @@
   <data name="Стрелка_вниз2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Стрелка_вниз2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Обновить9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Обновить9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="следующий" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\следующий.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="предыдущий" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\предыдущий.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kletka-siniy-razmetka" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kletka-siniy-razmetka.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Стрелка_вниз1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Стрелка_вниз1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,7 +184,7 @@
   <data name="fon_knopki" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fon_knopki.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Заготовки" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Заготовки.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Обновл точ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Обновл точ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

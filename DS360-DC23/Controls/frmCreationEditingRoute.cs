@@ -744,66 +744,6 @@ namespace ManagerDS360
             this.Close();
         }
 
-        private void picButUp_Click(object sender, EventArgs e)
-        {
-            if (treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
-            TreeNode node = treRouteTree.SelectedNode;
-            TreeNode parent = treRouteTree.SelectedNode.Parent;
-            System.Windows.Forms.TreeView view = treRouteTree.SelectedNode.TreeView;
-            if (parent != null)
-            {
-                int index = parent.Nodes.IndexOf(node);
-                if (index > 0)
-                {
-                    parent.Nodes.RemoveAt(index);
-                    parent.Nodes.Insert(index - 1, node);
-                }
-            }
-            else if (node.TreeView.Nodes.Contains(node)) //root node
-            {
-                int index = view.Nodes.IndexOf(node);
-                if (index > 0)
-                {
-                    view.Nodes.RemoveAt(index);
-                    view.Nodes.Insert(index - 1, node);
-                }
-            }
-            treRouteTree.SelectedNode = node;
-        }
-
-        private void picButDown_Click(object sender, EventArgs e)
-        {
-            if (treRouteTree.SelectedNode == null)
-            {
-                return;
-            }
-            TreeNode node = treRouteTree.SelectedNode;
-            TreeNode parent = node.Parent;
-            System.Windows.Forms.TreeView view = node.TreeView;
-            if (parent != null)
-            {
-                int index = parent.Nodes.IndexOf(node);
-                if (index < parent.Nodes.Count - 1)
-                {
-                    parent.Nodes.RemoveAt(index);
-                    parent.Nodes.Insert(index + 1, node);
-                }
-            }
-            else if (view != null && view.Nodes.Contains(node)) //root node
-            {
-                int index = view.Nodes.IndexOf(node);
-                if (index < view.Nodes.Count - 1)
-                {
-                    view.Nodes.RemoveAt(index);
-                    view.Nodes.Insert(index + 1, node);
-                }
-            }
-            treRouteTree.SelectedNode = node;
-        }
-
         private void butCopy_Click(object sender, EventArgs e)
         {
             treRouteTree.CopySelectedNode();
@@ -826,7 +766,8 @@ namespace ManagerDS360
 
         private void butUp_Click_1(object sender, EventArgs e)
         {
-            Up();
+            
+            //Up();
         }
 
         private void Up()
@@ -861,7 +802,7 @@ namespace ManagerDS360
 
         private void butDown_Click_1(object sender, EventArgs e)
         {
-            Down();
+            //Down();
         }
 
         private void Down()
@@ -896,12 +837,12 @@ namespace ManagerDS360
 
         private void butUp_MouseEnter(object sender, EventArgs e)
         {
-            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх2;
+            //butUp.BackgroundImage = Properties.Resources.Стрелка_вверх2;
         }
 
         private void butUp_MouseLeave(object sender, EventArgs e)
         {
-            butUp.BackgroundImage = Properties.Resources.Стрелка_вверх1;
+            //butUp.BackgroundImage = Properties.Resources.Стрелка_вверх1;
         }
 
         private void butDown_MouseEnter(object sender, EventArgs e)
@@ -995,6 +936,28 @@ namespace ManagerDS360
         private void treRouteTree_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             EditSetting();
+        }
+
+        private async void butUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            Up();
+            await Task.Delay(150);
+            while (butUp.IsMousDown)
+            {
+                Up(); 
+                await Task.Delay(50);
+            }
+        }
+
+        private async void butDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            Down();
+            await Task.Delay(150);
+            while (butDown.IsMousDown)
+            {
+                Down();
+                await Task.Delay(50);
+            }
         }
     }
 }

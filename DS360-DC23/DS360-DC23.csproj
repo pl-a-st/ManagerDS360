@@ -235,6 +235,12 @@
     <Compile Include="Controls\frmCreationDC23Setting.Designer.cs">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\frmDevicePlugIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmDevicePlugIn.Designer.cs">
+      <DependentUpon>frmDevicePlugIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\frmGetAllNodeAddressesFromRoute.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmDefaultGenerator.resx">
       <DependentUpon>frmDefaultGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmDevicePlugIn.resx">
+      <DependentUpon>frmDevicePlugIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmGetAllNodeAddressesFromRoute.resx">
       <DependentUpon>frmGetAllNodeAddressesFromRoute.cs</DependentUpon>
@@ -434,6 +443,11 @@
     <None Include="Resources\Логотип ВАСТ темный.png" />
     <None Include="Resources\Стоп_серый.png" />
     <None Include="Resources\Заготовки.png" />
+    <None Include="Resources\Обновить.png" />
+    <None Include="Resources\Обновить1.png" />
+    <None Include="Resources\Обновить2.png" />
+    <None Include="Resources\Обновл точ.png" />
+    <None Include="Resources\Обновить9.png" />
     <Content Include="значок_синус %284%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

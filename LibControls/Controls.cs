@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibDevicesManager;
@@ -16,7 +17,14 @@ namespace LibControls
 {
     public class ButtonForPicture : Button
     {
-        List<Image> Images = new List<Image>();
+        public bool IsMousDown = false;
+        protected List<Image> Images = new List<Image>();
+        protected List<Image> ImagesForRotation = new List<Image>();
+        public bool IsRotation = false;
+        protected CancellationTokenSource CancelTokenRotation = new CancellationTokenSource();
+        protected CancellationToken TokenFoRotation = new CancellationToken();
+
+        protected Task RotationTask = null;
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
@@ -33,29 +41,35 @@ namespace LibControls
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            
+
             if (Images.Count == 0 && this.BackgroundImage != null)
             {
                 Images.Add(this.BackgroundImage);
-                Images.Add(DoDark(new Bitmap(this.BackgroundImage)));
+                var bitmap = new Bitmap(this.BackgroundImage);
+                Task.Run(() =>
+                {
+                    Images.Add(DoDark(bitmap));
+                });
             }
         }
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
-            base.OnMouseDown(mevent);
+            IsMousDown = true;
             this.Location = new Point(this.Location.X + 1, this.Location.Y + 1);
             this.Size = new Size(this.Width - 2, this.Height - 2);
+            base.OnMouseDown(mevent);
         }
         protected override void OnMouseUp(MouseEventArgs mevent)
         {
-            base.OnMouseUp(mevent);
+            IsMousDown = false;
             this.Location = new Point(this.Location.X - 1, this.Location.Y - 1);
             this.Size = new Size(this.Width + 2, this.Height + 2);
+            base.OnMouseUp(mevent);
         }
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            if (Images.Count > 1)
+            if (Images.Count > 1 && !IsRotation)
             {
                 this.BackgroundImage = Images[1];
             }
@@ -63,7 +77,7 @@ namespace LibControls
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (Images.Count > 0)
+            if (Images.Count > 0 && !IsRotation)
             {
                 this.BackgroundImage = Images[0];
             }
@@ -93,6 +107,100 @@ namespace LibControls
                 }
             }
             return bmp;
+        }
+       
+
+    }
+    public class ButtonForRotation : ButtonForPicture
+    {
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (this.BackgroundImage != null && ImagesForRotation.Count == 0)
+            {
+                DoImageForRotation();
+            }
+        }
+     
+        public void StartRotationBackgroundImage()
+        {
+            IsRotation = true;
+            TokenFoRotation = CancelTokenRotation.Token;
+            RotationTask = new Task(() => rotation(TokenFoRotation), TokenFoRotation);
+            RotationTask.Start();
+
+            async void rotation(CancellationToken tokenFoRotation)
+            {
+                for (int i = 0; true; i++)
+                {
+                    if (tokenFoRotation.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    if (i >= ImagesForRotation.Count)
+                    {
+                        i = 0;
+                    }
+                    try
+                    {
+                        BeginInvoke(new Action(() => this.BackgroundImage = ImagesForRotation[i]));
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                    await Task.Delay(50);
+                }
+            }
+        }
+        public void StopRotation()
+        {
+            IsRotation = false;
+            if (RotationTask == null)
+            {
+                return;
+            }
+            CancelTokenRotation.Cancel();
+            while (RotationTask.Status == TaskStatus.Running)
+            {
+                Task.Delay(100);
+            }
+            CancelTokenRotation.Dispose();
+            CancelTokenRotation = new CancellationTokenSource();
+            TokenFoRotation = CancelTokenRotation.Token;
+            RotationTask = null;
+        }
+        private void DoImageForRotation()
+        {
+            Task.Run(() =>
+            {
+                float dAngle = 365 / 32;
+                Image image = (Image)this.BackgroundImage.Clone();
+                for (float angle = 0; angle < 365 - dAngle; angle += dAngle)
+                {
+                    ImagesForRotation.Add(DoRatation(image, angle));
+                }
+            });
+
+        }
+
+        private static Bitmap DoRatation(Image image, float angle)
+        {
+            int with = image.Width;
+            int height = image.Height;
+            float horizontalResolution = image.HorizontalResolution;
+            float verticalResolution = image.VerticalResolution;
+            Bitmap rotatedImage = new Bitmap(with, height);
+            rotatedImage.SetResolution(horizontalResolution, verticalResolution);
+            using (Graphics g = Graphics.FromImage(rotatedImage))
+            {
+                g.TranslateTransform(with / 2, height / 2);
+                g.RotateTransform(-1 * angle);
+                g.TranslateTransform(-with / 2, -height / 2);
+                g.DrawImage(image, new Point(0, 0));
+            }
+
+            return rotatedImage;
         }
     }
     public enum Access
@@ -337,7 +445,7 @@ namespace LibControls
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            
+
             DoLastSelectedTreeNodeBackColorWhite();
             this.SelectedNode = null;
             base.OnMouseDown(e);

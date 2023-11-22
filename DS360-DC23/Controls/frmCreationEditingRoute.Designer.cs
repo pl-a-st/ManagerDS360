@@ -42,13 +42,13 @@
             this.chkUseLastSetting = new System.Windows.Forms.CheckBox();
             this.butCopy = new System.Windows.Forms.Button();
             this.butPaste = new System.Windows.Forms.Button();
-            this.treRouteTree = new LibControls.TreeViewWithSetting();
-            this.butDown = new LibControls.ButtonForPicture();
-            this.butUp = new LibControls.ButtonForPicture();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cboSettingsType = new System.Windows.Forms.ComboBox();
+            this.butDown = new LibControls.ButtonForPicture();
+            this.butUp = new LibControls.ButtonForPicture();
+            this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,64 +197,6 @@
             this.butPaste.UseVisualStyleBackColor = true;
             this.butPaste.Click += new System.EventHandler(this.butPaste_Click);
             // 
-            // treRouteTree
-            // 
-            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treRouteTree.ImageIndex = 0;
-            this.treRouteTree.Location = new System.Drawing.Point(18, 76);
-            this.treRouteTree.Name = "treRouteTree";
-            this.treRouteTree.SelectedImageIndex = 0;
-            this.treRouteTree.Size = new System.Drawing.Size(536, 465);
-            this.treRouteTree.TabIndex = 2;
-            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect_1);
-            this.treRouteTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseClick);
-            this.treRouteTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseDoubleClick);
-            this.treRouteTree.DoubleClick += new System.EventHandler(this.treRouteTree_DoubleClick);
-            this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
-            // 
-            // butDown
-            // 
-            this.butDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butDown.BackColor = System.Drawing.Color.Transparent;
-            this.butDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butDown.BackgroundImage")));
-            this.butDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butDown.FlatAppearance.BorderSize = 0;
-            this.butDown.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDown.Location = new System.Drawing.Point(560, 358);
-            this.butDown.Name = "butDown";
-            this.butDown.Size = new System.Drawing.Size(33, 39);
-            this.butDown.TabIndex = 14;
-            this.butDown.UseVisualStyleBackColor = false;
-            this.butDown.Click += new System.EventHandler(this.butDown_Click_1);
-            this.butDown.MouseEnter += new System.EventHandler(this.butDown_MouseEnter);
-            this.butDown.MouseLeave += new System.EventHandler(this.butDown_MouseLeave);
-            // 
-            // butUp
-            // 
-            this.butUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butUp.BackColor = System.Drawing.Color.Transparent;
-            this.butUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butUp.BackgroundImage")));
-            this.butUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butUp.FlatAppearance.BorderSize = 0;
-            this.butUp.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butUp.Location = new System.Drawing.Point(560, 267);
-            this.butUp.Name = "butUp";
-            this.butUp.Size = new System.Drawing.Size(33, 39);
-            this.butUp.TabIndex = 13;
-            this.butUp.UseVisualStyleBackColor = false;
-            this.butUp.Click += new System.EventHandler(this.butUp_Click_1);
-            this.butUp.MouseEnter += new System.EventHandler(this.butUp_MouseEnter);
-            this.butUp.MouseLeave += new System.EventHandler(this.butUp_MouseLeave);
-            // 
             // toolTip1
             // 
             this.toolTip1.ToolTipTitle = "тест";
@@ -290,6 +232,66 @@
             this.cboSettingsType.Name = "cboSettingsType";
             this.cboSettingsType.Size = new System.Drawing.Size(156, 24);
             this.cboSettingsType.TabIndex = 5;
+            // 
+            // butDown
+            // 
+            this.butDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butDown.BackColor = System.Drawing.Color.Transparent;
+            this.butDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butDown.BackgroundImage")));
+            this.butDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butDown.FlatAppearance.BorderSize = 0;
+            this.butDown.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDown.Location = new System.Drawing.Point(560, 358);
+            this.butDown.Name = "butDown";
+            this.butDown.Size = new System.Drawing.Size(33, 39);
+            this.butDown.TabIndex = 14;
+            this.butDown.UseVisualStyleBackColor = false;
+            this.butDown.Click += new System.EventHandler(this.butDown_Click_1);
+            this.butDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.butDown_MouseDown);
+            this.butDown.MouseEnter += new System.EventHandler(this.butDown_MouseEnter);
+            this.butDown.MouseLeave += new System.EventHandler(this.butDown_MouseLeave);
+            // 
+            // butUp
+            // 
+            this.butUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butUp.BackColor = System.Drawing.Color.Transparent;
+            this.butUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butUp.BackgroundImage")));
+            this.butUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butUp.FlatAppearance.BorderSize = 0;
+            this.butUp.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butUp.Location = new System.Drawing.Point(560, 267);
+            this.butUp.Name = "butUp";
+            this.butUp.Size = new System.Drawing.Size(33, 39);
+            this.butUp.TabIndex = 13;
+            this.butUp.UseVisualStyleBackColor = false;
+            this.butUp.Click += new System.EventHandler(this.butUp_Click_1);
+            this.butUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.butUp_MouseDown);
+            this.butUp.MouseEnter += new System.EventHandler(this.butUp_MouseEnter);
+            this.butUp.MouseLeave += new System.EventHandler(this.butUp_MouseLeave);
+            // 
+            // treRouteTree
+            // 
+            this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treRouteTree.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treRouteTree.ImageIndex = 0;
+            this.treRouteTree.Location = new System.Drawing.Point(18, 76);
+            this.treRouteTree.Name = "treRouteTree";
+            this.treRouteTree.SelectedImageIndex = 0;
+            this.treRouteTree.Size = new System.Drawing.Size(536, 465);
+            this.treRouteTree.TabIndex = 2;
+            this.treRouteTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treRouteTree_AfterSelect_1);
+            this.treRouteTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseClick);
+            this.treRouteTree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treRouteTree_NodeMouseDoubleClick);
+            this.treRouteTree.DoubleClick += new System.EventHandler(this.treRouteTree_DoubleClick);
+            this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
             // frmCreationEditingRoute
             // 

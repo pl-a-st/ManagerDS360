@@ -16,17 +16,23 @@ namespace LibDevicesManager
     }
     public enum DeviceType
     {
-        Generator
+        Generator,
+        Multimeter
     }
     public enum DeviceModel
     {
-        DS360, DS360Emulator, Agilent
+        DS360,
+        DS360Emulator,
+        Agilent33220A,
+        Agilent3458A,
+        Agilent34401A
     }
     public static class ComPort
     {
         private static int baudRate = 9600;
         private static Parity parity = Parity.None;
         private static StopBits stopBits = StopBits.Two;
+        //private static StartBits startBits
         private static bool dtrEnable = true;
         private static int readTimeout = 100;
         private static int writeTimeout = 100;
@@ -44,14 +50,6 @@ namespace LibDevicesManager
             {
                 portsNamesList = SetAllComPortList();
                 return portsNamesList;
-            }
-        }
-        public static List<string> DevicesNamesList
-        {
-            get
-            {
-                devicesNameList = SetDevicesNamesList();
-                return devicesNameList;
             }
         }
         public static bool IsPortNameCorrect(string portName)
@@ -105,54 +103,7 @@ namespace LibDevicesManager
             }
             return portsNamesList;
         }
-        private static List<string> SetDevicesNamesList()
-        {
-            if (devicesNameList == null)
-            {
-                devicesNameList = new List<string>();
-            }
-            devicesNameList.Clear();
-            Result result = new Result();
-            List<string> ports = PortsNamesList;
-            foreach (string port in ports)
-            {
-                /*
-                result = IsComPortDS360Emulator(port);
-                if (result == Result.Success)
-                {
-                    devicesNameList.Add("DS360-Emulator");
-                    continue;
-                }
-                */
-                /*
-                result = IsComPortDS360(port);
-                if (result == Result.Success)
-                {
-                    devicesNameList.Add("DS360");
-                    continue;
-                }
-                */
-                // ToNEXT: добавить другие известные устройства
-                devicesNameList.Add("Unknoun");
-            }
-            return devicesNameList;
-        }
-        public static string GetDeviceModel(string portName)
-        {
-            Result result = new Result();
-            result = IsComPortDS360Emulator(portName);
-            if (result == Result.Success)
-            {
-                return "DS360-Emulator";
-            }
-            result = IsComPortDS360(portName);
-            if (result == Result.Success)
-            {
-                return "DS360";
-            }
-            return "Unknown";
-        }
-        public static void PortClear(SerialPort port)
+        public static void PortClear(SerialPort port) // AAS: Этот метод надо переписать!
         {
             if (port.IsOpen)
             {
@@ -161,10 +112,10 @@ namespace LibDevicesManager
                 {
                     checkString = Receive(port);
                 }
-                while (!checkString.StartsWith("Ошибка"));
+                while (!checkString.StartsWith("Ошибка")); //AAS: возможно изменить критерий выхода из цикла?
             }
         }
-        public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port)
+        public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port) //AAS: добавить поддержку моделей Agilent
         {
             Result result = Result.Success;
             port = new SerialPort();
@@ -182,6 +133,18 @@ namespace LibDevicesManager
             if (deviceModel == DeviceModel.DS360Emulator)
             {
                 SetPortSettingForDS360Emulator();
+            }
+            if (deviceModel == DeviceModel.Agilent33220A)
+            {
+                SetPortSettingForAgilent33220A();
+            }
+            if (deviceModel == DeviceModel.Agilent34401A)
+            {
+                SetPortSettingForAgilent34401A();
+            }
+            if (deviceModel == DeviceModel.Agilent3458A)
+            {
+                SetPortSettingForAgilent3458А();
             }
             result = SetupPort(port);
             if (result != Result.Success)
@@ -307,6 +270,133 @@ namespace LibDevicesManager
             readTimeout = 500;
             writeTimeout = 500;
         }
+        private static void SetPortSettingForAgilent34401A() //AAS: дописать по документации 34401A
+        {
+            baudRate = 9600;
+            parity = Parity.None;  //AAS: проверить! по дефолту стоит Parity.Even
+            stopBits = StopBits.Two;
+            dtrEnable = true;   //AAS: проверить!
+            readTimeout = 100;
+            writeTimeout = 100;
+            /*
+            
+            dtrEnable = false;
+            readTimeout = 500;
+            writeTimeout = 500;
+            */
+        }
+        private static void SetPortSettingForAgilent3458А() //AAS: дописать по документации 3458А
+        {
+            baudRate = 9600;
+            /*
+            parity = Parity.None;
+            stopBits = StopBits.One;
+            dtrEnable = false;
+            readTimeout = 500;
+            writeTimeout = 500;
+            */
+        }
+        private static void SetPortSettingForAgilent33220A() //AAS: дописать по документации 33220A
+        {
+            baudRate = 9600;
+            /*
+            parity = Parity.None;
+            stopBits = StopBits.One;
+            dtrEnable = false;
+            readTimeout = 500;
+            writeTimeout = 500;
+            */
+        }
+        public static int GetPortNumberFromPortName(string portName)
+        {
+            int portNumber = 0;
+            if (!IsPortNameCorrect(portName))
+            {
+                return portNumber;
+            }
+            int firstDigitPosition = 3;
+            int numberDigits = 3;
+            if (firstDigitPosition + numberDigits > (portName.Length - 1))
+            {
+                numberDigits = portName.Length - firstDigitPosition;
+            }
+            portName = portName.Substring(firstDigitPosition, numberDigits);
+            while (!char.IsDigit(portName[portName.Length - 1]))
+            {
+                portName = portName.Substring(0, portName.Length - 1);
+            }
+            int.TryParse(portName, out portNumber);
+            return portNumber;
+        }
+
+        #region UnUsed
+        public static List<string> DevicesNamesList
+        {
+            get
+            {
+                devicesNameList = SetDevicesNamesList();
+                return devicesNameList;
+            }
+        }
+        private static List<string> GetAllGeneratorsPorts()
+        {
+            List<string> generators = new List<string>();
+            for (int i = 0; i < PortsNamesList.Count; i++)
+            {
+                if (DevicesNamesList[i].Contains("DS360")) //ToNEXT: добавить другие генераторы
+                {
+                    generators.Add(PortsNamesList[i]);
+                }
+            }
+            return generators;
+        }
+        private static List<string> SetDevicesNamesList() //
+        {
+            if (devicesNameList == null)
+            {
+                devicesNameList = new List<string>();
+            }
+            devicesNameList.Clear();
+            Result result = new Result();
+            List<string> ports = PortsNamesList;
+            foreach (string port in ports)
+            {
+                /*
+                result = IsComPortDS360Emulator(port);
+                if (result == Result.Success)
+                {
+                    devicesNameList.Add("DS360-Emulator");
+                    continue;
+                }
+                */
+                /*
+                result = IsComPortDS360(port);
+                if (result == Result.Success)
+                {
+                    devicesNameList.Add("DS360");
+                    continue;
+                }
+                */
+                // ToNEXT: добавить другие известные устройства
+                devicesNameList.Add("Unknoun");
+            }
+            return devicesNameList;
+        }
+        public static string GetDeviceModel(string portName)
+        {
+            Result result = new Result();
+            result = IsComPortDS360Emulator(portName);
+            if (result == Result.Success)
+            {
+                return "DS360-Emulator";
+            }
+            result = IsComPortDS360(portName);
+            if (result == Result.Success)
+            {
+                return "DS360";
+            }
+            return "Unknown";
+        }
         private static Result IsComPortDS360(string portName)
         {
             Result result = Result.Success;
@@ -354,41 +444,6 @@ namespace LibDevicesManager
             }
             result = PortClose(port);
             return result;
-        }
-        public static int GetPortNumberFromPortName(string portName)
-        {
-            int portNumber = 0;
-            if (!IsPortNameCorrect(portName))
-            {
-                return portNumber;
-            }
-            int firstDigitPosition = 3;
-            int numberDigits = 3;
-            if (firstDigitPosition + numberDigits > (portName.Length - 1))
-            {
-                numberDigits = portName.Length - firstDigitPosition;
-            }
-            portName = portName.Substring(firstDigitPosition, numberDigits);
-            while (!char.IsDigit(portName[portName.Length - 1]))
-            {
-                portName = portName.Substring(0, portName.Length - 1);
-            }
-            int.TryParse(portName, out portNumber);
-            return portNumber;
-        }
-        #region UnUsed
-
-        private static List<string> GetAllGeneratorsPorts()
-        {
-            List<string> generators = new List<string>();
-            for (int i = 0; i < PortsNamesList.Count; i++)
-            {
-                if (DevicesNamesList[i].Contains("DS360")) //ToNEXT: добавить другие генераторы
-                {
-                    generators.Add(PortsNamesList[i]);
-                }
-            }
-            return generators;
         }
         #endregion UnUsed
     }

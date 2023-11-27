@@ -1,4 +1,5 @@
 ﻿using LibControls;
+using LibDevicesManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,9 +19,42 @@ namespace ManagerDS360
             InitializeComponent();
         }
 
-        private void frmDevicePlugIn_Load(object sender, EventArgs e)
+        private async void frmDevicePlugIn_Load(object sender, EventArgs e)
         {
-            
+            await GetDefaultDS360ToCboListComPorts();
+        }
+        private async Task GetDefaultDS360ToCboListComPorts()
+        {
+            cboListComPorts.Enabled = false;
+            cboListComPorts.Items.Clear();
+            await Task.Run(() => butRefreshDS360List.StartRotationBackgroundImage());
+            await Task.Delay(100);
+            if (DS360Setting.ComPortDefaultName== "NONE")
+            {
+                Task getComes = new Task(() => DS360Setting.SetFirstDS360AsDefault());
+                await Task.Run(() => getComes.Start());
+                await Task.Run(() => getComes.Wait());
+            }
+            string name = DS360Setting.ComPortDefaultName;
+            if (name == "NONE")
+            {
+                name = "не выбран";
+            }
+            cboListComPorts.Items.Add(name);
+            cboListComPorts.SelectedItem = name;
+            await Task.Run(() => butRefreshDS360List.StopRotationBackgroundImage());
+            cboListComPorts.Enabled = true;
+        }
+        private async Task SetDefaultDS360()
+        {
+            Task getComes = new Task(() => DS360Setting.SetFirstDS360AsDefault());
+            await Task.Run(() => getComes.Start());
+            await Task.Run(() => getComes.Wait());
+            string name = DS360Setting.ComPortDefaultName;
+            if (name == "NONE")
+            {
+                name = "не выбран";
+            }
         }
         private async void RotateImage()
         {
@@ -44,16 +78,17 @@ namespace ManagerDS360
 
         }
 
-        private void buttonForPicture1_Click(object sender, EventArgs e)
+        private async void buttonForPicture1_Click(object sender, EventArgs e)
         {
-            SwetchRotationButton(buttonForPicture1);
+           
+            await GetDefaultDS360ToCboListComPorts();
         }
 
         private void SwetchRotationButton(ButtonForRotation buttonForPicture)
         {
             if (buttonForPicture.IsRotation)
             {
-                buttonForPicture.StopRotation();
+                buttonForPicture.StopRotationBackgroundImage();
                 return;
             }
             if (!buttonForPicture.IsRotation)

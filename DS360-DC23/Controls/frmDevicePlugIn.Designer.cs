@@ -33,37 +33,37 @@ namespace ManagerDS360
             this.cboListComPorts = new System.Windows.Forms.ComboBox();
             this.lblLisеComPorts = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonForPicture1 = new LibControls.ButtonForRotation();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonForPicture2 = new LibControls.ButtonForRotation();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.buttonForPicture3 = new LibControls.ButtonForRotation();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.buttonForPicture5 = new LibControls.ButtonForRotation();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonForPicture4 = new LibControls.ButtonForRotation();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBox7 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.buttonForPicture6 = new LibControls.ButtonForRotation();
             this.comboBox8 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox9 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonForPicture7 = new LibControls.ButtonForRotation();
             this.comboBox10 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.buttonForPicture6 = new LibControls.ButtonForRotation();
+            this.buttonForPicture7 = new LibControls.ButtonForRotation();
+            this.buttonForPicture5 = new LibControls.ButtonForRotation();
+            this.buttonForPicture4 = new LibControls.ButtonForRotation();
+            this.buttonForPicture3 = new LibControls.ButtonForRotation();
+            this.buttonForPicture2 = new LibControls.ButtonForRotation();
+            this.butRefreshDS360List = new LibControls.ButtonForRotation();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -94,7 +94,7 @@ namespace ManagerDS360
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.buttonForPicture1);
+            this.groupBox1.Controls.Add(this.butRefreshDS360List);
             this.groupBox1.Controls.Add(this.cboListComPorts);
             this.groupBox1.Controls.Add(this.lblLisеComPorts);
             this.groupBox1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -106,25 +106,6 @@ namespace ManagerDS360
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Генератор DS-360 по умолчанию";
-            // 
-            // buttonForPicture1
-            // 
-            this.buttonForPicture1.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture1.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture1.Location = new System.Drawing.Point(388, 37);
-            this.buttonForPicture1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture1.Name = "buttonForPicture1";
-            this.buttonForPicture1.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture1.TabIndex = 5;
-            this.buttonForPicture1.UseVisualStyleBackColor = false;
-            this.buttonForPicture1.Click += new System.EventHandler(this.buttonForPicture1_Click);
             // 
             // groupBox2
             // 
@@ -140,25 +121,6 @@ namespace ManagerDS360
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Генератор Agilent основной по умолчанию";
-            // 
-            // buttonForPicture2
-            // 
-            this.buttonForPicture2.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture2.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture2.Location = new System.Drawing.Point(386, 36);
-            this.buttonForPicture2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture2.Name = "buttonForPicture2";
-            this.buttonForPicture2.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture2.TabIndex = 7;
-            this.buttonForPicture2.UseVisualStyleBackColor = false;
-            this.buttonForPicture2.Click += new System.EventHandler(this.buttonForPicture2_Click);
             // 
             // label1
             // 
@@ -196,25 +158,6 @@ namespace ManagerDS360
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Генератор Agilent для фазы по умолчанию";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
-            // 
-            // buttonForPicture3
-            // 
-            this.buttonForPicture3.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture3.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture3.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture3.Location = new System.Drawing.Point(383, 41);
-            this.buttonForPicture3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture3.Name = "buttonForPicture3";
-            this.buttonForPicture3.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture3.TabIndex = 7;
-            this.buttonForPicture3.UseVisualStyleBackColor = false;
-            this.buttonForPicture3.Click += new System.EventHandler(this.buttonForPicture3_Click_1);
             // 
             // comboBox2
             // 
@@ -281,24 +224,6 @@ namespace ManagerDS360
             this.label5.TabIndex = 13;
             this.label5.Text = "Тип вольтметра";
             // 
-            // buttonForPicture5
-            // 
-            this.buttonForPicture5.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture5.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture5.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture5.Location = new System.Drawing.Point(803, 86);
-            this.buttonForPicture5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture5.Name = "buttonForPicture5";
-            this.buttonForPicture5.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture5.TabIndex = 11;
-            this.buttonForPicture5.UseVisualStyleBackColor = false;
-            // 
             // comboBox6
             // 
             this.comboBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -340,24 +265,6 @@ namespace ManagerDS360
             this.label4.Size = new System.Drawing.Size(111, 14);
             this.label4.TabIndex = 8;
             this.label4.Text = "Тип генератора";
-            // 
-            // buttonForPicture4
-            // 
-            this.buttonForPicture4.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture4.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture4.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture4.Location = new System.Drawing.Point(382, 83);
-            this.buttonForPicture4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture4.Name = "buttonForPicture4";
-            this.buttonForPicture4.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture4.TabIndex = 6;
-            this.buttonForPicture4.UseVisualStyleBackColor = false;
             // 
             // comboBox3
             // 
@@ -423,24 +330,6 @@ namespace ManagerDS360
             this.label7.TabIndex = 13;
             this.label7.Text = "Тип вольтметра";
             // 
-            // buttonForPicture6
-            // 
-            this.buttonForPicture6.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture6.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture6.Location = new System.Drawing.Point(802, 86);
-            this.buttonForPicture6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture6.Name = "buttonForPicture6";
-            this.buttonForPicture6.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture6.TabIndex = 11;
-            this.buttonForPicture6.UseVisualStyleBackColor = false;
-            // 
             // comboBox8
             // 
             this.comboBox8.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -483,24 +372,6 @@ namespace ManagerDS360
             this.label9.TabIndex = 8;
             this.label9.Text = "Тип генератора";
             // 
-            // buttonForPicture7
-            // 
-            this.buttonForPicture7.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture7.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture7.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture7.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture7.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture7.Location = new System.Drawing.Point(383, 87);
-            this.buttonForPicture7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture7.Name = "buttonForPicture7";
-            this.buttonForPicture7.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture7.TabIndex = 6;
-            this.buttonForPicture7.UseVisualStyleBackColor = false;
-            // 
             // comboBox10
             // 
             this.comboBox10.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -522,6 +393,135 @@ namespace ManagerDS360
             this.label10.TabIndex = 4;
             this.label10.Text = "Список генераторов";
             // 
+            // buttonForPicture6
+            // 
+            this.buttonForPicture6.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture6.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture6.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture6.Location = new System.Drawing.Point(802, 86);
+            this.buttonForPicture6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture6.Name = "buttonForPicture6";
+            this.buttonForPicture6.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture6.TabIndex = 11;
+            this.buttonForPicture6.UseVisualStyleBackColor = false;
+            // 
+            // buttonForPicture7
+            // 
+            this.buttonForPicture7.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture7.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture7.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture7.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture7.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture7.Location = new System.Drawing.Point(383, 87);
+            this.buttonForPicture7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture7.Name = "buttonForPicture7";
+            this.buttonForPicture7.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture7.TabIndex = 6;
+            this.buttonForPicture7.UseVisualStyleBackColor = false;
+            // 
+            // buttonForPicture5
+            // 
+            this.buttonForPicture5.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture5.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture5.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture5.Location = new System.Drawing.Point(803, 86);
+            this.buttonForPicture5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture5.Name = "buttonForPicture5";
+            this.buttonForPicture5.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture5.TabIndex = 11;
+            this.buttonForPicture5.UseVisualStyleBackColor = false;
+            // 
+            // buttonForPicture4
+            // 
+            this.buttonForPicture4.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture4.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture4.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture4.Location = new System.Drawing.Point(382, 83);
+            this.buttonForPicture4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture4.Name = "buttonForPicture4";
+            this.buttonForPicture4.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture4.TabIndex = 6;
+            this.buttonForPicture4.UseVisualStyleBackColor = false;
+            // 
+            // buttonForPicture3
+            // 
+            this.buttonForPicture3.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture3.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture3.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture3.Location = new System.Drawing.Point(383, 41);
+            this.buttonForPicture3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture3.Name = "buttonForPicture3";
+            this.buttonForPicture3.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture3.TabIndex = 7;
+            this.buttonForPicture3.UseVisualStyleBackColor = false;
+            this.buttonForPicture3.Click += new System.EventHandler(this.buttonForPicture3_Click_1);
+            // 
+            // buttonForPicture2
+            // 
+            this.buttonForPicture2.BackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture2.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.buttonForPicture2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonForPicture2.FlatAppearance.BorderSize = 0;
+            this.buttonForPicture2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonForPicture2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForPicture2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForPicture2.Location = new System.Drawing.Point(386, 36);
+            this.buttonForPicture2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonForPicture2.Name = "buttonForPicture2";
+            this.buttonForPicture2.Size = new System.Drawing.Size(40, 40);
+            this.buttonForPicture2.TabIndex = 7;
+            this.buttonForPicture2.UseVisualStyleBackColor = false;
+            this.buttonForPicture2.Click += new System.EventHandler(this.buttonForPicture2_Click);
+            // 
+            // butRefreshDS360List
+            // 
+            this.butRefreshDS360List.BackColor = System.Drawing.Color.Transparent;
+            this.butRefreshDS360List.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.butRefreshDS360List.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butRefreshDS360List.FlatAppearance.BorderSize = 0;
+            this.butRefreshDS360List.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshDS360List.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshDS360List.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshDS360List.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butRefreshDS360List.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butRefreshDS360List.Location = new System.Drawing.Point(388, 37);
+            this.butRefreshDS360List.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.butRefreshDS360List.Name = "butRefreshDS360List";
+            this.butRefreshDS360List.Size = new System.Drawing.Size(40, 40);
+            this.butRefreshDS360List.TabIndex = 5;
+            this.butRefreshDS360List.UseVisualStyleBackColor = false;
+            this.butRefreshDS360List.Click += new System.EventHandler(this.buttonForPicture1_Click);
+            // 
             // frmDevicePlugIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
@@ -535,6 +535,7 @@ namespace ManagerDS360
             this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "frmDevicePlugIn";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Подключение приборов";
             this.Load += new System.EventHandler(this.frmDevicePlugIn_Load);
             this.groupBox1.ResumeLayout(false);
@@ -556,7 +557,7 @@ namespace ManagerDS360
         internal System.Windows.Forms.ComboBox cboListComPorts;
         private System.Windows.Forms.Label lblLisеComPorts;
         private System.Windows.Forms.GroupBox groupBox1;
-        private LibControls.ButtonForRotation buttonForPicture1;
+        private LibControls.ButtonForRotation butRefreshDS360List;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;

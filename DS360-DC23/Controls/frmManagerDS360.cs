@@ -33,7 +33,7 @@ namespace ManagerDS360
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
             LoadCboSavedRoutes();
-            await SetDefaultDS360();
+            //await SetDefaultDS360();
             SetToolTipes();
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;

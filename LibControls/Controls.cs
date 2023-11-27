@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -77,11 +78,17 @@ namespace LibControls
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
+            MakeDefaultBackGroundImage();
+        }
+
+        protected void MakeDefaultBackGroundImage()
+        {
             if (Images.Count > 0 && !IsRotation)
             {
                 this.BackgroundImage = Images[0];
             }
         }
+
         private Bitmap DoDark(Bitmap bmp)
         {
             for (int i = 0; i < bmp.Width; i++)
@@ -121,14 +128,14 @@ namespace LibControls
                 DoImageForRotation();
             }
         }
-     
+        [HandleProcessCorruptedStateExceptions]
         public void StartRotationBackgroundImage()
         {
             IsRotation = true;
             TokenFoRotation = CancelTokenRotation.Token;
             RotationTask = new Task(() => rotation(TokenFoRotation), TokenFoRotation);
             RotationTask.Start();
-
+            
             async void rotation(CancellationToken tokenFoRotation)
             {
                 for (int i = 0; true; i++)
@@ -143,7 +150,10 @@ namespace LibControls
                     }
                     try
                     {
-                        BeginInvoke(new Action(() => this.BackgroundImage = ImagesForRotation[i]));
+                        if (ImagesForRotation.Count > i)
+                        {
+                            BeginInvoke(new Action(() => this.BackgroundImage = ImagesForRotation[i]));
+                        }
                     }
                     catch
                     {
@@ -153,7 +163,7 @@ namespace LibControls
                 }
             }
         }
-        public void StopRotation()
+        public void StopRotationBackgroundImage()
         {
             IsRotation = false;
             if (RotationTask == null)
@@ -169,6 +179,7 @@ namespace LibControls
             CancelTokenRotation = new CancellationTokenSource();
             TokenFoRotation = CancelTokenRotation.Token;
             RotationTask = null;
+            MakeDefaultBackGroundImage();
         }
         private void DoImageForRotation()
         {

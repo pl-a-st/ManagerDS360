@@ -8,7 +8,7 @@ using Ivi.Visa.Interop;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Agilent3458A
+    public class Agilent3458A 
     {
         #region PublicFields
 

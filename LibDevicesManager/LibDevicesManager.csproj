@@ -48,7 +48,7 @@
     <Compile Include="ComPort.cs" />
     <Compile Include="DC23\ManagerDC23.cs" />
     <Compile Include="DS360.cs" />
-    <Compile Include="IDevice.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Agilent34401A
+    public class Agilent34401A : IMultimeter
     {
         #region PublicFields
 
@@ -32,10 +32,20 @@ namespace LibDevicesManager
         private string resultMessage;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false; //ToDel
+
         #endregion PublicFields
 
         #region PublicMethods
 
+        public Result Send(string command)
+        {
+            throw new NotImplementedException(); //ToDo
+        }
+
+        public string Receive()
+        {
+            throw new NotImplementedException(); //ToDo
+        }
         #endregion PublicMethods
 
     }

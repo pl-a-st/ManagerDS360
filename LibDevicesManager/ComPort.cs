@@ -10,23 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace LibDevicesManager
 {
-    public enum Result
-    {
-        Success, Failure, Exception, ParamError, AcsessError, Canceled
-    }
-    public enum DeviceType
-    {
-        Generator,
-        Multimeter
-    }
-    public enum DeviceModel
-    {
-        DS360,
-        DS360Emulator,
-        Agilent33220A,
-        Agilent3458A,
-        Agilent34401A
-    }
+
     public static class ComPort
     {
         private static int baudRate = 9600;

@@ -707,7 +707,7 @@ namespace ManagerDS360
             Task taskSend = new Task(SendAllChacked, TokenForTest);
             taskSend.Start();
             SetLocationLblTestStatus("Идет испытание!!!");
-            Task taskBlink = new Task((Action)(() => Blink(taskSend)));
+            Task taskBlink = new Task((Action)(() => LblTestBlink(taskSend)));
             taskBlink.Start();
             SetControlsEnabledForTest(TestStatus.Started);
         }
@@ -720,7 +720,7 @@ namespace ManagerDS360
                 lblTestStatus.Location.Y);
         }
 
-        private async void Blink(Task task)
+        private async void LblTestBlink(Task task)
         {
             while (task.Status == TaskStatus.Running)
             {
@@ -877,6 +877,11 @@ namespace ManagerDS360
         private void butStopTest_Click(object sender, EventArgs e)
         {
             //привязываетсяя в методе butStartTest_Click
+        }
+
+        private void mnuInfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -50,11 +50,11 @@ namespace ManagerDS360 {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cboTestedDevice = new System.Windows.Forms.ComboBox();
             this.lblTestedDevice = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.grpTest = new System.Windows.Forms.GroupBox();
             this.butStartTest = new LibControls.ButtonForPicture();
             this.butLable = new LibControls.ButtonForPicture();
             this.butStopTest = new LibControls.ButtonForPicture();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grpTest = new System.Windows.Forms.GroupBox();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -271,17 +271,18 @@ namespace ManagerDS360 {
             this.mnuInfo.Name = "mnuInfo";
             this.mnuInfo.Size = new System.Drawing.Size(103, 20);
             this.mnuInfo.Text = "Информация";
+            this.mnuInfo.Click += new System.EventHandler(this.mnuInfo_Click);
             // 
             // mnuHelp
             // 
             this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Size = new System.Drawing.Size(158, 22);
+            this.mnuHelp.Size = new System.Drawing.Size(180, 22);
             this.mnuHelp.Text = "Справка";
             // 
             // mnuAboutProgram
             // 
             this.mnuAboutProgram.Name = "mnuAboutProgram";
-            this.mnuAboutProgram.Size = new System.Drawing.Size(158, 22);
+            this.mnuAboutProgram.Size = new System.Drawing.Size(180, 22);
             this.mnuAboutProgram.Text = "О программе";
             this.mnuAboutProgram.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -368,26 +369,6 @@ namespace ManagerDS360 {
             this.lblTestedDevice.TabIndex = 0;
             this.lblTestedDevice.Text = "Подключить поверяемый прибор";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(28, 337);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 28);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Выполнить последовательно\r\n команды";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // grpTest
-            // 
-            this.grpTest.Location = new System.Drawing.Point(15, 321);
-            this.grpTest.Name = "grpTest";
-            this.grpTest.Size = new System.Drawing.Size(227, 159);
-            this.grpTest.TabIndex = 26;
-            this.grpTest.TabStop = false;
-            this.grpTest.Enter += new System.EventHandler(this.groupBox3_Enter_1);
-            // 
             // butStartTest
             // 
             this.butStartTest.BackColor = System.Drawing.Color.Transparent;
@@ -440,6 +421,26 @@ namespace ManagerDS360 {
             this.butStopTest.TabIndex = 23;
             this.butStopTest.UseVisualStyleBackColor = false;
             this.butStopTest.Click += new System.EventHandler(this.butStopTest_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(28, 337);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 28);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Выполнить последовательно\r\n команды";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpTest
+            // 
+            this.grpTest.Location = new System.Drawing.Point(15, 321);
+            this.grpTest.Name = "grpTest";
+            this.grpTest.Size = new System.Drawing.Size(227, 159);
+            this.grpTest.TabIndex = 26;
+            this.grpTest.TabStop = false;
+            this.grpTest.Enter += new System.EventHandler(this.groupBox3_Enter_1);
             // 
             // treRouteTree
             // 

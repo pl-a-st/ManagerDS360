@@ -48,7 +48,9 @@
     <Compile Include="ComPort.cs" />
     <Compile Include="DC23\ManagerDC23.cs" />
     <Compile Include="DS360.cs" />
+    <Compile Include="GpibPort.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Multimeter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

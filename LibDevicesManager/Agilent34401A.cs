@@ -33,19 +33,19 @@ namespace LibDevicesManager
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false; //ToDel
 
-        public Result Send()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Receive()
-        {
-            throw new NotImplementedException();
-        }
         #endregion PublicFields
 
         #region PublicMethods
 
+        public Result Send(string command)
+        {
+            throw new NotImplementedException(); //ToDo
+        }
+
+        public string Receive()
+        {
+            throw new NotImplementedException(); //ToDo
+        }
         #endregion PublicMethods
 
     }

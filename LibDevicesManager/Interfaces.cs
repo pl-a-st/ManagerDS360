@@ -13,7 +13,8 @@ namespace LibDevicesManager
     public enum DeviceType
     {
         Generator,
-        Multimeter
+        Multimeter,
+        Unknown
     }
     public enum DeviceModel
     {
@@ -21,13 +22,14 @@ namespace LibDevicesManager
         DS360Emulator,
         Agilent33220A,
         Agilent3458A,
-        Agilent34401A
+        Agilent34401A,
+        Unknown
     }
     interface IDevice
     {
         DeviceType DeviceType { get; }
         DeviceModel DeviceModel { get; }
-        Result Send();
+        Result Send(string command);
         string Receive();
     }
     interface IGenerator : IDevice

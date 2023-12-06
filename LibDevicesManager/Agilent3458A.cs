@@ -8,7 +8,7 @@ using Ivi.Visa.Interop;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Agilent3458A 
+    public class Agilent3458A : Multimeter
     {
         #region PublicFields
 
@@ -16,7 +16,7 @@ namespace LibDevicesManager
         /// Тип устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceType </returns>
-        public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
+        //public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
         /// <summary>
         /// Модель устройства
@@ -42,10 +42,20 @@ namespace LibDevicesManager
         {
 
         }
+
         #endregion Constructors
 
         #region PublicMethods
 
+        public Result Send(string command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Receive()
+        {
+            throw new NotImplementedException();
+        }
         #endregion PublicMethods
     }
 }

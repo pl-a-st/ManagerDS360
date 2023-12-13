@@ -21,7 +21,7 @@ namespace LibDevicesManager
         /// Модель устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
-        public DeviceModel DeviceModel { get { return DeviceModel.Agilent34401A; } }
+        public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent34401A; } }
         #endregion PublicFields
 
         #region PrivateFields

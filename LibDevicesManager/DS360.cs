@@ -113,7 +113,7 @@ namespace LibDevicesManager
         /// Модель генератора
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
-        public DeviceModel DeviceModel { get { return DeviceModel.DS360; } }
+        public GeneratorModel GeneratorModel { get { return GeneratorModel.DS360; } }
         /// <summary>
         /// Тип устройства
         /// </summary>
@@ -614,7 +614,7 @@ namespace LibDevicesManager
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
-            result = ComPort.PortOpen(DeviceModel, portName, out SerialPort port);
+            result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -1071,7 +1071,7 @@ namespace LibDevicesManager
         private static string GetDS360IdentificationString(string comPortName)
         {
             string command = "*IDN?";
-            Result result = ComPort.PortOpen(DeviceModel.DS360, comPortName, out SerialPort port);
+            Result result = ComPort.PortOpen(GeneratorModel.DS360, comPortName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -1094,7 +1094,7 @@ namespace LibDevicesManager
         private static string GetDS360EIdentificationString(string comPortName)
         {
             string command = "*IDN?";
-            Result result = ComPort.PortOpen(DeviceModel.DS360Emulator, comPortName, out SerialPort port);
+            Result result = ComPort.PortOpen(GeneratorModel.DS360Emulator, comPortName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);

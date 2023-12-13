@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace LibDevicesManager
 {
+    public enum MeasureType
+    {
+        AC,
+        DC
+    }
+    public enum PhysicalParameter
+    {
+        U,
+        I
+    }
+    [Serializable]
     public class Multimeter : IMultimeter
     {
         /// <summary>
@@ -14,9 +25,15 @@ namespace LibDevicesManager
         /// <returns>одно из значений перечисления DeviceType </returns>
         public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
-        public DeviceModel DeviceModel { get { return deviceModel; } set { deviceModel = value; } }
+        public MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
+        public MeasureType MeasureType { get { return measureType; } set { measureType = value; } }
+        public PhysicalParameter PhysicalParameter { get { return physicalParameter; } set { physicalParameter = value; } }
+        public int LowLimitFrequency;
+        
+        private MeasureType measureType = MeasureType.AC;
+        private PhysicalParameter physicalParameter = PhysicalParameter.U;
 
-        private DeviceModel deviceModel = DeviceModel.Unknown;
+        private MultimeterModel multimeterModel = MultimeterModel.Unknown;
         public Multimeter() { }
         public Result SendSetting()
         {
@@ -29,12 +46,12 @@ namespace LibDevicesManager
         }
         public string Receive()
         {
-            if (deviceModel == DeviceModel.Agilent3458A)
+            if (multimeterModel == MultimeterModel.Agilent3458A)
             {
                 Agilent3458A multimeter = new Agilent3458A();
                 return multimeter.Receive();
             }
-            if (deviceModel == DeviceModel.Agilent34401A)
+            if (multimeterModel == MultimeterModel.Agilent34401A)
             {
                 return string.Empty; //Прописать код
             }
@@ -43,12 +60,12 @@ namespace LibDevicesManager
 
         public Result Send(string command)
         {
-            if (deviceModel == DeviceModel.Agilent3458A)
+            if (multimeterModel == MultimeterModel.Agilent3458A)
             {
                 Agilent3458A multimeter = new Agilent3458A();
                 return multimeter.Send(command);
             }
-            if (deviceModel == DeviceModel.Agilent34401A)
+            if (multimeterModel == MultimeterModel.Agilent34401A)
             {
                 return Result.Failure; //Прописать код
             }

@@ -99,7 +99,7 @@ namespace LibDevicesManager
                 while (!checkString.StartsWith("Ошибка")); //AAS: возможно изменить критерий выхода из цикла?
             }
         }
-        public static Result PortOpen(DeviceModel deviceModel, string portName, out SerialPort port) //AAS: добавить поддержку моделей Agilent
+        public static Result PortOpen(GeneratorModel deviceModel, string portName, out SerialPort port) //AAS: добавить поддержку моделей Agilent
         {
             Result result = Result.Success;
             port = new SerialPort();
@@ -110,18 +110,19 @@ namespace LibDevicesManager
             }
             string comPortName = "COM" + portNumber;
             port.PortName = comPortName;
-            if (deviceModel == DeviceModel.DS360)
+            if (deviceModel == GeneratorModel.DS360)
             {
                 SetPortSettingForDS360();
             }
-            if (deviceModel == DeviceModel.DS360Emulator)
+            if (deviceModel == GeneratorModel.DS360Emulator)
             {
                 SetPortSettingForDS360Emulator();
             }
-            if (deviceModel == DeviceModel.Agilent33220A)
+            if (deviceModel == GeneratorModel.Agilent33220A)
             {
                 SetPortSettingForAgilent33220A();
             }
+            /*
             if (deviceModel == DeviceModel.Agilent34401A)
             {
                 SetPortSettingForAgilent34401A();
@@ -130,6 +131,7 @@ namespace LibDevicesManager
             {
                 SetPortSettingForAgilent3458А();
             }
+            */
             result = SetupPort(port);
             if (result != Result.Success)
             {
@@ -385,7 +387,7 @@ namespace LibDevicesManager
         {
             Result result = Result.Success;
             //SetPortSettingForDS360();
-            result = PortOpen(DeviceModel.DS360, portName, out SerialPort port);
+            result = PortOpen(GeneratorModel.DS360, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 port.Dispose();
@@ -409,7 +411,7 @@ namespace LibDevicesManager
         {
             Result result = Result.Success;
             //SetPortSettingForDS360Emulator();
-            result = PortOpen(DeviceModel.DS360Emulator, portName, out SerialPort port);
+            result = PortOpen(GeneratorModel.DS360Emulator, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 port.Dispose();

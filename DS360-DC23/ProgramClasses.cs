@@ -30,6 +30,7 @@ namespace ManagerDS360
         DS360,
         DC23,
         AllDC23InRoute,
+        VibroCalib,
         Message
     }
     public static class PmData
@@ -42,6 +43,7 @@ namespace ManagerDS360
             { ManagerDS360.SettingsType.DC23,"СД-23"},
             { ManagerDS360.SettingsType.AllDC23InRoute, "Все узлы маршрута"},
             { ManagerDS360.SettingsType.Message,"Сообщение"},
+            { ManagerDS360.SettingsType.VibroCalib,"Вибростенд"},
         };
         public static Dictionary<Channel, string> Channel = new Dictionary<Channel, string>()
         {

@@ -221,8 +221,7 @@ namespace ManagerDS360
                 return;
             }
             var frmGetNodeAddresses = new frmGetAllNodeAddressesFromRoute();
-            frmGetNodeAddresses.ShowDialog();
-            if (frmGetNodeAddresses.DialogResult == DialogResult.OK)
+            if (frmGetNodeAddresses.ShowDialog() == DialogResult.OK)
             {
                 for (int i = 0; i < frmGetNodeAddresses.lstAddresses.Items.Count; i += 2)
                 {

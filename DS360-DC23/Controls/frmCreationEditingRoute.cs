@@ -206,45 +206,52 @@ namespace ManagerDS360
             }
             if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.AllDC23InRoute)
             {
-                if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+                AddAllDC23InRoute();
+            }
+            if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.VibroCalib)
+            {
+               // todo прописать вызов окна и добавление узла с настройкой вибрационной установки
+            }
+        }
+        private void AddAllDC23InRoute()
+        {
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                MessageBox.Show("Настройка не может содержать другие элементы!");
+                return;
+            }
+            var frmGetNodeAddresses = new frmGetAllNodeAddressesFromRoute();
+            frmGetNodeAddresses.ShowDialog();
+            if (frmGetNodeAddresses.DialogResult == DialogResult.OK)
+            {
+                for (int i = 0; i < frmGetNodeAddresses.lstAddresses.Items.Count; i += 2)
                 {
-                    MessageBox.Show("Настройка не может содержать другие элементы!");
-                    return;
-                }
-                var frmGetNodeAddresses = new frmGetAllNodeAddressesFromRoute();
-                frmGetNodeAddresses.ShowDialog();
-                if (frmGetNodeAddresses.DialogResult == DialogResult.OK)
-                {
-                    for (int i = 0; i < frmGetNodeAddresses.lstAddresses.Items.Count; i += 2)
+                    ManagerDC23 dc23 = new ManagerDC23();
+                    dc23.TimeToAnswer = 60;
+                    dc23.SetRouteName(frmGetNodeAddresses.txtRouteName.Text);
+                    dc23.SetСhannelFirstAddress(frmGetNodeAddresses.lstAddresses.Items[i].ToString());
+                    string channelB = string.Empty;
+                    if (i + 1 < frmGetNodeAddresses.lstAddresses.Items.Count)
                     {
-                        ManagerDC23 dc23 = new ManagerDC23();
-                        dc23.TimeToAnswer = 60;
-                        dc23.SetRouteName(frmGetNodeAddresses.txtRouteName.Text);
-                        dc23.SetСhannelFirstAddress(frmGetNodeAddresses.lstAddresses.Items[i].ToString());
-                        string channelB = string.Empty;
-                        if (i+1< frmGetNodeAddresses.lstAddresses.Items.Count)
-                        {
-                            channelB = frmGetNodeAddresses.lstAddresses.Items[i + 1].ToString();
-                            dc23.SetСhannelSecondAddress(channelB);
+                        channelB = frmGetNodeAddresses.lstAddresses.Items[i + 1].ToString();
+                        dc23.SetСhannelSecondAddress(channelB);
 
-                        }
-                        string textNode = GetTextNode(frmGetNodeAddresses.txtRouteName.Text,
-                            frmGetNodeAddresses.lstAddresses.Items[i].ToString(),
-                            channelB);
-                        TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
-                        treeNode.DC23 = dc23;
-                        if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
-                        {
-                            treRouteTree.Nodes.Add(treeNode);
-                            continue;
-                        }
-                        TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-                        SelectedNodeWithSetup.Nodes.Add(treeNode);
-                        SelectedNodeWithSetup.Expand();
                     }
+                    string textNode = GetTextNode(frmGetNodeAddresses.txtRouteName.Text,
+                        frmGetNodeAddresses.lstAddresses.Items[i].ToString(),
+                        channelB);
+                    TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.DC23, textNode);
+                    treeNode.DC23 = dc23;
+                    if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+                    {
+                        treRouteTree.Nodes.Add(treeNode);
+                        continue;
+                    }
+                    TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+                    SelectedNodeWithSetup.Nodes.Add(treeNode);
+                    SelectedNodeWithSetup.Expand();
                 }
             }
-
         }
         private void AddMessage()
         {

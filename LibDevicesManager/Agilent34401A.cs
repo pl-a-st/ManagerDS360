@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Agilent34401A : IMultimeter
+    public class Agilent34401A : Multimeter
     {
         #region PublicFields
 
@@ -15,13 +15,13 @@ namespace LibDevicesManager
         /// Тип устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceType </returns>
-        public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
+        //public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
         /// <summary>
         /// Модель устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
-        public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent34401A; } }
+        //public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent34401A; } }
         #endregion PublicFields
 
         #region PrivateFields
@@ -33,7 +33,11 @@ namespace LibDevicesManager
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false; //ToDel
 
-        #endregion PublicFields
+        #endregion PrivateFields
+        public Agilent34401A()
+        {
+            MultimeterModel = MultimeterModel.Agilent34401A;
+        }
 
         #region PublicMethods
 

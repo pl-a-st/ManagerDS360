@@ -388,7 +388,7 @@ namespace LibControls
         {
             base.OnCreateControl();
             ImageList = new ImageList();
-            ImageList.ImageSize = new Size(25, 25);
+            ImageList.ImageSize = new Size(30, 30);
             ImageList.Images.Add(Properties.Resources.Папка);
             ImageList.Images.Add(Properties.Resources.Настройка);
             ImageList.Images.Add(Properties.Resources.Настройка_синяя);

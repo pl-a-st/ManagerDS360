@@ -28,10 +28,11 @@ namespace LibDevicesManager
         public MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
         public MeasureType MeasureType { get { return measureType; } set { measureType = value; } }
         public PhysicalParameter PhysicalParameter { get { return physicalParameter; } set { physicalParameter = value; } }
-        public int LowLimitFrequency;
+        public int LowFrequencyLimit { get { return lowFrequencyLimit; }  set {lowFrequencyLimit = value; } }
         
         private MeasureType measureType = MeasureType.AC;
         private PhysicalParameter physicalParameter = PhysicalParameter.U;
+        private int lowFrequencyLimit = 20;
 
         private MultimeterModel multimeterModel = MultimeterModel.Unknown;
         public Multimeter() { }

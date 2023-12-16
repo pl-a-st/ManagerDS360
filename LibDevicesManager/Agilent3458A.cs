@@ -22,7 +22,7 @@ namespace LibDevicesManager
         /// Модель устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
-        public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent3458A; } }
+        //public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent3458A; } }
         public int AddressGPIB;
         #endregion PublicFields
 
@@ -40,7 +40,7 @@ namespace LibDevicesManager
         #region Constructors
         public Agilent3458A()
         {
-
+            MultimeterModel = MultimeterModel.Agilent3458A;
         }
 
         #endregion Constructors

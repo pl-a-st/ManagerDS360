@@ -19,40 +19,7 @@ using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace ManagerDS360
 {
-    public enum CallType
-    {
-        Create,
-        Control,
-        Change
-    }
-
-    public enum FunctionTypeSignal
-    {
-        Синус = FunctionType.Sine,
-        Квадрат = FunctionType.Square,
-        Синус_Синус = FunctionType.SineSine,
-        Синус_Квадрат = FunctionType.SineSquare
-    }
-    public enum SaveStatus
-    {
-        Cancel,
-        Save
-    }
-
-    public enum PhysicalQuantity
-    {
-        U,
-        м_с2,
-        мм_с,
-        мкм,
-    }
-    public enum Detector
-    {
-        СКЗ = SignalParametrType.RMS,
-        Пик = SignalParametrType.PIK,
-        Пик_пик = SignalParametrType.PIK_PIK
-    }
-
+   
     public partial class frmCreationEditingSettings : Form
     {
         public CallType Type;

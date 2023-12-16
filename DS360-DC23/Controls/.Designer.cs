@@ -276,13 +276,13 @@ namespace ManagerDS360 {
             // mnuHelp
             // 
             this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Size = new System.Drawing.Size(180, 22);
+            this.mnuHelp.Size = new System.Drawing.Size(158, 22);
             this.mnuHelp.Text = "Справка";
             // 
             // mnuAboutProgram
             // 
             this.mnuAboutProgram.Name = "mnuAboutProgram";
-            this.mnuAboutProgram.Size = new System.Drawing.Size(180, 22);
+            this.mnuAboutProgram.Size = new System.Drawing.Size(158, 22);
             this.mnuAboutProgram.Text = "О программе";
             this.mnuAboutProgram.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -455,6 +455,7 @@ namespace ManagerDS360 {
             this.treRouteTree.SelectedImageIndex = 0;
             this.treRouteTree.Size = new System.Drawing.Size(752, 614);
             this.treRouteTree.TabIndex = 7;
+            this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
             // frmManagerDS360
             // 

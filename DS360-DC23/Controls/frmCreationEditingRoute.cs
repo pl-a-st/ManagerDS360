@@ -210,7 +210,12 @@ namespace ManagerDS360
             }
             if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.VibroCalib)
             {
-               // todo прописать вызов окна и добавление узла с настройкой вибрационной установки
+                // todo прописать вызов окна и добавление узла с настройкой вибрационной установки
+                var frmVibroCalibSetting = new frmCreationVibroCalibSetting();
+                if (frmVibroCalibSetting.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
         }
         private void AddAllDC23InRoute()

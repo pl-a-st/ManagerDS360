@@ -883,5 +883,10 @@ namespace ManagerDS360
         {
 
         }
+
+        private void treRouteTree_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SendNodeSetting();
+        }
     }
 }

@@ -235,6 +235,12 @@
     <Compile Include="Controls\frmCreationDC23Setting.Designer.cs">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\frmCreationVibroCalibSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmCreationVibroCalibSetting.Designer.cs">
+      <DependentUpon>frmCreationVibroCalibSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\frmDevicePlugIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmCreationEditingRoute.resx">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmCreationVibroCalibSetting.resx">
+      <DependentUpon>frmCreationVibroCalibSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmCreationEditingSettings.resx">
       <DependentUpon>frmCreationEditingSettings.cs</DependentUpon>

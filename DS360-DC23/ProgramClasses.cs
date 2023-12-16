@@ -33,6 +33,46 @@ namespace ManagerDS360
         VibroCalib,
         Message
     }
+    public enum CallType
+    {
+        Create,
+        Control,
+        Change
+    }
+
+    public enum FunctionTypeSignal
+    {
+        Синус = FunctionType.Sine,
+        Квадрат = FunctionType.Square,
+        Синус_Синус = FunctionType.SineSine,
+        Синус_Квадрат = FunctionType.SineSquare
+    }
+    public enum SaveStatus
+    {
+        Cancel,
+        Save
+    }
+
+    public enum PhysicalQuantity
+    {
+        U,
+        м_с2,
+        мм_с,
+        мкм,
+    }
+    public enum VibrationQuantity
+    {
+        м_с2 = PhysicalQuantity.м_с2,
+        мм_с = PhysicalQuantity.мм_с,
+        мкм = PhysicalQuantity.мкм,
+    }
+    public enum Detector
+    {
+        СКЗ = SignalParametrType.RMS,
+        Пик = SignalParametrType.PIK,
+        Пик_пик = SignalParametrType.PIK_PIK
+    }
+
     public static class PmData
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
@@ -62,6 +102,12 @@ namespace ManagerDS360
             { ManagerDS360.PhysicalQuantity.м_с2,@"м/c²"},
             { ManagerDS360.PhysicalQuantity.мм_с,@"мм/с" },
             { ManagerDS360.PhysicalQuantity.мкм,@"мкм" },
+        };
+        public static Dictionary<VibrationQuantity, string> VibrationQuantity = new Dictionary<VibrationQuantity, string>()
+        {
+            { ManagerDS360.VibrationQuantity.м_с2,@"м/c²"},
+            { ManagerDS360.VibrationQuantity.мм_с,@"мм/с" },
+            { ManagerDS360.VibrationQuantity.мкм,@"мкм" },
         };
         public static Dictionary<Detector, string> Detector = new Dictionary<Detector, string>()
         {

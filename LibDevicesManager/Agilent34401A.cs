@@ -22,6 +22,8 @@ namespace LibDevicesManager
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
         public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent34401A; } }
+
+        public MeasureType MeasureType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         #endregion PublicFields
 
         #region PrivateFields

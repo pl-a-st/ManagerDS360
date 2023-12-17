@@ -26,10 +26,8 @@ namespace ManagerDS360
         public CallType Type = CallType.Create;
         public VibrationQuantity VibrationQuantity;
         public Detector Detector;
-
-
-        public double Voltage;
-        public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
+        public VibrationStand VibrationStand = new VibrationStand();
+        
         public frmCreationVibroCalibSetting()
         {
             InitializeComponent();
@@ -44,9 +42,11 @@ namespace ManagerDS360
         internal async Task PushCboDetector()
         {
             await Task.Delay(10);
-            cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;   
+            cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            if (cboDetector.Items.Count != 0) return;
             cboDetector.Items.AddRange(PmData.Detector.Values.ToArray());
             cboDetector.SelectedItem = PmData.Detector[Detector.СКЗ];
+            
             
         }
 
@@ -56,10 +56,14 @@ namespace ManagerDS360
         internal async Task PushCboSetValue()
         {
             await Task.Delay(10);
+            if(cboSetValue.Items.Count!=0)return;
             var elements = PmData.VibrationQuantity.Values.ToArray();
             cboSetValue.BeginUpdate();
             cboSetValue.Items.AddRange(elements);
-            cboSetValue.SelectedItem = PmData.VibrationQuantity[VibrationQuantity.м_с2];
+            if (string.IsNullOrEmpty(cboSetValue.Text))
+            {
+                cboSetValue.SelectedItem = PmData.VibrationQuantity[VibrationQuantity.м_с2];
+            }
             cboSetValue.EndUpdate();
         }
         private void butSave_Click_1(object sender, EventArgs e)
@@ -68,11 +72,12 @@ namespace ManagerDS360
         }
         private void Save()
         {
-            //if (CheckFormsParameters() != Result.Success)
-            //{
-            //    return;
-            //}
-            //SetDS360Setting();
+            if (CheckFormsParameters() != Result.Success)
+            {
+                return;
+            }
+            SetVibroStend();
+            //todo
             //if (DS360Setting.CheckDS360Setting() != Result.Success)
             //{
             //    MessageBox.Show(DS360Setting.ResultMessage, "Ошибка", MessageBoxButtons.OK,
@@ -97,64 +102,27 @@ namespace ManagerDS360
 
 
 
-        ////private void SetDS360Setting()
-        ////{
-        ////    DS360Setting = new DS360SettingVibroSigParam();
-        ////    if (chcDefaultGenerator.Checked)
-        ////    {
-        ////        DS360Setting.IsComPortDefaultName = true;
-        ////    }
-        ////    if (!chcDefaultGenerator.Checked)
-        ////    {
-        ////        DS360Setting.IsComPortDefaultName = false;
-        ////        DS360Setting.ComPortNumber = (int)numComName.Value;
-        ////    }
-        ////    DS360Setting.SignalParametrTone1 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector.Text);
-        ////    DS360Setting.SignalParametrTone2 = (SignalParametrType)PmData.GetEnumFromString(PmData.Detector, cboDetector2.Text);
-        ////    //ветка для двух тонов
-        ////    if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус)
-        ////    {
-        ////        DS360Setting.FunctionType = FunctionType.SineSine;
-        ////        DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-        ////        SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
-        ////        DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-        ////        SetVibroCalclAndSetDS360VibroParam(txtValue2.Text, cboDetector2.Text, txtFrequency2.Text);
-        ////        DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
-        ////    }
-        ////    if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Квадрат)
-        ////    {
-        ////        DS360Setting.FunctionType = FunctionType.SineSquare;
-        ////        DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-        ////        SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
-        ////        DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-        ////        SetVibroCalclAndSetDS360VibroParam(
-        ////            GetValueToSquareToDetector(cboDetector2, txtValue2).ToString(),
-        ////            cboDetector2.Text,
-        ////            txtFrequency2.Text);
-        ////        DS360Setting.FrequencyB = double.Parse(txtFrequency2.Text);
-        ////        DS360Setting.AmplitudeRMSToneB = VibroCalc.Voltage.GetRMS();
-        ////    }
-        ////    if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус)
-        ////    {
-        ////        DS360Setting.FunctionType = FunctionType.Sine;
-        ////        SetVibroCalclAndSetDS360VibroParam(txtValue.Text, cboDetector.Text, txtFrequency.Text);
-        ////        DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-        ////    }
-        ////    if (PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Квадрат)
-        ////    {
-        ////        DS360Setting.FunctionType = FunctionType.Square;
-        ////        SetVibroCalclAndSetDS360VibroParam(
-        ////            GetValueToSquareToDetector(cboDetector, txtValue).ToString(),
-        ////            PmData.Detector[Detector.СКЗ],
-        ////            txtFrequency.Text);
-        ////        DS360Setting.AmplitudeRMS = VibroCalc.Voltage.GetRMS();
-        ////    }
+        private void SetVibroStend()
+        {
+            VibrationStand.Frequency.Set_Hz(double.Parse(txtFrequency.Text));
+            VibrationStand.Sensitivity.Set_mV_MS2(double.Parse(txtConversionFactor.Text));
+            double valueVibParam = double.Parse(txtValue.Text);
+            Detector detector = PmData.GetEnumFromString(PmData.Detector, cboDetector.SelectedItem.ToString());
+            VibrationStand.Detector = (SignalParametrType)detector;
+            if(PmData.GetEnumFromString(PmData.VibrationQuantity, cboSetValue.SelectedItem.ToString()) == VibrationQuantity.м_с2)
+            {
+                VibrationStand.VibroParametr = new Acceleration(valueVibParam, (SignalParametrType)detector);
+            }
+            if (PmData.GetEnumFromString(PmData.VibrationQuantity, cboSetValue.SelectedItem.ToString()) == VibrationQuantity.мм_с)
+            {
+                VibrationStand.VibroParametr = new Velocity(valueVibParam, (SignalParametrType)detector);
+            }
+            if (PmData.GetEnumFromString(PmData.VibrationQuantity, cboSetValue.SelectedItem.ToString()) == VibrationQuantity.мкм)
+            {
+                VibrationStand.VibroParametr = new Displacement(valueVibParam, (SignalParametrType)detector);
+            }
 
-        ////    DS360Setting.Sensitivity.Set_mV_G(double.Parse(txtConversionFactor.Text));
-        ////    DS360Setting.Frequency = double.Parse(txtFrequency.Text);
-        ////    DS360Setting.Offset = double.Parse(txtOffset.Text);
-        ////    DS360SettingConvert_mV_to_V();
-        ////}
+        }
 
         //private void DS360SettingConvert_mV_to_V()
         //{
@@ -204,46 +172,31 @@ namespace ManagerDS360
         //    }
         //}
 
-        //private Result CheckFormsParameters()
-        //{
-        //    string message = string.Empty;
-        //    Result result = Result.Success;
-        //    if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
-        //    {
-        //        message += "\nВведите значение 1";
-        //        result = Result.Failure;
-        //    }
-        //    if (!double.TryParse(txtFrequency.Text, out double frequency_A))
-        //    {
-        //        message += "\nВведите частоту 1";
-        //        result = Result.Failure;
-        //    }
-        //    if (IsTwoTone() && !double.TryParse(txtValue2.Text, out double amplitudeRMS_B))
-        //    {
-        //        message += "\nВведите значение 2.";
-        //        result = Result.Failure;
-        //    }
-        //    if (IsTwoTone() && !double.TryParse(txtFrequency2.Text, out double frequency_B))
-        //    {
-        //        message += "\nВведите частоту 2.";
-        //        result = Result.Failure;
-        //    }
-        //    if (!IsTwoTone() && !double.TryParse(txtOffset.Text, out double offset))
-        //    {
-        //        message += "\nВведите значение смещения.";
-        //        result = Result.Failure;
-        //    }
-        //    if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
-        //    {
-        //        message += "\nВведите значение коэффициента.";
-        //        result = Result.Failure;
-        //    }
-        //    if (result != Result.Success)
-        //    {
-        //        MessageBox.Show(message);
-        //    }
-        //    return result;
-        //}
+        private Result CheckFormsParameters()
+        {
+            string message = string.Empty;
+            Result result = Result.Success;
+            if (!double.TryParse(txtValue.Text, out double amplitudeRMS_A))
+            {
+                message += "\nВведите значение параметра вибрации";
+                result = Result.Failure;
+            }
+            if (!double.TryParse(txtFrequency.Text, out double frequency_A))
+            {
+                message += "\nВведите значение частоты";
+                result = Result.Failure;
+            }
+            if (!double.TryParse(txtConversionFactor.Text, out double conversionFactor))
+            {
+                message += "\nВведите значение коэффициента.";
+                result = Result.Failure;
+            }
+            if (result != Result.Success)
+            {
+                MessageBox.Show(message);
+            }
+            return result;
+        }
 
         //internal bool IsTwoTone()
         //{

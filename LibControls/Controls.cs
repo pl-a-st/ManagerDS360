@@ -258,7 +258,8 @@ namespace LibControls
         Folder,
         Setting,
         DC23,
-        Message
+        Message,
+        VibroStand
     }
     [Serializable]
     public class TreeNodeWithSetting : TreeNode
@@ -270,6 +271,7 @@ namespace LibControls
         public NodeType NodeType;
         public DS360SettingVibroSigParam DS360Setting = new DS360SettingVibroSigParam();
         public ManagerDC23 DC23 = new ManagerDC23();
+        public VibrationStand VibrationStand = new VibrationStand();
         public Boolean StopTest = false;
         public TreeNodeWithSetting(NodeType nodeType, string text)
         {

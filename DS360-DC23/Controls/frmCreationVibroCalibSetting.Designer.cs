@@ -39,6 +39,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblDetector = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
             this.txtValue = new LibControls.ModifiedTextBox();
@@ -49,16 +50,16 @@
             // 
             this.cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSetValue.FormattingEnabled = true;
-            this.cboSetValue.Location = new System.Drawing.Point(23, 73);
+            this.cboSetValue.Location = new System.Drawing.Point(14, 73);
             this.cboSetValue.Name = "cboSetValue";
-            this.cboSetValue.Size = new System.Drawing.Size(143, 21);
+            this.cboSetValue.Size = new System.Drawing.Size(152, 21);
             this.cboSetValue.TabIndex = 5;
             // 
             // lblSetValue
             // 
             this.lblSetValue.AutoSize = true;
             this.lblSetValue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSetValue.Location = new System.Drawing.Point(20, 57);
+            this.lblSetValue.Location = new System.Drawing.Point(11, 57);
             this.lblSetValue.Name = "lblSetValue";
             this.lblSetValue.Size = new System.Drawing.Size(137, 13);
             this.lblSetValue.TabIndex = 6;
@@ -67,17 +68,17 @@
             // lblConversionFactor
             // 
             this.lblConversionFactor.AutoSize = true;
-            this.lblConversionFactor.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblConversionFactor.Location = new System.Drawing.Point(20, 16);
+            this.lblConversionFactor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblConversionFactor.Location = new System.Drawing.Point(11, 16);
             this.lblConversionFactor.Name = "lblConversionFactor";
-            this.lblConversionFactor.Size = new System.Drawing.Size(132, 13);
+            this.lblConversionFactor.Size = new System.Drawing.Size(150, 15);
             this.lblConversionFactor.TabIndex = 8;
-            this.lblConversionFactor.Text = "Коэфф. преобр. мВ/g";
+            this.lblConversionFactor.Text = "Коэфф. преобр. мВ/м·сˉ²";
             // 
             // butSave
             // 
             this.butSave.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(135, 164);
+            this.butSave.Location = new System.Drawing.Point(41, 177);
             this.butSave.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSave.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSave.Name = "butSave";
@@ -90,7 +91,7 @@
             // butCancel
             // 
             this.butCancel.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCancel.Location = new System.Drawing.Point(332, 164);
+            this.butCancel.Location = new System.Drawing.Point(214, 177);
             this.butCancel.MaximumSize = new System.Drawing.Size(110, 27);
             this.butCancel.MinimumSize = new System.Drawing.Size(110, 27);
             this.butCancel.Name = "butCancel";
@@ -104,7 +105,7 @@
             // 
             this.lblFrequency.AutoSize = true;
             this.lblFrequency.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblFrequency.Location = new System.Drawing.Point(364, 57);
+            this.lblFrequency.Location = new System.Drawing.Point(189, 95);
             this.lblFrequency.Name = "lblFrequency";
             this.lblFrequency.Size = new System.Drawing.Size(74, 13);
             this.lblFrequency.TabIndex = 12;
@@ -113,7 +114,7 @@
             // butSend
             // 
             this.butSend.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSend.Location = new System.Drawing.Point(135, 197);
+            this.butSend.Location = new System.Drawing.Point(41, 210);
             this.butSend.MaximumSize = new System.Drawing.Size(110, 27);
             this.butSend.MinimumSize = new System.Drawing.Size(110, 27);
             this.butSend.Name = "butSend";
@@ -147,7 +148,7 @@
             this.groupBox4.Controls.Add(this.lblConversionFactor);
             this.groupBox4.Location = new System.Drawing.Point(12, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(513, 135);
+            this.groupBox4.Size = new System.Drawing.Size(354, 143);
             this.groupBox4.TabIndex = 38;
             this.groupBox4.TabStop = false;
             // 
@@ -155,7 +156,7 @@
             // 
             this.lblDetector.AutoSize = true;
             this.lblDetector.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblDetector.Location = new System.Drawing.Point(185, 16);
+            this.lblDetector.Location = new System.Drawing.Point(11, 95);
             this.lblDetector.Name = "lblDetector";
             this.lblDetector.Size = new System.Drawing.Size(60, 13);
             this.lblDetector.TabIndex = 40;
@@ -165,25 +166,37 @@
             // 
             this.cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector.FormattingEnabled = true;
-            this.cboDetector.Location = new System.Drawing.Point(188, 31);
+            this.cboDetector.Location = new System.Drawing.Point(14, 110);
             this.cboDetector.Name = "cboDetector";
             this.cboDetector.Size = new System.Drawing.Size(152, 21);
             this.cboDetector.TabIndex = 39;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(214, 210);
+            this.button1.MaximumSize = new System.Drawing.Size(110, 27);
+            this.button1.MinimumSize = new System.Drawing.Size(110, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 27);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "Остановить";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // txtConversionFactor
             // 
-            this.txtConversionFactor.Location = new System.Drawing.Point(23, 32);
+            this.txtConversionFactor.Location = new System.Drawing.Point(14, 32);
             this.txtConversionFactor.MaxLength = 9;
             this.txtConversionFactor.Name = "txtConversionFactor";
-            this.txtConversionFactor.Size = new System.Drawing.Size(143, 20);
+            this.txtConversionFactor.Size = new System.Drawing.Size(152, 20);
             this.txtConversionFactor.TabIndex = 7;
-            this.txtConversionFactor.Text = "100";
+            this.txtConversionFactor.Text = "10";
             // 
             // txtFrequency
             // 
-            this.txtFrequency.Location = new System.Drawing.Point(357, 73);
+            this.txtFrequency.Location = new System.Drawing.Point(188, 111);
             this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(143, 20);
+            this.txtFrequency.Size = new System.Drawing.Size(152, 20);
             this.txtFrequency.TabIndex = 10;
             // 
             // txtValue
@@ -197,7 +210,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 241);
+            this.ClientSize = new System.Drawing.Size(382, 252);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.butCancel);
@@ -230,5 +244,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         internal System.Windows.Forms.ComboBox cboDetector;
         internal System.Windows.Forms.Label lblDetector;
+        internal System.Windows.Forms.Button button1;
     }
 }

@@ -40,6 +40,7 @@ namespace ManagerDS360
         public FileInfo FileInfo;
         private DS360SettingVibroSigParam LastDS360Setting;
         private ManagerDC23 LastDC23 = new ManagerDC23();
+        private VibrationStand LastVibStend = new VibrationStand();
 
         public frmCreationEditingRoute()
         {
@@ -186,7 +187,7 @@ namespace ManagerDS360
             }
         }
 
-        internal void butAddSetting_Click(object sender, EventArgs e)
+       async internal void butAddSetting_Click(object sender, EventArgs e)
         {
             if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.DS360)
             {
@@ -210,12 +211,44 @@ namespace ManagerDS360
             }
             if (PmData.GetEnumFromString(PmData.SettingsType, cboSettingsType.SelectedItem.ToString()) == SettingsType.VibroCalib)
             {
+                if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+                {
+                    MessageBox.Show("Настройка не может содержать другие элементы!");
+                    return;
+                }
                 // todo прописать вызов окна и добавление узла с настройкой вибрационной установки
                 var frmVibroCalibSetting = new frmCreationVibroCalibSetting();
-                if (frmVibroCalibSetting.ShowDialog() == DialogResult.OK)
+                if (chkUseLastSetting.Checked && LastVibStend.VibroParametr != null)
                 {
+                    await frmVibroCalibSetting.PushCboDetector();
+                    await frmVibroCalibSetting.PushCboSetValue();
+                    frmVibroCalibSetting.cboDetector.SelectedItem = PmData.Detector[(Detector)LastVibStend.Detector];
+                    frmVibroCalibSetting.cboSetValue.Text = PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, LastVibStend.VibroParametr)];
+                    frmVibroCalibSetting.txtFrequency.Text = LastVibStend.Frequency.Get_Hz().ToString();
+                    frmVibroCalibSetting.txtConversionFactor.Text = LastVibStend.Sensitivity.Get_mV_MS2().ToString();
+                    frmVibroCalibSetting.txtValue.Text = LastVibStend.VibroParametr.Get(LastVibStend.Detector).ToString();
 
                 }
+                if (frmVibroCalibSetting.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                string textNode = "[" + frmVibroCalibSetting.cboSetValue.SelectedItem.ToString() + "] ";
+                textNode += "[" + frmVibroCalibSetting.cboDetector.SelectedItem.ToString() + ": "; 
+                textNode +=  frmVibroCalibSetting.txtValue.Text + " ";
+                textNode += "F: "+frmVibroCalibSetting.txtFrequency.Text + "]";
+
+                TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.VibroStand, textNode);
+                treeNode.VibrationStand = frmVibroCalibSetting.VibrationStand;
+                LastVibStend = PmData.CloneObj(frmVibroCalibSetting.VibrationStand);
+                if (treRouteTree.Nodes.Count == 0 || treRouteTree.SelectedNode == null)
+                {
+                    treRouteTree.Nodes.Add(treeNode);
+                    return;
+                }
+                TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+                SelectedNodeWithSetup.Nodes.Add(treeNode);
+                SelectedNodeWithSetup.Expand();
             }
         }
         private void AddAllDC23InRoute()

@@ -109,6 +109,12 @@ namespace ManagerDS360
             { ManagerDS360.VibrationQuantity.мм_с,@"мм/с" },
             { ManagerDS360.VibrationQuantity.мкм,@"мкм" },
         };
+        public static Dictionary<VibrationQuantity, VibroParametr> VibroParametr = new Dictionary<VibrationQuantity, VibroParametr>()
+        {
+            { ManagerDS360.VibrationQuantity.м_с2,new Acceleration()},
+            { ManagerDS360.VibrationQuantity.мм_с,new Velocity()},
+            { ManagerDS360.VibrationQuantity.мкм,new Displacement()},
+        };
         public static Dictionary<Detector, string> Detector = new Dictionary<Detector, string>()
         {
             { ManagerDS360.Detector.СКЗ,"СКЗ"},
@@ -140,6 +146,10 @@ namespace ManagerDS360
         public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)
         {
             return dictionary.FirstOrDefault(x => x.Value == str).Key;
+        }
+        public static InputEnum GetEnumFromVibroParam<InputEnum>(Dictionary<InputEnum, VibroParametr> dictionary, VibroParametr vibroparam)
+        {
+            return dictionary.FirstOrDefault(x => x.Value.GetType() == vibroparam.GetType()).Key;
         }
         public static T CloneObj<T>(this T obj)
         {

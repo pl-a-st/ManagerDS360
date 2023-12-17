@@ -45,6 +45,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="VibroMath">
+      <HintPath>..\DS360-DC23\Resources\VibroMath.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agilent34401A.cs" />
@@ -58,6 +61,8 @@
     <Compile Include="Interfaces.cs" />
     <Compile Include="Multimeter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stend.cs" />
+    <Compile Include="VibrationStand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Ivi.Visa.Interop.dll" />

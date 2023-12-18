@@ -166,5 +166,14 @@
   <ItemGroup>
     <None Include="Resources\Message_зеленый.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд зеленый.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд красный.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд серый.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

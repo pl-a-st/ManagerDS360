@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibDevicesManager
 {
+    [Serializable]
     public class Stend
     {
         public double Accuracy;

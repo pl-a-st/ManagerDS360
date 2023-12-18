@@ -39,10 +39,10 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblDetector = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
             this.txtValue = new LibControls.ModifiedTextBox();
+            this.butStop = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,18 +171,6 @@
             this.cboDetector.Size = new System.Drawing.Size(152, 21);
             this.cboDetector.TabIndex = 39;
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(214, 210);
-            this.button1.MaximumSize = new System.Drawing.Size(110, 27);
-            this.button1.MinimumSize = new System.Drawing.Size(110, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 27);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Остановить";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // txtConversionFactor
             // 
             this.txtConversionFactor.Location = new System.Drawing.Point(14, 32);
@@ -206,12 +194,24 @@
             this.txtValue.Size = new System.Drawing.Size(152, 20);
             this.txtValue.TabIndex = 8;
             // 
+            // butStop
+            // 
+            this.butStop.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butStop.Location = new System.Drawing.Point(214, 210);
+            this.butStop.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butStop.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butStop.Name = "butStop";
+            this.butStop.Size = new System.Drawing.Size(110, 27);
+            this.butStop.TabIndex = 39;
+            this.butStop.Text = "Остановить";
+            this.butStop.UseVisualStyleBackColor = true;
+            // 
             // frmCreationVibroCalibSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 252);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.butStop);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.butSend);
             this.Controls.Add(this.butCancel);
@@ -244,6 +244,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         internal System.Windows.Forms.ComboBox cboDetector;
         internal System.Windows.Forms.Label lblDetector;
-        internal System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.Button butStop;
     }
 }

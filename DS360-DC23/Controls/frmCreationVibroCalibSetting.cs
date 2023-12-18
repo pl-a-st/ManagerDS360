@@ -23,7 +23,7 @@ namespace ManagerDS360
 
     public partial class frmCreationVibroCalibSetting : Form
     {
-        public CallType Type = CallType.Create;
+        public CallType CallType = CallType.Create;
         public VibrationQuantity VibrationQuantity;
         public Detector Detector;
         public VibrationStand VibrationStand = new VibrationStand();
@@ -37,8 +37,27 @@ namespace ManagerDS360
         {
             await PushCboDetector();
             await PushCboSetValue();
-
+            SetInterfaceForCallType();
         }
+
+        private void SetInterfaceForCallType()
+        {
+            if (CallType == CallType.Create || CallType == CallType.Change)
+            {
+                butStop.Visible = false;
+                butSend.Visible = false;
+                this.Height -= butSend.Height;
+            }
+            if (CallType == CallType.Change)
+            {
+                butStop.Top = butSave.Top;
+                butSend.Top = butCancel.Top;
+                butSave.Visible = false;
+                butCancel.Visible = false;
+                this.Height -= butSend.Height;
+            }
+        }
+
         internal async Task PushCboDetector()
         {
             await Task.Delay(10);

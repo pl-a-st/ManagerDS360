@@ -304,6 +304,7 @@ namespace LibControls
                 });
             actions.Add(() => SetImage());
             actions.Add(() => this.DC23 = (ManagerDC23)info.GetValue("DC23", this.DC23.GetType()));
+            actions.Add(() => this.VibrationStand = (VibrationStand)info.GetValue("VibrationStand", this.VibrationStand.GetType()));
             actions.Add(() => this.StopTest = (bool)info.GetValue("StopTest", this.StopTest.GetType()));
             foreach (Action action in actions)
             {
@@ -336,6 +337,7 @@ namespace LibControls
             this.Nodes.CopyTo(treeNodeWithSettings, 0);
             si.AddValue("treeNodeWithSettings", treeNodeWithSettings);
             si.AddValue("IsExpand", this.IsExpanded);
+            si.AddValue("VibrationStand", this.VibrationStand);
             si.AddValue("StopTest", this.StopTest);
         }
 
@@ -360,6 +362,11 @@ namespace LibControls
             {
                 this.ImageIndex = 8;
                 this.SelectedImageIndex = 8;
+            }
+            if (NodeType == NodeType.VibroStand)
+            {
+                this.ImageIndex = 10;
+                this.SelectedImageIndex = 10;
             }
         }
         public TreeNodeWithSetting Copy()
@@ -401,6 +408,9 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.DC23_зеленый);
             ImageList.Images.Add(Properties.Resources.Message_серый);
             ImageList.Images.Add(Properties.Resources.Message_зеленый);
+            ImageList.Images.Add(Properties.Resources.Стенд_серый);
+            ImageList.Images.Add(Properties.Resources.Стенд_красный);
+            ImageList.Images.Add(Properties.Resources.Стенд_зеленый);
         }
         protected override void OnAfterCheck(TreeViewEventArgs e)
         {

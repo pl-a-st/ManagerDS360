@@ -48,7 +48,7 @@ namespace ManagerDS360
                 butSend.Visible = false;
                 this.Height -= butSend.Height;
             }
-            if (CallType == CallType.Change)
+            if (CallType == CallType.Control)
             {
                 butStop.Top = butSave.Top;
                 butSend.Top = butCancel.Top;

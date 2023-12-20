@@ -9,5 +9,6 @@ namespace LibDevicesManager
     [Serializable]
     public class MultimeterForVibCalib:Multimeter
     {
+        
     }
 }

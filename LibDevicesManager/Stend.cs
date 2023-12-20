@@ -9,6 +9,14 @@ namespace LibDevicesManager
     [Serializable]
     public class Stend
     {
-        public double Accuracy;
+        private double accuracy = 0.01;
+        /// <summary>
+        /// Точность, значение от 0 до 1
+        /// </summary>
+        public double Accuracy
+        {
+            get => accuracy;
+            set => accuracy = value >= 0 && value <= 1 ? value : throw new ArgumentOutOfRangeException("Значение Accuracy больше единицы или меньше нуля");
+        }
     }
 }

@@ -642,6 +642,12 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка передачи параметра в генератор";
                 return result;
             }
+            if(GetOutputEnableState(port) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка проверки состояния выходного сигнала";
+                return Result.Failure;
+            }
             if (SetOutputSignalEnable(port, outputEnableState) != Result.Success)
             {
                 ComPort.PortClose(port);

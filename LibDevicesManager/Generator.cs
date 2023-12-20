@@ -12,7 +12,7 @@ namespace LibDevicesManager
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
 
         public GeneratorModel GeneratorModel { get { return generatorModel; } set { generatorModel = value; } }
-        public FunctionType FunctionType { get { return FunctionType.Sine; } }
+        public FunctionType FunctionType { get { return functionType; } }
         public double AmplitudeRMS { get { return amplitudeRMS; } set { amplitudeRMS = value; } }
         public double Frequency { get { return frequency; } set { frequency = value; } }
         public double Offset { get { return offset; } set { offset = value; } }
@@ -20,12 +20,23 @@ namespace LibDevicesManager
         static public string Address { get { return address; } set { address = value; } }
 
         private GeneratorModel generatorModel = GeneratorModel.Unknown;
+        private FunctionType functionType = FunctionType.Sine;
         static private string address = string.Empty;
         private double amplitudeRMS = 0.1;
         private double frequency = 160;
         private double offset = 0;
         public Generator() { }
+
+        #region PublicMethods
         public Result SendSetting()
+        {
+            return Result.Failure;
+        }
+        public Result SetOutputOff()
+        {
+            return Result.Failure;
+        }
+        public Result SetOutputOn()
         {
             return Result.Failure;
         }
@@ -38,5 +49,6 @@ namespace LibDevicesManager
         {
             return Result.Failure;
         }
+        #endregion PublicMethods
     }
 }

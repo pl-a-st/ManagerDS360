@@ -57,9 +57,11 @@
     <Compile Include="DC23\ManagerDC23.cs" />
     <Compile Include="DS360.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="GeneratorForVibCalib.cs" />
     <Compile Include="GpibPort.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Multimeter.cs" />
+    <Compile Include="MultimeterForVibCalib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stend.cs" />
     <Compile Include="VibrationStand.cs" />

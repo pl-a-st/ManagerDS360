@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
@@ -287,6 +288,7 @@ namespace LibDevicesManager
         private OutputMode outputMode = OutputMode.Analog;
         private OutputType outputType = OutputType.Unbalanced;
         private OutputImpedance outputImpedance = OutputImpedance.HiZ;
+        private bool outputEnableState = false;
         private string resultMessage;
         private static List<string> generatorsList;
         private const double frequencyMin = 0.01;
@@ -640,7 +642,7 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка передачи параметра в генератор";
                 return result;
             }
-            if (SetOutputSignalEnable(port, true) != Result.Success)
+            if (SetOutputSignalEnable(port, outputEnableState) != Result.Success)
             {
                 ComPort.PortClose(port);
                 resultMessage = "\nОшибка включения выходного сигнала";
@@ -915,6 +917,19 @@ namespace LibDevicesManager
             string value = AgRoundOffsetTostring(); //TEST
             string command = "OFFS" + value;
             result = SendOutputControlCommand(port, command);
+            return result;
+        }
+        private Result GetOutputEnableState(SerialPort port)
+        {
+            Result result = Result.Failure;
+            string query = "OUTE?";
+            result = SendCommandToDS360(port, query);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            string receivedValue = ReceiveMessageFromeDS360(port);
+            outputEnableState = (receivedValue == "1") ? true : false;
             return result;
         }
         private Result SetOffsetToZero(SerialPort port)

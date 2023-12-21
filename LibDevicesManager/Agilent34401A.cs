@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Agilent34401A : Multimeter
+    public class Agilent34401A : Multimeter<Agilent34401A>
     {
         #region PublicFields
 

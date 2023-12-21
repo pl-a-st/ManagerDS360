@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agilent33220A.cs" />
     <Compile Include="Agilent34401A.cs" />
     <Compile Include="Agilent3458A.cs" />
     <Compile Include="DC23\ClientDC23.cs" />

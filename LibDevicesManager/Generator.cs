@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class Generator : IGenerator
+    public abstract class Generator <T> : IGenerator
     {
         public DeviceType DeviceType { get { return DeviceType.Generator; } }
 
-        public GeneratorModel GeneratorModel { get { return generatorModel; } set { generatorModel = value; } }
+        public static GeneratorModel GeneratorModel = GeneratorModel.Unknown;
         public FunctionType FunctionType { get { return functionType; } }
         public double AmplitudeRMS { get { return amplitudeRMS; } set { amplitudeRMS = value; } }
         public double Frequency { get { return frequency; } set { frequency = value; } }
         public double Offset { get { return offset; } set { offset = value; } }
         public OutputImpedance OutputImpedance { get { return OutputImpedance.HiZ; } }
-        static public string Address { get { return address; } set { address = value; } }
+        public static string Address = string.Empty;
 
-        private GeneratorModel generatorModel = GeneratorModel.Unknown;
+        //private static GeneratorModel generatorModel = GeneratorModel.Unknown;
         private FunctionType functionType = FunctionType.Sine;
-        static private string address = string.Empty;
+        //static private string address = string.Empty;
         private double amplitudeRMS = 0.1;
         private double frequency = 160;
         private double offset = 0;

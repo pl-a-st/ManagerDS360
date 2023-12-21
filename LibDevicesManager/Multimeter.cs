@@ -17,7 +17,7 @@ namespace LibDevicesManager
         I
     }
     [Serializable]
-    public class Multimeter : IMultimeter
+    public abstract class Multimeter <T>: IMultimeter
     {
         /// <summary>
         /// Тип устройства
@@ -26,6 +26,7 @@ namespace LibDevicesManager
         public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
         public MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
+        public static string Address = string.Empty;
         public MeasureType MeasureType { get { return measureType; } set { measureType = value; } }
         public PhysicalParameter PhysicalParameter { get { return physicalParameter; } set { physicalParameter = value; } }
         public int LowFrequencyLimit { get { return lowFrequencyLimit; }  set {lowFrequencyLimit = value; } }

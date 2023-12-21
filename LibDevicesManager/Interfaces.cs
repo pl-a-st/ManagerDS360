@@ -17,17 +17,6 @@ namespace LibDevicesManager
         Multimeter,
         Unknown
     }
-    /*
-    public enum DeviceModel
-    {
-        DS360,
-        DS360Emulator,
-        Agilent33220A,
-        Agilent3458A,
-        Agilent34401A,
-        Unknown
-    }
-    */
     public enum GeneratorModel
     {
         DS360,
@@ -45,14 +34,13 @@ namespace LibDevicesManager
     interface IDevice
     {
         DeviceType DeviceType { get; }
-        //MeasureType MeasureType { get; set; }
 
         Result Send(string command);
         string Receive();
     }
     interface IGenerator : IDevice
     {
-        GeneratorModel GeneratorModel { get; }
+        //GeneratorModel GeneratorModel { get; }
     }
     interface IMultimeter : IDevice
     {

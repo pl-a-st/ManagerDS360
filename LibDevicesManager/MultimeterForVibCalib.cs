@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class MultimeterForVibCalib:Multimeter
+    public class MultimeterForVibCalib:Multimeter<MultimeterForVibCalib>
     {
         
     }

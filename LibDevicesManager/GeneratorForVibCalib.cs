@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     [Serializable]
-    public class GeneratorForVibCalib:Generator
+    public class GeneratorForVibCalib:Generator<GeneratorForVibCalib>
     {
     }
 }

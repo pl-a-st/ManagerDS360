@@ -689,6 +689,37 @@ namespace LibDevicesManager
             }
             return Result.Success;
         }
+        /// <summary>
+        /// Переключает выходной сигнал генератора в состояние "ВЫКЛ./(OFF)"
+        /// </summary>
+        /// <returns><br><see cref="Result.Success"/> при успешном изменении состояния выходного сигнала генератора</br>
+        /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при возникновении ошибки во время передачи команды на выключение.</br>
+        /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
+        public Result SetOutputSignalOff()
+        {
+            Result result = Result.Failure;
+            string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
+            if (portName == "NONE")
+            {
+                resultMessage = "\nГенератор не найден";
+                return Result.Failure;
+            }
+            result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОтсутствует связь с генератором";
+                return result;
+            }
+            ComPort.PortClear(port);
+            if (SetOutputSignalEnable(port, false) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            return Result.Success;
+        }
 
         #endregion PublicMethods
 

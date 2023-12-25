@@ -30,14 +30,37 @@ namespace LibDevicesManager
         #region PublicMethods
         public Result SendSetting()
         {
+            if (GeneratorModel == GeneratorModel.DS360) 
+            {
+                DS360Setting generator = new DS360Setting();
+                generator.FunctionType = FunctionType;
+                generator.AmplitudeRMS = AmplitudeRMS;
+                generator.Frequency = Frequency;
+                generator.Offset = Offset;
+                generator.OutputImpedance = OutputImpedance;
+                generator.ComPortName = Address;                //TODO: проверить обработку флага IsComPortDefaultName
+                return generator.SendDS360Setting();
+            }
             return Result.Failure;
         }
         public Result SetOutputOff()
         {
+            if (GeneratorModel == GeneratorModel.DS360)
+            {
+                DS360Setting generator = new DS360Setting();
+                generator.ComPortName = Address;
+                return generator.SetOutputSignalOff();
+            }
             return Result.Failure;
         }
         public Result SetOutputOn()
         {
+            if (GeneratorModel == GeneratorModel.DS360)
+            {
+                DS360Setting generator = new DS360Setting();
+                generator.ComPortName = Address;
+                return generator.SetOutputSignalOn();
+            }
             return Result.Failure;
         }
         public string Receive()

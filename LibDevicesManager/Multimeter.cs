@@ -41,12 +41,13 @@ namespace LibDevicesManager
         {
             return Result.Failure;
         }
-        public double Measure()
+        public virtual Result Measure(out double value)
         {
-            double value = 0;
-            return value;
+            value = 0;
+            //TODO: прописать код
+            return Result.Failure;
         }
-        public string Receive()
+        public virtual string Receive()
         {
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {

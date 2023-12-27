@@ -24,6 +24,21 @@ namespace LibDevicesManager
         /// <returns>одно из значений перечисления DeviceModel </returns>
         //public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent3458A; } }
         public int AddressGPIB;
+
+        /// <summary>
+        /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
+        /// </summary>
+        public string ResultMessage
+        {
+            get
+            {
+                return resultMessage;
+            }
+            set
+            {
+                resultMessage = value;
+            }
+        }
         #endregion PublicFields
 
         #region PrivateFields
@@ -32,7 +47,7 @@ namespace LibDevicesManager
         private bool isComPortDefaultName = true;
         private string comPortName;
         private int comPortNumber;
-        private string resultMessage;
+        private string resultMessage = string.Empty;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false; //ToDel
         #endregion PublicFields
@@ -52,7 +67,7 @@ namespace LibDevicesManager
             throw new NotImplementedException();
         }
 
-        public string Receive()
+        public override string Receive()
         {
             throw new NotImplementedException();
         }

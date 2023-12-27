@@ -18,10 +18,16 @@ namespace LibDevicesManager
         {
             Generator<Agilent33220A>.GeneratorModel = GeneratorModel.Agilent33220A;
         }
+        public Result SendAgilent33220ASetting()
+        {
+            //TODO: Прописать метод
+            return Result.Failure; 
+        }
         private static string GetAddress()
         {
             return Generator<Agilent33220A>.Address;
         }
+
         private static void SetAddress(string address)
         {
             Generator<Agilent33220A>.Address = address; //TODO: вписать проверку корректности адреса

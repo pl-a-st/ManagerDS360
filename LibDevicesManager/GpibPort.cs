@@ -11,6 +11,21 @@ namespace LibDevicesManager
     internal class GpibPort
     {
         public int GpibAddress { get; set; }
+
+        /// <summary>
+        /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
+        /// </summary>
+        public string ExeptionMessage
+        {
+            get
+            {
+                return exeptionMessage;
+            }
+            set
+            {
+                exeptionMessage = value;
+            }
+        }
         private int gpibAddress;
 
         public IMessage DeviceIO { get; set; }
@@ -20,6 +35,7 @@ namespace LibDevicesManager
         private static string[] resourses;
         private string resourseName = string.Empty;
         private string exeptionMessage = string.Empty;
+        //private string resultMessage = string.Empty;
         //private string[] resourses;
         #region Constructors
 

@@ -233,6 +233,7 @@ namespace ManagerDS360
                 frmVibroCalibSetting.txtConversionFactor.Text = LastVibStend.Sensitivity.Get_mV_MS2().ToString();
                 frmVibroCalibSetting.txtValue.Text = LastVibStend.VibroParametr.Get(LastVibStend.Detector).ToString();
             }
+           
             if (frmVibroCalibSetting.ShowDialog() != DialogResult.OK)
             {
                 return;

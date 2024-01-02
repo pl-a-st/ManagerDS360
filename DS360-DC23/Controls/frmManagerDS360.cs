@@ -32,6 +32,9 @@ namespace ManagerDS360
         }
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
+#if DEBUG
+            menuForTest.Visible = true;
+#endif
             LoadCboSavedRoutes();
             //await SetDefaultDS360();
             SetToolTipes();
@@ -53,7 +56,7 @@ namespace ManagerDS360
 
         private void CboTestedDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Task task =null;
+            Task task = null;
             var client = ManagerDC23.Client;
 
             if (PmData.GetEnumFromString(PmData.TestedDevice, cboTestedDevice.Text) == TestedDevice.DC23)
@@ -61,16 +64,16 @@ namespace ManagerDS360
                 CancelTokenConnect.Dispose();
                 CancelTokenConnect = new CancellationTokenSource();
                 TokenForConnect = CancelTokenConnect.Token;
-                
+
                 task = new Task(() => client.Connect(TokenForConnect), TokenForConnect);
                 LastRouteName = string.Empty;
                 client.ConnectedEvent += Client_ConnectedEvent;
                 client.DisconnectedEvent += Client_DisconnectedEvent;
-              
+
                 Invoke(new Action(() =>
                     {
-                       lblTestedDevice.ForeColor = Color.Black;
-                       lblTestedDevice.Text = "Устанавливается соединение...";
+                        lblTestedDevice.ForeColor = Color.Black;
+                        lblTestedDevice.Text = "Устанавливается соединение...";
                     }));
                 //thr.Start();
                 task.Start();
@@ -81,12 +84,12 @@ namespace ManagerDS360
                 do
                 {
                     client.Disconnect();
-                    
-                    
+
+
                 }
                 while (client.Connected);
                 client.CancelConnecting();
-                while (task!= null && task.Status== TaskStatus.Running)
+                while (task != null && task.Status == TaskStatus.Running)
                 {
                     Task.Delay(100);
                 }
@@ -128,11 +131,11 @@ namespace ManagerDS360
         private void frmManagerDS360_Closing(object sender, FormClosingEventArgs e)
         {
             var client = ManagerDC23.Client;
-            if(client!=null && client.Connected)
+            if (client != null && client.Connected)
             {
                 client.Disconnect();
                 client.CancelConnecting();
-            } 
+            }
         }
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
@@ -213,7 +216,7 @@ namespace ManagerDS360
                 AcyncShowMassageAndChangePicture("Отсутсвует соединение!", selectedNode);
                 return Result.Failure;
             }
-            if(LastRouteName != selectedNode.DC23.RouteName)
+            if (LastRouteName != selectedNode.DC23.RouteName)
             {
                 if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
                 {
@@ -725,7 +728,7 @@ namespace ManagerDS360
             while (task.Status == TaskStatus.Running)
             {
                 await Task.Delay(500);
-                BeginInvoke( (Action)(() => { lblTestStatus.Visible = !lblTestStatus.Visible; }));
+                BeginInvoke((Action)(() => { lblTestStatus.Visible = !lblTestStatus.Visible; }));
             }
             BeginInvoke((Action)(() => { lblTestStatus.Visible = true; }));
         }
@@ -748,7 +751,7 @@ namespace ManagerDS360
             {
                 control.Enabled = enabled;
             }
-            butStopTest.Enabled = true; 
+            butStopTest.Enabled = true;
             lblTestStatus.Enabled = true;
         }
 
@@ -756,7 +759,7 @@ namespace ManagerDS360
         {
             List<TreeNode> chackedNode = new List<TreeNode>();
             bool doOnlyAfterSelected = true;
-            GetChakedNodes(chackedNode, treRouteTree.Nodes, ref doOnlyAfterSelected) ;
+            GetChakedNodes(chackedNode, treRouteTree.Nodes, ref doOnlyAfterSelected);
             if (chackedNode.Count == 0)
             {
                 Invoke(new Action(() =>
@@ -803,7 +806,7 @@ namespace ManagerDS360
             butStopTest.Click -= butStop_Click;
             LastRouteName = string.Empty;
         }
-       public enum TokenStatus
+        public enum TokenStatus
         {
             InWork,
             Canceled

@@ -23,6 +23,8 @@ namespace LibDevicesManager
         GeneratorProblem,
         MultimeterProblem,
         Stoping,
+        Finished,
+        None,
     }
     public class VibStendInfo
     {
@@ -32,6 +34,11 @@ namespace LibDevicesManager
         public Sensitivity Sensitivity;
         public double CurrentVoltage;
         public VibStendStatus VibStendStatus;
+        public VibroParametr CurrentParametr
+        {
+            get { return GetVibroParametr(); }
+            private set { }
+        }
 
         public VibStendInfo(VibrationStand stand, double currentVoltage)
         {
@@ -43,6 +50,21 @@ namespace LibDevicesManager
             VibStendStatus = stand.VibStendStatus;
 
         }
+        private VibroParametr GetVibroParametr()
+        {
+            VibroCalc.Frequency.Set_Hz(Frequency.Get_Hz());
+            VibroCalc.Sensitivity.Set_mV_MS2(Sensitivity.Get_mV_MS2());
+            VibroCalc.CalcAll(new Voltage(CurrentVoltage * 1000, SignalParametrType.RMS));
+            if (ParametrToHold is Acceleration)
+                return VibroCalc.Acceleration;
+            if (ParametrToHold is Displacement)
+                return VibroCalc.Displacement;
+            if (ParametrToHold is Velocity)
+                return VibroCalc.Velocity;
+            return new Acceleration();
+
+        }
+
     }
     [Serializable]
     public class VibrationStand : Stend
@@ -58,13 +80,25 @@ namespace LibDevicesManager
         public static bool IsTesting = false;
         public delegate void StatusStandChangeHandler(VibStendInfo info);
         public static  event StatusStandChangeHandler StatusHasChanged;
-        public VibStendStatus VibStendStatus = VibStendStatus.NotSensitive;
+        public VibStendStatus VibStendStatus = VibStendStatus.None;
         
-
+        public Result RunStend()
+        {
+            Task.Run(() => SetVibroParamInStend());
+            while (VibStendStatus== VibStendStatus.None)
+            {
+                Task.Delay(300);
+            }
+            if(VibStendStatus == VibStendStatus.Stably)
+            {
+                return Result.Success;
+            }
+            return Result.Failure;
+        }
         /// <summary>
-        /// Метод в разработке
+        /// Метод в разработке (рефакторинг)
         /// </summary>
-        public void Start() // todo это набросок метода 
+        public void SetVibroParamInStend() // todo отрефакторить
         {
             Generator.SetOutputOff();
             StopTest();
@@ -73,11 +107,11 @@ namespace LibDevicesManager
             VibroCalc.Sensitivity.Set_mV_MS2(Sensitivity.Get_mV_MS2());
             VibroCalc.Frequency.Set_Hz(Frequency.Get_Hz());
             if (VibroParametr is Acceleration)
-                VibroCalc.CalcAll((Acceleration)VibroParametr);
+                VibroCalc.CalcAll((Acceleration)VibroParametr.CloneObj());
             if (VibroParametr is Velocity)
-                VibroCalc.CalcAll((Velocity)VibroParametr);
+                VibroCalc.CalcAll((Velocity)VibroParametr.CloneObj());
             if (VibroParametr is Displacement)
-                VibroCalc.CalcAll((Displacement)VibroParametr);
+                VibroCalc.CalcAll((Displacement)VibroParametr.CloneObj());
 
             Generator.Frequency = Frequency.Get_Hz();
             double voltToHold = VibroCalc.Voltage.GetRMS() / 1000;
@@ -132,7 +166,7 @@ namespace LibDevicesManager
             }
             lastVoltage = currentVoltage;
 
-            while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork) // todo token
+            while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork) 
             {
                 if (Multimeter.Measure(out currentVoltage) != Result.Success)
                 {
@@ -164,8 +198,18 @@ namespace LibDevicesManager
                 }
             }
             IsTesting = false;
+            VibStendStatus = VibStendStatus.Finished;
+        }
+        static public void StopTest()
+        {
+            CancelTokenSourceForTest.Cancel();
+
         }
 
+        private static bool IsMeasureStable(double newResult, double lastResult, double accuracyIndex)
+        {
+            return newResult < lastResult * (1 - accuracyIndex) || newResult > lastResult * (1 + accuracyIndex);
+        }
         private void HandleVibStendProblem(double currentVoltage, VibStendStatus status)
         {
             VibStendStatus = status;
@@ -176,16 +220,6 @@ namespace LibDevicesManager
             }
             catch { }
             IsTesting = false;
-        }
-
-        static public void StopTest()
-        {
-            CancelTokenSourceForTest.Cancel();
-
-        }
-        private static bool IsMeasureStable(double newResult, double lastResult, double accuracyIndex)
-        {
-            return newResult < lastResult * (1 - accuracyIndex) || newResult > lastResult * (1 + accuracyIndex);
         }
         private TokenStatus IsTokenCancelAndServiceCancel()
         {
@@ -201,6 +235,16 @@ namespace LibDevicesManager
                 return TokenStatus.Canceled;
             }
             return TokenStatus.InWork;
+        }
+
+    }
+    public static class PmData
+    {
+        public static T CloneObj<T>(this T obj)
+        {
+            var inst = obj.GetType().GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            return (T)inst?.Invoke(obj, null);
         }
 
     }

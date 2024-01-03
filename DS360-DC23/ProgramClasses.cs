@@ -128,7 +128,27 @@ namespace ManagerDS360
             { ManagerDS360.FunctionTypeSignal.Синус_Синус,"Синус-Синус"},
             { ManagerDS360.FunctionTypeSignal.Синус_Квадрат,"Синус-Квадрат"},
         };
-
+        public static Dictionary<GeneratorModel, string> GeneratorModel = new Dictionary<GeneratorModel, string>()
+        {
+            { LibDevicesManager.GeneratorModel.DS360, "DS360" },
+            //{ LibDevicesManager.GeneratorModel.Agilent33220A, "Agilent33220A" },
+        };
+        public static Dictionary<MultimeterModel, string> MultimeterModel = new Dictionary<MultimeterModel, string>()
+        {
+            { LibDevicesManager.MultimeterModel.Agilent3458A, "Agilent3458A" },
+            //{ LibDevicesManager.MultimeterModel.Agilent34401A, "Agilent34401A" },
+        };
+        public static Dictionary<VibStendStatus, string> VibStendStatus = new Dictionary<VibStendStatus, string>()
+        {
+            { LibDevicesManager.VibStendStatus.Correction, "Коррекция"},
+            { LibDevicesManager.VibStendStatus.GeneratorProblem, "Ошибка генератора"},
+            { LibDevicesManager.VibStendStatus.MultimeterProblem, "Ошибка мультиметра"},
+            { LibDevicesManager.VibStendStatus.NotSensitive, "Нет чуствительности"},
+            { LibDevicesManager.VibStendStatus.NotStably, "Нестабильные показания"},
+            { LibDevicesManager.VibStendStatus.Stably, "Корректно"},
+            { LibDevicesManager.VibStendStatus.Stoping, "Остнов"},
+            { LibDevicesManager.VibStendStatus.Finished, "Закончен"},
+        };
         public static List<FileInfo> RouteAddresses = new List<FileInfo>();
 
         static PmData()

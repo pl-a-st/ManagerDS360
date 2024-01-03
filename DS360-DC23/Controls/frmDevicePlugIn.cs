@@ -21,7 +21,21 @@ namespace ManagerDS360
 
         private async void frmDevicePlugIn_Load(object sender, EventArgs e)
         {
+            await SetCboListFromDict(cboGenToMultType, PmData.GeneratorModel);
+            await SetCboListFromDict(cboGenToVibType, PmData.GeneratorModel);
+            await SetCboListFromDict(cboMultToMultType, PmData.MultimeterModel);
+            await SetCboListFromDict(cboMultToVibType, PmData.MultimeterModel);
             await GetDefaultDS360ToCboListComPorts();
+
+        }
+        private async Task SetCboListFromDict<T>(ComboBox cbo, Dictionary<T, string> dict)
+        {
+            await Task.Delay(10);
+            var elements = dict.Values.ToArray();
+            cbo.BeginUpdate();
+            cbo.Items.AddRange(elements);
+            cbo.SelectedIndex = (int)TestedDevice.None;
+            cbo.EndUpdate();
         }
         private async Task GetDefaultDS360ToCboListComPorts()
         {
@@ -29,7 +43,7 @@ namespace ManagerDS360
             cboListComPorts.Items.Clear();
             await Task.Run(() => butRefreshDS360List.StartRotationBackgroundImage());
             await Task.Delay(100);
-            if (DS360Setting.ComPortDefaultName== "NONE")
+            if (DS360Setting.ComPortDefaultName == "NONE")
             {
                 Task getComes = new Task(() => DS360Setting.SetFirstDS360AsDefault());
                 await Task.Run(() => getComes.Start());
@@ -58,7 +72,7 @@ namespace ManagerDS360
         }
         private async void RotateImage()
         {
-           
+
 
 
         }
@@ -80,12 +94,22 @@ namespace ManagerDS360
 
         private async void buttonForPicture1_Click(object sender, EventArgs e)
         {
-           
-            await GetDefaultDS360ToCboListComPorts();
+            SwetchRotationButton(butRefreshDS360List);
+            await FindDS360PushCbo(cboListComPorts);
+            SwetchRotationButton(butRefreshDS360List);
         }
-
+        private async Task FindDS360PushCbo(ComboBox cbo)
+        {
+            Task<string[]> getComs = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
+            Task.Run(() => getComs.Start());
+            await Task.Run(() => getComs.Wait());
+            cbo.Items.Clear();
+            cbo.Items.AddRange(getComs.Result);
+            cbo.SelectedIndex = 0;
+        }
         private void SwetchRotationButton(ButtonForRotation buttonForPicture)
         {
+            // перемеситить метод в класс кнопки
             if (buttonForPicture.IsRotation)
             {
                 buttonForPicture.StopRotationBackgroundImage();
@@ -107,6 +131,46 @@ namespace ManagerDS360
         private void buttonForPicture3_Click_1(object sender, EventArgs e)
         {
             SwetchRotationButton(buttonForPicture3);
+        }
+
+        private void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DS360Setting.ComPortDefaultName = cboListComPorts.SelectedItem.ToString();
+        }
+
+        private async void butRefreshGenToMultAddresses_Click(object sender, EventArgs e)
+        {
+            SwetchRotationButton(butRefreshGenToMultAddresses);
+            if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToMultType.SelectedItem.ToString()) == GeneratorModel.DS360)
+                await FindDS360PushCbo(cboGenToMultAddress);
+            SwetchRotationButton(butRefreshGenToMultAddresses);
+        }
+
+        private void cboGenToMultAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboGenToMultAddress.SelectedItem.ToString() != string.Empty)
+            {
+                // todo прописать установку адреса для генератора
+            }
+        }
+
+        private async void butRefreshGenToVibAddresses_Click(object sender, EventArgs e)
+        {
+            SwetchRotationButton(butRefreshGenToVibAddresses);
+            if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString()) == GeneratorModel.DS360)
+                await FindDS360PushCbo(cboGenToVibAddress);
+            SwetchRotationButton(butRefreshGenToVibAddresses);
+        }
+
+        private void cboGenToVibType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GeneratorForVibCalib.GeneratorModel = PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString());
+        }
+
+        private void cboGenToVibAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboGenToVibAddress.SelectedIndex.ToString() != string.Empty)
+                GeneratorForVibCalib.Address = cboGenToVibAddress.SelectedItem.ToString();
         }
     }
 }

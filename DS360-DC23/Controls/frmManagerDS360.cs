@@ -33,7 +33,7 @@ namespace ManagerDS360
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            menuForTest.Visible = true;
+            mnuForTest.Visible = true;
 #endif
             LoadCboSavedRoutes();
             //await SetDefaultDS360();
@@ -42,6 +42,23 @@ namespace ManagerDS360
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
             frmDevicePlugIn frmDevicePlugIn = new frmDevicePlugIn();
             frmDevicePlugIn.ShowDialog();
+            VibrationStand.StatusHasChanged += VibrationStand_StatusHasChanged;
+        }
+
+        private void VibrationStand_StatusHasChanged(VibStendInfo info)
+        {
+            BeginInvoke(new Action(() => PushInfoAboutStend(info)));
+        }
+
+        private void PushInfoAboutStend(VibStendInfo info)
+        {
+            int MaxWidth = grpStend.Width;
+            lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
+            lblFreq.Text ="F: " + info.Frequency.Get_Hz().ToString() + "Гц";
+            lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.ParametrToHold.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
+            lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.CurrentParametr.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
+            lblParametrToHold.Location = new Point(MaxWidth / 4 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
+            lblFreq.Location = new Point(MaxWidth / 4*3 - lblFreq.Width / 2, lblFreq.Location.Y);
         }
 
         private async Task SetTestedDevicesList()
@@ -186,6 +203,10 @@ namespace ManagerDS360
             if (selectedNode.NodeType == NodeType.Message)
             {
                 return MakeOperationsForMessge(selectedNode);
+            }
+            if (selectedNode.NodeType == NodeType.VibroStand)
+            {
+                return selectedNode.VibrationStand.RunStend();
             }
             return Result.Success;
         }

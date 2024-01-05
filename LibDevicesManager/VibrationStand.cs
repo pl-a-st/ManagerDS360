@@ -79,17 +79,19 @@ namespace LibDevicesManager
         public static CancellationToken TokenForTest = CancelTokenSourceForTest.Token;
         public static bool IsTesting = false;
         public delegate void StatusStandChangeHandler(VibStendInfo info);
-        public static  event StatusStandChangeHandler StatusHasChanged;
+        public static event StatusStandChangeHandler StatusHasChanged;
         public VibStendStatus VibStendStatus = VibStendStatus.None;
-        
+
         public Result RunStend()
         {
-            Task.Run(() => SetVibroParamInStend());
-            while (VibStendStatus== VibStendStatus.None)
+            Task taskSend = new Task(SetVibroParamInStend, TokenForTest);
+            taskSend.Start();
+
+            while (VibStendStatus == VibStendStatus.None)
             {
                 Task.Delay(300);
             }
-            if(VibStendStatus == VibStendStatus.Stably)
+            if (VibStendStatus == VibStendStatus.Stably)
             {
                 return Result.Success;
             }
@@ -98,7 +100,7 @@ namespace LibDevicesManager
         /// <summary>
         /// Метод в разработке (рефакторинг)
         /// </summary>
-        public void SetVibroParamInStend() // todo отрефакторить
+        private void SetVibroParamInStend() // todo отрефакторить
         {
             Generator.SetOutputOff();
             StopTest();
@@ -138,7 +140,7 @@ namespace LibDevicesManager
             Generator.SetOutputOn();
             Task.Delay(300);
 
-            if(Multimeter.Measure(out currentVoltage)!= Result.Success)
+            if (Multimeter.Measure(out currentVoltage) != Result.Success)
             {
                 HandleVibStendProblem(-1, VibStendStatus.MultimeterProblem);
                 return;
@@ -166,23 +168,23 @@ namespace LibDevicesManager
             }
             lastVoltage = currentVoltage;
 
-            while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork) 
+            while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork)
             {
                 if (Multimeter.Measure(out currentVoltage) != Result.Success)
                 {
                     HandleVibStendProblem(-1, VibStendStatus.MultimeterProblem);
                     return;
                 }
-                
+
                 if (!IsMeasureStable(currentVoltage, lastVoltage, Accuracy))
                 {
                     if (!IsMeasureStable(currentVoltage, lastVoltage, 0.1))
                     {
                         HandleVibStendProblem(currentVoltage, VibStendStatus.NotStably);
                     }
-                    
-                        //todo проверить адекватность
-                        Generator.AmplitudeRMS = Generator.AmplitudeRMS * voltToHold / currentVoltage;
+
+                    //todo проверить адекватность
+                    Generator.AmplitudeRMS = Generator.AmplitudeRMS * voltToHold / currentVoltage;
                     if (Generator.SendSetting() != Result.Success)
                     {
                         HandleVibStendProblem(currentVoltage, VibStendStatus.GeneratorProblem);
@@ -203,7 +205,6 @@ namespace LibDevicesManager
         static public void StopTest()
         {
             CancelTokenSourceForTest.Cancel();
-
         }
 
         private static bool IsMeasureStable(double newResult, double lastResult, double accuracyIndex)
@@ -214,11 +215,10 @@ namespace LibDevicesManager
         {
             VibStendStatus = status;
             StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
-            try
-            {
-                Generator.SetOutputOff();
-            }
-            catch { }
+            Generator.SetOutputOff();
+            CancelTokenSourceForTest.Dispose();
+            CancelTokenSourceForTest = new CancellationTokenSource();
+            TokenForTest = CancelTokenSourceForTest.Token;
             IsTesting = false;
         }
         private TokenStatus IsTokenCancelAndServiceCancel()

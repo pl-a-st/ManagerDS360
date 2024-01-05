@@ -222,6 +222,7 @@
             this.Name = "frmCreationVibroCalibSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = ",";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCreationVibroCalibSetting_FormClosing);
             this.Load += new System.EventHandler(this.frmCreationVibroCalibSetting_LoadAsync);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

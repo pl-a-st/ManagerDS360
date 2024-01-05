@@ -71,7 +71,7 @@ namespace ManagerDS360 {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.buttonForPicture1 = new LibControls.ButtonForPicture();
+            this.butVibCalibSetting = new LibControls.ButtonForPicture();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -372,7 +372,7 @@ namespace ManagerDS360 {
             this.grpStend.Controls.Add(this.groupBox3);
             this.grpStend.Controls.Add(this.groupBox5);
             this.grpStend.Controls.Add(this.groupBox4);
-            this.grpStend.Controls.Add(this.buttonForPicture1);
+            this.grpStend.Controls.Add(this.butVibCalibSetting);
             this.grpStend.Controls.Add(this.butVibCalibStop);
             this.grpStend.Controls.Add(this.label2);
             this.grpStend.Location = new System.Drawing.Point(15, 474);
@@ -648,22 +648,22 @@ namespace ManagerDS360 {
             this.groupBox5.TabIndex = 35;
             this.groupBox5.TabStop = false;
             // 
-            // buttonForPicture1
+            // butVibCalibSetting
             // 
-            this.buttonForPicture1.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonForPicture1.BackgroundImage")));
-            this.buttonForPicture1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture1.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture1.Location = new System.Drawing.Point(123, 33);
-            this.buttonForPicture1.Name = "buttonForPicture1";
-            this.buttonForPicture1.Size = new System.Drawing.Size(36, 36);
-            this.buttonForPicture1.TabIndex = 29;
-            this.buttonForPicture1.UseVisualStyleBackColor = false;
-            this.buttonForPicture1.Click += new System.EventHandler(this.butVibCalibStop_Click);
+            this.butVibCalibSetting.BackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butVibCalibSetting.BackgroundImage")));
+            this.butVibCalibSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butVibCalibSetting.FlatAppearance.BorderSize = 0;
+            this.butVibCalibSetting.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butVibCalibSetting.Location = new System.Drawing.Point(123, 33);
+            this.butVibCalibSetting.Name = "butVibCalibSetting";
+            this.butVibCalibSetting.Size = new System.Drawing.Size(36, 36);
+            this.butVibCalibSetting.TabIndex = 29;
+            this.butVibCalibSetting.UseVisualStyleBackColor = false;
+            this.butVibCalibSetting.Click += new System.EventHandler(this.butVibCalibSetting_Click);
             // 
             // frmManagerDS360
             // 
@@ -756,7 +756,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
-        private LibControls.ButtonForPicture buttonForPicture1;
+        private LibControls.ButtonForPicture butVibCalibSetting;
     }
 }
 

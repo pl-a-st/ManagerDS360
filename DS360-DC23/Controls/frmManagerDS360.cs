@@ -26,6 +26,7 @@ namespace ManagerDS360
         static CancellationTokenSource CancelTokenConnect = new CancellationTokenSource();
         CancellationToken TokenForConnect = CancelTokenConnect.Token;
         static string LastRouteName = string.Empty;
+        public frmCreationVibroCalibSetting FrmVibroCalib = new frmCreationVibroCalibSetting();
         public frmManagerDS360()
         {
             InitializeComponent();
@@ -923,6 +924,26 @@ namespace ManagerDS360
                 VibrationStand.StopTest();
             }
            
+        }
+
+        private void butVibCalibSetting_Click(object sender, EventArgs e)
+        {
+            FrmVibroCalib.CallType = CallType.Control;
+
+            FrmVibroCalib.TopLevel = true;
+            if (FrmVibroCalib.Visible)
+            {
+                FrmVibroCalib.Visible = false;
+            }
+            else
+            {
+                
+                FrmVibroCalib.StartPosition = FormStartPosition.CenterParent;
+
+                
+                FrmVibroCalib.Show(this);
+               
+            }
         }
     }
 }

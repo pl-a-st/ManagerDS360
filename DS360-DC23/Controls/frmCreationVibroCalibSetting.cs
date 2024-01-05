@@ -35,6 +35,10 @@ namespace ManagerDS360
 
         public  async void frmCreationVibroCalibSetting_LoadAsync(object sender, EventArgs e)
         {
+            if (this.Modal == false)
+            {
+                this.CenterToParent();
+            }
             await PushCboDetector();
             await PushCboSetValue();
             SetInterfaceForCallType();
@@ -96,14 +100,6 @@ namespace ManagerDS360
                 return;
             }
             SetVibroStend();
-            //todo
-            //if (DS360Setting.CheckDS360Setting() != Result.Success)
-            //{
-            //    MessageBox.Show(DS360Setting.ResultMessage, "Ошибка", MessageBoxButtons.OK,
-            //    MessageBoxIcon.Warning,
-            //    MessageBoxDefaultButton.Button1);
-            //    return;
-            //}
             DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -116,7 +112,12 @@ namespace ManagerDS360
 
         private void butSend_Click(object sender, EventArgs e)
         {
-
+            if (CheckFormsParameters() != Result.Success)
+            {
+                return;
+            }
+            SetVibroStend();
+            VibrationStand.RunStend();
         }
 
 
@@ -215,6 +216,16 @@ namespace ManagerDS360
                 MessageBox.Show(message);
             }
             return result;
+        }
+
+        private void frmCreationVibroCalibSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(CallType == CallType.Control && Visible == true)
+            {
+                e.Cancel = true;
+                Visible = false;
+                TopLevel = false;
+            }
         }
 
         //internal bool IsTwoTone()

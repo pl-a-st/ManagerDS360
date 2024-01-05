@@ -54,11 +54,13 @@ namespace ManagerDS360
         {
             int MaxWidth = grpStend.Width;
             lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
-            lblFreq.Text ="F: " + info.Frequency.Get_Hz().ToString() + "Гц";
+            lblFreq.Text ="F: " + info.Frequency.Get_Hz().ToString() + " Гц";
             lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.ParametrToHold.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
             lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.CurrentParametr.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
-            lblParametrToHold.Location = new Point(MaxWidth / 4 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
-            lblFreq.Location = new Point(MaxWidth / 4*3 - lblFreq.Width / 2, lblFreq.Location.Y);
+            lblParametrToHold.Location = new Point(MaxWidth / 2 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
+            lblFreq.Location = new Point(MaxWidth / 2 - lblFreq.Width / 2, lblFreq.Location.Y);
+            lblVibCalibStatus.Location = new Point(MaxWidth / 2  - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);
+            lblCurentParametr.Location = new Point(MaxWidth / 2 - lblCurentParametr.Width / 2, lblCurentParametr.Location.Y);
         }
 
         private async Task SetTestedDevicesList()
@@ -911,6 +913,16 @@ namespace ManagerDS360
         private void treRouteTree_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             SendNodeSetting();
+        }
+
+        private void butVibCalibStop_Click(object sender, EventArgs e)
+        {
+            VibrationStand.Generator.SetOutputOff();
+            if (VibrationStand.IsTesting)
+            {
+                VibrationStand.StopTest();
+            }
+           
         }
     }
 }

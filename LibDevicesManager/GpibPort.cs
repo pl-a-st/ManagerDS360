@@ -52,8 +52,9 @@ namespace LibDevicesManager
         
         #endregion Constructors
 
-        private void CheckBus0()
+        private Result CheckBus0()
         {
+            Result result = Result.Failure;
             if (rm == null)
             {
                 rm = new ResourceManager();
@@ -65,10 +66,12 @@ namespace LibDevicesManager
                 {
                     Console.WriteLine(r);
                 }
+                result = Result.Success;
             }
             catch
             {
                 Marshal.FinalReleaseComObject(rm);
+                result = Result.Exception;
             }
             finally
             {
@@ -77,6 +80,7 @@ namespace LibDevicesManager
                     Marshal.FinalReleaseComObject(rm);
                 }
             }
+            return result;
         }
         private void Init()
         {

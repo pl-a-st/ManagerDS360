@@ -61,7 +61,7 @@ namespace LibDevicesManager
             return string.Empty;
         }
 
-        public Result Send(string command)
+        public virtual Result Send(string command)
         {
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {

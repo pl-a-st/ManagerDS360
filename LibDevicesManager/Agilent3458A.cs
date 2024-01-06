@@ -42,7 +42,7 @@ namespace LibDevicesManager
         #endregion PublicFields
 
         #region PrivateFields
-        private int adressGPIB;
+        private int adressGPIB = 22;
         private static string comPortDefaultName;
         private bool isComPortDefaultName = true;
         private string comPortName;
@@ -50,26 +50,43 @@ namespace LibDevicesManager
         private string resultMessage = string.Empty;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
         private static bool isDebugMode = false; //ToDel
+        private GpibPort multimeter;
         #endregion PublicFields
 
         #region Constructors
         public Agilent3458A()
         {
             MultimeterModel = MultimeterModel.Agilent3458A;
+            multimeter = new GpibPort(AddressGPIB);
+
         }
 
         #endregion Constructors
 
         #region PublicMethods
 
-        public Result Send(string command)
+        public override Result Send(string command)
         {
-            throw new NotImplementedException();
+            if (multimeter == null)
+            {
+                return Result.Failure;
+            }
+            return multimeter.Send(command); 
         }
 
-        public override string Receive()
+        public override string Receive() //TODO: переделать на result out string
         {
-            throw new NotImplementedException();
+            if (multimeter == null)
+            {
+                return string.Empty;
+            }
+            return multimeter.ReadString();
+        }
+        public override Result Measure(out double value)
+        {
+            value = 0;
+            //TODO: прописать код
+            return Result.Failure;
         }
         #endregion PublicMethods
     }

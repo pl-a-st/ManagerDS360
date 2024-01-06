@@ -209,7 +209,7 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.VibroStand)
             {
-                return selectedNode.VibrationStand.RunStend();
+                return MakeOperationsForVibroStend(selectedNode);
             }
             return Result.Success;
         }
@@ -312,7 +312,36 @@ namespace ManagerDS360
                 selectedNode.SelectedImageIndex = 6;
             }));
         }
-
+        private Result MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                selectedNode.ImageIndex = 11;
+                selectedNode.SelectedImageIndex = 11;
+            }));
+            if (selectedNode.VibrationStand.RunStend() != Result.Success)
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    //MessageBox.Show(
+                    //   this,
+                    //   selectedNode.DS360Setting.ResultMessage,
+                    //   "Предупреждение",
+                    //   MessageBoxButtons.OK,
+                    //   MessageBoxIcon.Warning,
+                    //   MessageBoxDefaultButton.Button1);
+                    selectedNode.ImageIndex = 12;
+                    selectedNode.SelectedImageIndex = 12;
+                }));
+                return Result.Failure;
+            }
+            BeginInvoke(new Action(() =>
+            {
+                selectedNode.ImageIndex = 13;
+                selectedNode.SelectedImageIndex = 13;
+            }));
+            return Result.Success;
+        }
         private Result MakeOperationsForDS360(TreeNodeWithSetting selectedNode)
         {
             BeginInvoke(new Action(() =>
@@ -731,6 +760,7 @@ namespace ManagerDS360
         {
             //LastRouteName = string.Empty;
             butStopTest.Click += butStop_Click;
+           
             Task taskSend = new Task(SendAllChacked, TokenForTest);
             taskSend.Start();
             SetLocationLblTestStatus("Идет испытание!!!");
@@ -777,6 +807,7 @@ namespace ManagerDS360
             }
             butStopTest.Enabled = true;
             lblTestStatus.Enabled = true;
+            grpStend.Enabled = true;
         }
 
         private void SendAllChacked()

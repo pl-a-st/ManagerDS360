@@ -167,13 +167,31 @@
     <None Include="Resources\Message_зеленый.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Стенд зеленый.png" />
+    <None Include="Resources\Настройка.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Папка.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Настройка_красная.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Настройка_синяя.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд серый.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Стенд красный.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Стенд серый.png" />
+    <None Include="Resources\Настройка_зеленая.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд синий.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Стенд зеленый.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -67,8 +67,59 @@ namespace LibDevicesManager
 
         public override Result SendSetting()
         {
-            //TODO: дописать код
-            return Result.Failure;
+            Result result = SendMeasureType();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            result = SendPhysicalParameter();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            result = SendLowFrequencyLimit();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            //TODO: дописать проверку правильности установок настроек?
+            return result;
+        }
+        private Result SendMeasureType()
+        {
+            Result result = Result.Failure;
+            if (MeasureType == MeasureType.AC)
+            {
+                string command = ""; //TODO: дописать КОМАНДУ
+                result = multimeter.Send(command);
+            }
+            if (MeasureType == MeasureType.DC)
+            {
+                string command = ""; //TODO: дописать КОМАНДУ
+                result = multimeter.Send(command);
+            }
+            return result;
+        }
+        private Result SendPhysicalParameter()
+        {
+            Result result = Result.Failure;
+            if (PhysicalParameter == PhysicalParameter.U)
+            {
+                string command = ""; //TODO: дописать КОМАНДУ
+                result = multimeter.Send(command);
+            }
+            if (PhysicalParameter == PhysicalParameter.I)
+            {
+                string command = ""; //TODO: дописать КОМАНДУ
+                result = multimeter.Send(command);
+            }
+            return result;
+        }
+        private Result SendLowFrequencyLimit()
+        {
+            string command = ""; //TODO: дописать КОМАНДУ
+            return multimeter.Send(command);
+
         }
         public override Result Send(string command)
         {

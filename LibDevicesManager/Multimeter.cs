@@ -47,18 +47,19 @@ namespace LibDevicesManager
             //TODO: прописать код
             return Result.Failure;
         }
-        public virtual string Receive()
+        public virtual Result Receive(out string response)
         {
+            response = string.Empty;
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
                 Agilent3458A multimeter = new Agilent3458A();
-                return multimeter.Receive();
+                return multimeter.Receive(out response);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)
             {
-                return string.Empty; //Прописать код
+                return Result.Failure; //TODO: Прописать код
             }
-            return string.Empty;
+            return Result.Failure;
         }
 
         public virtual Result Send(string command)

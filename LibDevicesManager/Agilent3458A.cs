@@ -74,13 +74,14 @@ namespace LibDevicesManager
             return multimeter.Send(command); 
         }
 
-        public override string Receive() //TODO: переделать на result out string
+        public override Result Receive(out string response) //TODO: переделать на result out string
         {
+            response = string.Empty;
             if (multimeter == null)
             {
-                return string.Empty;
+                return Result.Failure;
             }
-            return multimeter.ReadString();
+            return multimeter.ReadString(out response);
         }
         public override Result Measure(out double value)
         {

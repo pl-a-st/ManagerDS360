@@ -63,9 +63,11 @@ namespace LibDevicesManager
             }
             return Result.Failure;
         }
-        public string Receive()
+        public Result Receive(out string response)
         {
-            return "ЗАПОЛНИТЬ";
+            response = string.Empty; 
+            //TODO: дописать код
+            return Result.Failure;
         }
 
         public Result Send(string command)

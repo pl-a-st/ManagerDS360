@@ -36,7 +36,7 @@ namespace LibDevicesManager
         DeviceType DeviceType { get; }
 
         Result Send(string command);
-        string Receive();
+        Result Receive(out string response);
     }
     interface IGenerator : IDevice
     {

@@ -49,7 +49,7 @@ namespace LibDevicesManager
             this.gpibAddress = gpibAddress;
             Init();
         }
-        
+
         #endregion Constructors
 
         private Result CheckBus0()
@@ -150,47 +150,55 @@ namespace LibDevicesManager
             }
             return Result.Failure;
         }
-        public string ReadString()
+        public Result ReadString(out string stringReaded)
         {
-            string str = string.Empty;
-            str = ReadString(deviceIO);
-            return str;
+            return ReadString(deviceIO, out stringReaded);
         }
-
-        private string ReadChar(IMessage deviceIO)
+        private Result ReadString(IMessage deviceIO, out string stringReaded)
         {
-            string str = string.Empty;
-            if (deviceIO != null)
-            {
-                try
-                {
-                    str = deviceIO.ReadString(1);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Ошибка: " + e.Message);
-                    //str = "\n";
-                }
-            }
-            return str;
-        }
-        private string ReadString(IMessage deviceIO)
-        {
-            string str = string.Empty;
+            Result result;
+            stringReaded = string.Empty;
             string ch = string.Empty;
             do
             {
-                ch = ReadChar(deviceIO);
+                result = ReadChar(deviceIO, out ch);
+                if (result != Result.Success)
+                {
+                    return result;
+                }
                 if (ch == "\n" || ch == "\r")
                 {
                     continue;
                 }
-                str += ch;
+                stringReaded += ch;
             }
-            while (ch != string.Empty && ch != "\n");
-            return str;
+            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия
+            return Result.Success;
 
         }
+
+        private Result ReadChar(IMessage deviceIO, out string charReaded)
+        {
+            charReaded = string.Empty;
+            if (deviceIO == null)
+            {
+                return Result.ParamError;
+            }
+            if (deviceIO != null)
+            {
+                try
+                {
+                    charReaded = deviceIO.ReadString(1);
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка: {e.Message}";
+                    return Result.Exception;
+                }
+            }
+            return Result.Success;
+        }
+
 
         #region NotUsed
 

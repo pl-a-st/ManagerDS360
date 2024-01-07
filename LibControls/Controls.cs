@@ -115,7 +115,7 @@ namespace LibControls
             }
             return bmp;
         }
-       
+
 
     }
     public class ButtonForRotation : ButtonForPicture
@@ -128,6 +128,20 @@ namespace LibControls
                 DoImageForRotation();
             }
         }
+        public async Task SwetchRotationButton()
+        {
+            // перемеситить метод в класс кнопки
+            if (IsRotation)
+            {
+                StopRotationBackgroundImage();
+                return;
+            }
+            if (!IsRotation)
+            {
+                StartRotationBackgroundImage();
+                return;
+            }
+        }
         [HandleProcessCorruptedStateExceptions]
         public void StartRotationBackgroundImage()
         {
@@ -135,7 +149,9 @@ namespace LibControls
             TokenFoRotation = CancelTokenRotation.Token;
             RotationTask = new Task(() => rotation(TokenFoRotation), TokenFoRotation);
             RotationTask.Start();
-            
+
+           
+
             async void rotation(CancellationToken tokenFoRotation)
             {
                 for (int i = 0; true; i++)

@@ -94,9 +94,9 @@ namespace ManagerDS360
 
         private async void buttonForPicture1_Click(object sender, EventArgs e)
         {
-            SwetchRotationButton(butRefreshDS360List);
+            await SwetchRotationButton(butRefreshDS360List);
             await FindDS360PushCbo(cboListComPorts);
-            SwetchRotationButton(butRefreshDS360List);
+            await SwetchRotationButton(butRefreshDS360List);
         }
         private async Task FindDS360PushCbo(ComboBox cbo)
         {
@@ -107,7 +107,7 @@ namespace ManagerDS360
             cbo.Items.AddRange(getComs.Result);
             cbo.SelectedIndex = 0;
         }
-        private void SwetchRotationButton(ButtonForRotation buttonForPicture)
+        private async Task SwetchRotationButton(ButtonForRotation buttonForPicture)
         {
             // перемеситить метод в класс кнопки
             if (buttonForPicture.IsRotation)
@@ -130,7 +130,7 @@ namespace ManagerDS360
 
         private void buttonForPicture3_Click_1(object sender, EventArgs e)
         {
-            SwetchRotationButton(buttonForPicture3);
+            buttonForPicture3.SwetchRotationButton();
         }
 
         private void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,10 +140,13 @@ namespace ManagerDS360
 
         private async void butRefreshGenToMultAddresses_Click(object sender, EventArgs e)
         {
-            SwetchRotationButton(butRefreshGenToMultAddresses);
+
+            await butRefreshGenToMultAddresses.SwetchRotationButton();
             if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToMultType.SelectedItem.ToString()) == GeneratorModel.DS360)
+            {
                 await FindDS360PushCbo(cboGenToMultAddress);
-            SwetchRotationButton(butRefreshGenToMultAddresses);
+            }
+            await butRefreshGenToMultAddresses.SwetchRotationButton();
         }
 
         private void cboGenToMultAddress_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,10 +159,12 @@ namespace ManagerDS360
 
         private async void butRefreshGenToVibAddresses_Click(object sender, EventArgs e)
         {
-            SwetchRotationButton(butRefreshGenToVibAddresses);
+            await butRefreshGenToVibAddresses.SwetchRotationButton();
             if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString()) == GeneratorModel.DS360)
-                await FindDS360PushCbo(cboGenToVibAddress);
-            SwetchRotationButton(butRefreshGenToVibAddresses);
+            {
+                 await FindDS360PushCbo(cboGenToVibAddress);
+            }
+            await butRefreshGenToVibAddresses.SwetchRotationButton();
         }
 
         private void cboGenToVibType_SelectedIndexChanged(object sender, EventArgs e)

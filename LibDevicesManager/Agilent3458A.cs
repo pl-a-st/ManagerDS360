@@ -65,16 +65,21 @@ namespace LibDevicesManager
 
         #region PublicMethods
 
+        public override Result SendSetting()
+        {
+            //TODO: дописать код
+            return Result.Failure;
+        }
         public override Result Send(string command)
         {
             if (multimeter == null)
             {
                 return Result.Failure;
             }
-            return multimeter.Send(command); 
+            return multimeter.Send(command);
         }
 
-        public override Result Receive(out string response) //TODO: переделать на result out string
+        public override Result Receive(out string response)
         {
             response = string.Empty;
             if (multimeter == null)
@@ -86,7 +91,20 @@ namespace LibDevicesManager
         public override Result Measure(out double value)
         {
             value = 0;
-            //TODO: прописать код
+            if (multimeter == null)
+            {
+                return Result.Failure;
+            }
+            string response;
+            Result result = multimeter.ReadString(out response);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            if (Double.TryParse(response, out value))
+            {
+                return Result.Success;
+            }
             return Result.Failure;
         }
         #endregion PublicMethods

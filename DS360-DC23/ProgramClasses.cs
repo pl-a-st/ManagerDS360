@@ -72,11 +72,13 @@ namespace ManagerDS360
         Пик = SignalParametrType.PIK,
         Пик_пик = SignalParametrType.PIK_PIK
     }
+
     /// <summary>
     /// Сортированный словарь реализуеющий АЧХ 
     /// где ключ - частота,
     /// занчение - коэффициент
     /// </summary>
+    [Serializable]
     public class FrequencyResponse : SortedDictionary<double, double>
     {
         /// <summary>
@@ -148,6 +150,7 @@ namespace ManagerDS360
     public static class PmData
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
+        public const string FileNameFreqRespAddresses = @"FrequencyResponses.bin";
         public static Dictionary<SettingsType, string> SettingsType = new Dictionary<SettingsType, string>()
         {
             { ManagerDS360.SettingsType.Folder, "Папка"},
@@ -222,15 +225,24 @@ namespace ManagerDS360
             { LibDevicesManager.VibStendStatus.Finished, "Закончен"},
         };
         public static List<FileInfo> RouteAddresses = new List<FileInfo>();
+        public static List<FileInfo> FreqRespAddresses = new List<FileInfo>();
 
         static PmData()
         {
-            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses), out var result);
+            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationRotePath(FileNameRouteAddresses), out _);
+            FreqRespAddresses = DAO.binReadFileToObject(FreqRespAddresses, DAO.GetApplicationRotePath(FileNameFreqRespAddresses), out _);
         }
 
         static public void SaveRouteAddresses()
         {
-            if (DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationDataPath(FileNameRouteAddresses)) != MethodResultStatus.Ok)
+            if (DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationRotePath(FileNameRouteAddresses)) != MethodResultStatus.Ok)
+            {
+                MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
+            }
+        }
+        static public void SaveFreqRespAddresses()
+        {
+            if (DAO.binWriteObjectToFile(FreqRespAddresses, DAO.GetApplicationRotePath(FileNameFreqRespAddresses)) != MethodResultStatus.Ok)
             {
                 MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
             }

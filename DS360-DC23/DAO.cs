@@ -73,13 +73,27 @@ namespace ManagerDS360
             return serObject;
         }
         /// <summary>
-        /// получение пути специальной деректории пользователя для данногого приложения
+        /// Получение пути файла специальной деректории пользователя с адресами маршрутов для данногого приложения
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetApplicationRotePath(string fileName)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path + fileName;
+        }
+        /// <summary>
+        /// Получение пути файла специальной деректории пользователя с адресами АЧХ вибростенда для данногого приложения
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
         public static string GetApplicationDataPath(string fileName)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\AutoTestingVAST\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

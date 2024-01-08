@@ -235,6 +235,78 @@ namespace LibControls
         UnLock,
         Blocked
     }
+    public class DataGridViewForDouble: DataGridView
+    {
+        private string LastText;
+        public Access Access = Access.UnLock;
+        protected override void OnTextChanged(EventArgs e)
+        {
+            if (Access == Access.UnLock)
+            {
+                if (!double.TryParse(Text, out double result) && Text != "")
+                {
+                    Access = Access.Blocked;
+                    Text = LastText;
+                    Access = Access.UnLock;
+                    
+                    return;
+                }
+                LastText = Text;
+                base.OnTextChanged(e);
+            }
+        }
+        protected override void OnEditingControlShowing(DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= Control_KeyPress;
+            e.Control.KeyPress += Control_KeyPress;
+            e.Control.TextChanged -= Control_TextChanged;
+            e.Control.TextChanged += Control_TextChanged;
+            base.OnEditingControlShowing(e);
+        }
+
+        private void Control_TextChanged(object sender, EventArgs e)
+        {
+            var inputedText = (DataGridViewTextBoxEditingControl)sender;
+            int selectionStart = inputedText.SelectionStart;
+            if (Access == Access.UnLock)
+            {
+                if (!double.TryParse(inputedText.Text, out double result) && inputedText.Text != "")
+                {
+                    Access = Access.Blocked;
+                    inputedText.Text = LastText;
+                    Access = Access.UnLock;
+                    inputedText.SelectionStart = selectionStart-1;
+                    return;
+                }
+                LastText = inputedText.Text;
+            }
+        }
+
+        private void Control_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            }
+            if (char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                e.KeyChar = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            }
+            if (char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            base.OnKeyPress(e);
+        }
+    }
     public class ModifiedTextBox : TextBox
     {
         private string LastText;

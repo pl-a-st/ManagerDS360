@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibDevicesManager
 {
-    internal class GpibPort
+    public class GpibPort
     {
         public int GpibAddress { get; set; }
 
@@ -52,12 +52,175 @@ namespace LibDevicesManager
 
         #endregion Constructors
 
+        #region PublicMethods
+        public static string[] GetPorts()
+        {
+            try
+            {
+                ResourceManager resourceManager = new ResourceManager();
+                try
+                {
+                    resourses = resourceManager.FindRsrc("?*");
+                }
+                catch
+                {
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+                finally
+                {
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); //удалить
+            }
+            return resourses;
+        }
+        public Result ReadString(out string stringReaded)
+        {
+            return ReadString(deviceIO, out stringReaded);
+        }
+        public void Close()
+        {
+            if (deviceIO != null)
+            {
+                deviceIO.Close();
+            }
+            if (ivs != null)
+            {
+                ivs.Close();
+                Marshal.FinalReleaseComObject(deviceIO);
+                Marshal.FinalReleaseComObject(ivs);
+                deviceIO = null;
+                ivs = null;
+
+            }
+            if (rm != null)
+            {
+                Marshal.FinalReleaseComObject(rm);
+            }
+        }
+        public Result Send(string command)
+        {
+            if (deviceIO != null)
+            {
+                try
+                {
+                    deviceIO.WriteString(command);
+                    return Result.Success;
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка: {e.Message}";
+                    return Result.Exception;
+                }
+            }
+            return Result.Failure;
+        }
+        #endregion PublicMethods
+
+        #region PrivateMethods
+        private void Init()
+        {
+            resourseName = $"GPIB0::{gpibAddress}::INSTR"; //ToDo: изменить строку на полученную от FindRsrc("?*")
+            if (rm == null)
+            {
+                try
+                {
+                    rm = new ResourceManager();
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка открытия порта: {e.Message}";
+                }
+            }
+            if (rm != null)
+            {
+                try
+                {
+                    ivs = rm.Open(resourseName, AccessMode.NO_LOCK, 0, "");
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    Marshal.FinalReleaseComObject(rm);
+                }
+            }
+            if (ivs != null)
+            {
+                try
+                {
+                    deviceIO = new FormattedIO488().IO;
+                    deviceIO = (IMessage)ivs;
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка: {e.Message}";
+                    Close();
+                }
+            }
+        }
+        private Result ReadString(IMessage deviceIO, out string stringReaded)
+        {
+            Result result;
+            stringReaded = string.Empty;
+            string ch = string.Empty;
+            do
+            {
+                result = ReadChar(deviceIO, out ch);
+                if (result != Result.Success)
+                {
+                    return result;
+                }
+                if (ch == "\n" || ch == "\r")
+                {
+                    continue;
+                }
+                stringReaded += ch;
+            }
+            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия
+            return Result.Success;
+
+        }
+        private Result ReadChar(IMessage deviceIO, out string charReaded)
+        {
+            charReaded = string.Empty;
+            if (deviceIO == null)
+            {
+                return Result.ParamError;
+            }
+            if (deviceIO != null)
+            {
+                try
+                {
+                    charReaded = deviceIO.ReadString(1);
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка: {e.Message}";
+                    return Result.Exception;
+                }
+            }
+            return Result.Success;
+        }
+        #endregion PrivateMethods
+
+        #region NotUsed
         private Result CheckBus0()
         {
             Result result = Result.Failure;
             if (rm == null)
             {
-                rm = new ResourceManager();
+                try
+                {
+                    rm = new ResourceManager();
+                }
+                catch (Exception e)
+                {
+                    exeptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    return Result.Exception;
+                }
             }
             try
             {
@@ -82,126 +245,6 @@ namespace LibDevicesManager
             }
             return result;
         }
-        private void Init()
-        {
-            resourseName = $"GPIB0::{gpibAddress}::INSTR"; //ToDo: изменить строку на полученную от FindRsrc("?*")
-            if (rm == null)
-            {
-                rm = new ResourceManager();
-            }
-            try
-            {
-                ivs = rm.Open(resourseName, AccessMode.NO_LOCK, 0, "");
-            }
-            catch (Exception e)
-            {
-                exeptionMessage = $"Ошибка открытия порта: {e.Message}";
-                Marshal.FinalReleaseComObject(rm);
-            }
-            if (ivs != null)
-            {
-                try
-                {
-                    deviceIO = new FormattedIO488().IO;
-                    deviceIO = (IMessage)ivs;
-                }
-                catch (Exception e)
-                {
-                    exeptionMessage = $"Ошибка: {e.Message}";
-                    Close();
-                }
-            }
-        }
-        public void Close()
-        {
-            if (deviceIO != null)
-            {
-                deviceIO.Close();
-            }
-            if (ivs != null)
-            {
-                ivs.Close();
-                Marshal.FinalReleaseComObject(deviceIO);
-                Marshal.FinalReleaseComObject(ivs);
-                deviceIO = null;
-                ivs = null;
-
-            }
-            if (rm != null)
-            {
-                Marshal.FinalReleaseComObject(rm);
-            }
-        }
-
-        public Result Send(string command)
-        {
-            if (deviceIO != null)
-            {
-                try
-                {
-                    deviceIO.WriteString(command);
-                    return Result.Success;
-                }
-                catch (Exception e)
-                {
-                    exeptionMessage = $"Ошибка: {e.Message}";
-                    return Result.Exception;
-                }
-            }
-            return Result.Failure;
-        }
-        public Result ReadString(out string stringReaded)
-        {
-            return ReadString(deviceIO, out stringReaded);
-        }
-        private Result ReadString(IMessage deviceIO, out string stringReaded)
-        {
-            Result result;
-            stringReaded = string.Empty;
-            string ch = string.Empty;
-            do
-            {
-                result = ReadChar(deviceIO, out ch);
-                if (result != Result.Success)
-                {
-                    return result;
-                }
-                if (ch == "\n" || ch == "\r")
-                {
-                    continue;
-                }
-                stringReaded += ch;
-            }
-            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия
-            return Result.Success;
-
-        }
-
-        private Result ReadChar(IMessage deviceIO, out string charReaded)
-        {
-            charReaded = string.Empty;
-            if (deviceIO == null)
-            {
-                return Result.ParamError;
-            }
-            if (deviceIO != null)
-            {
-                try
-                {
-                    charReaded = deviceIO.ReadString(1);
-                }
-                catch (Exception e)
-                {
-                    exeptionMessage = $"Ошибка: {e.Message}";
-                    return Result.Exception;
-                }
-            }
-            return Result.Success;
-        }
-
-
-        #region NotUsed
-
         #endregion NotUsed
     }
 }

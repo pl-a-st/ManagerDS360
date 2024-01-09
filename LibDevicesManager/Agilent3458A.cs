@@ -225,6 +225,7 @@ namespace LibDevicesManager
             {
                 return result;
             }
+            response = response.Replace(".", decimalSeparator);
             if (Double.TryParse(response, out value))
             {
                 return Result.Success;

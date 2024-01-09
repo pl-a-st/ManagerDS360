@@ -31,7 +31,7 @@ namespace LibDevicesManager
         Unknown
     }
     #endregion Enums
-    interface IDevice
+    public interface IDevice
     {
         DeviceType DeviceType { get; }
 
@@ -42,7 +42,7 @@ namespace LibDevicesManager
     {
         //GeneratorModel GeneratorModel { get; }
     }
-    interface IMultimeter : IDevice
+    public interface IMultimeter : IDevice
     {
         MultimeterModel MultimeterModel { get; }
         MeasureType MeasureType { get; set; }

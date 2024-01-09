@@ -19,9 +19,7 @@ namespace ForLibDevicesTestOnly
             string str=string.Empty;
             gpib.ReadString(out str);
             Console.WriteLine(str);
-
-            /*
-            string[] ports = GpibPort.GetPorts();
+            List<string> ports = GpibPort.GetAllPorts();
             if (ports != null)
             {
                 foreach (string port in ports)
@@ -29,7 +27,20 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(port);
                 }
             }
-            */
+            gpib.Close();
+            ports = ComPort.SetAllComPortList();
+            if (ports != null)
+            {
+                foreach (string port in ports)
+                {
+                    Console.WriteLine(port);
+                }
+            }
+            List<string> devices = Agilent3458A.FindAllAgilent3458A();
+            foreach (string device in devices)
+            {
+                Console.WriteLine(device);
+            }
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.ReadKey();
         }

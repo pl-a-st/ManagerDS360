@@ -26,7 +26,18 @@ namespace LibDevicesManager
         public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
         public MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
-        public static string Address = string.Empty;
+        public string PortName
+        {
+            get
+            {
+                return portName;
+            }
+            set
+            {
+                portName = value;
+            }
+        }
+
         public MeasureType MeasureType { get { return measureType; } set { measureType = value; } }
         public PhysicalParameter PhysicalParameter { get { return physicalParameter; } set { physicalParameter = value; } }
         public int LowFrequencyLimit { get { return lowFrequencyLimit; }  set {lowFrequencyLimit = value; } }
@@ -36,12 +47,13 @@ namespace LibDevicesManager
         private int lowFrequencyLimit = 20;
 
         private MultimeterModel multimeterModel = MultimeterModel.Unknown;
+        private string portName = "GPIB0::22";
         public Multimeter() { }
         public virtual Result SendSetting()
         {
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A();
+                Agilent3458A multimeter = new Agilent3458A(portName);
                 return multimeter.SendSetting();
             }
                 return Result.Failure;
@@ -51,7 +63,7 @@ namespace LibDevicesManager
             value = 0;
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A();
+                Agilent3458A multimeter = new Agilent3458A(portName);
                 return multimeter.Measure(out value);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)
@@ -67,7 +79,7 @@ namespace LibDevicesManager
             response = string.Empty;
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A();
+                Agilent3458A multimeter = new Agilent3458A(portName);
                 return multimeter.Receive(out response);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)
@@ -81,7 +93,7 @@ namespace LibDevicesManager
         {
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A();
+                Agilent3458A multimeter = new Agilent3458A(portName);
                 return multimeter.Send(command);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)

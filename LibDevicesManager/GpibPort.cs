@@ -15,15 +15,18 @@ namespace LibDevicesManager
         /// <summary>
         /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
         /// </summary>
-        public string ExeptionMessage
+        public string ExceptionMessage
         {
             get
             {
-                return exeptionMessage;
+                return exceptionMessage;
             }
-            set
+        }
+        public static List<string> Resources
+        {
+            get
             {
-                exeptionMessage = value;
+                return GetAllPorts();
             }
         }
         private int gpibAddress;
@@ -32,38 +35,59 @@ namespace LibDevicesManager
         private IMessage deviceIO;
         private IVisaSession ivs;
         private ResourceManager rm;
-        private static string[] resourses;
-        private string resourseName = string.Empty;
-        private string exeptionMessage = string.Empty;
+        //private static string[] resourses;
+        private static List<string> resourses;
+        private string resourceName = string.Empty;
+        private static string exceptionMessage = string.Empty;
         //private string resultMessage = string.Empty;
         //private string[] resourses;
         #region Constructors
 
         public GpibPort()
         {
-            gpibAddress = 22;
-            Init();
+            FindAndInit();
         }
         public GpibPort(int gpibAddress)
         {
             this.gpibAddress = gpibAddress;
-            Init();
+            Init(gpibAddress);
+        }
+        public GpibPort(string portName)
+        {
+            Init(portName);
         }
 
         #endregion Constructors
 
         #region PublicMethods
-        public static string[] GetPorts()
+        public static List<string> GetAllPorts()
         {
+            string[] allResources;
+            if (resourses == null)
+            {
+                resourses = new List<string>();
+            }
+            resourses.Clear();
             try
             {
                 ResourceManager resourceManager = new ResourceManager();
                 try
                 {
-                    resourses = resourceManager.FindRsrc("?*");
+                    allResources = resourceManager.FindRsrc("?*");
+                    if (allResources != null)
+                    {
+                        foreach (string resource in allResources)
+                        {
+                            if (resource.EndsWith("INSTR"))
+                            {
+                                resourses.Add(resource.Substring(0, resource.Length - 7));
+                            }
+                        }
+                    }
                 }
-                catch
+                catch (Exception e)
                 {
+                    exceptionMessage = $"Ошибка: {e.Message}";
                     Marshal.FinalReleaseComObject(resourceManager);
                 }
                 finally
@@ -73,10 +97,25 @@ namespace LibDevicesManager
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); //удалить
+                exceptionMessage = $"Ошибка: {e.Message}";
             }
             return resourses;
         }
+        public static List<string> GetGpibPorts()
+        {
+            List<string> allPorts = new List<string>();
+            List<string> gpibPorts = new List<string>();
+            allPorts = GetAllPorts();
+            foreach (string port in allPorts)
+            {
+                if (port.StartsWith("GPIB"))
+                {
+                    gpibPorts.Add(port);
+                }
+            }
+            return gpibPorts;
+        }
+
         public Result ReadString(out string stringReaded)
         {
             return ReadString(deviceIO, out stringReaded);
@@ -112,7 +151,7 @@ namespace LibDevicesManager
                 }
                 catch (Exception e)
                 {
-                    exeptionMessage = $"Ошибка: {e.Message}";
+                    exceptionMessage = $"Ошибка: {e.Message}";
                     return Result.Exception;
                 }
             }
@@ -121,9 +160,11 @@ namespace LibDevicesManager
         #endregion PublicMethods
 
         #region PrivateMethods
-        private void Init()
+        private void FindAndInit()
         {
-            resourseName = $"GPIB0::{gpibAddress}::INSTR"; //ToDo: изменить строку на полученную от FindRsrc("?*")
+            List<string> gpibPorts = GetGpibPorts();
+            if (gpibPorts != null && gpibPorts.Count > 0)
+            resourceName = $"{gpibPorts[0]}::INSTR"; 
             if (rm == null)
             {
                 try
@@ -132,18 +173,18 @@ namespace LibDevicesManager
                 }
                 catch (Exception e)
                 {
-                    exeptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
                 }
             }
             if (rm != null)
             {
                 try
                 {
-                    ivs = rm.Open(resourseName, AccessMode.NO_LOCK, 0, "");
+                    ivs = rm.Open(resourceName, AccessMode.NO_LOCK, 0, "");
                 }
                 catch (Exception e)
                 {
-                    exeptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
                     Marshal.FinalReleaseComObject(rm);
                 }
             }
@@ -156,7 +197,87 @@ namespace LibDevicesManager
                 }
                 catch (Exception e)
                 {
-                    exeptionMessage = $"Ошибка: {e.Message}";
+                    exceptionMessage = $"Ошибка: {e.Message}";
+                    Close();
+                }
+            }
+        }
+        private void Init(string portName)
+        {
+            resourceName = portName + "::INSTR";
+            if (rm == null)
+            {
+                try
+                {
+                    rm = new ResourceManager();
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                }
+            }
+            if (rm != null)
+            {
+                try
+                {
+                    ivs = rm.Open(resourceName, AccessMode.NO_LOCK, 0, "");
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    Marshal.FinalReleaseComObject(rm);
+                }
+            }
+            if (ivs != null)
+            {
+                try
+                {
+                    deviceIO = new FormattedIO488().IO;
+                    deviceIO = (IMessage)ivs;
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка: {e.Message}";
+                    Close();
+                }
+            }
+        }
+        private void Init(int gpibAddress)
+        {
+            resourceName = $"GPIB0::{gpibAddress}::INSTR"; //ToDo: изменить строку на полученную от FindRsrc("?*")
+            if (rm == null)
+            {
+                try
+                {
+                    rm = new ResourceManager();
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                }
+            }
+            if (rm != null)
+            {
+                try
+                {
+                    ivs = rm.Open(resourceName, AccessMode.NO_LOCK, 0, "");
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    Marshal.FinalReleaseComObject(rm);
+                }
+            }
+            if (ivs != null)
+            {
+                try
+                {
+                    deviceIO = new FormattedIO488().IO;
+                    deviceIO = (IMessage)ivs;
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка: {e.Message}";
                     Close();
                 }
             }
@@ -198,7 +319,7 @@ namespace LibDevicesManager
                 }
                 catch (Exception e)
                 {
-                    exeptionMessage = $"Ошибка: {e.Message}";
+                    exceptionMessage = $"Ошибка: {e.Message}";
                     return Result.Exception;
                 }
             }
@@ -207,6 +328,7 @@ namespace LibDevicesManager
         #endregion PrivateMethods
 
         #region NotUsed
+        /*
         private Result CheckBus0()
         {
             Result result = Result.Failure;
@@ -245,6 +367,7 @@ namespace LibDevicesManager
             }
             return result;
         }
+        */
         #endregion NotUsed
     }
 }

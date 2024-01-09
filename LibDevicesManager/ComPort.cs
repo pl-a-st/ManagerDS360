@@ -68,7 +68,7 @@ namespace LibDevicesManager
             }
             return true;
         }
-        private static List<string> SetAllComPortList()
+        public static List<string> SetAllComPortList()
         {
             if (portsNamesList == null)
             {

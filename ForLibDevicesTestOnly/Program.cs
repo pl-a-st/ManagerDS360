@@ -14,6 +14,13 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            GpibPort gpib = new GpibPort();
+            gpib.Send("ID?");
+            string str=string.Empty;
+            gpib.ReadString(out str);
+            Console.WriteLine(str);
+
+            /*
             string[] ports = GpibPort.GetPorts();
             if (ports != null)
             {
@@ -22,6 +29,7 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(port);
                 }
             }
+            */
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.ReadKey();
         }

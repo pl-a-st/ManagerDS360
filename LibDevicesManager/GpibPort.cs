@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibDevicesManager
 {
-    internal class GpibPort
+    public class GpibPort
     {
         public int GpibAddress { get; set; }
 
@@ -51,6 +51,31 @@ namespace LibDevicesManager
         }
 
         #endregion Constructors
+
+        public static string[] GetPorts()
+        {
+            try
+            {
+                ResourceManager resourceManager = new ResourceManager();
+                try
+                {
+                    resourses = resourceManager.FindRsrc("?*");
+                }
+                catch
+                {
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+                finally
+                {
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return resourses;
+        }
 
         private Result CheckBus0()
         {

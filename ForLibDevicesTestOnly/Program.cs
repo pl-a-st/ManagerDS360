@@ -55,6 +55,7 @@ namespace ForLibDevicesTestOnly
 
 
             //<==ТЕСТОВАЯ ЧАСТЬ
+            Console.WriteLine("Press any key to exit");
             Console.ReadKey();
         }
 

@@ -199,5 +199,13 @@ namespace ManagerDS360
             }
             await butRefreshMultToVibAddresses.SwetchRotationButton();
         }
+
+        private void cboMultToVibAddress_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cboMultToVibAddress.SelectedItem.ToString()))
+            {
+                
+            }
+        }
     }
 }

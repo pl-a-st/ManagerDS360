@@ -235,6 +235,12 @@
     <Compile Include="Controls\frmCreationDC23Setting.Designer.cs">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\frmCreationEditingFreqResp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmCreationEditingFreqResp.Designer.cs">
+      <DependentUpon>frmCreationEditingFreqResp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\frmCreationVibroCalibSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +258,12 @@
     </Compile>
     <Compile Include="Controls\frmGetAllNodeAddressesFromRoute.Designer.cs">
       <DependentUpon>frmGetAllNodeAddressesFromRoute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\frmFreqResps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\frmFreqResps.Designer.cs">
+      <DependentUpon>frmFreqResps.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO.cs" />
     <Compile Include="Controls\frmAboutAuthors.cs">
@@ -319,6 +331,9 @@
     <EmbeddedResource Include="Controls\frmCreationDC23Setting.resx">
       <DependentUpon>frmCreationDC23Setting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmCreationEditingFreqResp.resx">
+      <DependentUpon>frmCreationEditingFreqResp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmCreationEditingRoute.resx">
       <DependentUpon>frmCreationEditingRoute.cs</DependentUpon>
     </EmbeddedResource>
@@ -339,6 +354,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmInputName.resx">
       <DependentUpon>frmInputName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\frmFreqResps.resx">
+      <DependentUpon>frmFreqResps.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\frmRoutse.resx">
       <DependentUpon>frmRoutse.cs</DependentUpon>

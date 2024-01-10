@@ -976,5 +976,16 @@ namespace ManagerDS360
                
             }
         }
+
+        private void аЧХВибростендаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuSettingFrequencyResponse_Click(object sender, EventArgs e)
+        {
+            frmFreqResps frmFreqResps = new frmFreqResps();
+            frmFreqResps.ShowDialog();
+        }
     }
 }

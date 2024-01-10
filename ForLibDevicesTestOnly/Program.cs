@@ -20,7 +20,7 @@ namespace ForLibDevicesTestOnly
             gpib.ReadString(out str);
             Console.WriteLine(str);
 
-            /*
+
             string[] ports = GpibPort.GetPorts();
             if (ports != null)
             {
@@ -29,7 +29,7 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(port);
                 }
             }
-            */
+
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.ReadKey();
         }

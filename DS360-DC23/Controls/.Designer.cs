@@ -39,6 +39,9 @@ namespace ManagerDS360 {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditingRoutes = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFrequencyResponses = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCboFrequencyResponse = new System.Windows.Forms.ToolStripComboBox();
+            this.mnuSettingFrequencyResponse = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -255,6 +258,7 @@ namespace ManagerDS360 {
             // 
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuEditingRoutes,
+            this.mnuFrequencyResponses,
             this.mnuExit});
             this.менюToolStripMenuItem.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
@@ -267,6 +271,28 @@ namespace ManagerDS360 {
             this.mnuEditingRoutes.Size = new System.Drawing.Size(259, 22);
             this.mnuEditingRoutes.Text = "Редактирование маршрутов";
             this.mnuEditingRoutes.Click += new System.EventHandler(this.mnuEditingRoutes_Click);
+            // 
+            // mnuFrequencyResponses
+            // 
+            this.mnuFrequencyResponses.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuCboFrequencyResponse,
+            this.mnuSettingFrequencyResponse});
+            this.mnuFrequencyResponses.Name = "mnuFrequencyResponses";
+            this.mnuFrequencyResponses.Size = new System.Drawing.Size(259, 22);
+            this.mnuFrequencyResponses.Text = "АЧХ вибростенда";
+            this.mnuFrequencyResponses.Click += new System.EventHandler(this.аЧХВибростендаToolStripMenuItem_Click);
+            // 
+            // mnuCboFrequencyResponse
+            // 
+            this.mnuCboFrequencyResponse.Name = "mnuCboFrequencyResponse";
+            this.mnuCboFrequencyResponse.Size = new System.Drawing.Size(121, 23);
+            // 
+            // mnuSettingFrequencyResponse
+            // 
+            this.mnuSettingFrequencyResponse.Name = "mnuSettingFrequencyResponse";
+            this.mnuSettingFrequencyResponse.Size = new System.Drawing.Size(181, 22);
+            this.mnuSettingFrequencyResponse.Text = "Настройка";
+            this.mnuSettingFrequencyResponse.Click += new System.EventHandler(this.mnuSettingFrequencyResponse_Click);
             // 
             // mnuExit
             // 
@@ -748,6 +774,9 @@ namespace ManagerDS360 {
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
         private LibControls.ButtonForPicture butVibCalibSetting;
+        private System.Windows.Forms.ToolStripMenuItem mnuFrequencyResponses;
+        private System.Windows.Forms.ToolStripComboBox mnuCboFrequencyResponse;
+        private System.Windows.Forms.ToolStripMenuItem mnuSettingFrequencyResponse;
     }
 }
 

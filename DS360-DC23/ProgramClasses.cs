@@ -229,20 +229,20 @@ namespace ManagerDS360
 
         static PmData()
         {
-            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationRotePath(FileNameRouteAddresses), out _);
-            FreqRespAddresses = DAO.binReadFileToObject(FreqRespAddresses, DAO.GetApplicationRotePath(FileNameFreqRespAddresses), out _);
+            RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationRoutePath(FileNameRouteAddresses), out _);
+            FreqRespAddresses = DAO.binReadFileToObject(FreqRespAddresses, DAO.GetApplicationRoutePath(FileNameFreqRespAddresses), out _);
         }
 
         static public void SaveRouteAddresses()
         {
-            if (DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationRotePath(FileNameRouteAddresses)) != MethodResultStatus.Ok)
+            if (DAO.binWriteObjectToFile(RouteAddresses, DAO.GetApplicationRoutePath(FileNameRouteAddresses)) != MethodResultStatus.Ok)
             {
                 MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
             }
         }
         static public void SaveFreqRespAddresses()
         {
-            if (DAO.binWriteObjectToFile(FreqRespAddresses, DAO.GetApplicationRotePath(FileNameFreqRespAddresses)) != MethodResultStatus.Ok)
+            if (DAO.binWriteObjectToFile(FreqRespAddresses, DAO.GetApplicationRoutePath(FileNameFreqRespAddresses)) != MethodResultStatus.Ok)
             {
                 MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
             }

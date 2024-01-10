@@ -757,7 +757,7 @@ namespace ManagerDS360
             if (TypeFormOpen == TypeFormOpen.ToСreate)
             {
                 PmData.RouteAddresses.Add(FileInfo);
-                DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationDataPath(PmData.FileNameRouteAddresses));
+                DAO.binWriteObjectToFile(PmData.RouteAddresses, DAO.GetApplicationRoutePath(PmData.FileNameRouteAddresses));
             }
             if (MessageBox.Show("Файл маршрута успешно сохранен! Закртыть окно редактирования?", "Сообщение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {

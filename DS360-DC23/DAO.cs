@@ -77,7 +77,7 @@ namespace ManagerDS360
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetApplicationRotePath(string fileName)
+        public static string GetApplicationRoutePath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Маршруты\";
             if (!Directory.Exists(path))

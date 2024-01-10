@@ -16,12 +16,10 @@ namespace ForLibDevicesTestOnly
             //ТЕСТОВАЯ ЧАСТЬ
             GpibPort gpib = new GpibPort();
             gpib.Send("ID?");
-            string str=string.Empty;
+            string str = string.Empty;
             gpib.ReadString(out str);
             Console.WriteLine(str);
-
-
-            string[] ports = GpibPort.GetPorts();
+            List<string> ports = GpibPort.GetAllPorts();
             if (ports != null)
             {
                 foreach (string port in ports)
@@ -29,9 +27,40 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(port);
                 }
             }
+            gpib.Close();
+            ports = ComPort.SetAllComPortList();
+            if (ports != null)
+            {
+                foreach (string port in ports)
+                {
+                    Console.WriteLine(port);
+                }
+            }
+            List<string> devices = Agilent3458A.FindAllAgilent3458A();
+            foreach (string device in devices)
+            {
+                Console.WriteLine(device);
+            }
+            Multimeter multimeter = new Multimeter();
+            multimeter.MultimeterModel = MultimeterModel.Agilent3458A;
+
+            double value = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (multimeter.Measure(out value) == Result.Success)
+                {
+                    Console.WriteLine(value);
+                }
+            }
+
 
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.ReadKey();
         }
+
+    }
+    internal class Multimeter : Multimeter<Multimeter>
+    {
+        public Multimeter() { }
     }
 }

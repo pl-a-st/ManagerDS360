@@ -24,7 +24,17 @@ namespace LibDevicesManager
         /// <returns>одно из значений перечисления DeviceModel </returns>
         //public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent3458A; } }
         public int AddressGPIB;
-
+        public string PortName
+        {
+            get { return portName; }
+        }
+        public static List<string> ListAllAgilent3458APorts
+        {
+            get
+            {
+                return listAllAgilent3458APorts;
+            }
+        }
         /// <summary>
         /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
         /// </summary>
@@ -43,13 +53,15 @@ namespace LibDevicesManager
 
         #region PrivateFields
         private int adressGPIB = 22;
-        private static string comPortDefaultName;
-        private bool isComPortDefaultName = true;
-        private string comPortName;
-        private int comPortNumber;
+        private string portName;
+        private static List<string> listAllAgilent3458APorts;
+        //private static string comPortDefaultName;
+        //private bool isComPortDefaultName = true;
+        //private string comPortName;
+        //private int comPortNumber;
         private string resultMessage = string.Empty;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
-        private static bool isDebugMode = false; //ToDel
+        //private static bool isDebugMode = false; //ToDel
         private GpibPort multimeter;
         #endregion PublicFields
 
@@ -57,13 +69,74 @@ namespace LibDevicesManager
         public Agilent3458A()
         {
             MultimeterModel = MultimeterModel.Agilent3458A;
-            multimeter = new GpibPort(AddressGPIB);
-
+            string portName = string.Empty;
+            FindFirstAgilent3458APort(out portName);
+            multimeter = new GpibPort(portName);
+            this.portName = portName;
+        }
+        public Agilent3458A(string portName)
+        {
+            MultimeterModel = MultimeterModel.Agilent3458A;
+            multimeter = new GpibPort(portName);
+            this.portName = portName;
         }
 
         #endregion Constructors
 
         #region PublicMethods
+        public static List<string> FindAllAgilent3458A()
+        {
+            Result result = Result.Failure;
+            List<string> ports = GpibPort.GetGpibPorts();
+            List<string> portsAgilent3458A = new List<string>();
+            if (ports != null)
+            {
+                foreach (string port in ports)
+                {
+                    if (FindAgilent3458AOnPort(port) == Result.Success)
+                    {
+                        portsAgilent3458A.Add(port);
+                    }
+                }
+            }
+            return portsAgilent3458A;
+        }
+        public static Result FindAgilent3458AOnPort(string portName)
+        {
+            Result result = Result.Failure;
+            GpibPort device = new GpibPort(portName);
+            result = device.Send("ID?");
+            if (result != Result.Success)
+            {
+                device.Close();
+                return result;
+            }
+            string response = string.Empty;
+            result = device.ReadString(out response);
+            if (result != Result.Success)
+            {
+                device.Close();
+                return result;
+            }
+            if (response != "HP3458A")
+            {
+                device.Close();
+                return Result.Failure;
+            }
+            device.Close();
+            return Result.Success;
+        }
+        public static Result FindFirstAgilent3458APort(out string port)
+        {
+            List<string> portsAgilent3458A = FindAllAgilent3458A();
+            if (portsAgilent3458A != null)
+            {
+                port = portsAgilent3458A[0];
+                return Result.Success;
+            }
+            port = string.Empty;
+            return Result.Failure;
+        }
 
         public override Result SendSetting()
         {
@@ -152,6 +225,7 @@ namespace LibDevicesManager
             {
                 return result;
             }
+            response = response.Replace(".", decimalSeparator);
             if (Double.TryParse(response, out value))
             {
                 return Result.Success;

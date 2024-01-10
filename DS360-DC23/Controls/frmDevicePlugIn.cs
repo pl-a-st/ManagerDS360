@@ -210,7 +210,7 @@ namespace ManagerDS360
 
         private void cboMultToVibType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboMultToVibAddress.SelectedIndex.ToString() != string.Empty)
+            if (cboMultToVibType.SelectedIndex.ToString() != string.Empty)
             {
                 MultimeterForVibCalib.MultimeterModel = PmData.GetEnumFromString(PmData.MultimeterModel, cboMultToVibType.SelectedItem.ToString());
             }

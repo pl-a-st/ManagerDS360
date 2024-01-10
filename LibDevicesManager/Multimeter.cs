@@ -47,7 +47,7 @@ namespace LibDevicesManager
         private int lowFrequencyLimit = 20;
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
-        private static string portName = "GPIB0::25";
+        private static string portName = "GPIB0::22";
         public Multimeter() { }
         public virtual Result SendSetting()
         {
@@ -61,9 +61,9 @@ namespace LibDevicesManager
         public virtual Result Measure(out double value)
         {
             value = 0;
-            if (Multimeter<T>.multimeterModel == MultimeterModel.Agilent3458A)
+            if (multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A(Multimeter<T>.portName);
+                Agilent3458A multimeter = new Agilent3458A(portName);
                 return multimeter.Measure(out value);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)

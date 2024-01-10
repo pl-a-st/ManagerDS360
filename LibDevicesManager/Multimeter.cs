@@ -23,10 +23,10 @@ namespace LibDevicesManager
         /// Тип устройства
         /// </summary>
         /// <returns>одно из значений перечисления DeviceType </returns>
-        public DeviceType DeviceType { get { return DeviceType.Multimeter; } }
+        public  DeviceType DeviceType { get { return DeviceType.Multimeter; } }
 
-        public MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
-        public string PortName
+        public static MultimeterModel MultimeterModel { get { return multimeterModel; } set { multimeterModel = value; } }
+        public static string PortName
         {
             get
             {
@@ -46,8 +46,8 @@ namespace LibDevicesManager
         private PhysicalParameter physicalParameter = PhysicalParameter.U;
         private int lowFrequencyLimit = 20;
 
-        private MultimeterModel multimeterModel = MultimeterModel.Unknown;
-        private string portName = "GPIB0::22";
+        private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
+        private static string portName = "GPIB0::25";
         public Multimeter() { }
         public virtual Result SendSetting()
         {
@@ -61,9 +61,9 @@ namespace LibDevicesManager
         public virtual Result Measure(out double value)
         {
             value = 0;
-            if (multimeterModel == MultimeterModel.Agilent3458A)
+            if (Multimeter<T>.multimeterModel == MultimeterModel.Agilent3458A)
             {
-                Agilent3458A multimeter = new Agilent3458A(portName);
+                Agilent3458A multimeter = new Agilent3458A(Multimeter<T>.portName);
                 return multimeter.Measure(out value);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)

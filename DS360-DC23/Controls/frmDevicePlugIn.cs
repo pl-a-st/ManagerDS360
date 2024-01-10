@@ -204,8 +204,17 @@ namespace ManagerDS360
         {
             if (string.IsNullOrEmpty(cboMultToVibAddress.SelectedItem.ToString()))
             {
-                
+                MultimeterForVibCalib.PortName = cboMultToVibAddress.SelectedItem.ToString();
             }
+        }
+
+        private void cboMultToVibType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboMultToVibAddress.SelectedIndex.ToString() != string.Empty)
+            {
+                MultimeterForVibCalib.MultimeterModel = PmData.GetEnumFromString(PmData.MultimeterModel, cboMultToVibType.SelectedItem.ToString());
+            }
+                
         }
     }
 }

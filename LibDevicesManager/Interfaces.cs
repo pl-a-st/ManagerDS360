@@ -44,7 +44,7 @@ namespace LibDevicesManager
     }
     public interface IMultimeter : IDevice
     {
-        MultimeterModel MultimeterModel { get; }
-        MeasureType MeasureType { get; set; }
+        //MultimeterModel MultimeterModel { get; }
+        //MeasureType MeasureType { get; set; }
     }
 }

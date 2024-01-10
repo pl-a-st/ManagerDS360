@@ -687,6 +687,7 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка связи с генератором";
                 return Result.Failure;
             }
+            ComPort.PortClose(port);
             return Result.Success;
         }
         /// <summary>
@@ -718,6 +719,7 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка связи с генератором";
                 return Result.Failure;
             }
+            ComPort.PortClose(port);
             return Result.Success;
         }
 

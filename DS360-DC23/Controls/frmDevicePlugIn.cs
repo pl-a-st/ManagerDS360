@@ -107,6 +107,18 @@ namespace ManagerDS360
             cbo.Items.AddRange(getComs.Result);
             cbo.SelectedIndex = 0;
         }
+        private async Task FindAgilent3458APushCbo(ComboBox cbo)
+        {
+            Task<string[]> getComs = new Task<string[]>(() => Agilent3458A.FindAllAgilent3458A().ToArray());
+            Task.Run(() => getComs.Start());
+            await Task.Run(() => getComs.Wait());
+            cbo.Items.Clear();
+            cbo.Items.AddRange(getComs.Result);
+            if (cbo.Items.Count > 0)
+            {
+                cbo.SelectedIndex = 0;
+            }
+        }
         private async Task SwetchRotationButton(ButtonForRotation buttonForPicture)
         {
             // перемеситить метод в класс кнопки
@@ -162,7 +174,7 @@ namespace ManagerDS360
             await butRefreshGenToVibAddresses.SwetchRotationButton();
             if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString()) == GeneratorModel.DS360)
             {
-                 await FindDS360PushCbo(cboGenToVibAddress);
+                await FindDS360PushCbo(cboGenToVibAddress);
             }
             await butRefreshGenToVibAddresses.SwetchRotationButton();
         }
@@ -176,6 +188,16 @@ namespace ManagerDS360
         {
             if (cboGenToVibAddress.SelectedIndex.ToString() != string.Empty)
                 GeneratorForVibCalib.Address = cboGenToVibAddress.SelectedItem.ToString();
+        }
+
+        async private void buttonForPicture6_Click(object sender, EventArgs e)
+        {
+            await butRefreshMultToVibAddresses.SwetchRotationButton();
+            if (PmData.GetEnumFromString(PmData.MultimeterModel, cboMultToVibType.SelectedItem.ToString()) == MultimeterModel.Agilent3458A)
+            {
+                await FindAgilent3458APushCbo(cboMultToVibAddress);
+            }
+            await butRefreshMultToVibAddresses.SwetchRotationButton();
         }
     }
 }

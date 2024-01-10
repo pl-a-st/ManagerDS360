@@ -56,7 +56,7 @@ namespace ManagerDS360
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cboMultToVibType = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.buttonForPicture6 = new LibControls.ButtonForRotation();
+            this.butRefreshMultToVibAddresses = new LibControls.ButtonForRotation();
             this.cboMultToVibAddress = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cboGenToVibType = new System.Windows.Forms.ComboBox();
@@ -387,7 +387,7 @@ namespace ManagerDS360
             // 
             this.groupBox5.Controls.Add(this.cboMultToVibType);
             this.groupBox5.Controls.Add(this.label7);
-            this.groupBox5.Controls.Add(this.buttonForPicture6);
+            this.groupBox5.Controls.Add(this.butRefreshMultToVibAddresses);
             this.groupBox5.Controls.Add(this.cboMultToVibAddress);
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.cboGenToVibType);
@@ -426,23 +426,24 @@ namespace ManagerDS360
             this.label7.TabIndex = 13;
             this.label7.Text = "Тип вольтметра";
             // 
-            // buttonForPicture6
+            // butRefreshMultToVibAddresses
             // 
-            this.buttonForPicture6.BackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
-            this.buttonForPicture6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonForPicture6.FlatAppearance.BorderSize = 0;
-            this.buttonForPicture6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonForPicture6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForPicture6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture6.Location = new System.Drawing.Point(802, 86);
-            this.buttonForPicture6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonForPicture6.Name = "buttonForPicture6";
-            this.buttonForPicture6.Size = new System.Drawing.Size(40, 40);
-            this.buttonForPicture6.TabIndex = 11;
-            this.buttonForPicture6.UseVisualStyleBackColor = false;
+            this.butRefreshMultToVibAddresses.BackColor = System.Drawing.Color.Transparent;
+            this.butRefreshMultToVibAddresses.BackgroundImage = global::ManagerDS360.Properties.Resources.Обновить9;
+            this.butRefreshMultToVibAddresses.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butRefreshMultToVibAddresses.FlatAppearance.BorderSize = 0;
+            this.butRefreshMultToVibAddresses.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshMultToVibAddresses.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshMultToVibAddresses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butRefreshMultToVibAddresses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butRefreshMultToVibAddresses.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butRefreshMultToVibAddresses.Location = new System.Drawing.Point(802, 86);
+            this.butRefreshMultToVibAddresses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.butRefreshMultToVibAddresses.Name = "butRefreshMultToVibAddresses";
+            this.butRefreshMultToVibAddresses.Size = new System.Drawing.Size(40, 40);
+            this.butRefreshMultToVibAddresses.TabIndex = 11;
+            this.butRefreshMultToVibAddresses.UseVisualStyleBackColor = false;
+            this.butRefreshMultToVibAddresses.Click += new System.EventHandler(this.buttonForPicture6_Click);
             // 
             // cboMultToVibAddress
             // 
@@ -586,7 +587,7 @@ namespace ManagerDS360
         private System.Windows.Forms.GroupBox groupBox5;
         internal System.Windows.Forms.ComboBox cboMultToVibType;
         private System.Windows.Forms.Label label7;
-        private LibControls.ButtonForRotation buttonForPicture6;
+        private LibControls.ButtonForRotation butRefreshMultToVibAddresses;
         internal System.Windows.Forms.ComboBox cboMultToVibAddress;
         private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.ComboBox cboGenToVibType;

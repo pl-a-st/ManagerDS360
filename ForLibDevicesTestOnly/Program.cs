@@ -47,6 +47,8 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(value);
                 }
             }
+            DS360Setting dS360Setting = new DS360Setting();
+            dS360Setting.ChangeAmplitudeRMS();
             /*
            GpibPort aserial = new GpibPort("ASRL5");
             gpib.Send("IDN?");

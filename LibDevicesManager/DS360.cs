@@ -723,7 +723,7 @@ namespace LibDevicesManager
             return Result.Success;
         }
         /// <summary>
-        /// Изменяет напряжение выходного сигнала генератора на значение, установленное в поле <see cref="AmplitudeRMS""
+        /// Изменяет напряжение выходного сигнала генератора на значение, установленное в поле <see cref="AmplitudeRMS"/>
         /// </summary>
         /// <returns><br><see cref="Result.Success"/> при успешном изменении сигнала генератора</br>
         /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при возникновении ошибки во время передачи команды на изменение сигнала.</br>
@@ -750,6 +750,42 @@ namespace LibDevicesManager
             }
             ComPort.PortClear(port);
             if (SendAmplitudeRMS(port) != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            ComPort.PortClose(port);
+            return Result.Success;
+        }
+        /// <summary>
+        /// Изменяет частоту выходного сигнала генератора на значение, установленное в поле <see cref="AmplitudeRMS"/>
+        /// </summary>
+        /// <returns><br><see cref="Result.Success"/> при успешном изменении сигнала генератора</br>
+        /// <br>или одно из оставшихся значений перечисления <see cref="Result"/> при возникновении ошибки во время передачи команды на изменение сигнала.</br>
+        /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
+        public Result ChangeFrequency()
+        {
+            Result result = Result.Failure;
+            string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
+            if (portName == "NONE")
+            {
+                resultMessage = "\nГенератор не найден";
+                return Result.Failure;
+            }
+            if (CheckDS360Setting() != Result.Success)
+            {
+                return Result.ParamError;
+            }
+            result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
+            if (result != Result.Success)
+            {
+                ComPort.PortClose(port);
+                resultMessage = "\nОтсутствует связь с генератором";
+                return result;
+            }
+            ComPort.PortClear(port);
+            if (SendFrequency(port) != Result.Success)
             {
                 ComPort.PortClose(port);
                 resultMessage = "\nОшибка связи с генератором";

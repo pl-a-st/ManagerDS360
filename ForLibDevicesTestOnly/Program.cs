@@ -14,6 +14,7 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            /*
             GpibPort gpib = new GpibPort();
             gpib.Send("ID?");
             string str = string.Empty;
@@ -47,8 +48,24 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(value);
                 }
             }
+            */
             DS360Setting dS360Setting = new DS360Setting();
-            dS360Setting.ChangeAmplitudeRMS();
+            dS360Setting.ComPortName = "COM5";
+            dS360Setting.IsComPortDefaultName = false;
+            dS360Setting.SendDS360Setting();
+            for (double i = 100; i < 2000; i += 100)
+            {
+                dS360Setting.Frequency = i;
+                dS360Setting.ChangeFrequency();
+            }
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+            for (double i = 0.01; i < 0.1; i += 0.01)
+            {
+                dS360Setting.AmplitudeRMS = i;
+                dS360Setting.ChangeAmplitudeRMS();
+            }
+
             /*
            GpibPort aserial = new GpibPort("ASRL5");
             gpib.Send("IDN?");

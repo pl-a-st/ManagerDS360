@@ -202,7 +202,7 @@ namespace ManagerDS360
 
         private void cboMultToVibAddress_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(cboMultToVibAddress.SelectedItem.ToString()))
+            if (!string.IsNullOrEmpty(cboMultToVibAddress.SelectedItem.ToString()))
             {
                 MultimeterForVibCalib.PortName = cboMultToVibAddress.SelectedItem.ToString();
             }

@@ -45,7 +45,7 @@ namespace LibDevicesManager
 
         public GpibPort()
         {
-            FindAndInit();
+            FindAndInitFirstGpibPort();
         }
         public GpibPort(int gpibAddress)
         {
@@ -160,7 +160,7 @@ namespace LibDevicesManager
         #endregion PublicMethods
 
         #region PrivateMethods
-        private void FindAndInit()
+        private void FindAndInitFirstGpibPort()
         {
             List<string> gpibPorts = GetGpibPorts();
             if (gpibPorts != null && gpibPorts.Count > 0)

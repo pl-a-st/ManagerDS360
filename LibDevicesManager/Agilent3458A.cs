@@ -129,7 +129,7 @@ namespace LibDevicesManager
         public static Result FindFirstAgilent3458APort(out string port)
         {
             List<string> portsAgilent3458A = FindAllAgilent3458A();
-            if (portsAgilent3458A != null)
+            if (portsAgilent3458A != null && portsAgilent3458A.Count > 0)
             {
                 port = portsAgilent3458A[0];
                 return Result.Success;

@@ -47,7 +47,7 @@ namespace LibDevicesManager
         private int lowFrequencyLimit = 20;
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
-        private static string portName = "GPIB0::22";
+        private static string portName = "GPIB0::25";
         public Multimeter() { }
         public virtual Result SendSetting()
         {

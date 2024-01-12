@@ -28,20 +28,15 @@ namespace ForLibDevicesTestOnly
                 }
             }
             gpib.Close();
-            ports = ComPort.SetAllComPortList();
-            if (ports != null)
-            {
-                foreach (string port in ports)
-                {
-                    Console.WriteLine(port);
-                }
-            }
             List<string> devices = Agilent3458A.FindAllAgilent3458A();
             foreach (string device in devices)
             {
                 Console.WriteLine(device);
             }
             Multimeter multimeter = new Multimeter();
+            string portName = string.Empty;
+            Agilent3458A.FindFirstAgilent3458APort(out portName);
+            Multimeter.PortName = portName;
             Multimeter.MultimeterModel = MultimeterModel.Agilent3458A;
 
             double value = 0;
@@ -52,8 +47,13 @@ namespace ForLibDevicesTestOnly
                     Console.WriteLine(value);
                 }
             }
-
-
+            /*
+           GpibPort aserial = new GpibPort("ASRL5");
+            gpib.Send("IDN?");
+            //str = string.Empty;
+            gpib.ReadString(out str);
+            Console.WriteLine(str);
+            */
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();

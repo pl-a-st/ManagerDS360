@@ -169,7 +169,7 @@ namespace LibDevicesManager
             try
             {
                 port.Close();
-                Task.Delay(1000);
+                //Task.Delay(1000);
             }
             catch (IOException ex) //ToNEXT: возможно надо обработать
             {

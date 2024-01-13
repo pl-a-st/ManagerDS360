@@ -173,6 +173,7 @@ namespace ManagerDS360
             newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
             newfrmCreationEditingRoute.treRouteTree.LoadTreeNodesWithSeetings(routeFileInfo);
             newfrmCreationEditingRoute.FileInfo = routeFileInfo;
+
             newfrmCreationEditingRoute.ShowDialog();
             ReloadLstRoutes();
             SelectLstRoutes();

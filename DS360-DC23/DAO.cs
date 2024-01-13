@@ -87,13 +87,27 @@ namespace ManagerDS360
             return path + fileName;
         }
         /// <summary>
-        /// Получение пути файла специальной деректории пользователя с адресами АЧХ вибростенда для данногого приложения
+        /// Получение пути файла специальной деректории пользователя для данногого приложения
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
         public static string GetApplicationDataPath(string fileName)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\AutoTestingVAST\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path + fileName;
+        }
+        /// <summary>
+        /// Получение пути файла специальной деректории пользователя для данногого приложения с файлами АЧХ
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string GetApplicationFreqRespPath(string fileName)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\AutoTestingVAST\АЧХ\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

@@ -44,7 +44,13 @@ namespace ManagerDS360
         {
             await Task.Delay(10);
             var elements = PmData.SettingsType.Values.ToArray();
-           
+            dgvFreqResp.Rows.Clear();
+            foreach (var element in FreqResp)
+            {
+                var index = dgvFreqResp.Rows.Add();
+                dgvFreqResp.Rows[index].Cells[freq.Name].Value = element.Key.ToString();
+                dgvFreqResp.Rows[index].Cells[coeff.Name].Value = element.Value.ToString();
+            }
         }
         private void SetToolTipes()
         {
@@ -470,6 +476,41 @@ namespace ManagerDS360
                 dgvFreqResp.Rows[index].Cells[freq.Name].Value = element.Key.ToString();
                 dgvFreqResp.Rows[index].Cells[coeff.Name].Value = element.Value.ToString();
             }
+            
+            if (txtNameFreqResp.Text == "" || txtNameFreqResp.Text == string.Empty)
+            {
+                MessageBox.Show("Не введено название для файла АЧХ!");
+                return;
+            }
+            FreqResp.Name = txtNameFreqResp.Text;
+            if (TypeFormOpen == TypeFormOpen.ToСreate)
+            {
+                string pathDyrectoryForRouteFile = DAO.GetFolderNameDialog("Выберите папку для сохранения файла АЧХ.", out MethodResultStatus resultStatus);
+                if (resultStatus != MethodResultStatus.Ok)
+                {
+                    MessageBox.Show("Не выбран путь для сохранения!");
+                    return;
+                }
+                FileInfo = new FileInfo(pathDyrectoryForRouteFile + @"\" + txtNameFreqResp.Text + ".fresp");
+            }
+            
+            if (DAO.binWriteObjectToFile(FreqResp, FileInfo.FullName) == MethodResultStatus.Fault)
+            {
+                MessageBox.Show($"Не удалось записать файл {FileInfo.FullName}");
+                return;
+            }
+            if (TypeFormOpen == TypeFormOpen.ToСreate)
+            {
+                PmData.FreqRespAddresses.Add(FileInfo);
+                DAO.binWriteObjectToFile(PmData.FreqRespAddresses, DAO.GetApplicationFreqRespPath(PmData.FileNameFreqRespAddresses));
+            }
+            if (MessageBox.Show("Файл АЧХ успешно сохранен! Закртыть окно редактирования?", "Сообщение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
+            TypeFormOpen = TypeFormOpen.ToChange;
+            txtNameFreqResp.Enabled = false;
             SaveName = SaveName.SaveName;
         }
 

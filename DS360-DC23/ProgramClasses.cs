@@ -81,6 +81,7 @@ namespace ManagerDS360
     [Serializable]
     public class FrequencyResponse : SortedDictionary<double, double>
     {
+        public string Name = string.Empty;
         /// <summary>
         /// Добавляет или затирает коэффициент для указанной частоты в словаре
         /// </summary>
@@ -151,6 +152,9 @@ namespace ManagerDS360
     {
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
         public const string FileNameFreqRespAddresses = @"FrequencyResponses.bin";
+        public const string FileNameCurentFreqRespAddresses = @"CurentFrequencyResponses.bin";
+
+        public static FrequencyResponse CurentFreqResp = new FrequencyResponse();
         public static Dictionary<SettingsType, string> SettingsType = new Dictionary<SettingsType, string>()
         {
             { ManagerDS360.SettingsType.Folder, "Папка"},
@@ -231,7 +235,8 @@ namespace ManagerDS360
         static PmData()
         {
             RouteAddresses = DAO.binReadFileToObject(RouteAddresses, DAO.GetApplicationRoutePath(FileNameRouteAddresses), out _);
-            FreqRespAddresses = DAO.binReadFileToObject(FreqRespAddresses, DAO.GetApplicationRoutePath(FileNameFreqRespAddresses), out _);
+            FreqRespAddresses = DAO.binReadFileToObject(FreqRespAddresses, DAO.GetApplicationFreqRespPath(FileNameFreqRespAddresses), out _);
+            CurentFreqResp = DAO.binReadFileToObject(CurentFreqResp, DAO.GetApplicationDataPath(FileNameCurentFreqRespAddresses),out _);
         }
 
         static public void SaveRouteAddresses()
@@ -243,9 +248,16 @@ namespace ManagerDS360
         }
         static public void SaveFreqRespAddresses()
         {
-            if (DAO.binWriteObjectToFile(FreqRespAddresses, DAO.GetApplicationRoutePath(FileNameFreqRespAddresses)) != MethodResultStatus.Ok)
+            if (DAO.binWriteObjectToFile(FreqRespAddresses, DAO.GetApplicationFreqRespPath(FileNameFreqRespAddresses)) != MethodResultStatus.Ok)
             {
-                MessageBox.Show("Произошла проблема с сохранением списка маршрутов");
+                MessageBox.Show("Произошла проблема с сохранением списка файлов АЧХ");
+            }
+        }
+        static public void SaveCurentFreqResp()
+        {
+            if (DAO.binWriteObjectToFile(CurentFreqResp, DAO.GetApplicationDataPath(FileNameCurentFreqRespAddresses)) != MethodResultStatus.Ok)
+            {
+                MessageBox.Show("Произошла проблема с сохранением текущего АЧХ в файл");
             }
         }
         public static InputEnum GetEnumFromString<InputEnum>(Dictionary<InputEnum, string> dictionary, string str)

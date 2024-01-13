@@ -32,7 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.txtNameRoute = new System.Windows.Forms.TextBox();
+            this.txtNameFreqResp = new System.Windows.Forms.TextBox();
             this.lblRouteName = new System.Windows.Forms.Label();
             this.lblRouteTree = new System.Windows.Forms.Label();
             this.butSave = new System.Windows.Forms.Button();
@@ -44,17 +44,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvFreqResp)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtNameRoute
+            // txtNameFreqResp
             // 
-            this.txtNameRoute.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNameFreqResp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNameRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtNameRoute.Location = new System.Drawing.Point(18, 26);
-            this.txtNameRoute.Name = "txtNameRoute";
-            this.txtNameRoute.Size = new System.Drawing.Size(366, 22);
-            this.txtNameRoute.TabIndex = 1;
-            this.txtNameRoute.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
-            this.txtNameRoute.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.txtNameFreqResp.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtNameFreqResp.Location = new System.Drawing.Point(18, 26);
+            this.txtNameFreqResp.Name = "txtNameFreqResp";
+            this.txtNameFreqResp.Size = new System.Drawing.Size(366, 22);
+            this.txtNameFreqResp.TabIndex = 1;
+            this.txtNameFreqResp.TextChanged += new System.EventHandler(this.txtNameRoute_TextChanged);
+            this.txtNameFreqResp.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // lblRouteName
             // 
@@ -166,7 +166,7 @@
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lblRouteTree);
             this.Controls.Add(this.lblRouteName);
-            this.Controls.Add(this.txtNameRoute);
+            this.Controls.Add(this.txtNameFreqResp);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.Name = "frmCreationEditingFreqResp";
@@ -184,14 +184,14 @@
 
         #endregion
 
-        internal System.Windows.Forms.TextBox txtNameRoute;
+        internal System.Windows.Forms.TextBox txtNameFreqResp;
         internal System.Windows.Forms.Label lblRouteName;
         internal System.Windows.Forms.Label lblRouteTree;
         internal System.Windows.Forms.Button butSave;
         internal System.Windows.Forms.Button butCancel;
         private System.Windows.Forms.ToolTip toolTip1;
-        private LibControls.DataGridViewForDouble dgvFreqResp;
         private System.Windows.Forms.DataGridViewTextBoxColumn freq;
         private System.Windows.Forms.DataGridViewTextBoxColumn coeff;
+        public LibControls.DataGridViewForDouble dgvFreqResp;
     }
 }

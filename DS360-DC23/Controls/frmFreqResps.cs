@@ -49,15 +49,15 @@ namespace ManagerDS360
         {
             if (e.Alt == true && e.KeyCode == Keys.S)    // создать
             {
-                CreateRoutes();
+                CreateFreqResps();
             }
             if (e.Control == true && e.KeyCode == Keys.D)    // удалить
             {
-                DeleteRoute();
+                DeleteFreqResp();
             }
             if (e.Control == true && e.KeyCode == Keys.E)    // редактировать
             {
-                EditingRoute();
+                EditinFreqResp();
             }
             if (e.Control == true && e.KeyCode == Keys.R)    // переименовать
             {
@@ -100,12 +100,12 @@ namespace ManagerDS360
         //    }
         //}
 
-        private void butDeleteRoute_Click(object sender, EventArgs e)
+        private void butFrqResp_Click(object sender, EventArgs e)
         {
-            DeleteRoute();
+            DeleteFreqResp();
         }
 
-        private void DeleteRoute()
+        private void DeleteFreqResp()
         {
             if (lstSaveFreqResp.SelectedIndex == -1)
             {
@@ -115,8 +115,8 @@ namespace ManagerDS360
             {
                 return;
             }
-            PmData.RouteAddresses.RemoveAt(lstSaveFreqResp.SelectedIndex);
-            PmData.SaveRouteAddresses();
+            PmData.FreqRespAddresses.RemoveAt(lstSaveFreqResp.SelectedIndex);
+            PmData.SaveFreqRespAddresses();
             ReloadLstFreqResp();
             SelectLstFreqResp();
         }
@@ -127,10 +127,10 @@ namespace ManagerDS360
 
         private void butCreateRoutes_Click(object sender, EventArgs e)
         {
-            CreateRoutes();
+            CreateFreqResps();
         }
 
-        private void CreateRoutes()
+        private void CreateFreqResps()
         {
             //создание нового маршрута
             frmCreationEditingFreqResp frmCreationEditingFreqResp = new frmCreationEditingFreqResp();
@@ -155,25 +155,27 @@ namespace ManagerDS360
         /// <param name="e"></param>
         private void butEditingRoute_Click(object sender, EventArgs e)
         {
-            EditingRoute();
+            EditinFreqResp();
         }
 
-        private void EditingRoute()
+        private void EditinFreqResp()
         {
             if (lstSaveFreqResp.SelectedIndex == -1)
             {
                 return;
             }
-            FileInfo routeFileInfo = PmData.RouteAddresses[lstSaveFreqResp.SelectedIndex];
-            string fileRoutePath = routeFileInfo.FullName;
-            string RoutName = routeFileInfo.Name.Replace(routeFileInfo.Extension, "");
-            frmCreationEditingRoute newfrmCreationEditingRoute = new frmCreationEditingRoute();
-            newfrmCreationEditingRoute.TypeFormOpen = TypeFormOpen.ToChange;
-            newfrmCreationEditingRoute.txtNameRoute.Text = RoutName;
-            newfrmCreationEditingRoute.txtNameRoute.Enabled = false;
-            newfrmCreationEditingRoute.treRouteTree.LoadTreeNodesWithSeetings(routeFileInfo);
-            newfrmCreationEditingRoute.FileInfo = routeFileInfo;
-            newfrmCreationEditingRoute.ShowDialog();
+            FileInfo routeFileInfo = PmData.FreqRespAddresses[lstSaveFreqResp.SelectedIndex];
+            //string fileRoutePath = routeFileInfo.FullName;
+            string FreqRespName = routeFileInfo.Name.Replace(routeFileInfo.Extension, "");
+            frmCreationEditingFreqResp form = new frmCreationEditingFreqResp();
+            form.TypeFormOpen = TypeFormOpen.ToChange;
+            form.txtNameFreqResp.Text = FreqRespName;
+            form.txtNameFreqResp.Enabled = false;
+
+            form.FreqResp = DAO.binReadFileToObject(form.FreqResp, routeFileInfo.FullName, out MethodResultStatus result);
+            
+            form.FileInfo = routeFileInfo;
+            form.ShowDialog();
             ReloadLstFreqResp();
             SelectLstFreqResp();
         }
@@ -352,6 +354,11 @@ namespace ManagerDS360
             PmData.SaveRouteAddresses();
             ReloadLstFreqResp();
             lstSaveFreqResp.SelectedIndex = selectIndex + 1;
+        }
+
+        private void frmFreqResps_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

@@ -37,6 +37,7 @@ namespace ManagerDS360
             mnuForTest.Visible = true;
 #endif
             LoadCboSavedRoutes();
+            LoadCboSavadFreqResp();
             //await SetDefaultDS360();
             SetToolTipes();
             await SetTestedDevicesList();
@@ -55,12 +56,12 @@ namespace ManagerDS360
         {
             int MaxWidth = grpStend.Width;
             lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
-            lblFreq.Text ="F: " + info.Frequency.Get_Hz().ToString() + " Гц";
+            lblFreq.Text = "F: " + info.Frequency.Get_Hz().ToString() + " Гц";
             lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.ParametrToHold.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
             lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.CurrentParametr.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
             lblParametrToHold.Location = new Point(MaxWidth / 2 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
             lblFreq.Location = new Point(MaxWidth / 2 - lblFreq.Width / 2, lblFreq.Location.Y);
-            lblVibCalibStatus.Location = new Point(MaxWidth / 2  - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);
+            lblVibCalibStatus.Location = new Point(MaxWidth / 2 - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);
             lblCurentParametr.Location = new Point(MaxWidth / 2 - lblCurentParametr.Width / 2, lblCurentParametr.Location.Y);
         }
 
@@ -312,14 +313,14 @@ namespace ManagerDS360
                 selectedNode.SelectedImageIndex = 6;
             }));
         }
-        private async Task <Result> MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
+        private async Task<Result> MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
         {
-            var runStend = selectedNode.VibrationStand.RunStend(); 
+            var runStend = selectedNode.VibrationStand.RunStend();
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 11;
                 selectedNode.SelectedImageIndex = 11;
-               
+
             }));
             await runStend;
             if (runStend.Result != Result.Success)
@@ -499,6 +500,47 @@ namespace ManagerDS360
                 cboSavedRoutes.SelectedIndex = 0;
             }
         }
+        private void LoadCboSavadFreqResp()
+        {
+            mnuCboFrequencyResponse.Items.Clear();
+
+            FileInfo[] freqResp = PmData.FreqRespAddresses.ToArray();
+            string[] fileNames = new string[freqResp.Length];
+            for (int i = 0; i < freqResp.Length; i++)
+            {
+                fileNames[i] = freqResp[i].Name.Replace(freqResp[i].Extension, "");
+            }
+            mnuCboFrequencyResponse.Items.AddRange(fileNames);
+            
+            if (PmData.CurentFreqResp.Count > 0)
+            if (PmData.CurentFreqResp.Name!=null && mnuCboFrequencyResponse.Items.Contains(PmData.CurentFreqResp.Name))
+            {
+                mnuCboFrequencyResponse.SelectedItem = PmData.CurentFreqResp.Name;
+
+            }
+            mnuCboFrequencyResponse.SelectedIndexChanged -= MnuCboFrequencyResponse_SelectedIndexChanged;
+            mnuCboFrequencyResponse.SelectedIndexChanged += MnuCboFrequencyResponse_SelectedIndexChanged;
+        }
+
+        private void MnuCboFrequencyResponse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(mnuCboFrequencyResponse.SelectedItem.ToString()))
+            {
+                PmData.CurentFreqResp = new FrequencyResponse();
+                MessageBox.Show("АЧХ не выбран");
+                return;
+            }
+            if (!string.IsNullOrEmpty(mnuCboFrequencyResponse.SelectedItem.ToString()))
+            {
+                var FileCurentFreqResp = PmData.FreqRespAddresses[mnuCboFrequencyResponse.SelectedIndex];
+                PmData.CurentFreqResp = DAO.binReadFileToObject(PmData.CurentFreqResp, FileCurentFreqResp.FullName, out _);
+                PmData.SaveCurentFreqResp();
+                MessageBox.Show($"Выбрано АЧХ: {FileCurentFreqResp.Name}");
+                return;
+            }
+
+        }
+
         private void cboSavedRoutes_Click(object sender, EventArgs e)
         {
             cboSavedRoutes.DroppedDown = true;
@@ -763,7 +805,7 @@ namespace ManagerDS360
         {
             //LastRouteName = string.Empty;
             butStopTest.Click += butStop_Click;
-           
+
             Task taskSend = new Task(SendAllChacked, TokenForTest);
             taskSend.Start();
             SetLocationLblTestStatus("Идет испытание!!!");
@@ -957,7 +999,7 @@ namespace ManagerDS360
             {
                 VibrationStand.StopTest();
             }
-           
+
         }
 
         private void butVibCalibSetting_Click(object sender, EventArgs e)
@@ -971,12 +1013,12 @@ namespace ManagerDS360
             }
             else
             {
-                
+
                 FrmVibroCalib.StartPosition = FormStartPosition.CenterParent;
 
-                
+
                 FrmVibroCalib.Show(this);
-               
+
             }
         }
 
@@ -989,6 +1031,12 @@ namespace ManagerDS360
         {
             frmFreqResps frmFreqResps = new frmFreqResps();
             frmFreqResps.ShowDialog();
+            LoadCboSavadFreqResp();
+        }
+
+        private void mnuCboFrequencyResponse_Click(object sender, EventArgs e)
+        {
+            // привязал в лоаде главной формы
         }
     }
 }

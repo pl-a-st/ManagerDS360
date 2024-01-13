@@ -286,6 +286,7 @@ namespace ManagerDS360 {
             // 
             this.mnuCboFrequencyResponse.Name = "mnuCboFrequencyResponse";
             this.mnuCboFrequencyResponse.Size = new System.Drawing.Size(121, 23);
+            this.mnuCboFrequencyResponse.Click += new System.EventHandler(this.mnuCboFrequencyResponse_Click);
             // 
             // mnuSettingFrequencyResponse
             // 

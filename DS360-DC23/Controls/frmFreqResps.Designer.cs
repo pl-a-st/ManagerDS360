@@ -87,7 +87,7 @@
             this.butDeleteFreqResp.TabIndex = 7;
             this.butDeleteFreqResp.Text = "Удалить АЧХ";
             this.butDeleteFreqResp.UseVisualStyleBackColor = true;
-            this.butDeleteFreqResp.Click += new System.EventHandler(this.butDeleteRoute_Click);
+            this.butDeleteFreqResp.Click += new System.EventHandler(this.butFrqResp_Click);
             // 
             // lstSaveFreqResp
             // 
@@ -180,7 +180,7 @@
             this.butDown.MouseEnter += new System.EventHandler(this.butDown_MouseEnter);
             this.butDown.MouseLeave += new System.EventHandler(this.butDown_MouseLeave);
             // 
-            // frmEditingFreqResp
+            // frmFreqResps
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,9 +197,10 @@
             this.Controls.Add(this.lblSavedRoutes);
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(588, 492);
-            this.Name = "frmEditingFreqResp";
+            this.Name = "frmFreqResps";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Редактирование сохраненных АЧХ вибростендов";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFreqResps_FormClosing);
             this.Load += new System.EventHandler(this.frmEditingRoutes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.ResumeLayout(false);

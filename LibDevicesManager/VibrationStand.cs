@@ -33,7 +33,7 @@ namespace LibDevicesManager
         public Frequency Frequency;
         public Sensitivity Sensitivity;
         public double CurrentVoltage;
-        public VibStendStatus VibStendStatus;
+        public VibStendStatus VibStendStatus = VibStendStatus.None;
         public VibroParametr CurrentParametr
         {
             get { return GetVibroParametr(); }
@@ -82,17 +82,19 @@ namespace LibDevicesManager
         public static event StatusStandChangeHandler StatusHasChanged;
         public VibStendStatus VibStendStatus = VibStendStatus.None;
 
-        public Result RunStend()
+        public async Task<Result> RunStend()
         {
-            Task taskSend = new Task(SetVibroParamInStend, TokenForTest);
-            taskSend.Start();
+            Task.Run(SetVibroParamInStend, TokenForTest);
+            
 
             while (VibStendStatus == VibStendStatus.None)
             {
-                Task.Delay(300);
+                await Task.Delay(100);
+               
             }
             if (VibStendStatus == VibStendStatus.Stably)
             {
+
                 return Result.Success;
             }
             return Result.Failure;
@@ -102,9 +104,16 @@ namespace LibDevicesManager
         /// </summary>
         private void SetVibroParamInStend() // todo отрефакторить
         {
+            for (int i = 0; i < 100; i++)
+            {
+                VibStendStatus = VibStendStatus.None;
+                StatusHasChanged.Invoke(new VibStendInfo(this, i));
+                Thread.Sleep(10);
+                
+            }
             Generator.SetOutputOff();
             StopTest();
-
+           
             // todo проверить остановку и остановить
             VibroCalc.Sensitivity.Set_mV_MS2(Sensitivity.Get_mV_MS2());
             VibroCalc.Frequency.Set_Hz(Frequency.Get_Hz());
@@ -124,6 +133,7 @@ namespace LibDevicesManager
             double indexToChange = 1.5;
 
             Generator.AmplitudeRMS = startVolt;
+
             while (IsTesting)
             {
                 VibStendStatus = VibStendStatus.Stoping;
@@ -146,6 +156,7 @@ namespace LibDevicesManager
                 return;
             }
             Generator.AmplitudeRMS = indexToChange * startVolt;
+            
             if (Generator.SendSetting() != Result.Success)
             {
                 HandleVibStendProblem(currentVoltage, VibStendStatus.GeneratorProblem);

@@ -223,6 +223,7 @@ namespace ManagerDS360
             { LibDevicesManager.VibStendStatus.Stably, "Корректно"},
             { LibDevicesManager.VibStendStatus.Stoping, "Остнов"},
             { LibDevicesManager.VibStendStatus.Finished, "Закончен"},
+            { LibDevicesManager.VibStendStatus.None, "Не установлен"},
         };
         public static List<FileInfo> RouteAddresses = new List<FileInfo>();
         public static List<FileInfo> FreqRespAddresses = new List<FileInfo>();

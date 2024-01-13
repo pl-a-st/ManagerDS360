@@ -183,7 +183,7 @@ namespace ManagerDS360
             editingSettings.Text = "Отправка настройки в генератор";
             editingSettings.ShowDialog();
         }
-        private Result SendNodeSetting()
+        private async Task<Result> SendNodeSetting()
         {
             TreeNodeWithSetting selectedNode = null;
             Invoke(new Action(() => { selectedNode = treRouteTree.SelectedNode as TreeNodeWithSetting; }));
@@ -209,7 +209,7 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.VibroStand)
             {
-                return MakeOperationsForVibroStend(selectedNode);
+                return await MakeOperationsForVibroStend(selectedNode);
             }
             return Result.Success;
         }
@@ -312,14 +312,17 @@ namespace ManagerDS360
                 selectedNode.SelectedImageIndex = 6;
             }));
         }
-        private Result MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
+        private async Task <Result> MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
         {
+            var runStend = selectedNode.VibrationStand.RunStend(); 
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 11;
                 selectedNode.SelectedImageIndex = 11;
+               
             }));
-            if (selectedNode.VibrationStand.RunStend() != Result.Success)
+            await runStend;
+            if (runStend.Result != Result.Success)
             {
                 BeginInvoke(new Action(() =>
                 {
@@ -622,9 +625,9 @@ namespace ManagerDS360
         {
             SetButAfterClickSize(butPrevious);
         }
-        private void butPlay_Click(object sender, EventArgs e)
+        private async void butPlay_Click(object sender, EventArgs e)
         {
-            SendNodeSetting();
+            await SendNodeSetting();
         }
         private void butPlay_MouseEnter(object sender, EventArgs e)
         {
@@ -835,7 +838,7 @@ namespace ManagerDS360
                     return;
                 }
                 BeginInvoke(new Action(() => { treRouteTree.SelectedNode = node; }));
-                Result result = SendNodeSetting();
+                Result result = SendNodeSetting().Result;
                 if (result != Result.Success)
                 {
                     if (result == Result.Canceled)

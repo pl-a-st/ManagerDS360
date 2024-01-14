@@ -43,6 +43,16 @@ namespace LibDevicesManager
             }
             return Result.Failure;
         }
+        public Result ChangeAmplitudeRMS()
+        {
+            if (GeneratorModel == GeneratorModel.DS360)
+            {
+                DS360Setting generator = new DS360Setting();
+                generator.AmplitudeRMS = AmplitudeRMS;
+                return generator.ChangeAmplitudeRMS();
+            }
+            return Result.Failure;
+        }
         public Result SetOutputOff()
         {
             if (GeneratorModel == GeneratorModel.DS360)

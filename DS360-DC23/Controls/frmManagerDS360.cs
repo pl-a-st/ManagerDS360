@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using LibControls;
 using LibDevicesManager;
 using LibDevicesManager.DC23;
+using Metrology;
 using Vast.DC23.DataTransferClient;
 
 
@@ -57,8 +58,8 @@ namespace ManagerDS360
             int MaxWidth = grpStend.Width;
             lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
             lblFreq.Text = "F: " + info.Frequency.Get_Hz().ToString() + " Гц";
-            lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.ParametrToHold.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
-            lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + info.CurrentParametr.Get(info.Detector).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
+            lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.ParametrToHold.Get(info.Detector),4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
+            lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.CurrentParametr.Get(info.Detector),4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
             lblParametrToHold.Location = new Point(MaxWidth / 2 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
             lblFreq.Location = new Point(MaxWidth / 2 - lblFreq.Width / 2, lblFreq.Location.Y);
             lblVibCalibStatus.Location = new Point(MaxWidth / 2 - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);

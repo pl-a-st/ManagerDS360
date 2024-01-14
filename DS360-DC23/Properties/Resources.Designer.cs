@@ -111,6 +111,16 @@ namespace ManagerDS360.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Round {
+            get {
+                object obj = ResourceManager.GetObject("Round", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;doc&gt;
         ///    &lt;assembly&gt;

@@ -84,17 +84,13 @@ namespace LibDevicesManager
 
         public async Task<Result> RunStend()
         {
-            Task.Run(SetVibroParamInStend, TokenForTest);
-            
-
+            _ = Task.Run(SetVibroParamInStend, TokenForTest);
             while (VibStendStatus == VibStendStatus.None)
             {
                 await Task.Delay(100);
-               
             }
             if (VibStendStatus == VibStendStatus.Stably)
             {
-
                 return Result.Success;
             }
             return Result.Failure;
@@ -157,7 +153,7 @@ namespace LibDevicesManager
             }
             Generator.AmplitudeRMS = indexToChange * startVolt;
             
-            if (Generator.SendSetting() != Result.Success)
+            if (Generator.ChangeAmplitudeRMS() != Result.Success)
             {
                 HandleVibStendProblem(currentVoltage, VibStendStatus.GeneratorProblem);
                 return;

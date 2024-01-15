@@ -49,6 +49,8 @@ namespace ForLibDevicesTestOnly
                 }
             }
             */
+
+            /*
             DS360Setting dS360Setting = new DS360Setting();
             dS360Setting.ComPortName = "COM5";
             dS360Setting.IsComPortDefaultName = false;
@@ -58,13 +60,17 @@ namespace ForLibDevicesTestOnly
                 dS360Setting.Frequency = i;
                 dS360Setting.ChangeFrequency();
             }
-            Console.WriteLine("Press any key to exit");
+            */
+
+            /*
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             for (double i = 0.01; i < 0.1; i += 0.01)
             {
                 dS360Setting.AmplitudeRMS = i;
                 dS360Setting.ChangeAmplitudeRMS();
             }
+            */
 
             /*
            GpibPort aserial = new GpibPort("ASRL5");

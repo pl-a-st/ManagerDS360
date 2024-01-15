@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using LibDevicesManager;
 using Ivi.Visa.Interop;
+using System.IO.Ports;
+using System.IO;
 
 namespace ForLibDevicesTestOnly
 {
@@ -14,6 +16,75 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+
+            //Проверил как будет работать SerialPort в виде поля. Работает)
+            /*
+            SerialPort ds360 = new SerialPort();
+            ComPort.SetPortSettingForDS360();
+            ds360.PortName = "COM5";
+            try
+            {
+                ds360.Open();
+            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (InvalidOperationException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            ds360.WriteLine("FREQ200");
+            try
+            {
+                ds360.Close();
+            }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            try
+            {
+                ds360.Open();
+            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (InvalidOperationException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            ds360.WriteLine("FREQ400");
+            try
+            {
+                ds360.Close();
+            }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            ds360.PortName = "COM1";
+            try
+            {
+                ds360.Open();
+            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (InvalidOperationException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            ds360.WriteLine("FREQ300");
+            try
+            {
+                ds360.Close();
+            }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            ds360.PortName = "COM5";
+            try
+            {
+                ds360.Open();
+            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            catch (InvalidOperationException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            ds360.WriteLine("FREQ500");
+            try
+            {
+                ds360.Close();
+            }
+            catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
+            */
+            //Проверка GPIB. Работает
             /*
             GpibPort gpib = new GpibPort();
             gpib.Send("ID?");
@@ -49,7 +120,15 @@ namespace ForLibDevicesTestOnly
                 }
             }
             */
-
+            //Проверка DS360 через GPIB. Не работает((
+            /*
+            GpibPort aserial = new GpibPort("ASRL5");
+            gpib.Send("IDN?");
+            //str = string.Empty;
+            gpib.ReadString(out str);
+            Console.WriteLine(str);
+            */
+            //Тест ChangeAmplitudeRMS() и ChangeFrequency(). Работает
             /*
             DS360Setting dS360Setting = new DS360Setting();
             dS360Setting.ComPortName = "COM5";
@@ -60,9 +139,7 @@ namespace ForLibDevicesTestOnly
                 dS360Setting.Frequency = i;
                 dS360Setting.ChangeFrequency();
             }
-            */
-
-            /*
+            
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             for (double i = 0.01; i < 0.1; i += 0.01)
@@ -72,13 +149,7 @@ namespace ForLibDevicesTestOnly
             }
             */
 
-            /*
-           GpibPort aserial = new GpibPort("ASRL5");
-            gpib.Send("IDN?");
-            //str = string.Empty;
-            gpib.ReadString(out str);
-            Console.WriteLine(str);
-            */
+
             //<==ТЕСТОВАЯ ЧАСТЬ
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();

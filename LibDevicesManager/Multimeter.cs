@@ -58,13 +58,13 @@ namespace LibDevicesManager
             }
                 return Result.Failure;
         }
-        public virtual Result Measure(out double value)
+        public virtual Result Measure(out double value, int averages = 1)
         {
             value = 0;
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
                 Agilent3458A multimeter = new Agilent3458A(portName);
-                return multimeter.Measure(out value);
+                return multimeter.Measure(out value, averages);
             }
             if (multimeterModel == MultimeterModel.Agilent34401A)
             {

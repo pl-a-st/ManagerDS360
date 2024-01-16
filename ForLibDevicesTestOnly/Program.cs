@@ -37,7 +37,9 @@ namespace ForLibDevicesTestOnly
             catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
 
             Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            //Console.ReadKey();
+            ds360 = new SerialPort();
+            ds360.PortName = "COM5";
             try
             {
                 ds360.Open();
@@ -52,7 +54,7 @@ namespace ForLibDevicesTestOnly
             }
             catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
             Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            //Console.ReadKey();
             ds360.PortName = "COM1";
             try
             {
@@ -68,7 +70,7 @@ namespace ForLibDevicesTestOnly
             }
             catch (IOException ex) { Console.WriteLine("Ошибка" + ex.Message); }
             Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            //Console.ReadKey();
             ds360.PortName = "COM5";
             try
             {

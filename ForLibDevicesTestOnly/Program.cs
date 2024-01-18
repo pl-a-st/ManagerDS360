@@ -16,7 +16,75 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
-
+            //Проверка настроек мультиметра Agilent3458A
+            /*
+            Agilent3458A multimeter = new Agilent3458A();
+           // multimeter.LowFrequencyLimit = 100;
+            multimeter.MeasureType = MeasureType.DC;
+            multimeter.PhysicalParameter = PhysicalParameter.U;
+            multimeter.SendSetting();
+            //multimeter.Send("ACBAND 20");
+            multimeter.Send("NPLC?");
+            multimeter.Receive(out string response);
+            Console.WriteLine(response);
+            Console.WriteLine("===");
+            Console.ReadKey();
+            multimeter.Send("NPLC 1");
+            multimeter.Send("NPLC?");
+            multimeter.Receive(out  response);
+            Console.WriteLine(response);
+            */
+            /*
+            Console.WriteLine("10 измерений:");
+            double value = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (multimeter.Measure(out value) == Result.Success)
+                {
+                    Console.WriteLine(value);
+                }
+            }
+            Console.WriteLine("Press any key to continue whis ACBAND = 1 Hz");
+            Console.ReadKey();
+            multimeter.Send("ACBAND 1, 2");
+            multimeter.Send("ACBAND?");
+            multimeter.Receive(out response);
+            Console.WriteLine(response);
+            Console.WriteLine("10 измерений:");
+            multimeter.LowFrequencyLimit = 100;
+            multimeter.SendSetting();
+            for (int i = 0; i < 10; i++)
+            {
+                if (multimeter.Measure(out value) == Result.Success)
+                {
+                    Console.WriteLine(value);
+                }
+            }
+            */
+            //Проверка настроек мультиметра
+            /*
+            Multimeter multimeter = new Multimeter();
+            Multimeter.MultimeterModel = MultimeterModel.Agilent3458A;
+            //multimeter.Send("ACI");
+            Console.WriteLine("continue whis NPLC = 0");
+            multimeter.LowFrequencyLimit = 0;
+            multimeter.PhysicalParameter = PhysicalParameter.U;
+            multimeter.MeasureType = MeasureType.AC;
+            multimeter.SendSetting();
+            
+            Console.WriteLine("Press any key to continue whis NPLC = 20");
+            Console.ReadKey();
+            multimeter.LowFrequencyLimit = 20;
+            multimeter.SendSetting();
+            Console.WriteLine("Press any key to continue whis NPLC = 100");
+            Console.ReadKey();
+            multimeter.LowFrequencyLimit = 100;
+            multimeter.SendSetting();
+            Console.WriteLine("Press any key to continue whis NPLC = 1000");
+            Console.ReadKey();
+            multimeter.LowFrequencyLimit = 1000;
+            multimeter.SendSetting();
+            */
             //Проверил как будет работать SerialPort в виде поля. Работает)
             /*
             SerialPort ds360 = new SerialPort();
@@ -160,6 +228,10 @@ namespace ForLibDevicesTestOnly
     }
     internal class Multimeter : Multimeter<Multimeter>
     {
-        public Multimeter() { }
+        public Multimeter() 
+        {
+            Agilent3458A.FindFirstAgilent3458APort(out string portName);
+            Multimeter.PortName = portName;
+        }
     }
 }

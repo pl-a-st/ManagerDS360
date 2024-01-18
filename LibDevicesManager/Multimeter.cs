@@ -54,6 +54,9 @@ namespace LibDevicesManager
             if (multimeterModel == MultimeterModel.Agilent3458A)
             {
                 Agilent3458A multimeter = new Agilent3458A(portName);
+                multimeter.PhysicalParameter = PhysicalParameter;
+                multimeter.MeasureType = MeasureType;
+                multimeter.LowFrequencyLimit = LowFrequencyLimit;
                 return multimeter.SendSetting();
             }
                 return Result.Failure;

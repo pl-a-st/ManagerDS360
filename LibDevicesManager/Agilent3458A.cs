@@ -61,6 +61,7 @@ namespace LibDevicesManager
         //private int comPortNumber;
         private string resultMessage = string.Empty;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+        private const int powerLineFrequency = 50;
         //private static bool isDebugMode = false; //ToDel
         private GpibPort multimeter;
         #endregion PublicFields
@@ -145,6 +146,7 @@ namespace LibDevicesManager
             {
                 return result;
             }
+
             result = SendLowFrequencyLimit();
             if (result != Result.Success)
             {
@@ -152,6 +154,10 @@ namespace LibDevicesManager
             }
             //TODO: дописать проверку правильности установок настроек?
             return result;
+        }
+        public Result SendACBandwidthLow(double frequencyLow)
+        {
+            return multimeter.Send($"ACBAND {frequencyLow}");
         }
         private Result SendMeasureFunction()
         {
@@ -178,9 +184,13 @@ namespace LibDevicesManager
         }
         private Result SendLowFrequencyLimit()
         {
-            string command = ""; //TODO: дописать КОМАНДУ
+            int nplc = 5;
+            if (LowFrequencyLimit < 10 && LowFrequencyLimit > 0)
+            {
+                nplc = (int) Math.Round((double) powerLineFrequency / LowFrequencyLimit);
+            }
+            string command = "NPLC " + nplc; 
             return multimeter.Send(command);
-
         }
         public override Result Send(string command)
         {

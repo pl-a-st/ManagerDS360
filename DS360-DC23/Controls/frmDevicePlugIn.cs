@@ -100,8 +100,9 @@ namespace ManagerDS360
         }
         private async Task FindDS360PushCbo(ComboBox cbo)
         {
+           
             Task<string[]> getComs = new Task<string[]>(() => DS360Setting.FindAllDS360(true));
-            Task.Run(() => getComs.Start());
+            await Task.Run(() => getComs.Start());
             await Task.Run(() => getComs.Wait());
             cbo.Items.Clear();
             cbo.Items.AddRange(getComs.Result);

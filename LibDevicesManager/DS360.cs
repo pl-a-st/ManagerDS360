@@ -276,7 +276,7 @@ namespace LibDevicesManager
 
         #region PrivateFields
         private static string comPortDefaultName;
-        private bool isComPortDefaultName = true;
+        private bool isComPortDefaultName = false;
         private string comPortName;
         private int comPortNumber;
         private FunctionType functionType;

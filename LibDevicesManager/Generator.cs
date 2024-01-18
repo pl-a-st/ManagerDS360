@@ -53,6 +53,16 @@ namespace LibDevicesManager
             }
             return Result.Failure;
         }
+        public Result ChangeFrequency()
+        {
+            if (GeneratorModel == GeneratorModel.DS360)
+            {
+                DS360Setting generator = new DS360Setting();
+                generator.Frequency = Frequency;
+                return generator.ChangeFrequency();
+            }
+            return Result.Failure;
+        }
         public Result SetOutputOff()
         {
             if (GeneratorModel == GeneratorModel.DS360)

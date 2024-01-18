@@ -140,12 +140,7 @@ namespace LibDevicesManager
 
         public override Result SendSetting()
         {
-            Result result = SendMeasureType();
-            if (result != Result.Success)
-            {
-                return result;
-            }
-            result = SendPhysicalParameter();
+            Result result = SendMeasureFunction();
             if (result != Result.Success)
             {
                 return result;
@@ -158,34 +153,27 @@ namespace LibDevicesManager
             //TODO: дописать проверку правильности установок настроек?
             return result;
         }
-        private Result SendMeasureType()
+        private Result SendMeasureFunction()
         {
             Result result = Result.Failure;
-            if (MeasureType == MeasureType.AC)
+            string command = string.Empty;
+            if (MeasureType == MeasureType.AC && PhysicalParameter == PhysicalParameter.U)
             {
-                string command = ""; //TODO: дописать КОМАНДУ
-                result = multimeter.Send(command);
+                command = "ACV";
             }
-            if (MeasureType == MeasureType.DC)
+            if (MeasureType == MeasureType.AC && PhysicalParameter == PhysicalParameter.I)
             {
-                string command = ""; //TODO: дописать КОМАНДУ
-                result = multimeter.Send(command);
+                command = "ACI";
             }
-            return result;
-        }
-        private Result SendPhysicalParameter()
-        {
-            Result result = Result.Failure;
-            if (PhysicalParameter == PhysicalParameter.U)
+            if (MeasureType == MeasureType.DC && PhysicalParameter == PhysicalParameter.U)
             {
-                string command = ""; //TODO: дописать КОМАНДУ
-                result = multimeter.Send(command);
+                command = "DCV";
             }
-            if (PhysicalParameter == PhysicalParameter.I)
+            if (MeasureType == MeasureType.DC && PhysicalParameter == PhysicalParameter.I)
             {
-                string command = ""; //TODO: дописать КОМАНДУ
-                result = multimeter.Send(command);
+                command = "DCI";
             }
+            result = multimeter.Send(command);
             return result;
         }
         private Result SendLowFrequencyLimit()
@@ -212,25 +200,35 @@ namespace LibDevicesManager
             }
             return multimeter.ReadString(out response);
         }
-        public override Result Measure(out double value)
+        public override Result Measure(out double value, int averages = 1)
         {
             value = 0;
             if (multimeter == null)
             {
                 return Result.Failure;
             }
+            if (averages < 1)
+            {
+                return Result.ParamError;
+            }
             string response;
-            Result result = multimeter.ReadString(out response);
-            if (result != Result.Success)
+            double sum = 0;
+            for (int i = 1; i <= averages; i++)
             {
-                return result;
+                Result result = multimeter.ReadString(out response);
+                if (result != Result.Success)
+                {
+                    return result;
+                }
+                response = response.Replace(".", decimalSeparator);
+                if (!Double.TryParse(response, out value))
+                {
+                    return Result.Failure;
+                }
+                sum += value;
             }
-            response = response.Replace(".", decimalSeparator);
-            if (Double.TryParse(response, out value))
-            {
-                return Result.Success;
-            }
-            return Result.Failure;
+            value = sum / averages;
+            return Result.Success;
         }
         #endregion PublicMethods
     }

@@ -19,12 +19,28 @@ namespace LibDevicesManager
         public OutputImpedance OutputImpedance { get { return OutputImpedance.HiZ; } }
         public static string Address = string.Empty;
 
+        /// <summary>
+        /// Текст сообщения о результате выполнения методов, имеющих тип возвращаемого значения <see cref="Result"/>
+        /// </summary>
+        public string ResultMessage
+        {
+            get
+            {
+                return resultMessage;
+            }
+            set
+            {
+                resultMessage = value;
+            }
+        }
+
         //private static GeneratorModel generatorModel = GeneratorModel.Unknown;
         private FunctionType functionType = FunctionType.Sine;
         //static private string address = string.Empty;
         private double amplitudeRMS = 0.1;
         private double frequency = 160;
         private double offset = 0;
+        private string resultMessage = string.Empty;
         public Generator() { }
 
         #region PublicMethods
@@ -39,7 +55,9 @@ namespace LibDevicesManager
                 generator.Offset = Offset;
                 generator.OutputImpedance = OutputImpedance;
                 generator.ComPortName = Address;                //TODO: проверить обработку флага IsComPortDefaultName
-                return generator.SendDS360Setting();
+                Result result = generator.SendDS360Setting();
+                resultMessage = generator.ResultMessage;
+                return result;
             }
             return Result.Failure;
         }
@@ -49,7 +67,9 @@ namespace LibDevicesManager
             {
                 DS360Setting generator = new DS360Setting();
                 generator.AmplitudeRMS = AmplitudeRMS;
-                return generator.ChangeAmplitudeRMS();
+                Result result = generator.ChangeAmplitudeRMS();
+                resultMessage = generator.ResultMessage;
+                return result;
             }
             return Result.Failure;
         }

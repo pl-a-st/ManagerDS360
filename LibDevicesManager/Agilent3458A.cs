@@ -185,9 +185,9 @@ namespace LibDevicesManager
         private Result SendLowFrequencyLimit()
         {
             int nplc = 5;
-            if (LowFrequencyLimit < 10 && LowFrequencyLimit > 0)
+            if (InputSignalMinFrequency < 10 && InputSignalMinFrequency > 0)
             {
-                nplc = (int) Math.Round((double) powerLineFrequency / LowFrequencyLimit);
+                nplc = (int) Math.Round((double) powerLineFrequency / InputSignalMinFrequency);
             }
             string command = "NPLC " + nplc; 
             return multimeter.Send(command);

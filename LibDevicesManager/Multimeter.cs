@@ -40,11 +40,16 @@ namespace LibDevicesManager
 
         public MeasureType MeasureType { get { return measureType; } set { measureType = value; } }
         public PhysicalParameter PhysicalParameter { get { return physicalParameter; } set { physicalParameter = value; } }
-        public int LowFrequencyLimit { get { return lowFrequencyLimit; }  set {lowFrequencyLimit = value; } }
+        /// <summary>
+        /// Задаёт или возвращает минимальную частоту входного сигнала в Гц (влияет на скорость измерения).
+        /// </summary>
+        /// <returns>Минимальная частота входного сигнала в Гц</returns>
+        /// <value>Допустимые значения от 1 Гц </value>
+        public int InputSignalMinFrequency { get { return inputSignalMinFrequency; }  set {inputSignalMinFrequency = value; } }
         
         private MeasureType measureType = MeasureType.AC;
         private PhysicalParameter physicalParameter = PhysicalParameter.U;
-        private int lowFrequencyLimit = 20;
+        private int inputSignalMinFrequency = 20;
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
         private static string portName = "GPIB0::25";
@@ -56,7 +61,7 @@ namespace LibDevicesManager
                 Agilent3458A multimeter = new Agilent3458A(portName);
                 multimeter.PhysicalParameter = PhysicalParameter;
                 multimeter.MeasureType = MeasureType;
-                multimeter.LowFrequencyLimit = LowFrequencyLimit;
+                multimeter.InputSignalMinFrequency = InputSignalMinFrequency;
                 return multimeter.SendSetting();
             }
                 return Result.Failure;

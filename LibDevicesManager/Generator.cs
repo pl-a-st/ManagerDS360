@@ -79,7 +79,9 @@ namespace LibDevicesManager
             {
                 DS360Setting generator = new DS360Setting();
                 generator.Frequency = Frequency;
-                return generator.ChangeFrequency();
+                Result result = generator.ChangeFrequency();
+                resultMessage = generator.ResultMessage;
+                return result;
             }
             return Result.Failure;
         }
@@ -89,7 +91,9 @@ namespace LibDevicesManager
             {
                 DS360Setting generator = new DS360Setting();
                 generator.ComPortName = Address;
-                return generator.SetOutputSignalOff();
+                Result result = generator.SetOutputSignalOff();
+                resultMessage = generator.ResultMessage;
+                return result;
             }
             return Result.Failure;
         }
@@ -99,7 +103,9 @@ namespace LibDevicesManager
             {
                 DS360Setting generator = new DS360Setting();
                 generator.ComPortName = Address;
-                return generator.SetOutputSignalOn();
+                Result result = generator.SetOutputSignalOn();
+                resultMessage = generator.ResultMessage;
+                return result;
             }
             return Result.Failure;
         }

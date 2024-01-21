@@ -225,8 +225,9 @@ namespace ManagerDS360
             { LibDevicesManager.VibStendStatus.NotSensitive, "Нет чуствительности"},
             { LibDevicesManager.VibStendStatus.NotStably, "Нестабильные показания"},
             { LibDevicesManager.VibStendStatus.Stably, "Корректно"},
-            { LibDevicesManager.VibStendStatus.Stoping, "Остнов"},
+            { LibDevicesManager.VibStendStatus.Stoping, "Остнов предыдущей задачи"},
             { LibDevicesManager.VibStendStatus.Finished, "Закончен"},
+            { LibDevicesManager.VibStendStatus.SetupProcess, "Настройка"},
             { LibDevicesManager.VibStendStatus.None, "Не установлен"},
         };
         public static List<FileInfo> RouteAddresses = new List<FileInfo>();

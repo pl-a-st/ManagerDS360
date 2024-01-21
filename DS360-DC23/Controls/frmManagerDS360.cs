@@ -28,6 +28,7 @@ namespace ManagerDS360
         CancellationToken TokenForConnect = CancelTokenConnect.Token;
         static string LastRouteName = string.Empty;
         public frmCreationVibroCalibSetting FrmVibroCalib = new frmCreationVibroCalibSetting();
+        public bool IsVibStendInWork = false;
         public frmManagerDS360()
         {
             InitializeComponent();
@@ -59,11 +60,26 @@ namespace ManagerDS360
             lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
             lblFreq.Text = "F: " + info.Frequency.Get_Hz().ToString() + " Гц";
             lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.ParametrToHold.Get(info.Detector),4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
-            lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.CurrentParametr.Get(info.Detector),4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
+            if(info.VibStendStatus == VibStendStatus.Stably || info.VibStendStatus == VibStendStatus.Correction)
+            {
+                lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.CurrentParametr.Get(info.Detector), 4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
+            }
+            else
+            {
+                lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": ---";
+            }
             lblParametrToHold.Location = new Point(MaxWidth / 2 - lblParametrToHold.Width / 2, lblParametrToHold.Location.Y);
             lblFreq.Location = new Point(MaxWidth / 2 - lblFreq.Width / 2, lblFreq.Location.Y);
             lblVibCalibStatus.Location = new Point(MaxWidth / 2 - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);
             lblCurentParametr.Location = new Point(MaxWidth / 2 - lblCurentParametr.Width / 2, lblCurentParametr.Location.Y);
+            if(info.VibStendStatus != VibStendStatus.Correction&&
+                info.VibStendStatus!= VibStendStatus.None&&
+                info.VibStendStatus!= VibStendStatus.NotStably&&
+                info.VibStendStatus!= VibStendStatus.SetupProcess&&
+                info.VibStendStatus!= VibStendStatus.Stably)
+            {
+                IsVibStendInWork = false;
+            }
         }
 
         private async Task SetTestedDevicesList()
@@ -316,7 +332,12 @@ namespace ManagerDS360
         }
         private async Task<Result> MakeOperationsForVibroStend(TreeNodeWithSetting selectedNode)
         {
+            IsVibStendInWork = true;
             var runStend = selectedNode.VibrationStand.RunStend();
+            Task taskBlink = new Task((Action)(() => LblStendBlink(runStend)));
+            taskBlink.Start();
+
+
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 11;
@@ -324,6 +345,7 @@ namespace ManagerDS360
 
             }));
             await runStend;
+            IsVibStendInWork = true;
             if (runStend.Result != Result.Success)
             {
                 BeginInvoke(new Action(() =>
@@ -832,6 +854,15 @@ namespace ManagerDS360
             }
             BeginInvoke((Action)(() => { lblTestStatus.Visible = true; }));
         }
+        private async void LblStendBlink(Task task)
+        {
+            while (IsVibStendInWork)
+            {
+                await Task.Delay(500);
+                BeginInvoke((Action)(() => { lblStendCurrent.Visible = !lblStendCurrent.Visible; }));
+            }
+            BeginInvoke((Action)(() => { lblStendCurrent.Visible = true; }));
+        }
         private void SetControlsEnabledForTest(TestStatus testStatus)
         {
             bool enabled = false;
@@ -995,11 +1026,12 @@ namespace ManagerDS360
 
         private void butVibCalibStop_Click(object sender, EventArgs e)
         {
-            VibrationStand.Generator.SetOutputOff();
+            
             if (VibrationStand.IsTesting)
             {
                 VibrationStand.StopTest();
             }
+            VibrationStand.Generator.SetOutputOff();
 
         }
 

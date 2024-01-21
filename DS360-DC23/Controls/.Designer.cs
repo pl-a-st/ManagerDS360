@@ -56,7 +56,7 @@ namespace ManagerDS360 {
             this.lblVibCalibStatus = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblCurentParametr = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblStendCurrent = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblParametrToHold = new System.Windows.Forms.Label();
             this.lblFreq = new System.Windows.Forms.Label();
@@ -436,7 +436,7 @@ namespace ManagerDS360 {
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.lblCurentParametr);
-            this.groupBox5.Controls.Add(this.label4);
+            this.groupBox5.Controls.Add(this.lblStendCurrent);
             this.groupBox5.Location = new System.Drawing.Point(9, 73);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(209, 62);
@@ -455,15 +455,15 @@ namespace ManagerDS360 {
             this.lblCurentParametr.Text = "--";
             this.lblCurentParametr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // lblStendCurrent
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(62, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 14);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "Установлено:";
+            this.lblStendCurrent.AutoSize = true;
+            this.lblStendCurrent.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblStendCurrent.Location = new System.Drawing.Point(62, 11);
+            this.lblStendCurrent.Name = "lblStendCurrent";
+            this.lblStendCurrent.Size = new System.Drawing.Size(95, 14);
+            this.lblStendCurrent.TabIndex = 30;
+            this.lblStendCurrent.Text = "Установлено:";
             // 
             // groupBox4
             // 
@@ -768,7 +768,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Label lblCurentParametr;
         private System.Windows.Forms.Label lblParametrToHold;
         private System.Windows.Forms.Label lblFreq;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblStendCurrent;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox3;

@@ -16,6 +16,23 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            //Проверка DS360 (почему отваливается COM)
+            string portName = "COM5";
+            string command = "IDN?";
+            string response = string.Empty;
+            SerialPort ds360 = new SerialPort();
+            for (int i = 0; i < 100; i++)
+            {
+                ComPort.PortOpen(GeneratorModel.DS360, portName, out ds360);
+                ComPort.Send(ds360, command);
+                ComPort.PortClose(ds360);
+                ComPort.PortOpen(GeneratorModel.DS360, portName, out ds360);
+                Console.WriteLine(ComPort.Receive(ds360));
+                ComPort.PortClose(ds360);
+            }
+
+
+
             //Проверка настроек мультиметра Agilent3458A
             /*
             Agilent3458A multimeter = new Agilent3458A();
@@ -228,7 +245,7 @@ namespace ForLibDevicesTestOnly
     }
     internal class Multimeter : Multimeter<Multimeter>
     {
-        public Multimeter() 
+        public Multimeter()
         {
             Agilent3458A.FindFirstAgilent3458APort(out string portName);
             Multimeter.PortName = portName;

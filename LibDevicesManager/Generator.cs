@@ -67,6 +67,7 @@ namespace LibDevicesManager
             {
                 DS360Setting generator = new DS360Setting();
                 generator.AmplitudeRMS = AmplitudeRMS;
+                generator.ComPortName = Address;
                 Result result = generator.ChangeAmplitudeRMS();
                 resultMessage = generator.ResultMessage;
                 return result;

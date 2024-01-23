@@ -36,6 +36,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>Resources\Ivi.Visa.Interop.dll</HintPath>
     </Reference>
+    <Reference Include="Round, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\Round.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -69,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Ivi.Visa.Interop.dll" />
+    <None Include="Resources\Round.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

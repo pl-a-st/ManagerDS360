@@ -345,7 +345,22 @@ namespace ManagerDS360
 
             }));
             await runStend;
+            while(VibrationStand.VibStendStatus == VibStendStatus.None||
+                VibrationStand.VibStendStatus == VibStendStatus.SetupProcess)
+            {
+                await Task.Delay(100);
+            }
+            var qwe = ChangeSelectNode(selectedNode, runStend);
+            qwe.Wait();
+            var result = qwe.Result;
+            return result;
+        }
+
+        private async Task <Result> ChangeSelectNode(TreeNodeWithSetting selectedNode, Task<Result> runStend)
+        {
             IsVibStendInWork = true;
+
+
             if (runStend.Result != Result.Success)
             {
                 BeginInvoke(new Action(() =>
@@ -369,6 +384,7 @@ namespace ManagerDS360
             }));
             return Result.Success;
         }
+
         private Result MakeOperationsForDS360(TreeNodeWithSetting selectedNode)
         {
             BeginInvoke(new Action(() =>
@@ -1070,6 +1086,11 @@ namespace ManagerDS360
         private void mnuCboFrequencyResponse_Click(object sender, EventArgs e)
         {
             // привязал в лоаде главной формы
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(DS360Setting.CountCalls.ToString());
         }
     }
 }

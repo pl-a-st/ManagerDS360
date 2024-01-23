@@ -18,8 +18,8 @@ namespace LibDevicesManager
         private static StopBits stopBits = StopBits.Two;
         //private static StartBits startBits
         private static bool dtrEnable = true;
-        private static int readTimeout = 100;
-        private static int writeTimeout = 100;
+        private static int readTimeout = 200;
+        private static int writeTimeout = 200;
         private static List<string> portsNamesList;
         private static List<string> devicesNameList;
 
@@ -140,6 +140,10 @@ namespace LibDevicesManager
             try
             {
                 port.Open();
+                port.DiscardInBuffer();
+                port.DiscardOutBuffer();
+                Thread.Sleep(300);
+                
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -169,10 +173,12 @@ namespace LibDevicesManager
             try
             {
                 port.Close();
-                //Task.Delay(1000);
+                port.Dispose();
+                Thread.Sleep(300);
             }
             catch (IOException ex) //ToNEXT: возможно надо обработать
             {
+                port.Dispose();
                 result = Result.Exception;
             }
             return result;
@@ -245,8 +251,8 @@ namespace LibDevicesManager
             parity = Parity.None;
             stopBits = StopBits.Two;
             dtrEnable = true;
-            readTimeout = 100;
-            writeTimeout = 100;
+            readTimeout = 200;
+            writeTimeout = 200;
         }
         private static void SetPortSettingForDS360Emulator()
         {

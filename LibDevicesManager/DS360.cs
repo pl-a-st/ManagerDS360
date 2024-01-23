@@ -272,6 +272,8 @@ namespace LibDevicesManager
                 resultMessage = value;
             }
         }
+
+        public static int CountCalls = 0;
         #endregion PublicFields
 
         #region PrivateFields
@@ -1198,6 +1200,7 @@ namespace LibDevicesManager
             }
             //test
             DebugCompareMissage(query, result, value, receivedValue);
+            CountCalls++;
             //test
             return result;
         }

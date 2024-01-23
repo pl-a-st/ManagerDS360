@@ -74,6 +74,7 @@ namespace ManagerDS360 {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTest = new System.Windows.Forms.GroupBox();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -328,7 +329,8 @@ namespace ManagerDS360 {
             // mnuForTest
             // 
             this.mnuForTest.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuTestFirst});
+            this.mnuTestFirst,
+            this.toolStripMenuItem1});
             this.mnuForTest.Name = "mnuForTest";
             this.mnuForTest.Size = new System.Drawing.Size(89, 20);
             this.mnuForTest.Text = "Для тестов";
@@ -337,7 +339,7 @@ namespace ManagerDS360 {
             // mnuTestFirst
             // 
             this.mnuTestFirst.Name = "mnuTestFirst";
-            this.mnuTestFirst.Size = new System.Drawing.Size(197, 22);
+            this.mnuTestFirst.Size = new System.Drawing.Size(198, 22);
             this.mnuTestFirst.Text = "тест омбена СД-23";
             this.mnuTestFirst.Click += new System.EventHandler(this.тестОбменаДаннымиССД23ToolStripMenuItem_Click);
             // 
@@ -684,6 +686,13 @@ namespace ManagerDS360 {
             this.treRouteTree.TabIndex = 7;
             this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(247, 22);
+            this.toolStripMenuItem1.Text = "число обращений к DS360";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -778,6 +787,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem mnuFrequencyResponses;
         private System.Windows.Forms.ToolStripComboBox mnuCboFrequencyResponse;
         private System.Windows.Forms.ToolStripMenuItem mnuSettingFrequencyResponse;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

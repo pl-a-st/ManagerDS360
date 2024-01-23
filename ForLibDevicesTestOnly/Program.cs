@@ -30,7 +30,9 @@ namespace ForLibDevicesTestOnly
                 Console.WriteLine(ComPort.Receive(ds360));
                 ComPort.PortClose(ds360);
             }
-
+            //Проверка ASERIAL
+            //GpibPort generator = new GpibPort("ASERIAL1");
+            //generator.DeviceIO.
 
 
             //Проверка настроек мультиметра Agilent3458A

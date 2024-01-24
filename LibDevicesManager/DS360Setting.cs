@@ -110,6 +110,8 @@ namespace LibDevicesManager
             }
         }
 
+        public static List<ConnectedCOMPort> ConnectedCOMPort;
+
         /// <summary>
         /// Модель генератора
         /// </summary>
@@ -480,6 +482,31 @@ namespace LibDevicesManager
         #endregion Constructors
 
         #region PublicMethods
+
+        public Result ConnectCOMPort (string portName)
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
+        public Result ConnectCOMPort(int portNumber)
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
+        public Result DisconnectCOMPort(string portName)
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
+        public Result DisconnectCOMPort(int portNumber)
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
         /// </summary>

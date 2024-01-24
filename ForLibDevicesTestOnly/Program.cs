@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using LibDevicesManager;
 using Ivi.Visa.Interop;
 using System.IO.Ports;
@@ -17,20 +18,38 @@ namespace ForLibDevicesTestOnly
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
             //Проверка DS360 (почему отваливается COM)
-            string portName = "COM5";
-            string command = "IDN?";
+            string portName = "COM4";
+            string command = "*IDN?";
             string response = string.Empty;
             SerialPort ds360 = new SerialPort();
-            for (int i = 0; i < 100; i++)
+            int steps = 0;
+            ComPort.PortOpen(GeneratorModel.DS360, portName, out ds360);
+            ds360.DiscardInBuffer();
+            ds360.DiscardOutBuffer();
+            Random rnd = new Random();
+            for (int i = 0; true; i++)
             {
-                ComPort.PortOpen(GeneratorModel.DS360, portName, out ds360);
-                ComPort.Send(ds360, command);
-                ComPort.PortClose(ds360);
-                ComPort.PortOpen(GeneratorModel.DS360, portName, out ds360);
-                Console.WriteLine(ComPort.Receive(ds360));
-                ComPort.PortClose(ds360);
-            }
 
+                if (ComPort.Send(ds360, command) != Result.Success)
+                    break;
+
+                Console.WriteLine(ComPort.Receive(ds360));
+                double value = Math.Round((0.1 + 0.01 * rnd.Next(-5, 5)),8);
+                string comand = ("AMPL" + value + "VR").Replace(",", ".");
+                if (ComPort.Send(ds360, comand) != Result.Success)
+                    break;
+                if (ComPort.Send(ds360, "AMPL?VR") != Result.Success)
+                    break;
+                string result = ComPort.Receive(ds360).Replace(".", ",").Replace(@"\r", "");
+                Console.WriteLine(result);
+                double newValue = 0;
+                double.TryParse(result, out newValue);
+                if (newValue != value)
+                    break;
+                steps++;
+                Thread.Sleep(60000);
+            }
+            ComPort.PortClose(ds360);
 
 
             //Проверка настроек мультиметра Agilent3458A
@@ -238,6 +257,7 @@ namespace ForLibDevicesTestOnly
 
 
             //<==ТЕСТОВАЯ ЧАСТЬ
+            Console.WriteLine($"Число шагов: {steps}");
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
         }

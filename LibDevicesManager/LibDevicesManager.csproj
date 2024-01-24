@@ -60,7 +60,7 @@
     <Compile Include="DC23\ClientDC23.cs" />
     <Compile Include="ComPort.cs" />
     <Compile Include="DC23\ManagerDC23.cs" />
-    <Compile Include="DS360.cs" />
+    <Compile Include="DS360Setting.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="GeneratorForVibCalib.cs" />
     <Compile Include="GpibPort.cs" />

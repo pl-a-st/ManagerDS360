@@ -36,6 +36,7 @@ namespace LibDevicesManager
                 return portsNamesList;
             }
         }
+
         public static bool IsPortNameCorrect(string portName)
         {
             if (portName == null || portName == string.Empty || !portName.StartsWith("COM"))

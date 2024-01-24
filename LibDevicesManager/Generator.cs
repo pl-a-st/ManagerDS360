@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace LibDevicesManager
         public double Frequency { get { return frequency; } set { frequency = value; } }
         public double Offset { get { return offset; } set { offset = value; } }
         public OutputImpedance OutputImpedance { get { return OutputImpedance.HiZ; } }
+        public SerialPort GeneratorPort;
+        public GpibPort GeneratorGpibPort;
         public static string Address = string.Empty;
 
         /// <summary>
@@ -44,6 +47,18 @@ namespace LibDevicesManager
         public Generator() { }
 
         #region PublicMethods
+        public Result Connect()
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
+        public Result Disconnect()
+        {
+            Result result = Result.Failure;
+            //TODO: прописать код
+            return result;
+        }
         public Result SendSetting()
         {
             if (GeneratorModel == GeneratorModel.DS360) 

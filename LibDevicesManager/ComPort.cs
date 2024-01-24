@@ -441,4 +441,16 @@ namespace LibDevicesManager
         }
         #endregion UnUsed
     }
+    public class ConnectedCOMPort
+    {
+        public SerialPort Port;
+        public int CountConnections;
+        public string DeviceInfo;
+
+
+        public ConnectedCOMPort() 
+        {
+            //Port = new SerialPort();
+        }
+    }
 }

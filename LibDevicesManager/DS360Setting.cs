@@ -681,6 +681,73 @@ namespace LibDevicesManager
             }
             return result;
         }
+        public Result SendSettingToConnectedComPort(string portName)
+        {
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            if (ConnectedCOMPort == null)
+            {
+                ConnectedCOMPort = new List<ConnectedCOMPort>();
+            }
+            int index = -1;
+            if (ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            if (ConnectedCOMPort.Count == 0 || index == -1)
+            {
+                result = ConnectCOMPort(portName);
+                if (result != Result.Success)
+                {
+                    resultMessage = "\nОтсутствует связь с генератором";
+                    return result;
+                }
+                index = 0;
+            }
+            if (GetOutputEnableState(ConnectedCOMPort[index].Port) != Result.Success)
+            {
+                resultMessage = "\nОшибка проверки состояния выходного сигнала";
+                return Result.Failure;
+            }
+            if (SetPrimeryOutputSetting(ConnectedCOMPort[index].Port) != Result.Success)
+            {
+                return Result.Failure;
+            }
+            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            {
+                result = SendDS360SettingForSingleSignale(ConnectedCOMPort[index].Port);
+            }
+            if (IsSignalPeriodical() && IsTwoToneSignal())
+            {
+                result = SendDS360SettingForTwoToneSignale(ConnectedCOMPort[index].Port);
+            }
+            if (result != Result.Success)
+            {
+                resultMessage = "\nОшибка передачи параметра в генератор";
+                return result;
+            }
+            if (SetOutputSignalEnable(ConnectedCOMPort[index].Port, outputEnableState) != Result.Success)
+            {
+                resultMessage = "\nОшибка включения выходного сигнала";
+                return Result.Failure;
+            }
+            resultMessage = "\nПараметры успешно переданы в генератор";
+            return result;
+        }
 
         /// <summary>
         /// Передаёт введённые параметры сигнала в генератор

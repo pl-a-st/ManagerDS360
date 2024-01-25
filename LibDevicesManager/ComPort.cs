@@ -144,7 +144,7 @@ namespace LibDevicesManager
                 port.DiscardInBuffer();
                 port.DiscardOutBuffer();
                 Thread.Sleep(300);
-                
+
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -448,9 +448,35 @@ namespace LibDevicesManager
         public string DeviceInfo;
 
 
-        public ConnectedCOMPort() 
+        public ConnectedCOMPort()
         {
+            CountConnections = 0;
+            DeviceInfo = string.Empty;
             //Port = new SerialPort();
+        }
+        public Result Open(string portName)
+        {
+            Result result = Result.Failure;
+            if (Port == null)
+            {
+                //Port = new SerialPort();
+            }
+            result = ComPort.PortOpen(GeneratorModel.DS360, portName, out Port);
+            if (result == Result.Success)
+            {
+                DeviceInfo = portName;
+                CountConnections++;
+            }
+            return result;
+        }
+        public Result Close()
+        {
+            CountConnections--;
+            if (CountConnections == 0)
+            {
+                return ComPort.PortClose(Port);
+            }
+            return Result.Success;
         }
     }
 }

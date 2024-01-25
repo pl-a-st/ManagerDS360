@@ -483,29 +483,70 @@ namespace LibDevicesManager
 
         #region PublicMethods
 
-        public Result ConnectCOMPort (string portName)
+        public Result ConnectCOMPort(string portName)
         {
             Result result = Result.Failure;
-            //TODO: прописать код
-            return result;
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            if (ConnectedCOMPort == null)
+            {
+                ConnectedCOMPort = new List<ConnectedCOMPort>();
+            }
+            if (ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        ConnectedCOMPort[i].CountConnections++;
+                        return Result.Success;
+                    }
+                }
+            }
+            ConnectedCOMPort comPort = new ConnectedCOMPort();
+            result = comPort.Open(portName);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (IsItDS360(GetDS360IdentificationString(portName)))
+                {
+                    ConnectedCOMPort.Add(comPort);
+                    return Result.Success;
+                }
+            }
+            result = comPort.Close();
+            //TODO: прописать Dispose?
+            return Result.Failure;
         }
         public Result ConnectCOMPort(int portNumber)
         {
-            Result result = Result.Failure;
-            //TODO: прописать код
-            return result;
+            string portName = $"COM{portNumber}";
+            return ConnectCOMPort(portName);
         }
         public Result DisconnectCOMPort(string portName)
         {
             Result result = Result.Failure;
-            //TODO: прописать код
+            if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        return ConnectedCOMPort[i].Close();
+                    }
+                }
+            }
             return result;
         }
         public Result DisconnectCOMPort(int portNumber)
         {
-            Result result = Result.Failure;
-            //TODO: прописать код
-            return result;
+            string portName = $"COM{portNumber}";
+            return DisconnectCOMPort(portName);
         }
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
@@ -1068,7 +1109,7 @@ namespace LibDevicesManager
             string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "TTAA" + value + "VR";
             result = SendOutputControlCommand(port, command);
-            if (result!= Result.Success)
+            if (result != Result.Success)
             {
                 Thread.Sleep(100);
                 result = SendOutputControlCommand(port, command);
@@ -1113,7 +1154,7 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
-        private Result SetPrimeryOutputSetting (SerialPort port)
+        private Result SetPrimeryOutputSetting(SerialPort port)
         {
             ComPort.PortClear(port);
             if (SetOutputSignalEnable(port, false) != Result.Success)
@@ -1140,7 +1181,7 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка связи с генератором";
                 return Result.Failure;
             }
-            if(SetOffsetToZero(port) != Result.Success)
+            if (SetOffsetToZero(port) != Result.Success)
             {
                 ComPort.PortClose(port);
                 resultMessage = "\nОшибка связи с генератором";
@@ -1327,7 +1368,7 @@ namespace LibDevicesManager
             //generatorsList.Add(deviceName);
             return;
         }
-        private static void PushDefaultGenerator (string portName)
+        private static void PushDefaultGenerator(string portName)
         {
             string identificationString = string.Empty;
             identificationString = GetDS360IdentificationString(portName);

@@ -511,12 +511,21 @@ namespace LibDevicesManager
             {
                 return result;
             }
+            string command = "*IDN?";
+            string identificationString = string.Empty;
             for (int i = 0; i < 3; i++)
             {
-                if (IsItDS360(GetDS360IdentificationString(portName)))
+                result = ComPort.Send(comPort.Port, command);
+                if (result == Result.Success)
                 {
-                    ConnectedCOMPort.Add(comPort);
-                    return Result.Success;
+                    Thread.Sleep(300);
+                    identificationString = ComPort.Receive(comPort.Port).Substring(0, identificationString.Length - 1);
+                    if (IsItDS360(identificationString))
+                    {
+                        ConnectedCOMPort.Add(comPort);
+                        ComPort.PortClear(comPort.Port);
+                        return Result.Success;
+                    }
                 }
             }
             result = comPort.Close();
@@ -537,7 +546,13 @@ namespace LibDevicesManager
                 {
                     if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
                     {
-                        return ConnectedCOMPort[i].Close();
+                        result = ConnectedCOMPort[i].Close();
+                        if (ConnectedCOMPort[i].CountConnections == 0)
+                        {
+                            ConnectedCOMPort.RemoveAt(i);
+                            i--;
+                        }
+                        return result;
                     }
                 }
             }

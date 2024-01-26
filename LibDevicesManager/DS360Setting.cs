@@ -519,7 +519,8 @@ namespace LibDevicesManager
                 if (result == Result.Success)
                 {
                     Thread.Sleep(300);
-                    identificationString = ComPort.Receive(comPort.Port).Substring(0, identificationString.Length - 1);
+                    identificationString = ComPort.Receive(comPort.Port);
+                    identificationString = identificationString.Substring(0, identificationString.Length - 1);
                     if (IsItDS360(identificationString))
                     {
                         ConnectedCOMPort.Add(comPort);

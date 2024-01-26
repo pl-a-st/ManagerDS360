@@ -19,5 +19,6 @@ namespace LibDevicesManager
             get => accuracy;
             set => accuracy = value >= 0 && value <= 1 ? value : throw new ArgumentOutOfRangeException("Значение Accuracy больше единицы или меньше нуля");
         }
+        public bool IsSetupComplete = false;
     }
 }

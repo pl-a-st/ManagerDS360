@@ -103,6 +103,7 @@ namespace LibDevicesManager
                     }
                 }
             }
+            IsSetupComplete = true;
             if (VibStendStatus == VibStendStatus.Stably)
             {
                 return Result.Success;
@@ -135,6 +136,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
 
@@ -142,6 +144,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
             Thread.Sleep(2000);
@@ -150,6 +153,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(-1, VibStendStatus.MultimeterProblem);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
             Generator.AmplitudeRMS = indexToChange * startVolt;
@@ -158,6 +162,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
             Thread.Sleep(1000);
@@ -168,6 +173,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(-1, VibStendStatus.MultimeterProblem);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
             if (!IsMeasureStable(currentVoltage, lastVoltage * indexToChange, accuracyIndexToStart))
@@ -175,6 +181,7 @@ namespace LibDevicesManager
                 //установка не чувствительна к входному воздействию
                 HandleVibStendStatus(currentVoltage, VibStendStatus.NotSensitive);
                 IsTesting = false;
+                IsSetupComplete = false;
                 return;
             }
             lastVoltage = currentVoltage;
@@ -185,6 +192,7 @@ namespace LibDevicesManager
                 {
                     HandleVibStendStatus(-1, VibStendStatus.MultimeterProblem);
                     IsTesting = false;
+                    IsSetupComplete = false;
                     return;
                 }
 
@@ -208,7 +216,6 @@ namespace LibDevicesManager
                         result = Generator.ChangeAmplitudeRMS();
                         if (result == Result.Success)
                         {
-
                             break;
                         }
                         Thread.Sleep(1000);
@@ -217,6 +224,7 @@ namespace LibDevicesManager
                     {
                         HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
                         IsTesting = false;
+                        IsSetupComplete = false;
                         return;
                     }
                     Thread.Sleep(500);
@@ -244,12 +252,14 @@ namespace LibDevicesManager
                     {
                         HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
                         IsTesting = false;
+                        IsSetupComplete = false;
                         return;
                     }
                     Thread.Sleep(500);
                 }
             }
             IsTesting = false;
+            IsSetupComplete = false;
             VibStendStatus = VibStendStatus.Finished;
             StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
         }

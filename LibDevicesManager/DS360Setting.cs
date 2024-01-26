@@ -690,16 +690,21 @@ namespace LibDevicesManager
         /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result SendDS360Setting()
         {
-            Result result = CheckDS360Setting();
-            if (result != Result.Success)
-            {
-                return result;
-            }
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
+            }
+            int index = FindIndexInConnectedComPort(portName);
+            if (index >= 0)
+            {
+                return SendSettingToConnectedComPort(portName);
+            }
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
+            {
+                return result;
             }
             result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
             if (result != Result.Success)
@@ -800,14 +805,18 @@ namespace LibDevicesManager
         /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result SetOutputSignalOn()
         {
-            Result result = Result.Failure;
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
-            result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
+            int index = FindIndexInConnectedComPort(portName);
+            if (index >= 0)
+            {
+                return SetOutputSignalOnToConnectedComPort(portName);
+            }
+            Result result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -824,6 +833,26 @@ namespace LibDevicesManager
             ComPort.PortClose(port);
             return Result.Success;
         }
+        public Result SetOutputSignalOnToConnectedComPort(string portName)
+        {
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            int index = FindIndexInConnectedComPortOrConnect(portName);
+            if (index < 0)
+            {
+                resultMessage = "\nОшибка подключения генератора";
+                return Result.Failure;
+            }
+            ComPort.PortClear(ConnectedCOMPort[index].Port);
+            if (SetOutputSignalEnable(ConnectedCOMPort[index].Port, true) != Result.Success)
+            {
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            return Result.Success;
+        }
         /// <summary>
         /// Переключает выходной сигнал генератора в состояние "ВЫКЛ./(OFF)"
         /// </summary>
@@ -832,14 +861,18 @@ namespace LibDevicesManager
         /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result SetOutputSignalOff()
         {
-            Result result = Result.Failure;
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
-            result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
+            int index = FindIndexInConnectedComPort(portName);
+            if (index >= 0)
+            {
+                return SetOutputSignalOffToConnectedComPort(portName);
+            }
+            Result result = ComPort.PortOpen(GeneratorModel, portName, out SerialPort port);
             if (result != Result.Success)
             {
                 ComPort.PortClose(port);
@@ -856,6 +889,26 @@ namespace LibDevicesManager
             ComPort.PortClose(port);
             return Result.Success;
         }
+        public Result SetOutputSignalOffToConnectedComPort(string portName)
+        {
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            int index = FindIndexInConnectedComPortOrConnect(portName);
+            if (index < 0)
+            {
+                resultMessage = "\nОшибка подключения генератора";
+                return Result.Failure;
+            }
+            ComPort.PortClear(ConnectedCOMPort[index].Port);
+            if (SetOutputSignalEnable(ConnectedCOMPort[index].Port, false) != Result.Success)
+            {
+                resultMessage = "\nОшибка связи с генератором";
+                return Result.Failure;
+            }
+            return Result.Success;
+        }
         /// <summary>
         /// Изменяет напряжение выходного сигнала генератора на значение, установленное в поле <see cref="AmplitudeRMS"/>
         /// </summary>
@@ -864,14 +917,19 @@ namespace LibDevicesManager
         /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result ChangeAmplitudeRMS()
         {
-            Result result = Result.Failure;
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
-            if (CheckDS360Setting() != Result.Success)
+            int index = FindIndexInConnectedComPort(portName);
+            if (index >= 0)
+            {
+                return ChangeAmplitudeRMSToConnectedComPort(portName);
+            }
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
             {
                 return Result.ParamError;
             }
@@ -925,14 +983,19 @@ namespace LibDevicesManager
         /// <br>При этом в поле <see cref="ResultMessage"/> будет записано подробное сообщение об ошибке.</br></returns>
         public Result ChangeFrequency()
         {
-            Result result = Result.Failure;
             string portName = (IsComPortDefaultName) ? ComPortDefaultName : ComPortName;
             if (portName == "NONE")
             {
                 resultMessage = "\nГенератор не найден";
                 return Result.Failure;
             }
-            if (CheckDS360Setting() != Result.Success)
+            int index = FindIndexInConnectedComPort(portName);
+            if (index >= 0)
+            {
+                return ChangeFrequencyToConnectedComPort(portName);
+            }
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
             {
                 return Result.ParamError;
             }

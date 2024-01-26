@@ -1543,7 +1543,7 @@ namespace LibDevicesManager
         #endregion CommunicateWithDS360
 
         #region SecondaryMethods
-        private int FindIndexInConnectedComPortOrConnect(string portName)
+        private int FindIndexInConnectedComPort(string portName)
         {
             if (ConnectedCOMPort == null)
             {
@@ -1561,7 +1561,12 @@ namespace LibDevicesManager
                     }
                 }
             }
-            if (ConnectedCOMPort.Count == 0 || index == -1)
+            return index;
+        }
+        private int FindIndexInConnectedComPortOrConnect(string portName)
+        {
+            int index = FindIndexInConnectedComPort(portName);
+            if (index == -1)
             {
                 Result result = ConnectCOMPort(portName);
                 if (result != Result.Success)

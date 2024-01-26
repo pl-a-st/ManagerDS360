@@ -345,8 +345,7 @@ namespace ManagerDS360
 
             }));
             await runStend;
-            while(VibrationStand.VibStendStatus == VibStendStatus.None||
-                VibrationStand.VibStendStatus == VibStendStatus.SetupProcess)
+            while(!selectedNode.VibrationStand.IsSetupComplete)
             {
                 await Task.Delay(100);
             }

@@ -110,6 +110,8 @@ namespace LibDevicesManager
             }
         }
 
+        public static List<ConnectedCOMPort> ConnectedCOMPort;
+
         /// <summary>
         /// Модель генератора
         /// </summary>
@@ -480,6 +482,87 @@ namespace LibDevicesManager
         #endregion Constructors
 
         #region PublicMethods
+
+        public Result ConnectCOMPort(string portName)
+        {
+            Result result = Result.Failure;
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            if (ConnectedCOMPort == null)
+            {
+                ConnectedCOMPort = new List<ConnectedCOMPort>();
+            }
+            if (ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        ConnectedCOMPort[i].CountConnections++;
+                        return Result.Success;
+                    }
+                }
+            }
+            ConnectedCOMPort comPort = new ConnectedCOMPort();
+            result = comPort.Open(portName);
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            string command = "*IDN?";
+            string identificationString = string.Empty;
+            for (int i = 0; i < 3; i++)
+            {
+                result = ComPort.Send(comPort.Port, command);
+                if (result == Result.Success)
+                {
+                    Thread.Sleep(300);
+                    identificationString = ComPort.Receive(comPort.Port).Substring(0, identificationString.Length - 1);
+                    if (IsItDS360(identificationString))
+                    {
+                        ConnectedCOMPort.Add(comPort);
+                        ComPort.PortClear(comPort.Port);
+                        return Result.Success;
+                    }
+                }
+            }
+            result = comPort.Close();
+            //TODO: прописать Dispose?
+            return Result.Failure;
+        }
+        public Result ConnectCOMPort(int portNumber)
+        {
+            string portName = $"COM{portNumber}";
+            return ConnectCOMPort(portName);
+        }
+        public Result DisconnectCOMPort(string portName)
+        {
+            Result result = Result.Failure;
+            if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        result = ConnectedCOMPort[i].Close();
+                        if (ConnectedCOMPort[i].CountConnections == 0)
+                        {
+                            ConnectedCOMPort.RemoveAt(i);
+                            i--;
+                        }
+                        return result;
+                    }
+                }
+            }
+            return result;
+        }
+        public Result DisconnectCOMPort(int portNumber)
+        {
+            string portName = $"COM{portNumber}";
+            return DisconnectCOMPort(portName);
+        }
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
         /// </summary>
@@ -596,6 +679,73 @@ namespace LibDevicesManager
             {
                 resultMessage = "\nВсе парараметры корректны";
             }
+            return result;
+        }
+        public Result SendSettingToConnectedComPort(string portName)
+        {
+            Result result = CheckDS360Setting();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            if (!ComPort.IsPortNameCorrect(portName))
+            {
+                return Result.ParamError;
+            }
+            if (ConnectedCOMPort == null)
+            {
+                ConnectedCOMPort = new List<ConnectedCOMPort>();
+            }
+            int index = -1;
+            if (ConnectedCOMPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                {
+                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            if (ConnectedCOMPort.Count == 0 || index == -1)
+            {
+                result = ConnectCOMPort(portName);
+                if (result != Result.Success)
+                {
+                    resultMessage = "\nОтсутствует связь с генератором";
+                    return result;
+                }
+                index = 0;
+            }
+            if (GetOutputEnableState(ConnectedCOMPort[index].Port) != Result.Success)
+            {
+                resultMessage = "\nОшибка проверки состояния выходного сигнала";
+                return Result.Failure;
+            }
+            if (SetPrimeryOutputSetting(ConnectedCOMPort[index].Port) != Result.Success)
+            {
+                return Result.Failure;
+            }
+            if (IsSignalPeriodical() && !IsTwoToneSignal())
+            {
+                result = SendDS360SettingForSingleSignale(ConnectedCOMPort[index].Port);
+            }
+            if (IsSignalPeriodical() && IsTwoToneSignal())
+            {
+                result = SendDS360SettingForTwoToneSignale(ConnectedCOMPort[index].Port);
+            }
+            if (result != Result.Success)
+            {
+                resultMessage = "\nОшибка передачи параметра в генератор";
+                return result;
+            }
+            if (SetOutputSignalEnable(ConnectedCOMPort[index].Port, outputEnableState) != Result.Success)
+            {
+                resultMessage = "\nОшибка включения выходного сигнала";
+                return Result.Failure;
+            }
+            resultMessage = "\nПараметры успешно переданы в генератор";
             return result;
         }
 
@@ -1041,7 +1191,7 @@ namespace LibDevicesManager
             string value = AgRoundTostring(AmplitudeRMS, 4, 6);
             string command = "TTAA" + value + "VR";
             result = SendOutputControlCommand(port, command);
-            if (result!= Result.Success)
+            if (result != Result.Success)
             {
                 Thread.Sleep(100);
                 result = SendOutputControlCommand(port, command);
@@ -1086,7 +1236,7 @@ namespace LibDevicesManager
             result = SendOutputControlCommand(port, command);
             return result;
         }
-        private Result SetPrimeryOutputSetting (SerialPort port)
+        private Result SetPrimeryOutputSetting(SerialPort port)
         {
             ComPort.PortClear(port);
             if (SetOutputSignalEnable(port, false) != Result.Success)
@@ -1113,7 +1263,7 @@ namespace LibDevicesManager
                 resultMessage = "\nОшибка связи с генератором";
                 return Result.Failure;
             }
-            if(SetOffsetToZero(port) != Result.Success)
+            if (SetOffsetToZero(port) != Result.Success)
             {
                 ComPort.PortClose(port);
                 resultMessage = "\nОшибка связи с генератором";
@@ -1300,7 +1450,7 @@ namespace LibDevicesManager
             //generatorsList.Add(deviceName);
             return;
         }
-        private static void PushDefaultGenerator (string portName)
+        private static void PushDefaultGenerator(string portName)
         {
             string identificationString = string.Empty;
             identificationString = GetDS360IdentificationString(portName);

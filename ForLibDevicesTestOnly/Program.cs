@@ -17,7 +17,33 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            //Проверка новых методов ConnectCOMPort() DisconnectCOMPort();
+            DS360Setting[] generators = new DS360Setting[10];
+            for (int i = 0; i <  generators.Length; i++)
+            {
+                generators[i] = new DS360Setting();
+                generators[i].ComPortName = "COM4";
+            }
+            int countConnected = 0;
+            foreach (DS360Setting generator in generators)
+            {
+                if (generator.ConnectCOMPort(generator.ComPortName) != Result.Success)
+                {
+                    Console.WriteLine($"Ошибка подключения к ComPort. Генератор {countConnected}");
+                }
+                countConnected++;
+            }
+            foreach (DS360Setting generator in generators)
+            {
+                if (generator.DisconnectCOMPort(generator.ComPortName) != Result.Success)
+                {
+                    Console.WriteLine($"Ошибка отключения от ComPort.  Генератор {countConnected}");
+                }
+                countConnected--;
+            }
+
             //Проверка DS360 (почему отваливается COM)
+            /*
             string portName = "COM4";
             string command = "*IDN?";
             string response = string.Empty;
@@ -50,7 +76,8 @@ namespace ForLibDevicesTestOnly
                 Thread.Sleep(60000);
             }
             ComPort.PortClose(ds360);
-
+            Console.WriteLine($"Число шагов: {steps}");
+            */
 
             //Проверка настроек мультиметра Agilent3458A
             /*
@@ -257,7 +284,7 @@ namespace ForLibDevicesTestOnly
 
 
             //<==ТЕСТОВАЯ ЧАСТЬ
-            Console.WriteLine($"Число шагов: {steps}");
+
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
         }

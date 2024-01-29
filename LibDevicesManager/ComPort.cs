@@ -115,10 +115,12 @@ namespace LibDevicesManager
             {
                 SetPortSettingForDS360();
             }
+            /*
             if (deviceModel == GeneratorModel.DS360Emulator)
             {
                 SetPortSettingForDS360Emulator();
             }
+            */
             if (deviceModel == GeneratorModel.Agilent33220A)
             {
                 SetPortSettingForAgilent33220A();

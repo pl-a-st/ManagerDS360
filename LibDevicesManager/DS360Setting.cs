@@ -496,13 +496,11 @@ namespace LibDevicesManager
             }
             if (ConnectedCOMPort.Count != 0)
             {
-                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
-                    {
-                        ConnectedCOMPort[i].CountConnections++;
-                        return Result.Success;
-                    }
+                    ConnectedCOMPort[index].CountConnections++;
+                    return Result.Success;
                 }
             }
             ConnectedCOMPort comPort = new ConnectedCOMPort();
@@ -542,18 +540,15 @@ namespace LibDevicesManager
             Result result = Result.Failure;
             if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
             {
-                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    result = ConnectedCOMPort[index].Close();
+                    if (ConnectedCOMPort[index].CountConnections == 0)
                     {
-                        result = ConnectedCOMPort[i].Close();
-                        if (ConnectedCOMPort[i].CountConnections == 0)
-                        {
-                            ConnectedCOMPort.RemoveAt(i);
-                            i--;
-                        }
-                        return result;
+                        ConnectedCOMPort.RemoveAt(index);
                     }
+                    return result;
                 }
             }
             return result;
@@ -1617,7 +1612,7 @@ namespace LibDevicesManager
             {
                 for (int i = 0; i < ConnectedCOMPort.Count; i++)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    if (ComPort.GetPortNumberFromPortName(ConnectedCOMPort[i].Port.PortName) == ComPort.GetPortNumberFromPortName(portName))
                     {
                         index = i;
                         break;

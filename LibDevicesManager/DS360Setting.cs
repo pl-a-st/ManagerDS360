@@ -521,6 +521,7 @@ namespace LibDevicesManager
                     identificationString = identificationString.Substring(0, identificationString.Length - 1);
                     if (IsItDS360(identificationString))
                     {
+                        comPort.DeviceInfo += $" DS360, s/n{GetSerialNumber(identificationString)}";
                         ConnectedCOMPort.Add(comPort);
                         ComPort.PortClear(comPort.Port);
                         return Result.Success;

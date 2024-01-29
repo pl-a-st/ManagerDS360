@@ -130,8 +130,6 @@ namespace LibDevicesManager
             Multimeter.PhysicalParameter = PhysicalParameter.U;
             Multimeter.SendSetting();
 
-
-
             if (Generator.SendSetting() != Result.Success)
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
@@ -139,7 +137,6 @@ namespace LibDevicesManager
                 IsSetupComplete = false;
                 return;
             }
-
             if (Generator.SetOutputOn() != Result.Success) 
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
@@ -156,8 +153,36 @@ namespace LibDevicesManager
                 IsSetupComplete = false;
                 return;
             }
-            Generator.AmplitudeRMS = indexToChange * startVolt;
+            //Generator.AmplitudeRMS = indexToChange * startVolt;
 
+            //if (Generator.ChangeAmplitudeRMS() != Result.Success)
+            //{
+            //    HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
+            //    IsTesting = false;
+            //    IsSetupComplete = false;
+            //    return;
+            //}
+            //Thread.Sleep(1000);
+
+
+            //lastVoltage = currentVoltage;
+            //if (Multimeter.Measure(out currentVoltage,3) != Result.Success)
+            //{
+            //    HandleVibStendStatus(-1, VibStendStatus.MultimeterProblem);
+            //    IsTesting = false;
+            //    IsSetupComplete = false;
+            //    return;
+            //}
+            //if (!IsMeasureStable(currentVoltage, lastVoltage * indexToChange, accuracyIndexToStart))
+            //{
+            //    //установка не чувствительна к входному воздействию
+            //    HandleVibStendStatus(currentVoltage, VibStendStatus.NotSensitive);
+            //    IsTesting = false;
+            //    IsSetupComplete = false;
+            //    return;
+            //}
+            //lastVoltage = currentVoltage;
+            Generator.AmplitudeRMS = MetrologyRound.GetRounded(Generator.AmplitudeRMS, 4) * voltToHold / currentVoltage;
             if (Generator.ChangeAmplitudeRMS() != Result.Success)
             {
                 HandleVibStendStatus(currentVoltage, VibStendStatus.GeneratorProblem);
@@ -165,27 +190,7 @@ namespace LibDevicesManager
                 IsSetupComplete = false;
                 return;
             }
-            Thread.Sleep(1000);
-
-
-            lastVoltage = currentVoltage;
-            if (Multimeter.Measure(out currentVoltage,3) != Result.Success)
-            {
-                HandleVibStendStatus(-1, VibStendStatus.MultimeterProblem);
-                IsTesting = false;
-                IsSetupComplete = false;
-                return;
-            }
-            if (!IsMeasureStable(currentVoltage, lastVoltage * indexToChange, accuracyIndexToStart))
-            {
-                //установка не чувствительна к входному воздействию
-                HandleVibStendStatus(currentVoltage, VibStendStatus.NotSensitive);
-                IsTesting = false;
-                IsSetupComplete = false;
-                return;
-            }
-            lastVoltage = currentVoltage;
-
+            Thread.Sleep(2000);
             while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork)
             {
                 if (Multimeter.Measure(out currentVoltage,3) != Result.Success)
@@ -198,6 +203,13 @@ namespace LibDevicesManager
 
                 if (!IsMeasureStable(currentVoltage, voltToHold, Accuracy))
                 {
+                    if (!IsMeasureStable(currentVoltage, voltToHold, 0.3))
+                    {
+                        HandleVibStendStatus(currentVoltage, VibStendStatus.NotSensitive);
+                        IsTesting = false;
+                        IsSetupComplete = false;
+                        return;
+                    }
                     if (!IsMeasureStable(currentVoltage, voltToHold, 0.1))
                     {
                         HandleVibStendStatus(currentVoltage, VibStendStatus.NotStably);

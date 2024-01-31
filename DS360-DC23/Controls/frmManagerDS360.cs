@@ -871,7 +871,7 @@ namespace ManagerDS360
         }
         private async void LblStendBlink(Task task)
         {
-            while (IsVibStendInWork)
+            while (VibrationStand.VibStendStatus!= VibStendStatus.Finished)
             {
                 await Task.Delay(500);
                 BeginInvoke((Action)(() => { lblStendCurrent.Visible = !lblStendCurrent.Visible; }));

@@ -78,7 +78,7 @@ namespace ManagerDS360
             this.cboListComPorts.Location = new System.Drawing.Point(19, 47);
             this.cboListComPorts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboListComPorts.Name = "cboListComPorts";
-            this.cboListComPorts.Size = new System.Drawing.Size(361, 22);
+            this.cboListComPorts.Size = new System.Drawing.Size(288, 22);
             this.cboListComPorts.TabIndex = 3;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
             // 
@@ -103,7 +103,7 @@ namespace ManagerDS360
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(438, 95);
+            this.groupBox1.Size = new System.Drawing.Size(365, 95);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Генератор DS-360 по умолчанию";
@@ -119,7 +119,7 @@ namespace ManagerDS360
             this.butRefreshDS360List.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butRefreshDS360List.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRefreshDS360List.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRefreshDS360List.Location = new System.Drawing.Point(388, 37);
+            this.butRefreshDS360List.Location = new System.Drawing.Point(315, 37);
             this.butRefreshDS360List.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.butRefreshDS360List.Name = "butRefreshDS360List";
             this.butRefreshDS360List.Size = new System.Drawing.Size(40, 40);
@@ -137,7 +137,7 @@ namespace ManagerDS360
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Size = new System.Drawing.Size(440, 95);
+            this.groupBox2.Size = new System.Drawing.Size(365, 95);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Генератор Agilent основной по умолчанию";
@@ -153,7 +153,7 @@ namespace ManagerDS360
             this.buttonForPicture2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonForPicture2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForPicture2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture2.Location = new System.Drawing.Point(386, 36);
+            this.buttonForPicture2.Location = new System.Drawing.Point(315, 37);
             this.buttonForPicture2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonForPicture2.Name = "buttonForPicture2";
             this.buttonForPicture2.Size = new System.Drawing.Size(40, 40);
@@ -179,7 +179,7 @@ namespace ManagerDS360
             this.comboBox1.Location = new System.Drawing.Point(19, 47);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(361, 22);
+            this.comboBox1.Size = new System.Drawing.Size(288, 22);
             this.comboBox1.TabIndex = 6;
             // 
             // groupBox3
@@ -192,7 +192,7 @@ namespace ManagerDS360
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Size = new System.Drawing.Size(440, 95);
+            this.groupBox3.Size = new System.Drawing.Size(365, 95);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Генератор Agilent для фазы по умолчанию";
@@ -209,7 +209,7 @@ namespace ManagerDS360
             this.buttonForPicture3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonForPicture3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForPicture3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture3.Location = new System.Drawing.Point(383, 41);
+            this.buttonForPicture3.Location = new System.Drawing.Point(315, 40);
             this.buttonForPicture3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonForPicture3.Name = "buttonForPicture3";
             this.buttonForPicture3.Size = new System.Drawing.Size(40, 40);
@@ -224,7 +224,7 @@ namespace ManagerDS360
             this.comboBox2.Location = new System.Drawing.Point(19, 50);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(361, 22);
+            this.comboBox2.Size = new System.Drawing.Size(288, 22);
             this.comboBox2.TabIndex = 6;
             // 
             // label2
@@ -251,11 +251,11 @@ namespace ManagerDS360
             this.groupBox4.Controls.Add(this.cboGenToMultAddress);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox4.Location = new System.Drawing.Point(469, 37);
+            this.groupBox4.Location = new System.Drawing.Point(400, 196);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox4.Size = new System.Drawing.Size(848, 145);
+            this.groupBox4.Size = new System.Drawing.Size(645, 145);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Генератор по вольтметру";
@@ -265,17 +265,17 @@ namespace ManagerDS360
             // 
             this.cboMultToMultType.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboMultToMultType.FormattingEnabled = true;
-            this.cboMultToMultType.Location = new System.Drawing.Point(432, 47);
+            this.cboMultToMultType.Location = new System.Drawing.Point(341, 47);
             this.cboMultToMultType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMultToMultType.Name = "cboMultToMultType";
-            this.cboMultToMultType.Size = new System.Drawing.Size(368, 22);
+            this.cboMultToMultType.Size = new System.Drawing.Size(244, 22);
             this.cboMultToMultType.TabIndex = 12;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(428, 27);
+            this.label5.Location = new System.Drawing.Point(337, 27);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 14);
@@ -293,7 +293,7 @@ namespace ManagerDS360
             this.buttonForPicture5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.buttonForPicture5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonForPicture5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonForPicture5.Location = new System.Drawing.Point(803, 86);
+            this.buttonForPicture5.Location = new System.Drawing.Point(593, 87);
             this.buttonForPicture5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonForPicture5.Name = "buttonForPicture5";
             this.buttonForPicture5.Size = new System.Drawing.Size(40, 40);
@@ -304,17 +304,17 @@ namespace ManagerDS360
             // 
             this.cboMultToMultAddress.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboMultToMultAddress.FormattingEnabled = true;
-            this.cboMultToMultAddress.Location = new System.Drawing.Point(432, 97);
+            this.cboMultToMultAddress.Location = new System.Drawing.Point(341, 97);
             this.cboMultToMultAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMultToMultAddress.Name = "cboMultToMultAddress";
-            this.cboMultToMultAddress.Size = new System.Drawing.Size(368, 22);
+            this.cboMultToMultAddress.Size = new System.Drawing.Size(244, 22);
             this.cboMultToMultAddress.TabIndex = 9;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(428, 76);
+            this.label6.Location = new System.Drawing.Point(337, 76);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(139, 14);
@@ -328,7 +328,7 @@ namespace ManagerDS360
             this.cboGenToMultType.Location = new System.Drawing.Point(12, 47);
             this.cboGenToMultType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboGenToMultType.Name = "cboGenToMultType";
-            this.cboGenToMultType.Size = new System.Drawing.Size(368, 22);
+            this.cboGenToMultType.Size = new System.Drawing.Size(267, 22);
             this.cboGenToMultType.TabIndex = 7;
             // 
             // label4
@@ -353,7 +353,7 @@ namespace ManagerDS360
             this.butRefreshGenToMultAddresses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butRefreshGenToMultAddresses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRefreshGenToMultAddresses.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRefreshGenToMultAddresses.Location = new System.Drawing.Point(382, 83);
+            this.butRefreshGenToMultAddresses.Location = new System.Drawing.Point(287, 90);
             this.butRefreshGenToMultAddresses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.butRefreshGenToMultAddresses.Name = "butRefreshGenToMultAddresses";
             this.butRefreshGenToMultAddresses.Size = new System.Drawing.Size(40, 40);
@@ -368,7 +368,7 @@ namespace ManagerDS360
             this.cboGenToMultAddress.Location = new System.Drawing.Point(12, 97);
             this.cboGenToMultAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboGenToMultAddress.Name = "cboGenToMultAddress";
-            this.cboGenToMultAddress.Size = new System.Drawing.Size(368, 22);
+            this.cboGenToMultAddress.Size = new System.Drawing.Size(267, 22);
             this.cboGenToMultAddress.TabIndex = 3;
             this.cboGenToMultAddress.SelectedIndexChanged += new System.EventHandler(this.cboGenToMultAddress_SelectedIndexChanged);
             // 
@@ -396,11 +396,11 @@ namespace ManagerDS360
             this.groupBox5.Controls.Add(this.cboGenToVibAddress);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox5.Location = new System.Drawing.Point(469, 196);
+            this.groupBox5.Location = new System.Drawing.Point(400, 37);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox5.Size = new System.Drawing.Size(848, 145);
+            this.groupBox5.Size = new System.Drawing.Size(645, 145);
             this.groupBox5.TabIndex = 14;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Вибрационная установка";
@@ -409,10 +409,10 @@ namespace ManagerDS360
             // 
             this.cboMultToVibType.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboMultToVibType.FormattingEnabled = true;
-            this.cboMultToVibType.Location = new System.Drawing.Point(431, 47);
+            this.cboMultToVibType.Location = new System.Drawing.Point(341, 47);
             this.cboMultToVibType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMultToVibType.Name = "cboMultToVibType";
-            this.cboMultToVibType.Size = new System.Drawing.Size(368, 22);
+            this.cboMultToVibType.Size = new System.Drawing.Size(244, 22);
             this.cboMultToVibType.TabIndex = 12;
             this.cboMultToVibType.SelectedIndexChanged += new System.EventHandler(this.cboMultToVibType_SelectedIndexChanged);
             // 
@@ -420,7 +420,7 @@ namespace ManagerDS360
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(427, 27);
+            this.label7.Location = new System.Drawing.Point(337, 27);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 14);
@@ -438,7 +438,7 @@ namespace ManagerDS360
             this.butRefreshMultToVibAddresses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butRefreshMultToVibAddresses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRefreshMultToVibAddresses.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRefreshMultToVibAddresses.Location = new System.Drawing.Point(802, 86);
+            this.butRefreshMultToVibAddresses.Location = new System.Drawing.Point(593, 87);
             this.butRefreshMultToVibAddresses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.butRefreshMultToVibAddresses.Name = "butRefreshMultToVibAddresses";
             this.butRefreshMultToVibAddresses.Size = new System.Drawing.Size(40, 40);
@@ -450,10 +450,10 @@ namespace ManagerDS360
             // 
             this.cboMultToVibAddress.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboMultToVibAddress.FormattingEnabled = true;
-            this.cboMultToVibAddress.Location = new System.Drawing.Point(431, 97);
+            this.cboMultToVibAddress.Location = new System.Drawing.Point(341, 97);
             this.cboMultToVibAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboMultToVibAddress.Name = "cboMultToVibAddress";
-            this.cboMultToVibAddress.Size = new System.Drawing.Size(368, 22);
+            this.cboMultToVibAddress.Size = new System.Drawing.Size(244, 22);
             this.cboMultToVibAddress.TabIndex = 9;
             this.cboMultToVibAddress.SelectedIndexChanged += new System.EventHandler(this.cboMultToVibAddress_SelectedIndexChanged);
             // 
@@ -461,7 +461,7 @@ namespace ManagerDS360
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(427, 76);
+            this.label8.Location = new System.Drawing.Point(337, 76);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(139, 14);
@@ -475,7 +475,7 @@ namespace ManagerDS360
             this.cboGenToVibType.Location = new System.Drawing.Point(12, 47);
             this.cboGenToVibType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboGenToVibType.Name = "cboGenToVibType";
-            this.cboGenToVibType.Size = new System.Drawing.Size(368, 22);
+            this.cboGenToVibType.Size = new System.Drawing.Size(267, 22);
             this.cboGenToVibType.TabIndex = 7;
             this.cboGenToVibType.SelectedIndexChanged += new System.EventHandler(this.cboGenToVibType_SelectedIndexChanged);
             // 
@@ -501,7 +501,7 @@ namespace ManagerDS360
             this.butRefreshGenToVibAddresses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butRefreshGenToVibAddresses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRefreshGenToVibAddresses.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butRefreshGenToVibAddresses.Location = new System.Drawing.Point(383, 87);
+            this.butRefreshGenToVibAddresses.Location = new System.Drawing.Point(287, 87);
             this.butRefreshGenToVibAddresses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.butRefreshGenToVibAddresses.Name = "butRefreshGenToVibAddresses";
             this.butRefreshGenToVibAddresses.Size = new System.Drawing.Size(40, 40);
@@ -516,7 +516,7 @@ namespace ManagerDS360
             this.cboGenToVibAddress.Location = new System.Drawing.Point(12, 97);
             this.cboGenToVibAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboGenToVibAddress.Name = "cboGenToVibAddress";
-            this.cboGenToVibAddress.Size = new System.Drawing.Size(368, 22);
+            this.cboGenToVibAddress.Size = new System.Drawing.Size(267, 22);
             this.cboGenToVibAddress.TabIndex = 3;
             this.cboGenToVibAddress.SelectedIndexChanged += new System.EventHandler(this.cboGenToVibAddress_SelectedIndexChanged);
             // 
@@ -535,7 +535,7 @@ namespace ManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1347, 351);
+            this.ClientSize = new System.Drawing.Size(1073, 351);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);

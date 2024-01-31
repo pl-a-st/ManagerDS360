@@ -93,12 +93,7 @@ namespace ManagerDS360
         }
         private void AddFolder()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Setting)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
-            frmInputName frmInputName = new frmInputName();
+           frmInputName frmInputName = new frmInputName();
             frmInputName.ShowDialog();
             if (frmInputName.SaveName != SaveName.SaveName)
             {
@@ -112,9 +107,8 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            SelectedNodeWithSetup.Nodes.Add(treeNodeWihtSetting);
-            SelectedNodeWithSetup.Expand();
-            treRouteTree.SelectedNode = treeNodeWihtSetting;
+           
+            InsertNodeInSpecialPlace(treeNodeWihtSetting, SelectedNodeWithSetup);
         }
         internal void SetNameSetting(frmInputName frmInputName)
         {
@@ -216,11 +210,6 @@ namespace ManagerDS360
         }
         private async void AddStandVibroCalib()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
             var frmVibroCalibSetting = new frmCreationVibroCalibSetting();
             frmVibroCalibSetting.CallType = CallType.Create;
             if (chkUseLastSetting.Checked && LastVibStend.VibroParametr != null)
@@ -252,16 +241,15 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            SelectedNodeWithSetup.Nodes.Add(treeNode);
-            SelectedNodeWithSetup.Expand();
+            InsertNodeInSpecialPlace(treeNode, SelectedNodeWithSetup);
         }
         private void AddAllDC23InRoute()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
+            //if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            //{
+            //    MessageBox.Show("Настройка не может содержать другие элементы!");
+            //    return;
+            //}
             var frmGetNodeAddresses = new frmGetAllNodeAddressesFromRoute();
             if (frmGetNodeAddresses.ShowDialog() == DialogResult.OK)
             {
@@ -289,18 +277,14 @@ namespace ManagerDS360
                         continue;
                     }
                     TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-                    SelectedNodeWithSetup.Nodes.Add(treeNode);
-                    SelectedNodeWithSetup.Expand();
+                    //SelectedNodeWithSetup.Nodes.Add(treeNode);
+                    //SelectedNodeWithSetup.Expand();
+                    InsertNodeInSpecialPlace(treeNode, SelectedNodeWithSetup);
                 }
             }
         }
         private void AddMessage()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
             frmInputName frmInputName = GetFrmInputName(out CheckBox stopTest);
             frmInputName.ShowDialog();
             if (frmInputName.SaveName != SaveName.SaveName)
@@ -315,8 +299,7 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            SelectedNodeWithSetup.Nodes.Add(treeNode);
-            SelectedNodeWithSetup.Expand();
+            InsertNodeInSpecialPlace(treeNode, SelectedNodeWithSetup);
         }
 
         private frmInputName GetFrmInputName(out CheckBox stopTest)
@@ -335,11 +318,7 @@ namespace ManagerDS360
 
         private void AddSettingDS360()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
+
             frmCreationEditingSettings editingSettings = new frmCreationEditingSettings();
             editingSettings.Type = CallType.Create;
             editingSettings.SaveStatus = SaveStatus.Cancel;
@@ -364,6 +343,25 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
+            InsertNodeInSpecialPlace(treeNode, SelectedNodeWithSetup);
+        }
+
+        private void InsertNodeInSpecialPlace(TreeNodeWithSetting treeNode, TreeNodeWithSetting SelectedNodeWithSetup)
+        {
+            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                if (SelectedNodeWithSetup.Parent != null)
+                {
+                    SelectedNodeWithSetup.Parent.Nodes.Insert(SelectedNodeWithSetup.Index + 1, treeNode);
+                }
+                else
+                {
+                    SelectedNodeWithSetup.TreeView.Nodes.Insert(SelectedNodeWithSetup.Index + 1, treeNode);
+                }
+                SelectedNodeWithSetup.Expand();
+                SelectedNodeWithSetup.TreeView.SelectedNode = treeNode;
+                return;
+            }
             SelectedNodeWithSetup.Nodes.Add(treeNode);
             SelectedNodeWithSetup.Expand();
         }
@@ -951,11 +949,6 @@ namespace ManagerDS360
         }
         private void AddSettingDC23()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
             frmCreationDC23Setting editingSettings = new frmCreationDC23Setting();
             editingSettings.TypeFormOpen = TypeFormOpen.ToСreate;
 
@@ -978,8 +971,7 @@ namespace ManagerDS360
                 return;
             }
             TreeNodeWithSetting SelectedNodeWithSetup = treRouteTree.SelectedNode as TreeNodeWithSetting;
-            SelectedNodeWithSetup.Nodes.Add(treeNode);
-            SelectedNodeWithSetup.Expand();
+            InsertNodeInSpecialPlace(treeNode, SelectedNodeWithSetup);
         }
 
         private void treRouteTree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

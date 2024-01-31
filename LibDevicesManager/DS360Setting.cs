@@ -496,13 +496,11 @@ namespace LibDevicesManager
             }
             if (ConnectedCOMPort.Count != 0)
             {
-                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
-                    {
-                        ConnectedCOMPort[i].CountConnections++;
-                        return Result.Success;
-                    }
+                    ConnectedCOMPort[index].CountConnections++;
+                    return Result.Success;
                 }
             }
             ConnectedCOMPort comPort = new ConnectedCOMPort();
@@ -523,6 +521,7 @@ namespace LibDevicesManager
                     identificationString = identificationString.Substring(0, identificationString.Length - 1);
                     if (IsItDS360(identificationString))
                     {
+                        comPort.DeviceInfo += $" DS360, s/n{GetSerialNumber(identificationString)}";
                         ConnectedCOMPort.Add(comPort);
                         ComPort.PortClear(comPort.Port);
                         return Result.Success;
@@ -542,18 +541,15 @@ namespace LibDevicesManager
             Result result = Result.Failure;
             if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
             {
-                for (int i = 0; i < ConnectedCOMPort.Count; i++)
+                int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    result = ConnectedCOMPort[index].Close();
+                    if (ConnectedCOMPort[index].CountConnections == 0)
                     {
-                        result = ConnectedCOMPort[i].Close();
-                        if (ConnectedCOMPort[i].CountConnections == 0)
-                        {
-                            ConnectedCOMPort.RemoveAt(i);
-                            i--;
-                        }
-                        return result;
+                        ConnectedCOMPort.RemoveAt(index);
                     }
+                    return result;
                 }
             }
             return result;
@@ -563,6 +559,7 @@ namespace LibDevicesManager
             string portName = $"COM{portNumber}";
             return DisconnectCOMPort(portName);
         }
+
         /// <summary>
         /// Производит поиск подключенных к компъютеру генераторов DS360.
         /// </summary>
@@ -571,7 +568,7 @@ namespace LibDevicesManager
         /// <br><see langword="false"/>  - опрос портов производиться не будет, список генераторов будет сформирован из списка ранее найденных устройств  </br>
         /// <br>Если не удалось найти ни одного подключенного генератора, будет сформирован массив, состоящий из одной строки: "Генераторы не обнаружены"</br></value>
         /// <returns>Массив имён подключенных к компъютеру генераторов DS360 </returns>
-        public static string[] FindAllDS360(bool needRefreshGeneratorsList = true)
+        public static string[] FindAllDS360(bool needRefreshGeneratorsList = true) 
         {
             if (generatorsList == null)
             {
@@ -1524,15 +1521,26 @@ namespace LibDevicesManager
         {
             string deviceName = string.Empty;
             string identificationString = string.Empty;
+            if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
+            {
+                int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
+                {
+                    deviceName = ConnectedCOMPort[index].DeviceInfo;
+                    generatorsList.Add(deviceName);
+                    return;
+                }
+            }
             identificationString = GetDS360IdentificationString(portName);
             if (IsItDS360(identificationString))
             {
                 deviceName = $"{portName}: DS360, s/n{GetSerialNumber(identificationString)}";
                 generatorsList.Add(deviceName);
-
                 return;
             }
+
             //ForTest - Удалить в финальной версии
+            /*
             identificationString = GetDS360EIdentificationString(portName);
             if (IsItDS360E(identificationString))
             {
@@ -1540,6 +1548,7 @@ namespace LibDevicesManager
                 generatorsList.Add(deviceName);
                 return;
             }
+            */
             //--ForTest
             //deviceName = $"{portName}: Unknown device";
             //generatorsList.Add(deviceName);
@@ -1547,6 +1556,11 @@ namespace LibDevicesManager
         }
         private static void PushDefaultGenerator(string portName)
         {
+            if (ConnectedCOMPort != null && ConnectedCOMPort.Count > 0)
+            {
+                comPortDefaultName = ConnectedCOMPort[0].DeviceInfo;
+                return;
+            }
             string identificationString = string.Empty;
             identificationString = GetDS360IdentificationString(portName);
             if (IsItDS360(identificationString))
@@ -1559,13 +1573,16 @@ namespace LibDevicesManager
                 return;
             }
             //TODO: Добавить остальные генераторы
+
             //ForTest - Удалить в финальной версии
+            /*
             identificationString = GetDS360EIdentificationString(portName);
             if (IsItDS360E(identificationString))
             {
                 comPortDefaultName = $"{portName}: DS360E, s/n{GetSerialNumber(identificationString)}";
                 return;
             }
+            */
             //--ForTest
             return;
         }
@@ -1606,7 +1623,7 @@ namespace LibDevicesManager
         #endregion CommunicateWithDS360
 
         #region SecondaryMethods
-        private int FindIndexInConnectedComPort(string portName)
+        private static int FindIndexInConnectedComPort(string portName)
         {
             if (ConnectedCOMPort == null)
             {
@@ -1617,7 +1634,7 @@ namespace LibDevicesManager
             {
                 for (int i = 0; i < ConnectedCOMPort.Count; i++)
                 {
-                    if (ConnectedCOMPort[i].Port.PortName == portName) //TODO: добавить обрезку строк
+                    if (ComPort.GetPortNumberFromPortName(ConnectedCOMPort[i].Port.PortName) == ComPort.GetPortNumberFromPortName(portName))
                     {
                         index = i;
                         break;
@@ -1849,6 +1866,47 @@ namespace LibDevicesManager
         #endregion SecondaryMethods
 
         #region UnUsed
+        
+        /*
+        public static string[] _FindAllDS360(bool needRefreshGeneratorsList = true) //Старая версия FindAllDS360()
+        {
+            if (generatorsList == null)
+            {
+                generatorsList = new List<string>();
+            }
+            if (needRefreshGeneratorsList)
+            {
+                generatorsList.Clear();
+            }
+            if (!needRefreshGeneratorsList)
+            {
+                return generatorsList.ToArray();
+            }
+            List<string> ports = ComPort.PortsNamesList;
+            if (ports == null)
+            {
+                generatorsList.Clear();
+            }
+            if (ports != null)
+            {
+                Task[] tasksPushGeneratorList = new Task[ports.Count];
+                int taskNum;
+                for (int i = 0; i < ports.Count; i++)
+                {
+                    taskNum = i;
+                    string portName = ports[taskNum];
+                    tasksPushGeneratorList[taskNum] = Task.Run(() => PushGeneratorsList(portName));
+                }
+                Task.WaitAll(tasksPushGeneratorList);
+            }
+            if (generatorsList.Count == 0)
+            {
+                generatorsList.Add("Генераторы не обнаружены");
+            }
+            return generatorsList.ToArray();
+        }
+        */
+
         /*
         private void SetComPortNameToDefault()
         {

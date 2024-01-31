@@ -115,10 +115,12 @@ namespace LibDevicesManager
             {
                 SetPortSettingForDS360();
             }
+            /*
             if (deviceModel == GeneratorModel.DS360Emulator)
             {
                 SetPortSettingForDS360Emulator();
             }
+            */
             if (deviceModel == GeneratorModel.Agilent33220A)
             {
                 SetPortSettingForAgilent33220A();
@@ -464,7 +466,7 @@ namespace LibDevicesManager
             result = ComPort.PortOpen(GeneratorModel.DS360, portName, out Port);
             if (result == Result.Success)
             {
-                DeviceInfo = portName;
+                DeviceInfo = $"{Port.PortName}:";
                 CountConnections++;
             }
             return result;

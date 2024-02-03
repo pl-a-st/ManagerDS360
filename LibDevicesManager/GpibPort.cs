@@ -142,7 +142,7 @@ namespace LibDevicesManager
         }
         public Result Send(string command)
         {
-            if (deviceIO != null)// todo не бывает null
+            if (deviceIO != null)// todo не бывает null, нужна другая проверка иначе метод выполняется 8 секунд
             {
                 try
                 {

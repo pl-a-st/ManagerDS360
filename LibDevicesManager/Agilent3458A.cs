@@ -61,7 +61,7 @@ namespace LibDevicesManager
         //private int comPortNumber;
         private string resultMessage = string.Empty;
         private static string decimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
-        private const int powerLineFrequency = 50;
+        private const double powerLineFrequency = 50;
         //private static bool isDebugMode = false; //ToDel
         private GpibPort multimeter;
         #endregion PublicFields
@@ -184,10 +184,10 @@ namespace LibDevicesManager
         }
         private Result SendLowFrequencyLimit()
         {
-            int nplc = 5;
-            if (InputSignalMinFrequency < 10 && InputSignalMinFrequency > 0)
+            int nplc = 1;
+            if (InputSignalMinFrequency < 100 && InputSignalMinFrequency > 0)
             {
-                nplc = (int) Math.Round((double) powerLineFrequency / InputSignalMinFrequency);
+                nplc = (int) Math.Round(powerLineFrequency / InputSignalMinFrequency*2);
             }
             string command = "NPLC " + nplc; 
             return multimeter.Send(command);

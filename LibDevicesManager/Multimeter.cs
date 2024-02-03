@@ -45,11 +45,11 @@ namespace LibDevicesManager
         /// </summary>
         /// <returns>Минимальная частота входного сигнала в Гц</returns>
         /// <value>Допустимые значения от 1 Гц </value>
-        public int InputSignalMinFrequency { get { return inputSignalMinFrequency; }  set {inputSignalMinFrequency = value; } }
+        public double InputSignalMinFrequency { get { return inputSignalMinFrequency; }  set {inputSignalMinFrequency = value; } }
         
         private MeasureType measureType = MeasureType.AC;
         private PhysicalParameter physicalParameter = PhysicalParameter.U;
-        private int inputSignalMinFrequency = 20;
+        private double inputSignalMinFrequency = 100;
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
         private static string portName = "GPIB0::25";

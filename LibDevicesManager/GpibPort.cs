@@ -142,7 +142,7 @@ namespace LibDevicesManager
         }
         public Result Send(string command)
         {
-            if (deviceIO != null)
+            if (deviceIO != null)// todo не бывает null
             {
                 try
                 {

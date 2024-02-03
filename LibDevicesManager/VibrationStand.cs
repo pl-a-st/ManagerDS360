@@ -89,7 +89,8 @@ namespace LibDevicesManager
             
             VibStendStatus = VibStendStatus.SetupProcess;
             _ = Task.Run(SetVibroParamInStend, TokenForTest);
-            await Task.Delay(1000);
+           
+            await Task.Delay(1000); // todo попробовать заменить на while (VibStendStatus == VibStendStatus.Stably || VibStendStatus == VibStendStatus.Correction)
             while (VibStendStatus == VibStendStatus.None ||
                 VibStendStatus == VibStendStatus.SetupProcess||
                 VibStendStatus == VibStendStatus.Stoping ||
@@ -131,7 +132,14 @@ namespace LibDevicesManager
 
             Generator.Frequency = Frequency.Get_Hz();
             Generator.AmplitudeRMS = startVolt;
-            Multimeter.InputSignalMinFrequency = (int)(Generator.Frequency/2);
+            if (MultimeterForVibCalib.PortName== "GPIB0::25") //todo заменить на значение по умолчанию, если не было установки адреса
+            {
+                HandleVibStendStatus(currentVoltage, VibStendStatus.MultimeterProblem);
+                IsTesting = false;
+                IsSetupComplete = false;
+                return;
+            }
+            Multimeter.InputSignalMinFrequency = Generator.Frequency;
             Multimeter.MeasureType = MeasureType.AC;
             Multimeter.PhysicalParameter = PhysicalParameter.U;
             Multimeter.SendSetting();

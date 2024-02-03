@@ -214,7 +214,7 @@ namespace LibDevicesManager
             string receivedMessage = string.Empty;
             if (port != null && port.IsOpen)
             {
-                //Thread.Sleep(300);
+               //Thread.Sleep(100);
                 try
                 {
                     receivedMessage = port.ReadLine();
@@ -227,6 +227,10 @@ namespace LibDevicesManager
                 catch (InvalidOperationException ex)
                 {
                     return "Ошибка InvalidOperationException";
+                }
+                catch(Exception ex)
+                {
+                    return "Ошибка InvalidException";
                 }
             }
             return receivedMessage;
@@ -254,8 +258,8 @@ namespace LibDevicesManager
             parity = Parity.None;
             stopBits = StopBits.Two;
             dtrEnable = true;
-            readTimeout = 200;
-            writeTimeout = 200;
+            readTimeout = 100;
+            writeTimeout = 100;
         }
         private static void SetPortSettingForDS360Emulator()
         {

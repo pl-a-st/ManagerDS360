@@ -483,7 +483,7 @@ namespace LibDevicesManager
 
         #region PublicMethods
 
-        public Result ConnectCOMPort(string portName)
+        public static Result ConnectCOMPort(string portName)
         {
             Result result = Result.Failure;
             if (!ComPort.IsPortNameCorrect(portName))
@@ -531,12 +531,12 @@ namespace LibDevicesManager
             result = comPort.Close();
             return Result.Failure;
         }
-        public Result ConnectCOMPort(int portNumber)
+        public static Result ConnectCOMPort(int portNumber)
         {
             string portName = $"COM{portNumber}";
             return ConnectCOMPort(portName);
         }
-        public Result DisconnectCOMPort(string portName)
+        public static Result DisconnectCOMPort(string portName)
         {
             Result result = Result.Failure;
             if (ConnectedCOMPort != null && ConnectedCOMPort.Count != 0)
@@ -554,7 +554,7 @@ namespace LibDevicesManager
             }
             return result;
         }
-        public Result DisconnectCOMPort(int portNumber)
+        public static Result DisconnectCOMPort(int portNumber)
         {
             string portName = $"COM{portNumber}";
             return DisconnectCOMPort(portName);

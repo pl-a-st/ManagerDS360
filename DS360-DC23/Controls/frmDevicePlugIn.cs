@@ -25,7 +25,7 @@ namespace ManagerDS360
             await SetCboListFromDict(cboGenToVibType, PmData.GeneratorModel);
             await SetCboListFromDict(cboMultToMultType, PmData.MultimeterModel);
             await SetCboListFromDict(cboMultToVibType, PmData.MultimeterModel);
-            await GetDefaultDS360ToCboListComPorts();
+            //await GetDefaultDS360ToCboListComPorts();
 
         }
         private async Task SetCboListFromDict<T>(ComboBox cbo, Dictionary<T, string> dict)
@@ -216,6 +216,26 @@ namespace ManagerDS360
                 MultimeterForVibCalib.MultimeterModel = PmData.GetEnumFromString(PmData.MultimeterModel, cboMultToVibType.SelectedItem.ToString());
             }
                 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cboGenToVibAddress.SelectedItem.ToString()))
+            {
+                return;
+            }
+            if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString()) == GeneratorModel.DS360)
+            {
+                Result result = DS360Setting.ConnectCOMPort(cboGenToVibAddress.SelectedItem.ToString());
+                if(result == Result.Success)
+                {
+                    button1.Text = "Подключен";
+                }
+                else
+                {
+                    button1.Text = "Ошибка подключения";
+                }
+            }
         }
     }
 }

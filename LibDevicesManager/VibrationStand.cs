@@ -150,7 +150,7 @@ namespace LibDevicesManager
                 IsSetupComplete = false;
                 return;
             }
-            Thread.Sleep(1500);
+            Thread.Sleep(2500);
 
             if (Multimeter.Measure(out currentVoltage) != Result.Success)
             {
@@ -168,7 +168,7 @@ namespace LibDevicesManager
                 IsSetupComplete = false;
                 return;
             }
-            Thread.Sleep(2000);
+            Thread.Sleep(2500);
             while (IsTokenCancelAndServiceCancel() == TokenStatus.InWork)
             {
                 if (Multimeter.Measure(out currentVoltage) != Result.Success)

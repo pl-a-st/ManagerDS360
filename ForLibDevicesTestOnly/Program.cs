@@ -8,6 +8,7 @@ using LibDevicesManager;
 using Ivi.Visa.Interop;
 using System.IO.Ports;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ForLibDevicesTestOnly
 {
@@ -17,7 +18,48 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            //Проверка VISA-IVI-USB
+
+            ResourceManager rm = new ResourceManager();
+            string[] resourses = rm.FindRsrc("?*");
+
+            try
+            {
+                resourses = rm.FindRsrc("?*");
+                foreach (string r in resourses)
+                {
+                    Console.WriteLine(r);
+                }
+            }
+            catch
+            {
+                Marshal.FinalReleaseComObject(rm);
+            }
+            finally
+            {
+                if (rm != null)
+                {
+                    Marshal.FinalReleaseComObject(rm);
+                }
+            }
+            Result result = Result.Failure;
+            GpibPort device = new GpibPort("USB0::0x0957::0x0407::MY44027128");
+            result = device.Send("*IDN?");
+            if (result != Result.Success)
+            {
+                device.Close();
+            }
+            string response = string.Empty;
+            result = device.ReadString(out response);
+            if (result != Result.Success)
+            {
+                device.Close();
+            }
+            Console.WriteLine(response);
+            result = device.Send("FREQ 700");
+            device.Close();
             //Проверка новых методов ConnectCOMPort() DisconnectCOMPort();
+            /*
             DS360Setting[] generators = new DS360Setting[10];
             for (int i = 0; i <  generators.Length; i++)
             {
@@ -41,7 +83,7 @@ namespace ForLibDevicesTestOnly
                 }
                 countConnected--;
             }
-
+            */
             //Проверка DS360 (почему отваливается COM)
             /*
             string portName = "COM4";

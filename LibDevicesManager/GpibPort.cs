@@ -289,7 +289,7 @@ namespace LibDevicesManager
             string ch = string.Empty;
             do
             {
-                result = ReadChar(deviceIO, out ch);
+                result = ReadChar(deviceIO, out ch, attemptCount:5) ;
                 if (result != Result.Success)
                 {
                     return result;
@@ -300,11 +300,11 @@ namespace LibDevicesManager
                 }
                 stringReaded += ch;
             }
-            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия
+            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия 
             return Result.Success;
 
         }
-        private Result ReadChar(IMessage deviceIO, out string charReaded)
+        private Result ReadChar(IMessage deviceIO, out string charReaded, int attemptCount)
         {
             charReaded = string.Empty;
             if (deviceIO == null)
@@ -319,6 +319,10 @@ namespace LibDevicesManager
                 }
                 catch (Exception e)
                 {
+                    if (attemptCount > 0)
+                    {
+                        return ReadChar(deviceIO, out charReaded, attemptCount-1);
+                    }
                     exceptionMessage = $"Ошибка: {e.Message}";
                     return Result.Exception;
                 }

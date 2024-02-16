@@ -138,21 +138,18 @@ namespace LibControls
             }
             if (!IsRotation)
             {
-                StartRotationBackgroundImage();
+                await StartRotationBackgroundImage();
                 return;
             }
         }
         [HandleProcessCorruptedStateExceptions]
-        public void StartRotationBackgroundImage()
+        public async Task StartRotationBackgroundImage()
         {
             IsRotation = true;
             TokenFoRotation = CancelTokenRotation.Token;
-            RotationTask = new Task(() => rotation(TokenFoRotation), TokenFoRotation);
+            RotationTask = new Task( () => rotation(TokenFoRotation), TokenFoRotation);
             RotationTask.Start();
-
-           
-
-            async void rotation(CancellationToken tokenFoRotation)
+            void rotation(CancellationToken tokenFoRotation)
             {
                 for (int i = 0; true; i++)
                 {
@@ -175,7 +172,7 @@ namespace LibControls
                     {
                         return;
                     }
-                    await Task.Delay(50);
+                    Thread.Sleep(50);
                 }
             }
         }
@@ -191,6 +188,7 @@ namespace LibControls
             {
                 Task.Delay(100);
             }
+            this.BackgroundImage = ImagesForRotation[0];
             CancelTokenRotation.Dispose();
             CancelTokenRotation = new CancellationTokenSource();
             TokenFoRotation = CancelTokenRotation.Token;

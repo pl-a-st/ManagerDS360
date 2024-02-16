@@ -130,7 +130,7 @@ namespace ManagerDS360
             }
             if (!buttonForPicture.IsRotation)
             {
-                buttonForPicture.StartRotationBackgroundImage();
+               await buttonForPicture.StartRotationBackgroundImage();
                 return;
             }
         }
@@ -141,9 +141,9 @@ namespace ManagerDS360
             SwetchRotationButton(buttonForPicture2);
         }
 
-        private void buttonForPicture3_Click_1(object sender, EventArgs e)
+        private async void buttonForPicture3_Click_1(object sender, EventArgs e)
         {
-            buttonForPicture3.SwetchRotationButton();
+           await buttonForPicture3.SwetchRotationButton();
         }
 
         private void cboListComPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -220,7 +220,7 @@ namespace ManagerDS360
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(cboGenToVibAddress.SelectedItem.ToString()))
+            if (string.IsNullOrEmpty(cboGenToVibAddress.SelectedItem?.ToString()))
             {
                 return;
             }
@@ -229,11 +229,31 @@ namespace ManagerDS360
                 Result result = DS360Setting.ConnectCOMPort(cboGenToVibAddress.SelectedItem.ToString());
                 if(result == Result.Success)
                 {
-                    button1.Text = "Подключен";
+                    butConnectGenToVib.Text = "Подключен";
                 }
                 else
                 {
-                    button1.Text = "Ошибка подключения";
+                    butConnectGenToVib.Text = "Ошибка подключения";
+                }
+            }
+        }
+
+        private void butConnectGenDS360_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cboListComPorts.SelectedItem?.ToString()))
+            {
+                return;
+            }
+            if (PmData.GetEnumFromString(PmData.GeneratorModel, cboGenToVibType.SelectedItem.ToString()) == GeneratorModel.DS360)
+            {
+                Result result = DS360Setting.ConnectCOMPort(cboListComPorts.SelectedItem.ToString());
+                if (result == Result.Success)
+                {
+                    butConnectGenDS360.Text = "Подключен";
+                }
+                else
+                {
+                    butConnectGenDS360.Text = "Ошибка подключения";
                 }
             }
         }

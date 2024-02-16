@@ -48,6 +48,8 @@ namespace ManagerDS360 {
             this.mnuAboutProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuForTest = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTestFirst = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grpStend = new System.Windows.Forms.GroupBox();
@@ -74,7 +76,6 @@ namespace ManagerDS360 {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTest = new System.Windows.Forms.GroupBox();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -100,7 +101,7 @@ namespace ManagerDS360 {
             this.butDefaultGenerator.Name = "butDefaultGenerator";
             this.butDefaultGenerator.Size = new System.Drawing.Size(230, 38);
             this.butDefaultGenerator.TabIndex = 2;
-            this.butDefaultGenerator.Text = "Генератор по умолчанию";
+            this.butDefaultGenerator.Text = "Средства поверки";
             this.butDefaultGenerator.UseVisualStyleBackColor = false;
             this.butDefaultGenerator.Click += new System.EventHandler(this.butDefaultGenerator_Click);
             // 
@@ -131,7 +132,7 @@ namespace ManagerDS360 {
             this.butGeneratorControl.Name = "butGeneratorControl";
             this.butGeneratorControl.Size = new System.Drawing.Size(230, 38);
             this.butGeneratorControl.TabIndex = 3;
-            this.butGeneratorControl.Text = "Управление генератором";
+            this.butGeneratorControl.Text = "Управление DS360";
             this.butGeneratorControl.UseVisualStyleBackColor = false;
             this.butGeneratorControl.Click += new System.EventHandler(this.butGeneratorControl_Click);
             // 
@@ -330,7 +331,8 @@ namespace ManagerDS360 {
             // 
             this.mnuForTest.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuTestFirst,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem});
             this.mnuForTest.Name = "mnuForTest";
             this.mnuForTest.Size = new System.Drawing.Size(89, 20);
             this.mnuForTest.Text = "Для тестов";
@@ -339,9 +341,23 @@ namespace ManagerDS360 {
             // mnuTestFirst
             // 
             this.mnuTestFirst.Name = "mnuTestFirst";
-            this.mnuTestFirst.Size = new System.Drawing.Size(198, 22);
+            this.mnuTestFirst.Size = new System.Drawing.Size(382, 22);
             this.mnuTestFirst.Text = "тест омбена СД-23";
             this.mnuTestFirst.Click += new System.EventHandler(this.тестОбменаДаннымиССД23ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(382, 22);
+            this.toolStripMenuItem1.Text = "число обращений к DS360";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem
+            // 
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem.Name = "поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem";
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem.Text = "Поиск значений СКЗ не поддерживаемы DS360";
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem.Click += new System.EventHandler(this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem_Click);
             // 
             // labelRoute
             // 
@@ -686,13 +702,6 @@ namespace ManagerDS360 {
             this.treRouteTree.TabIndex = 7;
             this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(247, 22);
-            this.toolStripMenuItem1.Text = "число обращений к DS360";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // frmManagerDS360
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -788,6 +797,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripComboBox mnuCboFrequencyResponse;
         private System.Windows.Forms.ToolStripMenuItem mnuSettingFrequencyResponse;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem;
     }
 }
 

@@ -29,12 +29,17 @@ namespace ManagerDS360
         static string LastRouteName = string.Empty;
         public frmCreationVibroCalibSetting FrmVibroCalib = new frmCreationVibroCalibSetting();
         public bool IsVibStendInWork = false;
+        Task TaskLblStendBlink;
+        Action DoLblStendBlink;
+        int CountLblStendBlink = 0;
+        bool IsLblStendBlink = false;
         public frmManagerDS360()
         {
             InitializeComponent();
         }
         internal async void frmManagerDS360_Load(object sender, EventArgs e)
         {
+            PmData.MainForm = this;
 #if DEBUG
             mnuForTest.Visible = true;
 #endif
@@ -59,8 +64,8 @@ namespace ManagerDS360
             int MaxWidth = grpStend.Width;
             lblVibCalibStatus.Text = PmData.VibStendStatus[info.VibStendStatus];
             lblFreq.Text = "F: " + info.Frequency.Get_Hz().ToString() + " Гц";
-            lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.ParametrToHold.Get(info.Detector),4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
-            if(info.VibStendStatus == VibStendStatus.Stably || info.VibStendStatus == VibStendStatus.Correction)
+            lblParametrToHold.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.ParametrToHold.Get(info.Detector), 4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.ParametrToHold)];
+            if (info.VibStendStatus == VibStendStatus.Stably || info.VibStendStatus == VibStendStatus.Correction)
             {
                 lblCurentParametr.Text = PmData.Detector[(Detector)info.Detector] + ": " + MetrologyRound.GetRounded(info.CurrentParametr.Get(info.Detector), 4).ToString() + " " + PmData.VibrationQuantity[PmData.GetEnumFromVibroParam(PmData.VibroParametr, info.CurrentParametr)];
             }
@@ -72,11 +77,11 @@ namespace ManagerDS360
             lblFreq.Location = new Point(MaxWidth / 2 - lblFreq.Width / 2, lblFreq.Location.Y);
             lblVibCalibStatus.Location = new Point(MaxWidth / 2 - lblVibCalibStatus.Width / 2, lblVibCalibStatus.Location.Y);
             lblCurentParametr.Location = new Point(MaxWidth / 2 - lblCurentParametr.Width / 2, lblCurentParametr.Location.Y);
-            if(info.VibStendStatus != VibStendStatus.Correction&&
-                info.VibStendStatus!= VibStendStatus.None&&
-                info.VibStendStatus!= VibStendStatus.NotStably&&
-                info.VibStendStatus!= VibStendStatus.SetupProcess&&
-                info.VibStendStatus!= VibStendStatus.Stably)
+            if (info.VibStendStatus != VibStendStatus.Correction &&
+                info.VibStendStatus != VibStendStatus.None &&
+                info.VibStendStatus != VibStendStatus.NotStably &&
+                info.VibStendStatus != VibStendStatus.SetupProcess &&
+                info.VibStendStatus != VibStendStatus.Stably)
             {
                 IsVibStendInWork = false;
             }
@@ -177,7 +182,9 @@ namespace ManagerDS360
         }
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
-            SetDefaultGenerator();
+            //SetDefaultGenerator();
+            frmDevicePlugIn frmDevicePlugIn = new frmDevicePlugIn();
+            frmDevicePlugIn.ShowDialog();
         }
         private void SetDefaultGenerator()
         {
@@ -215,6 +222,7 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.Setting)
             {
+                VibrationStandStopWork();
                 return MakeOperationsForDS360(selectedNode);
             }
             if (selectedNode.NodeType == NodeType.DC23)
@@ -334,10 +342,8 @@ namespace ManagerDS360
         {
             IsVibStendInWork = true;
             var runStend = selectedNode.VibrationStand.RunStend();
-            Task taskBlink = new Task((Action)(() => LblStendBlink(runStend)));
-            taskBlink.Start();
-
-
+            TaskLblStendBlink = new Task((Action)(() => LblStendBlink(runStend)));
+            TaskLblStendBlink.Start();
             BeginInvoke(new Action(() =>
             {
                 selectedNode.ImageIndex = 11;
@@ -345,7 +351,7 @@ namespace ManagerDS360
 
             }));
             await runStend;
-            while(!selectedNode.VibrationStand.IsSetupComplete)
+            while (!selectedNode.VibrationStand.IsSetupComplete)
             {
                 await Task.Delay(100);
             }
@@ -355,7 +361,7 @@ namespace ManagerDS360
             return result;
         }
 
-        private async Task <Result> ChangeSelectNode(TreeNodeWithSetting selectedNode, Task<Result> runStend)
+        private async Task<Result> ChangeSelectNode(TreeNodeWithSetting selectedNode, Task<Result> runStend)
         {
             IsVibStendInWork = true;
 
@@ -391,7 +397,8 @@ namespace ManagerDS360
                 selectedNode.ImageIndex = 2;
                 selectedNode.SelectedImageIndex = 2;
             }));
-            if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success)
+            if (selectedNode.DS360Setting.SendDS360Setting() != Result.Success ||
+                selectedNode.DS360Setting.SetOutputSignalOn() != Result.Success)
             {
                 BeginInvoke(new Action(() =>
                 {
@@ -549,13 +556,13 @@ namespace ManagerDS360
                 fileNames[i] = freqResp[i].Name.Replace(freqResp[i].Extension, "");
             }
             mnuCboFrequencyResponse.Items.AddRange(fileNames);
-            
-            if (PmData.CurentFreqResp.Count > 0)
-            if (PmData.CurentFreqResp.Name!=null && mnuCboFrequencyResponse.Items.Contains(PmData.CurentFreqResp.Name))
-            {
-                mnuCboFrequencyResponse.SelectedItem = PmData.CurentFreqResp.Name;
 
-            }
+            if (PmData.CurentFreqResp.Count > 0)
+                if (PmData.CurentFreqResp.Name != null && mnuCboFrequencyResponse.Items.Contains(PmData.CurentFreqResp.Name))
+                {
+                    mnuCboFrequencyResponse.SelectedItem = PmData.CurentFreqResp.Name;
+
+                }
             mnuCboFrequencyResponse.SelectedIndexChanged -= MnuCboFrequencyResponse_SelectedIndexChanged;
             mnuCboFrequencyResponse.SelectedIndexChanged += MnuCboFrequencyResponse_SelectedIndexChanged;
         }
@@ -869,14 +876,34 @@ namespace ManagerDS360
             }
             BeginInvoke((Action)(() => { lblTestStatus.Visible = true; }));
         }
-        private async void LblStendBlink(Task task)
+        public async void LblStendBlink(Task<Result> result)
         {
-            while (VibrationStand.VibStendStatus!= VibStendStatus.Finished)
+            CountLblStendBlink++;
+            for (int i = 0; i < 100; i++)
+            {
+                if (!IsLblStendBlink)
+                {
+                    break;
+                }
+                Thread.Sleep(100);
+            }
+            if (IsLblStendBlink)
+            {
+                return;
+            }
+            IsLblStendBlink = true;
+            do
             {
                 await Task.Delay(500);
                 BeginInvoke((Action)(() => { lblStendCurrent.Visible = !lblStendCurrent.Visible; }));
             }
+            while (
+                 VibrationStand.VibStendStatus != VibStendStatus.Finished &&
+             VibrationStand.VibStendStatus != VibStendStatus.GeneratorProblem &&
+              VibrationStand.VibStendStatus != VibStendStatus.MultimeterProblem &&
+               VibrationStand.VibStendStatus != VibStendStatus.NotStably);
             BeginInvoke((Action)(() => { lblStendCurrent.Visible = true; }));
+            IsLblStendBlink = false;
         }
         private void SetControlsEnabledForTest(TestStatus testStatus)
         {
@@ -1041,17 +1068,25 @@ namespace ManagerDS360
 
         private void butVibCalibStop_Click(object sender, EventArgs e)
         {
-            
+            VibrationStandStopWork();
+            VibrationStand.Generator.SetOutputOff();
+        }
+
+        private static void VibrationStandStopWork()
+        {
+            if (VibrationStand.IsTesting)
+            {
+                VibrationStand.StopTest();
+            }
+        }
+
+        private void butVibCalibSetting_Click(object sender, EventArgs e)
+        {
             if (VibrationStand.IsTesting)
             {
                 VibrationStand.StopTest();
             }
             VibrationStand.Generator.SetOutputOff();
-
-        }
-
-        private void butVibCalibSetting_Click(object sender, EventArgs e)
-        {
             FrmVibroCalib.CallType = CallType.Control;
 
             FrmVibroCalib.TopLevel = true;
@@ -1090,6 +1125,41 @@ namespace ManagerDS360
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(DS360Setting.CountCalls.ToString());
+        }
+
+        private void поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DS360Setting dS360Setting = new DS360Setting();
+            double RMS =  0.000914;
+            double step = 0.000001;
+            List<double> errorList = new List<double>();
+            while (RMS > 0.000005)
+            { 
+                //while (RMS > step*1000)
+                //{
+                    dS360Setting.AmplitudeRMS = RMS;
+                    
+                    for(int i =0; i < 3; i++)
+                    {
+                        Result result = dS360Setting.ChangeAmplitudeRMS();
+                        if (result != Result.Success)
+                        {
+                            errorList.Add(RMS);
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                    }
+                    RMS -= step;
+                    RMS = MetrologyRound.GetRounded(RMS, 5);
+                //}
+                //step /= 10;
+            }
+            frmInputName frmInputName = new frmInputName();
+            foreach(double db in errorList)
+            {
+                frmInputName.txtNameSet.Text += " " + db;
+            }
+            frmInputName.ShowDialog();
         }
     }
 }

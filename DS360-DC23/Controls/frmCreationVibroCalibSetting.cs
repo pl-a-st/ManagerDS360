@@ -27,7 +27,9 @@ namespace ManagerDS360
         public VibrationQuantity VibrationQuantity;
         public Detector Detector;
         public VibrationStand VibrationStand = new VibrationStand();
-        
+        Task TaskLblStendBlink;
+
+
         public frmCreationVibroCalibSetting()
         {
             InitializeComponent();
@@ -110,14 +112,18 @@ namespace ManagerDS360
             this.Close();
         }
 
-        private void butSend_Click(object sender, EventArgs e)
+        private async void butSend_Click(object sender, EventArgs e)
         {
             if (CheckFormsParameters() != Result.Success)
             {
                 return;
             }
             SetVibroStend();
-            VibrationStand.RunStend();
+            //VibrationStand.RunStend();
+            var runStend = VibrationStand.RunStend();
+            TaskLblStendBlink = new Task((Action)(() => PmData.MainForm.LblStendBlink(runStend)));
+            TaskLblStendBlink.Start();
+            await runStend;
         }
 
 

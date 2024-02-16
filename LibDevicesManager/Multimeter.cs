@@ -52,7 +52,7 @@ namespace LibDevicesManager
         private double inputSignalMinFrequency = 100;
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
-        private static string portName = "GPIB0::25"; // todo зачем тут значение по умолчанию?
+        private static string portName = "NONE"; // todo зачем тут значение по умолчанию?
         public Multimeter() { }
         public virtual Result SendSetting()
         {

@@ -150,6 +150,7 @@ namespace ManagerDS360
     }
     public static class PmData
     {
+        public static frmManagerDS360 MainForm;
         public const string FileNameRouteAddresses = @"RouteAddresses.bin";
         public const string FileNameFreqRespAddresses = @"FrequencyResponses.bin";
         public const string FileNameCurentFreqRespAddresses = @"CurentFrequencyResponses.bin";

@@ -69,6 +69,7 @@
     <Compile Include="MultimeterForVibCalib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stend.cs" />
+    <Compile Include="SupportClasses.cs" />
     <Compile Include="VibrationStand.cs" />
   </ItemGroup>
   <ItemGroup>

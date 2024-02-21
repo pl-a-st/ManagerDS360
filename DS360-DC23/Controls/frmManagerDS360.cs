@@ -28,6 +28,7 @@ namespace ManagerDS360
         CancellationToken TokenForConnect = CancelTokenConnect.Token;
         static string LastRouteName = string.Empty;
         public frmCreationVibroCalibSetting FrmVibroCalib = new frmCreationVibroCalibSetting();
+        public frmDevicePlugIn FrmDevicePlugIn = new frmDevicePlugIn();
         public bool IsVibStendInWork = false;
         Task TaskLblStendBlink;
         Action DoLblStendBlink;
@@ -49,8 +50,7 @@ namespace ManagerDS360
             SetToolTipes();
             await SetTestedDevicesList();
             cboTestedDevice.SelectedIndexChanged += CboTestedDevice_SelectedIndexChanged;
-            frmDevicePlugIn frmDevicePlugIn = new frmDevicePlugIn();
-            frmDevicePlugIn.ShowDialog();
+            FrmDevicePlugIn.ShowDialog();
             VibrationStand.StatusHasChanged += VibrationStand_StatusHasChanged;
         }
 
@@ -179,12 +179,17 @@ namespace ManagerDS360
                 client.Disconnect();
                 client.CancelConnecting();
             }
+            if (DS360Setting.ConnectedCOMPort != null)
+            {
+                while (DS360Setting.ConnectedCOMPort.Count>0)
+                {
+                    DS360Setting.DisconnectCOMPort(DS360Setting.ConnectedCOMPort[0].Port.PortName);
+                }
+            }
         }
         internal void butDefaultGenerator_Click(object sender, EventArgs e)
         {
-            //SetDefaultGenerator();
-            frmDevicePlugIn frmDevicePlugIn = new frmDevicePlugIn();
-            frmDevicePlugIn.ShowDialog();
+            FrmDevicePlugIn.ShowDialog();
         }
         private void SetDefaultGenerator()
         {
@@ -222,7 +227,10 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.Setting)
             {
-                VibrationStandStopWork();
+                if(DS360Setting.ComPortDefaultName == GeneratorForVibCalib.Address)
+                {
+                    VibrationStandStopWork();
+                }
                 return MakeOperationsForDS360(selectedNode);
             }
             if (selectedNode.NodeType == NodeType.DC23)
@@ -557,10 +565,10 @@ namespace ManagerDS360
             }
             mnuCboFrequencyResponse.Items.AddRange(fileNames);
 
-            if (PmData.CurentFreqResp.Count > 0)
-                if (PmData.CurentFreqResp.Name != null && mnuCboFrequencyResponse.Items.Contains(PmData.CurentFreqResp.Name))
+            if (VibrationStand.CurentFreqResp.Count > 0)
+                if (VibrationStand.CurentFreqResp.Name != null && mnuCboFrequencyResponse.Items.Contains(VibrationStand.CurentFreqResp.Name))
                 {
-                    mnuCboFrequencyResponse.SelectedItem = PmData.CurentFreqResp.Name;
+                    mnuCboFrequencyResponse.SelectedItem = VibrationStand.CurentFreqResp.Name;
 
                 }
             mnuCboFrequencyResponse.SelectedIndexChanged -= MnuCboFrequencyResponse_SelectedIndexChanged;
@@ -571,14 +579,14 @@ namespace ManagerDS360
         {
             if (string.IsNullOrEmpty(mnuCboFrequencyResponse.SelectedItem.ToString()))
             {
-                PmData.CurentFreqResp = new FrequencyResponse();
+                VibrationStand.CurentFreqResp = new FrequencyResponse();
                 MessageBox.Show("АЧХ не выбран");
                 return;
             }
             if (!string.IsNullOrEmpty(mnuCboFrequencyResponse.SelectedItem.ToString()))
             {
                 var FileCurentFreqResp = PmData.FreqRespAddresses[mnuCboFrequencyResponse.SelectedIndex];
-                PmData.CurentFreqResp = DAO.binReadFileToObject(PmData.CurentFreqResp, FileCurentFreqResp.FullName, out _);
+                VibrationStand.CurentFreqResp = DAO.binReadFileToObject(VibrationStand.CurentFreqResp, FileCurentFreqResp.FullName, out _);
                 PmData.SaveCurentFreqResp();
                 MessageBox.Show($"Выбрано АЧХ: {FileCurentFreqResp.Name}");
                 return;
@@ -652,7 +660,7 @@ namespace ManagerDS360
                 treRouteTree.SelectedNode.PrevVisibleNode.Expand();
             }
             treRouteTree.SelectedNode = treRouteTree.SelectedNode.PrevVisibleNode;
-            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Setting)
+            if ((treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType == NodeType.Folder)
             {
                 SelectPreviousSetting();
             }
@@ -924,6 +932,7 @@ namespace ManagerDS360
             {
                 control.Enabled = enabled;
             }
+            butVibCalibSetting.Enabled = enabled;
             butStopTest.Enabled = true;
             lblTestStatus.Enabled = true;
             grpStend.Enabled = true;
@@ -1088,7 +1097,7 @@ namespace ManagerDS360
             }
             VibrationStand.Generator.SetOutputOff();
             FrmVibroCalib.CallType = CallType.Control;
-
+            FrmVibroCalib.Text = "Управление вибрационной установкой";
             FrmVibroCalib.TopLevel = true;
             if (FrmVibroCalib.Visible)
             {
@@ -1108,6 +1117,7 @@ namespace ManagerDS360
         private void аЧХВибростендаToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            mnuCboFrequencyResponse.SelectedItem = "";
         }
 
         private void mnuSettingFrequencyResponse_Click(object sender, EventArgs e)

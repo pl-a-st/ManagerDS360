@@ -14,6 +14,7 @@ namespace ManagerDS360
 {
     public partial class frmDevicePlugIn : Form
     {
+        bool IsFirstLoad = true;
         public frmDevicePlugIn()
         {
             InitializeComponent();
@@ -21,12 +22,16 @@ namespace ManagerDS360
 
         private async void frmDevicePlugIn_Load(object sender, EventArgs e)
         {
+            if (!IsFirstLoad)
+            {
+                return;
+            }
             await SetCboListFromDict(cboGenToMultType, PmData.GeneratorModel);
             await SetCboListFromDict(cboGenToVibType, PmData.GeneratorModel);
             await SetCboListFromDict(cboMultToMultType, PmData.MultimeterModel);
             await SetCboListFromDict(cboMultToVibType, PmData.MultimeterModel);
             //await GetDefaultDS360ToCboListComPorts();
-
+            IsFirstLoad = false;
         }
         private async Task SetCboListFromDict<T>(ComboBox cbo, Dictionary<T, string> dict)
         {
@@ -256,6 +261,11 @@ namespace ManagerDS360
                     butConnectGenDS360.Text = "Ошибка подключения";
                 }
             }
+        }
+
+        private void frmDevicePlugIn_Shown(object sender, EventArgs e)
+        {
+
         }
     }
 }

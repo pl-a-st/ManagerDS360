@@ -33,6 +33,7 @@ namespace ManagerDS360
             this.cboListComPorts = new System.Windows.Forms.ComboBox();
             this.lblLisеComPorts = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.butConnectGenDS360 = new System.Windows.Forms.Button();
             this.butRefreshDS360List = new LibControls.ButtonForRotation();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonForPicture2 = new LibControls.ButtonForRotation();
@@ -65,7 +66,6 @@ namespace ManagerDS360
             this.butRefreshGenToVibAddresses = new LibControls.ButtonForRotation();
             this.cboGenToVibAddress = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.butConnectGenDS360 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -110,6 +110,16 @@ namespace ManagerDS360
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Генератор DS-360 по умолчанию";
+            // 
+            // butConnectGenDS360
+            // 
+            this.butConnectGenDS360.Location = new System.Drawing.Point(18, 72);
+            this.butConnectGenDS360.Name = "butConnectGenDS360";
+            this.butConnectGenDS360.Size = new System.Drawing.Size(210, 23);
+            this.butConnectGenDS360.TabIndex = 15;
+            this.butConnectGenDS360.Text = "Подключить генератор";
+            this.butConnectGenDS360.UseVisualStyleBackColor = true;
+            this.butConnectGenDS360.Click += new System.EventHandler(this.butConnectGenDS360_Click);
             // 
             // butRefreshDS360List
             // 
@@ -545,16 +555,6 @@ namespace ManagerDS360
             this.label10.TabIndex = 4;
             this.label10.Text = "Список генераторов";
             // 
-            // butConnectGenDS360
-            // 
-            this.butConnectGenDS360.Location = new System.Drawing.Point(18, 72);
-            this.butConnectGenDS360.Name = "butConnectGenDS360";
-            this.butConnectGenDS360.Size = new System.Drawing.Size(208, 23);
-            this.butConnectGenDS360.TabIndex = 15;
-            this.butConnectGenDS360.Text = "Подключить генератор";
-            this.butConnectGenDS360.UseVisualStyleBackColor = true;
-            this.butConnectGenDS360.Click += new System.EventHandler(this.butConnectGenDS360_Click);
-            // 
             // frmDevicePlugIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
@@ -571,6 +571,7 @@ namespace ManagerDS360
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Подключение приборов";
             this.Load += new System.EventHandler(this.frmDevicePlugIn_Load);
+            this.Shown += new System.EventHandler(this.frmDevicePlugIn_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

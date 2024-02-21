@@ -19,7 +19,7 @@ namespace ForLibDevicesTestOnly
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
             //Проверка VISA-IVI-USB
-            /*
+            
             ResourceManager rm = new ResourceManager();
             string[] resourses = rm.FindRsrc("?*");
 
@@ -58,7 +58,7 @@ namespace ForLibDevicesTestOnly
             Console.WriteLine(response);
             result = device.Send("FREQ 700");
             device.Close();
-            */
+            
             //Проверка новых методов ConnectCOMPort() DisconnectCOMPort();
             /*
             DS360Setting[] generators = new DS360Setting[10];

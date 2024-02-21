@@ -115,6 +115,20 @@ namespace LibDevicesManager
             }
             return gpibPorts;
         }
+        public static List<string> GetUSBPorts()
+        {
+            List<string> allPorts = new List<string>();
+            List<string> usbPorts = new List<string>();
+            allPorts = GetAllPorts();
+            foreach (string port in allPorts)
+            {
+                if (port.StartsWith("USB"))
+                {
+                    usbPorts.Add(port);
+                }
+            }
+            return usbPorts;
+        }
 
         public Result ReadString(out string stringReaded)
         {

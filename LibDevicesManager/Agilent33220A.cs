@@ -14,9 +14,21 @@ namespace LibDevicesManager
             get { return GetAddress(); }
             set { SetAddress(value); }
         }
+        public static List<string> ConnectedUSBPort; //?
         public Agilent33220A()
         {
             Generator<Agilent33220A>.GeneratorModel = GeneratorModel.Agilent33220A;
+        }
+        public List<string> FindAllAgilent33220A()
+        {
+            List<string> usbPorts = new List<string>();
+            List<string> generators = new List<string>();
+            usbPorts = GpibPort.GetUSBPorts();
+            foreach (string usbPort in usbPorts)
+            {
+
+            }
+            return generators;
         }
         public Result SendAgilent33220ASetting()
         {

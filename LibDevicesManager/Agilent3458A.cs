@@ -146,8 +146,12 @@ namespace LibDevicesManager
             {
                 return result;
             }
-
             result = SendLowFrequencyLimit();
+            if (result != Result.Success)
+            {
+                return result;
+            }
+            result = SendACBandwidth();
             if (result != Result.Success)
             {
                 return result;
@@ -155,10 +159,7 @@ namespace LibDevicesManager
             //TODO: дописать проверку правильности установок настроек?
             return result;
         }
-        public Result SetACBandwidth(double frequencyLow, double frequencyHigh)
-        {
-            return multimeter.Send($"ACBAND {frequencyLow}, {frequencyHigh}");
-        }
+        
         private Result SendMeasureFunction()
         {
             Result result = Result.Failure;
@@ -241,5 +242,15 @@ namespace LibDevicesManager
             return Result.Success;
         }
         #endregion PublicMethods
+        #region PrivateMethods
+        private Result SendACBandwidth()
+        {
+            return multimeter.Send($"ACBAND {BandWhidthfrequencyLow}, {BandWhidthfrequencyLow}");
+        }
+        private Result SendACBandwidth(double frequencyLow, double frequencyHigh)
+        {
+            return multimeter.Send($"ACBAND {frequencyLow}, {frequencyHigh}");
+        }
+        #endregion PrivateMethods
     }
 }

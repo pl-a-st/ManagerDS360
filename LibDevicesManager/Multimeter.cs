@@ -46,10 +46,16 @@ namespace LibDevicesManager
         /// <returns>Минимальная частота входного сигнала в Гц</returns>
         /// <value>Допустимые значения от 1 Гц </value>
         public double InputSignalMinFrequency { get { return inputSignalMinFrequency; }  set {inputSignalMinFrequency = value; } }
-        
+        public double BandWhidthfrequencyLow { get { return bandWhidthfrequencyLow; } set { bandWhidthfrequencyLow = value; } }
+        public double BandWhidthfrequencyHigh { get { return bandWhidthfrequencyHigh; } set { bandWhidthfrequencyHigh = value; } }
+
         private MeasureType measureType = MeasureType.AC;
         private PhysicalParameter physicalParameter = PhysicalParameter.U;
         private double inputSignalMinFrequency = 100;
+        private double bandWhidthfrequencyLow = 1;
+        private double bandWhidthfrequencyHigh = 2000000;
+
+
 
         private static MultimeterModel multimeterModel = MultimeterModel.Unknown;
         private static string portName = "NONE"; // todo зачем тут значение по умолчанию?

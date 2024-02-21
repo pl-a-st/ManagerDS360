@@ -21,6 +21,7 @@ using ToolTip = System.Windows.Forms.ToolTip;
 using ManagerDS360.Controls;
 using LibDevicesManager.DC23;
 
+
 namespace ManagerDS360
 {
     public partial class frmCreationEditingFreqResp : Form

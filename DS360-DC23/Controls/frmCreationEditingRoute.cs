@@ -228,9 +228,9 @@ namespace ManagerDS360
                 return;
             }
             string textNode = "[" + frmVibroCalibSetting.cboSetValue.SelectedItem.ToString() + "] ";
-            textNode += "[" + frmVibroCalibSetting.cboDetector.SelectedItem.ToString() + ": ";
-            textNode += frmVibroCalibSetting.txtValue.Text + " ";
-            textNode += "F: " + frmVibroCalibSetting.txtFrequency.Text + "]";
+            textNode += "[" + frmVibroCalibSetting.cboDetector.SelectedItem.ToString() + ":";
+            textNode += frmVibroCalibSetting.txtValue.Text + "  ";
+            textNode += "F:" + frmVibroCalibSetting.txtFrequency.Text + "]";
 
             TreeNodeWithSetting treeNode = new TreeNodeWithSetting(NodeType.VibroStand, textNode);
             treeNode.VibrationStand = frmVibroCalibSetting.VibrationStand;
@@ -532,7 +532,12 @@ namespace ManagerDS360
                 frmVibroCalibSetting.CallType = CallType.Change;
                 if (frmVibroCalibSetting.ShowDialog() == DialogResult.OK)
                 {
+                    string textNode = "[" + frmVibroCalibSetting.cboSetValue.SelectedItem.ToString() + "] ";
+                    textNode += "[" + frmVibroCalibSetting.cboDetector.SelectedItem.ToString() + ":";
+                    textNode += frmVibroCalibSetting.txtValue.Text + "  ";
+                    textNode += "F:" + frmVibroCalibSetting.txtFrequency.Text + "]";
                     selectedNode.VibrationStand = frmVibroCalibSetting.VibrationStand;
+                    selectedNode.Text = textNode;
                 }
             }
         }

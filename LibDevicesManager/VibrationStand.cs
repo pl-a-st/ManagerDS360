@@ -84,6 +84,7 @@ namespace LibDevicesManager
         public static event StatusStandChangeHandler StatusHasChanged;
         public static VibStendStatus VibStendStatus = VibStendStatus.None;
 
+        public static FrequencyResponse CurentFreqResp = new FrequencyResponse();
         public async Task<Result> RunStend()
         {
 
@@ -100,9 +101,9 @@ namespace LibDevicesManager
             }
             if (VibStendStatus == VibStendStatus.NotStably || VibStendStatus == VibStendStatus.Correction)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    await Task.Delay(400);
+                    await Task.Delay(500);
                     if (VibStendStatus != VibStendStatus.NotStably && VibStendStatus != VibStendStatus.Correction)
                     {
                         break;
@@ -114,6 +115,7 @@ namespace LibDevicesManager
             {
                 return Result.Success;
             }
+            StopTest();
             return Result.Failure;
         }
         private bool CheckAndSetStatusesIfTrue(bool ToCheck, VibStendStatus vibStendStatus, double currentVoltage)
@@ -126,6 +128,14 @@ namespace LibDevicesManager
             }
             return ToCheck;
         }
+        private double GetStartVolt(double coeff)
+        {
+            if (Frequency.Get_Hz()<40)
+            {
+                return coeff / 8 / Math.PI / Frequency.Get_Hz() * 1000;
+            }
+            return coeff;
+        }
         /// <summary>
         /// Метод в разработке (рефакторинг)
         /// </summary>
@@ -134,15 +144,13 @@ namespace LibDevicesManager
             CancellLastVibrostendSetup();
             VibStendStatus = VibStendStatus.SetupProcess;
             StatusHasChanged.Invoke(new VibStendInfo(this, -1));
-            double voltToHold = GetVoltageFromVibroparam();
-            double startVolt = 0.1;
+            double voltToHold = GetVoltageFromVibroparam()/CurentFreqResp.GetCoefficient(Frequency.Get_Hz());
+            double startVolt = GetStartVolt(0.05);
             double currentVoltage = 0;
             double lastVoltage;
 
             Generator.Frequency = Frequency.Get_Hz();
             Generator.AmplitudeRMS = startVolt;
-            //if (CheckAndSetStatusesIfTrue(MultimeterForVibCalib.PortName == "None", VibStendStatus.MultimeterProblem, currentVoltage))
-            //    return;//todo заменить на значение по умолчанию, если не было установки адреса
 
             Multimeter.InputSignalMinFrequency = Generator.Frequency;
             Multimeter.MeasureType = MeasureType.AC;
@@ -196,7 +204,7 @@ namespace LibDevicesManager
                     else
                     {
                         VibStendStatus = VibStendStatus.Correction;
-                        StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
+                        StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage*CurentFreqResp.GetCoefficient(Frequency.Get_Hz())));
                     }
 
                     Result result = Result.Failure;
@@ -227,7 +235,7 @@ namespace LibDevicesManager
                     if (IsTokenCancelAndServiceCancel() != TokenStatus.InWork)
                         break;
                     VibStendStatus = VibStendStatus.Stably;
-                    StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
+                    StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage*CurentFreqResp.GetCoefficient(Frequency.Get_Hz())));
                     Generator.AmplitudeRMS = MetrologyRound.GetRounded(Generator.AmplitudeRMS, 4) * voltToHold / currentVoltage;
                     Result result = Result.Failure;
 
@@ -255,7 +263,7 @@ namespace LibDevicesManager
             IsTesting = false;
             IsSetupComplete = false;
             VibStendStatus = VibStendStatus.Finished;
-            StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
+            StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage*CurentFreqResp.GetCoefficient(Frequency.Get_Hz())));
         }
 
         private double GetVoltageFromVibroparam()
@@ -305,6 +313,7 @@ namespace LibDevicesManager
         }
         private void HandleVibStendStatus(double currentVoltage, VibStendStatus status)
         {
+            currentVoltage = currentVoltage * CurentFreqResp.GetCoefficient(Frequency.Get_Hz());
             VibStendStatus = status;
             StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage));
 

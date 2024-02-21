@@ -245,11 +245,11 @@ namespace LibDevicesManager
         #region PrivateMethods
         private Result SendACBandwidth()
         {
-            return multimeter.Send($"ACBAND {BandWhidthfrequencyLow}, {BandWhidthfrequencyLow}");
+            return multimeter.Send($"ACBAND {BandWhidthfrequencyLow},{BandWhidthfrequencyLow}");
         }
         private Result SendACBandwidth(double frequencyLow, double frequencyHigh)
         {
-            return multimeter.Send($"ACBAND {frequencyLow}, {frequencyHigh}");
+            return multimeter.Send($"ACBAND {frequencyLow},{frequencyHigh}");
         }
         #endregion PrivateMethods
     }

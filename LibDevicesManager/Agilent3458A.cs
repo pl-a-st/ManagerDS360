@@ -155,9 +155,9 @@ namespace LibDevicesManager
             //TODO: дописать проверку правильности установок настроек?
             return result;
         }
-        public Result SendACBandwidthLow(double frequencyLow)
+        public Result SetACBandwidth(double frequencyLow, double frequencyHigh)
         {
-            return multimeter.Send($"ACBAND {frequencyLow}");
+            return multimeter.Send($"ACBAND {frequencyLow}, {frequencyHigh}");
         }
         private Result SendMeasureFunction()
         {

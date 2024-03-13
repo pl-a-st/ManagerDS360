@@ -127,8 +127,6 @@ namespace ManagerDS360
                 do
                 {
                     client.Disconnect();
-
-
                 }
                 while (client.Connected);
                 client.CancelConnecting();
@@ -639,6 +637,10 @@ namespace ManagerDS360
             {
                 return;
             }
+            if (!treRouteTree.SelectedNode.IsExpanded)
+            {
+                treRouteTree.SelectedNode.Expand();
+            }
             if (!treRouteTree.SelectedNode.NextVisibleNode.IsExpanded)
             {
                 treRouteTree.SelectedNode.NextVisibleNode.Expand();
@@ -872,7 +874,7 @@ namespace ManagerDS360
             lblTestStatus.Text = message;
             lblTestStatus.Location = new Point(
                 grpTest.Location.X + grpTest.Width / 2 - lblTestStatus.Width / 2,
-                lblTestStatus.Location.Y);
+                grpTest.Location.Y + grpTest.Height - lblTestStatus.PreferredHeight-5);
         }
 
         private async void LblTestBlink(Task task)
@@ -909,7 +911,7 @@ namespace ManagerDS360
                  VibrationStand.VibStendStatus != VibStendStatus.Finished &&
              VibrationStand.VibStendStatus != VibStendStatus.GeneratorProblem &&
               VibrationStand.VibStendStatus != VibStendStatus.MultimeterProblem &&
-               VibrationStand.VibStendStatus != VibStendStatus.NotStably);
+               VibrationStand.VibStendStatus != VibStendStatus.NotSensitive);
             BeginInvoke((Action)(() => { lblStendCurrent.Visible = true; }));
             IsLblStendBlink = false;
         }
@@ -1081,7 +1083,7 @@ namespace ManagerDS360
             VibrationStand.Generator.SetOutputOff();
         }
 
-        private static void VibrationStandStopWork()
+        public void VibrationStandStopWork()
         {
             if (VibrationStand.IsTesting)
             {

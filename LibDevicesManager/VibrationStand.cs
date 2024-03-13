@@ -92,10 +92,10 @@ namespace LibDevicesManager
             _ = Task.Run(SetVibroParamInStend, TokenForTest);
 
             await Task.Delay(1000); // todo попробовать заменить на while (VibStendStatus == VibStendStatus.Stably || VibStendStatus == VibStendStatus.Correction)
-            while (VibStendStatus == VibStendStatus.None ||
+            while ((VibStendStatus == VibStendStatus.None ||
                 VibStendStatus == VibStendStatus.SetupProcess ||
                 VibStendStatus == VibStendStatus.Stoping ||
-                VibStendStatus == VibStendStatus.Finished)
+                VibStendStatus == VibStendStatus.Finished))
             {
                 await Task.Delay(100);
             }
@@ -103,7 +103,7 @@ namespace LibDevicesManager
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(1500);
                     if (VibStendStatus != VibStendStatus.NotStably && VibStendStatus != VibStendStatus.Correction)
                     {
                         break;
@@ -115,7 +115,7 @@ namespace LibDevicesManager
             {
                 return Result.Success;
             }
-            StopTest();
+            //StopTest();
             return Result.Failure;
         }
         private bool CheckAndSetStatusesIfTrue(bool ToCheck, VibStendStatus vibStendStatus, double currentVoltage)
@@ -124,7 +124,7 @@ namespace LibDevicesManager
             {
                 HandleVibStendStatus(currentVoltage, vibStendStatus);
                 IsTesting = false;
-                IsSetupComplete = false;
+                IsSetupComplete = true;
             }
             return ToCheck;
         }
@@ -132,7 +132,7 @@ namespace LibDevicesManager
         {
             if (Frequency.Get_Hz()<40)
             {
-                return coeff / 8 / Math.PI / Frequency.Get_Hz() * 1000;
+                return coeff / 12 / Math.PI / Frequency.Get_Hz() * 1000;
             }
             return coeff;
         }
@@ -190,7 +190,7 @@ namespace LibDevicesManager
                 {
                     if (IsTokenCancelAndServiceCancel() != TokenStatus.InWork)
                         break;
-                    if (!IsMeasureStable(currentVoltage, voltToHold, 0.3))
+                    if (!IsMeasureStable(currentVoltage, voltToHold, 0.4))
                     {
                         HandleVibStendStatus(currentVoltage, VibStendStatus.NotSensitive);
                         IsTesting = false;
@@ -264,6 +264,7 @@ namespace LibDevicesManager
             IsSetupComplete = false;
             VibStendStatus = VibStendStatus.Finished;
             StatusHasChanged.Invoke(new VibStendInfo(this, currentVoltage*CurentFreqResp.GetCoefficient(Frequency.Get_Hz())));
+            return;
         }
 
         private double GetVoltageFromVibroparam()

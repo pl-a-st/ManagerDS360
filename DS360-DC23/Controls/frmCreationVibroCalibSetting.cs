@@ -234,6 +234,12 @@ namespace ManagerDS360
             }
         }
 
+        private void butStop_Click(object sender, EventArgs e)
+        {
+            PmData.MainForm.VibrationStandStopWork();
+            VibrationStand.Generator.SetOutputOff();
+        }
+
         //internal bool IsTwoTone()
         //{
         //    return PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус

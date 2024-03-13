@@ -818,21 +818,26 @@ namespace ManagerDS360
 
         private void butCopy_Click(object sender, EventArgs e)
         {
+            if (chkCopyMany.Checked)
+            {
+                treRouteTree.CopyCheckNodes();
+                return;
+            }
             treRouteTree.CopySelectedNode();
         }
 
         private void butPaste_Click(object sender, EventArgs e)
         {
+            if (chkCopyMany.Checked)
+            {
+                treRouteTree.PasteCheckNodes();
+                return;
+            }
             Paste();
         }
 
         private void Paste()
         {
-            if (treRouteTree.SelectedNode != null && (treRouteTree.SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
-            {
-                MessageBox.Show("Настройка не может содержать другие элементы!");
-                return;
-            }
             treRouteTree.PasteCopyTreeNode();
         }
 
@@ -1024,6 +1029,11 @@ namespace ManagerDS360
                 Down();
                 await Task.Delay(50);
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            treRouteTree.CheckBoxes = !treRouteTree.CheckBoxes;
         }
     }
 }

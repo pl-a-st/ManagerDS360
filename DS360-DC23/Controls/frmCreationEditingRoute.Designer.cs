@@ -49,6 +49,7 @@
             this.butDown = new LibControls.ButtonForPicture();
             this.butUp = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.chkCopyMany = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,7 +103,7 @@
             // 
             this.butEditSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butEditSetting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butEditSetting.Location = new System.Drawing.Point(619, 266);
+            this.butEditSetting.Location = new System.Drawing.Point(619, 257);
             this.butEditSetting.Name = "butEditSetting";
             this.butEditSetting.Size = new System.Drawing.Size(157, 40);
             this.butEditSetting.TabIndex = 6;
@@ -177,7 +178,7 @@
             // 
             this.butCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butCopy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butCopy.Location = new System.Drawing.Point(619, 312);
+            this.butCopy.Location = new System.Drawing.Point(619, 320);
             this.butCopy.Name = "butCopy";
             this.butCopy.Size = new System.Drawing.Size(157, 40);
             this.butCopy.TabIndex = 7;
@@ -189,7 +190,7 @@
             // 
             this.butPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butPaste.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butPaste.Location = new System.Drawing.Point(619, 358);
+            this.butPaste.Location = new System.Drawing.Point(619, 366);
             this.butPaste.Name = "butPaste";
             this.butPaste.Size = new System.Drawing.Size(157, 40);
             this.butPaste.TabIndex = 8;
@@ -293,11 +294,26 @@
             this.treRouteTree.DoubleClick += new System.EventHandler(this.treRouteTree_DoubleClick);
             this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
             // 
+            // chkCopyMany
+            // 
+            this.chkCopyMany.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCopyMany.AutoSize = true;
+            this.chkCopyMany.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkCopyMany.Location = new System.Drawing.Point(620, 304);
+            this.chkCopyMany.Name = "chkCopyMany";
+            this.chkCopyMany.Size = new System.Drawing.Size(160, 17);
+            this.chkCopyMany.TabIndex = 17;
+            this.chkCopyMany.Text = "копировать несколько";
+            this.chkCopyMany.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkCopyMany.UseVisualStyleBackColor = true;
+            this.chkCopyMany.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // frmCreationEditingRoute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 608);
+            this.Controls.Add(this.chkCopyMany);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butDown);
             this.Controls.Add(this.butUp);
@@ -350,5 +366,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboSettingsType;
+        private System.Windows.Forms.CheckBox chkCopyMany;
     }
 }

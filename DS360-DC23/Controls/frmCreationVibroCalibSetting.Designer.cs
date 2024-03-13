@@ -205,6 +205,7 @@
             this.butStop.TabIndex = 39;
             this.butStop.Text = "Остановить";
             this.butStop.UseVisualStyleBackColor = true;
+            this.butStop.Click += new System.EventHandler(this.butStop_Click);
             // 
             // frmCreationVibroCalibSetting
             // 

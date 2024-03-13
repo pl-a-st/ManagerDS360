@@ -147,7 +147,7 @@ namespace LibControls
         {
             IsRotation = true;
             TokenFoRotation = CancelTokenRotation.Token;
-            RotationTask = new Task( () => rotation(TokenFoRotation), TokenFoRotation);
+            RotationTask = new Task(() => rotation(TokenFoRotation), TokenFoRotation);
             RotationTask.Start();
             void rotation(CancellationToken tokenFoRotation)
             {
@@ -233,7 +233,7 @@ namespace LibControls
         UnLock,
         Blocked
     }
-    public class DataGridViewForDouble: DataGridView
+    public class DataGridViewForDouble : DataGridView
     {
         private string LastText;
         public Access Access = Access.UnLock;
@@ -246,7 +246,7 @@ namespace LibControls
                     Access = Access.Blocked;
                     Text = LastText;
                     Access = Access.UnLock;
-                    
+
                     return;
                 }
                 LastText = Text;
@@ -273,7 +273,7 @@ namespace LibControls
                     Access = Access.Blocked;
                     inputedText.Text = LastText;
                     Access = Access.UnLock;
-                    inputedText.SelectionStart = selectionStart-1;
+                    inputedText.SelectionStart = selectionStart - 1;
                     return;
                 }
                 LastText = inputedText.Text;
@@ -460,6 +460,8 @@ namespace LibControls
             TreeNodeWithSetting treeNodeWithSetting = new TreeNodeWithSetting(this.NodeType, this.Text);
             treeNodeWithSetting.DS360Setting = DS360Setting.CloneObj();
             treeNodeWithSetting.DC23 = DC23.CloneObj();
+            treeNodeWithSetting.VibrationStand = VibrationStand.CloneObj();
+            treeNodeWithSetting.StopTest = StopTest;
             if (this.IsExpanded)
             {
                 treeNodeWithSetting.Expand();
@@ -475,7 +477,8 @@ namespace LibControls
     [Serializable]
     public class TreeViewWithSetting : TreeView
     {
-        public TreeNodeWithSetting CopyTreeNodeWithSetup;
+        public TreeNodeWithSetting NodeCopyTreeNodeWithSetup;
+        public List<TreeNodeWithSetting> ListCopyTreeNodesWithSettings = new List<TreeNodeWithSetting>();
         private TreeNode LastSelectedTreeNode;
         private bool _isChackingChaild = false;
         private bool _isChackingParant = false;
@@ -538,9 +541,6 @@ namespace LibControls
                 }
                 if (!ParantesNode.Checked)
                 {
-                    _isChackingParant = true;
-                    node.Parent.Checked = false;
-                    _isChackingParant = false;
                     return;
                 }
             }
@@ -605,23 +605,85 @@ namespace LibControls
             {
                 return;
             }
+            NodeCopyTreeNodeWithSetup = selectedNode.Copy();
+        }
+        public void CopyCheckNodes()
+        {
+            ListCopyTreeNodesWithSettings.Clear();
+            CopyCheckNodesForEach(this.Nodes);
+        }
 
-            CopyTreeNodeWithSetup = selectedNode.Copy();
+        private void CopyCheckNodesForEach(TreeNodeCollection nodes)
+        {
+            foreach (TreeNodeWithSetting node in nodes)
+            {
+                if (node.Checked)
+                {
+                    ListCopyTreeNodesWithSettings.Add(node.Copy());
+                    continue;
+                }
+                if (!node.Checked)
+                {
+                    CopyCheckNodesForEach(node.Nodes);
+                }
+
+            }
+        }
+        public void PasteCheckNodes()
+        {
+            TreeNodeWithSetting selectedNode = this.SelectedNode as TreeNodeWithSetting;
+            if (selectedNode == null)
+            {
+                foreach (TreeNodeWithSetting node in ListCopyTreeNodesWithSettings)
+                {
+                    this.Nodes.Add(node.Copy());
+                }
+                return;
+            }
+            foreach (TreeNodeWithSetting node in ListCopyTreeNodesWithSettings)
+            {
+                if (SelectedNode != null && (SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+                {
+                    TreeNodeWithSetting nodeWithSetting = node.Copy();
+                    InsertNodeInNextSelect(nodeWithSetting);
+                    continue;
+                }
+                selectedNode.Nodes.Add(node.Copy());
+            }
         }
         public void PasteCopyTreeNode()
         {
-            if (CopyTreeNodeWithSetup == null)
+            if (NodeCopyTreeNodeWithSetup == null)
             {
+                return;
+            }
+            if (SelectedNode != null && (SelectedNode as TreeNodeWithSetting).NodeType != NodeType.Folder)
+            {
+                TreeNodeWithSetting nodeWithSetting = NodeCopyTreeNodeWithSetup.Copy();
+                InsertNodeInNextSelect(nodeWithSetting);
                 return;
             }
             TreeNodeWithSetting selectedNode = this.SelectedNode as TreeNodeWithSetting;
             if (selectedNode == null)
             {
-                this.Nodes.Add(CopyTreeNodeWithSetup.Copy());
+                this.Nodes.Add(NodeCopyTreeNodeWithSetup.Copy());
                 return;
             }
-            selectedNode.Nodes.Add(CopyTreeNodeWithSetup.Copy());
+            selectedNode.Nodes.Add(NodeCopyTreeNodeWithSetup.Copy());
         }
 
+        private void InsertNodeInNextSelect(TreeNodeWithSetting nodeWithSetting)
+        {
+            if (SelectedNode.Parent != null)
+            {
+                SelectedNode.Parent.Nodes.Insert(SelectedNode.Index + 1, nodeWithSetting);
+            }
+            else
+            {
+                SelectedNode.TreeView.Nodes.Insert(SelectedNode.Index + 1, nodeWithSetting);
+            }
+            SelectedNode.Expand();
+            SelectedNode = nodeWithSetting;
+        }
     }
 }

@@ -135,8 +135,14 @@ namespace Vast.DC23.DataTransferClient
                         m_connected = false;
 
                     }
+                    catch
+                    {
+
+                    }
                     if (token.IsCancellationRequested)
                     {
+                        serversocket.Shutdown(SocketShutdown.Both);
+                        serversocket.Disconnect(false);
                         serversocket.Close();
                         serversocket.Dispose();
                         serversocket = null;
@@ -154,7 +160,7 @@ namespace Vast.DC23.DataTransferClient
                 m_connectEvent.WaitOne();
 
             }
-            catch (SocketException se)
+            catch 
             {
                 //FrameworkTools.ErrorProcessing.WriteInfo("socket exception in connect");
                 //Console.WriteLine(se.Message);
@@ -193,6 +199,7 @@ namespace Vast.DC23.DataTransferClient
                         Thread.Sleep(100);
                         m_connected = false;
                     }
+                    catch { }
                     if (m_cancelConnect)
                         return;
                 }
@@ -212,10 +219,10 @@ namespace Vast.DC23.DataTransferClient
                 //Console.WriteLine(se.Message);
                 //AppendText(se.Message);
             }
-            catch (Exception eee)
+            catch 
             {
                 //FrameworkTools.ErrorProcessing.WriteInfo("common exception in connect");
-                throw eee;
+               
             }
         }
 
@@ -252,9 +259,14 @@ namespace Vast.DC23.DataTransferClient
                         //}
                         //else
                         //    return;
-                        clientsock?.Close();
-                        clientsock?.Dispose();
-                        clientsock = null;
+                        try
+                        {
+                            clientsock.Shutdown(SocketShutdown.Both);
+                            clientsock.Disconnect(false);
+                            clientsock?.Close();
+                            clientsock?.Dispose();
+                        }
+                        catch { }
                     }
                     else
                     {
@@ -264,6 +276,10 @@ namespace Vast.DC23.DataTransferClient
             }
             catch (SocketException)
             {
+            }
+            catch
+            {
+
             }
             finally
             {
@@ -937,6 +953,18 @@ namespace Vast.DC23.DataTransferClient
 
                 Thread.CurrentThread.Abort();
             }
+            catch
+            {
+                try
+                {
+                    sock.Shutdown(SocketShutdown.Both);
+                    sock.Disconnect(false);
+                    sock.Close();
+                }
+                catch
+                {
+                }
+            }
             finally
             {
                 m_manResetEvent.Set();
@@ -948,10 +976,14 @@ namespace Vast.DC23.DataTransferClient
 
                 if (wasDisconnectOnSocketExc)
                 {
-                    if (serversocket.Connected)
+                    try
                     {
-                        serversocket?.Disconnect(true);
+                        if (serversocket.Connected)
+                        {
+                            serversocket?.Disconnect(true);
+                        }
                     }
+                    catch { }
                     serversocket?.Close();
                     //if (AutoRestartServer)
                     //    Start();

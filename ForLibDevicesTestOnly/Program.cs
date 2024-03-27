@@ -18,8 +18,15 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            //проверка разбиения строки
+            string str = "USB0::0x0957::0x0407::MY44027128";
+            string usb = string.Empty;
+            string sn = string.Empty;
+            Agilent33220A.GetDeviceInfo(str, out usb, out sn);
+            Console.WriteLine($"{usb}:Agilent 33220A, s/n{sn}");
+
             //Проверка VISA-IVI-USB
-            
+            /*
             ResourceManager rm = new ResourceManager();
             string[] resourses = rm.FindRsrc("?*");
 
@@ -58,7 +65,7 @@ namespace ForLibDevicesTestOnly
             Console.WriteLine(response);
             result = device.Send("FREQ 700");
             device.Close();
-            
+            */
             //Проверка новых методов ConnectCOMPort() DisconnectCOMPort();
             /*
             DS360Setting[] generators = new DS360Setting[10];

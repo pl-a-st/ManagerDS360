@@ -155,12 +155,6 @@
     <None Include="Resources\DC23_серый-.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DC23_зеленый.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DC23_красный.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Message_серый.png" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +186,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Стенд зеленый.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Прибор_серый.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23_серый_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23_зеленый.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23_красный.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DC23_синий.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

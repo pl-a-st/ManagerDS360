@@ -93,6 +93,16 @@ namespace LibControls.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DC23_синий {
+            get {
+                object obj = ResourceManager.GetObject("DC23_синий", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Message_зеленый {
             get {
                 object obj = ResourceManager.GetObject("Message_зеленый", resourceCulture);

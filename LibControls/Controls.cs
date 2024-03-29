@@ -501,6 +501,7 @@ namespace LibControls
             ImageList.Images.Add(Properties.Resources.Стенд_синий);
             ImageList.Images.Add(Properties.Resources.Стенд_красный);
             ImageList.Images.Add(Properties.Resources.Стенд_зеленый);
+            ImageList.Images.Add(Properties.Resources.DC23_синий);
         }
         protected override void OnAfterCheck(TreeViewEventArgs e)
         {

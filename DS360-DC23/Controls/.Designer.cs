@@ -30,7 +30,8 @@ namespace ManagerDS360 {
             this.cboSavedRoutes = new System.Windows.Forms.ComboBox();
             this.butGeneratorControl = new System.Windows.Forms.Button();
             this.lblSelectedNode = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpCommand = new System.Windows.Forms.GroupBox();
+            this.lblCommandStatus = new System.Windows.Forms.Label();
             this.butPlay = new System.Windows.Forms.Button();
             this.butNext = new System.Windows.Forms.Button();
             this.butPrevious = new System.Windows.Forms.Button();
@@ -52,6 +53,12 @@ namespace ManagerDS360 {
             this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRoute = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblTestStatus = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboTestedDevice = new System.Windows.Forms.ComboBox();
+            this.lblTestedDevice = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grpTest = new System.Windows.Forms.GroupBox();
             this.grpStend = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -63,31 +70,26 @@ namespace ManagerDS360 {
             this.lblParametrToHold = new System.Windows.Forms.Label();
             this.lblFreq = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.butVibCalibSetting = new LibControls.ButtonForPicture();
-            this.butVibCalibStop = new LibControls.ButtonForPicture();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblTestStatus = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cboTestedDevice = new System.Windows.Forms.ComboBox();
-            this.lblTestedDevice = new System.Windows.Forms.Label();
             this.butStartTest = new LibControls.ButtonForPicture();
             this.butLable = new LibControls.ButtonForPicture();
             this.butStopTest = new LibControls.ButtonForPicture();
-            this.label1 = new System.Windows.Forms.Label();
-            this.grpTest = new System.Windows.Forms.GroupBox();
+            this.butVibCalibSetting = new LibControls.ButtonForPicture();
+            this.butVibCalibStop = new LibControls.ButtonForPicture();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
-            this.groupBox1.SuspendLayout();
+            this.grpCommand.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.grpTest.SuspendLayout();
             this.grpStend.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // butDefaultGenerator
@@ -147,19 +149,32 @@ namespace ManagerDS360 {
             this.lblSelectedNode.Text = "Активировать команду дерева";
             this.lblSelectedNode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox1
+            // grpCommand
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.butPlay);
-            this.groupBox1.Controls.Add(this.butNext);
-            this.groupBox1.Controls.Add(this.butPrevious);
-            this.groupBox1.Controls.Add(this.lblSelectedNode);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(15, 189);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(227, 114);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
+            this.grpCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpCommand.Controls.Add(this.lblCommandStatus);
+            this.grpCommand.Controls.Add(this.butPlay);
+            this.grpCommand.Controls.Add(this.butNext);
+            this.grpCommand.Controls.Add(this.butPrevious);
+            this.grpCommand.Controls.Add(this.lblSelectedNode);
+            this.grpCommand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.grpCommand.Location = new System.Drawing.Point(15, 189);
+            this.grpCommand.Name = "grpCommand";
+            this.grpCommand.Size = new System.Drawing.Size(227, 120);
+            this.grpCommand.TabIndex = 19;
+            this.grpCommand.TabStop = false;
+            // 
+            // lblCommandStatus
+            // 
+            this.lblCommandStatus.AutoSize = true;
+            this.lblCommandStatus.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCommandStatus.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lblCommandStatus.Location = new System.Drawing.Point(99, 101);
+            this.lblCommandStatus.Name = "lblCommandStatus";
+            this.lblCommandStatus.Size = new System.Drawing.Size(17, 14);
+            this.lblCommandStatus.TabIndex = 31;
+            this.lblCommandStatus.Text = "--";
+            this.lblCommandStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // butPlay
             // 
@@ -172,7 +187,7 @@ namespace ManagerDS360 {
             this.butPlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butPlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPlay.Location = new System.Drawing.Point(91, 40);
+            this.butPlay.Location = new System.Drawing.Point(91, 37);
             this.butPlay.Name = "butPlay";
             this.butPlay.Size = new System.Drawing.Size(56, 58);
             this.butPlay.TabIndex = 23;
@@ -194,7 +209,7 @@ namespace ManagerDS360 {
             this.butNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNext.Location = new System.Drawing.Point(159, 53);
+            this.butNext.Location = new System.Drawing.Point(159, 51);
             this.butNext.Name = "butNext";
             this.butNext.Size = new System.Drawing.Size(55, 30);
             this.butNext.TabIndex = 23;
@@ -216,7 +231,7 @@ namespace ManagerDS360 {
             this.butPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.butPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.butPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPrevious.Location = new System.Drawing.Point(15, 54);
+            this.butPrevious.Location = new System.Drawing.Point(15, 51);
             this.butPrevious.Name = "butPrevious";
             this.butPrevious.Size = new System.Drawing.Size(56, 30);
             this.butPrevious.TabIndex = 23;
@@ -380,7 +395,6 @@ namespace ManagerDS360 {
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.lblTestStatus);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.butStartTest);
             this.splitContainer1.Panel1.Controls.Add(this.butLable);
@@ -388,7 +402,7 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.butDefaultGenerator);
             this.splitContainer1.Panel1.Controls.Add(this.butGeneratorControl);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.grpCommand);
             this.splitContainer1.Panel1.Controls.Add(this.grpTest);
             this.splitContainer1.Panel1.Controls.Add(this.grpStend);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
@@ -402,6 +416,69 @@ namespace ManagerDS360 {
             this.splitContainer1.Size = new System.Drawing.Size(1024, 874);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // lblTestStatus
+            // 
+            this.lblTestStatus.AutoSize = true;
+            this.lblTestStatus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTestStatus.Location = new System.Drawing.Point(99, 115);
+            this.lblTestStatus.Name = "lblTestStatus";
+            this.lblTestStatus.Size = new System.Drawing.Size(22, 16);
+            this.lblTestStatus.TabIndex = 25;
+            this.lblTestStatus.Text = "--";
+            this.lblTestStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cboTestedDevice);
+            this.groupBox2.Controls.Add(this.lblTestedDevice);
+            this.groupBox2.Location = new System.Drawing.Point(15, 107);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(227, 76);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            // 
+            // cboTestedDevice
+            // 
+            this.cboTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cboTestedDevice.FormattingEnabled = true;
+            this.cboTestedDevice.Location = new System.Drawing.Point(6, 39);
+            this.cboTestedDevice.Name = "cboTestedDevice";
+            this.cboTestedDevice.Size = new System.Drawing.Size(215, 22);
+            this.cboTestedDevice.TabIndex = 1;
+            this.cboTestedDevice.SelectedIndexChanged += new System.EventHandler(this.cboTestedDevice_SelectedIndexChanged_1);
+            // 
+            // lblTestedDevice
+            // 
+            this.lblTestedDevice.AutoSize = true;
+            this.lblTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTestedDevice.Location = new System.Drawing.Point(3, 17);
+            this.lblTestedDevice.Name = "lblTestedDevice";
+            this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
+            this.lblTestedDevice.TabIndex = 0;
+            this.lblTestedDevice.Text = "Подключить поверяемый прибор";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(28, 325);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 28);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Выполнить последовательно\r\n команды дерева";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // grpTest
+            // 
+            this.grpTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpTest.Controls.Add(this.lblTestStatus);
+            this.grpTest.Location = new System.Drawing.Point(15, 309);
+            this.grpTest.Name = "grpTest";
+            this.grpTest.Size = new System.Drawing.Size(227, 137);
+            this.grpTest.TabIndex = 26;
+            this.grpTest.TabStop = false;
+            this.grpTest.Enter += new System.EventHandler(this.groupBox3_Enter_1);
             // 
             // grpStend
             // 
@@ -528,40 +605,6 @@ namespace ManagerDS360 {
             this.label3.TabIndex = 30;
             this.label3.Text = "Задано:";
             // 
-            // butVibCalibSetting
-            // 
-            this.butVibCalibSetting.BackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butVibCalibSetting.BackgroundImage")));
-            this.butVibCalibSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butVibCalibSetting.FlatAppearance.BorderSize = 0;
-            this.butVibCalibSetting.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butVibCalibSetting.Location = new System.Drawing.Point(123, 33);
-            this.butVibCalibSetting.Name = "butVibCalibSetting";
-            this.butVibCalibSetting.Size = new System.Drawing.Size(41, 46);
-            this.butVibCalibSetting.TabIndex = 29;
-            this.butVibCalibSetting.UseVisualStyleBackColor = false;
-            this.butVibCalibSetting.Click += new System.EventHandler(this.butVibCalibSetting_Click);
-            // 
-            // butVibCalibStop
-            // 
-            this.butVibCalibStop.BackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibStop.BackgroundImage = global::ManagerDS360.Properties.Resources.Стоп_серый;
-            this.butVibCalibStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butVibCalibStop.FlatAppearance.BorderSize = 0;
-            this.butVibCalibStop.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibStop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butVibCalibStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butVibCalibStop.Location = new System.Drawing.Point(51, 34);
-            this.butVibCalibStop.Name = "butVibCalibStop";
-            this.butVibCalibStop.Size = new System.Drawing.Size(51, 42);
-            this.butVibCalibStop.TabIndex = 29;
-            this.butVibCalibStop.UseVisualStyleBackColor = false;
-            this.butVibCalibStop.Click += new System.EventHandler(this.butVibCalibStop_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -572,46 +615,6 @@ namespace ManagerDS360 {
             this.label2.TabIndex = 28;
             this.label2.Text = "Вибрационная установка";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblTestStatus
-            // 
-            this.lblTestStatus.AutoSize = true;
-            this.lblTestStatus.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTestStatus.Location = new System.Drawing.Point(22, 444);
-            this.lblTestStatus.Name = "lblTestStatus";
-            this.lblTestStatus.Size = new System.Drawing.Size(0, 16);
-            this.lblTestStatus.TabIndex = 25;
-            this.lblTestStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cboTestedDevice);
-            this.groupBox2.Controls.Add(this.lblTestedDevice);
-            this.groupBox2.Location = new System.Drawing.Point(15, 107);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(227, 76);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            // 
-            // cboTestedDevice
-            // 
-            this.cboTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cboTestedDevice.FormattingEnabled = true;
-            this.cboTestedDevice.Location = new System.Drawing.Point(6, 39);
-            this.cboTestedDevice.Name = "cboTestedDevice";
-            this.cboTestedDevice.Size = new System.Drawing.Size(215, 22);
-            this.cboTestedDevice.TabIndex = 1;
-            this.cboTestedDevice.SelectedIndexChanged += new System.EventHandler(this.cboTestedDevice_SelectedIndexChanged_1);
-            // 
-            // lblTestedDevice
-            // 
-            this.lblTestedDevice.AutoSize = true;
-            this.lblTestedDevice.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTestedDevice.Location = new System.Drawing.Point(3, 17);
-            this.lblTestedDevice.Name = "lblTestedDevice";
-            this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
-            this.lblTestedDevice.TabIndex = 0;
-            this.lblTestedDevice.Text = "Подключить поверяемый прибор";
             // 
             // butStartTest
             // 
@@ -666,26 +669,39 @@ namespace ManagerDS360 {
             this.butStopTest.UseVisualStyleBackColor = false;
             this.butStopTest.Click += new System.EventHandler(this.butStopTest_Click);
             // 
-            // label1
+            // butVibCalibSetting
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(28, 325);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 28);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Выполнить последовательно\r\n команды дерева";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.butVibCalibSetting.BackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butVibCalibSetting.BackgroundImage")));
+            this.butVibCalibSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butVibCalibSetting.FlatAppearance.BorderSize = 0;
+            this.butVibCalibSetting.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butVibCalibSetting.Location = new System.Drawing.Point(123, 33);
+            this.butVibCalibSetting.Name = "butVibCalibSetting";
+            this.butVibCalibSetting.Size = new System.Drawing.Size(41, 46);
+            this.butVibCalibSetting.TabIndex = 29;
+            this.butVibCalibSetting.UseVisualStyleBackColor = false;
+            this.butVibCalibSetting.Click += new System.EventHandler(this.butVibCalibSetting_Click);
             // 
-            // grpTest
+            // butVibCalibStop
             // 
-            this.grpTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpTest.Location = new System.Drawing.Point(15, 309);
-            this.grpTest.Name = "grpTest";
-            this.grpTest.Size = new System.Drawing.Size(227, 137);
-            this.grpTest.TabIndex = 26;
-            this.grpTest.TabStop = false;
-            this.grpTest.Enter += new System.EventHandler(this.groupBox3_Enter_1);
+            this.butVibCalibStop.BackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibStop.BackgroundImage = global::ManagerDS360.Properties.Resources.Стоп_серый;
+            this.butVibCalibStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butVibCalibStop.FlatAppearance.BorderSize = 0;
+            this.butVibCalibStop.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibStop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butVibCalibStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butVibCalibStop.Location = new System.Drawing.Point(51, 34);
+            this.butVibCalibStop.Name = "butVibCalibStop";
+            this.butVibCalibStop.Size = new System.Drawing.Size(51, 42);
+            this.butVibCalibStop.TabIndex = 29;
+            this.butVibCalibStop.UseVisualStyleBackColor = false;
+            this.butVibCalibStop.Click += new System.EventHandler(this.butVibCalibStop_Click);
             // 
             // treRouteTree
             // 
@@ -717,12 +733,12 @@ namespace ManagerDS360 {
             this.MinimumSize = new System.Drawing.Size(1040, 500);
             this.Name = "frmManagerDS360";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DS360";
+            this.Text = "Управление средствами поверки";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManagerDS360_Closing);
             this.Load += new System.EventHandler(this.frmManagerDS360_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpCommand.ResumeLayout(false);
+            this.grpCommand.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -732,6 +748,10 @@ namespace ManagerDS360 {
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.grpTest.ResumeLayout(false);
+            this.grpTest.PerformLayout();
             this.grpStend.ResumeLayout(false);
             this.grpStend.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -740,8 +760,6 @@ namespace ManagerDS360 {
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -753,7 +771,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.Button butGeneratorControl;
         private LibControls.TreeViewWithSetting treRouteTree;
         private System.Windows.Forms.Label lblSelectedNode;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpCommand;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem редактированиеМаршрутовToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -798,6 +816,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem mnuSettingFrequencyResponse;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem;
+        private System.Windows.Forms.Label lblCommandStatus;
     }
 }
 

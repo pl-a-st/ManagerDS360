@@ -179,7 +179,7 @@ namespace ManagerDS360
             }
             if (DS360Setting.ConnectedCOMPort != null)
             {
-                while (DS360Setting.ConnectedCOMPort.Count>0)
+                while (DS360Setting.ConnectedCOMPort.Count > 0)
                 {
                     DS360Setting.DisconnectCOMPort(DS360Setting.ConnectedCOMPort[0].Port.PortName);
                 }
@@ -225,7 +225,7 @@ namespace ManagerDS360
             }
             if (selectedNode.NodeType == NodeType.Setting)
             {
-                if(DS360Setting.ComPortDefaultName == GeneratorForVibCalib.Address)
+                if (DS360Setting.ComPortDefaultName == GeneratorForVibCalib.Address)
                 {
                     VibrationStandStopWork();
                 }
@@ -267,9 +267,23 @@ namespace ManagerDS360
         }
         private Result MakeOperationForDC23(TreeNodeWithSetting selectedNode)
         {
+            BeginInvoke(new Action(() =>
+            {
+                selectedNode.ImageIndex = 14;
+                selectedNode.SelectedImageIndex = 14;
+
+            }));
+
+            if (ManagerDC23.IsBeingMeasured)
+            {
+                AcyncShowMassageAndChangePicture("Уже запущено измерение, дождитесь завершения!", selectedNode);
+                return Result.Failure;
+            }
+            ManagerDC23.IsBeingMeasured = true;
             if (ManagerDC23.Client == null || !ManagerDC23.Client.Connected)
             {
                 AcyncShowMassageAndChangePicture("Отсутсвует соединение!", selectedNode);
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Failure;
             }
             if (LastRouteName != selectedNode.DC23.RouteName)
@@ -277,6 +291,7 @@ namespace ManagerDS360
                 if (selectedNode.DC23.OpenRoute() != ResultCommandDC23.Success)
                 {
                     AcyncShowMassageAndChangePicture($"Не удалось открыть маршрут: {selectedNode.DC23.GetRouteNameWithoutCharProtection()}", selectedNode);
+                    ManagerDC23.IsBeingMeasured = false;
                     return Result.Failure;
                 }
                 LastRouteName = selectedNode.DC23.RouteName;
@@ -284,6 +299,7 @@ namespace ManagerDS360
             }
             if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
             {
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Canceled;
             }
             if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelFirstAddress))
@@ -291,12 +307,14 @@ namespace ManagerDS360
                 if (selectedNode.DC23.SetChannelFirst() != ResultCommandDC23.Success)
                 {
                     AcyncShowMassageAndChangePicture("Не удалось привязать канал А", selectedNode);
+                    ManagerDC23.IsBeingMeasured = false;
                     return Result.Failure;
                 }
                 Thread.Sleep(300);
             }
             if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
             {
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Canceled;
             }
             if (!string.IsNullOrEmpty(selectedNode.DC23.СhannelSecondAddress))
@@ -304,21 +322,25 @@ namespace ManagerDS360
                 if (selectedNode.DC23.SetChannelSecond() != ResultCommandDC23.Success)
                 {
                     AcyncShowMassageAndChangePicture("Не удалось привязать канал В", selectedNode);
+                    ManagerDC23.IsBeingMeasured = false;
                     return Result.Failure;
                 }
                 Thread.Sleep(300);
             }
             if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
             {
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Canceled;
             }
             if (selectedNode.DC23.Meas() != ResultCommandDC23.Success)
             {
                 AcyncShowMassageAndChangePicture("Не удалось произвести измерение", selectedNode);
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Failure;
             }
             if (IsTokenCancelAndServiceCancel() == TokenStatus.Canceled)
             {
+                ManagerDC23.IsBeingMeasured = false;
                 return Result.Canceled;
             }
             BeginInvoke(new Action(() =>
@@ -326,6 +348,7 @@ namespace ManagerDS360
                 selectedNode.ImageIndex = 7;
                 selectedNode.SelectedImageIndex = 7;
             }));
+            ManagerDC23.IsBeingMeasured = false;
             return Result.Success;
         }
 
@@ -622,14 +645,14 @@ namespace ManagerDS360
         {
             SendNextNodeSetting();
         }
-        private void SendNextNodeSetting()
+        private async void SendNextNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
             {
                 return;
             }
             SelectNextSetting();
-            SendNodeSetting();
+            await SenNodeSettingAndShowStatus();
         }
         private void SelectNextSetting()
         {
@@ -697,14 +720,14 @@ namespace ManagerDS360
         {
             SendPreviousNodeSetting();
         }
-        private void SendPreviousNodeSetting()
+        private async void SendPreviousNodeSetting()
         {
             if (treRouteTree.SelectedNode == null)
             {
                 return;
             }
             SelectPreviousSetting();
-            SendNodeSetting();
+            await SenNodeSettingAndShowStatus();
         }
         private void butPrevious_MouseEnter(object sender, EventArgs e)
         {
@@ -724,8 +747,22 @@ namespace ManagerDS360
         }
         private async void butPlay_Click(object sender, EventArgs e)
         {
-            await SendNodeSetting();
+            await SenNodeSettingAndShowStatus();
         }
+
+        private async Task SenNodeSettingAndShowStatus()
+        {
+            Task taskSend = new Task((Action)(() => SendNodeSetting()));
+            taskSend.Start();
+            Task taskBlink = new Task((Action)(() => LblCommandBlink(taskSend)));
+            taskBlink.Start();
+
+            while (taskSend.Status == TaskStatus.Running)
+            {
+                await Task.Delay(100);
+            }
+        }
+
         private void butPlay_MouseEnter(object sender, EventArgs e)
         {
             butPlay.BackgroundImage = Properties.Resources.Play2;
@@ -871,15 +908,49 @@ namespace ManagerDS360
 
         private void SetLocationLblTestStatus(string message)
         {
+            lblTestStatus.ForeColor = Color.DarkBlue;
             lblTestStatus.Text = message;
             lblTestStatus.Location = new Point(
-                grpTest.Location.X + grpTest.Width / 2 - lblTestStatus.Width / 2,
-                grpTest.Location.Y + grpTest.Height - lblTestStatus.PreferredHeight-5);
+                grpTest.Width / 2 - lblTestStatus.Width / 2,
+                grpTest.Height - lblTestStatus.PreferredHeight - 5);
+        }
+        private void SetLocationLblCommandStatus(string message)
+        {
+            lblCommandStatus.Text = message;
+            lblCommandStatus.Location = new Point(
+                grpCommand.Width / 2 - lblCommandStatus.Width / 2,
+                grpCommand.Height - lblCommandStatus.PreferredHeight - 5);
         }
 
         private async void LblTestBlink(Task task)
         {
             while (task.Status == TaskStatus.Running)
+            {
+                await Task.Delay(500);
+                BeginInvoke((Action)(() => { lblTestStatus.Visible = !lblTestStatus.Visible; }));
+            }
+            BeginInvoke((Action)(() => { lblTestStatus.Visible = true; }));
+        }
+        private async void LblCommandBlink(Task task)
+        {
+            while (task.Status == TaskStatus.Running)
+            {
+                await Task.Delay(500);
+                BeginInvoke((Action)(() =>
+                {
+                    SetLocationLblCommandStatus("Выполнение команды !!!");
+                    lblCommandStatus.Visible = !lblCommandStatus.Visible;
+                }));
+            }
+            BeginInvoke((Action)(() =>
+            {
+                SetLocationLblCommandStatus("Команда выполнена");
+                lblCommandStatus.Visible = true;
+            }));
+        }
+        private async void LblTestBlink(bool isRun)
+        {
+            while (isRun)
             {
                 await Task.Delay(500);
                 BeginInvoke((Action)(() => { lblTestStatus.Visible = !lblTestStatus.Visible; }));
@@ -917,15 +988,7 @@ namespace ManagerDS360
         }
         private void SetControlsEnabledForTest(TestStatus testStatus)
         {
-            bool enabled = false;
-            if (testStatus == TestStatus.Started)
-            {
-                enabled = false;
-            }
-            if (testStatus == TestStatus.Stoped)
-            {
-                enabled = true;
-            }
+            bool enabled = IsTestStatusStoped(testStatus);
             foreach (Control control in splitContainer1.Panel1.Controls)
             {
                 control.Enabled = enabled;
@@ -936,8 +999,25 @@ namespace ManagerDS360
             }
             butVibCalibSetting.Enabled = enabled;
             butStopTest.Enabled = true;
+            grpTest.Enabled = true;
+            butStartTest.Enabled = enabled;
             lblTestStatus.Enabled = true;
             grpStend.Enabled = true;
+        }
+
+        private static bool IsTestStatusStoped(TestStatus testStatus)
+        {
+            bool enabled = false;
+            if (testStatus == TestStatus.Started)
+            {
+                enabled = false;
+            }
+            if (testStatus == TestStatus.Stoped)
+            {
+                enabled = true;
+            }
+
+            return enabled;
         }
 
         private void SendAllChacked()
@@ -1142,32 +1222,32 @@ namespace ManagerDS360
         private void поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DS360Setting dS360Setting = new DS360Setting();
-            double RMS =  0.000914;
+            double RMS = 0.000914;
             double step = 0.000001;
             List<double> errorList = new List<double>();
             while (RMS > 0.000005)
-            { 
+            {
                 //while (RMS > step*1000)
                 //{
-                    dS360Setting.AmplitudeRMS = RMS;
-                    
-                    for(int i =0; i < 3; i++)
+                dS360Setting.AmplitudeRMS = RMS;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Result result = dS360Setting.ChangeAmplitudeRMS();
+                    if (result != Result.Success)
                     {
-                        Result result = dS360Setting.ChangeAmplitudeRMS();
-                        if (result != Result.Success)
-                        {
-                            errorList.Add(RMS);
-                            Thread.Sleep(2000);
-                            break;
-                        }
+                        errorList.Add(RMS);
+                        Thread.Sleep(2000);
+                        break;
                     }
-                    RMS -= step;
-                    RMS = MetrologyRound.GetRounded(RMS, 5);
+                }
+                RMS -= step;
+                RMS = MetrologyRound.GetRounded(RMS, 5);
                 //}
                 //step /= 10;
             }
             frmInputName frmInputName = new frmInputName();
-            foreach(double db in errorList)
+            foreach (double db in errorList)
             {
                 frmInputName.txtNameSet.Text += " " + db;
             }

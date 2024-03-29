@@ -164,7 +164,7 @@ namespace Vast.DC23.DataTransferClient
             {
                 //FrameworkTools.ErrorProcessing.WriteInfo("socket exception in connect");
                 //Console.WriteLine(se.Message);
-                //AppendText(se.Message);
+                //AppendText(se.Message);             
             }
 
         }

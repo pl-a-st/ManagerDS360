@@ -20,7 +20,7 @@ namespace LibDevicesManager.DC23
     public class ManagerDC23
     {
         public static  ClientDC23 Client = new ClientDC23();
-        
+        public static bool IsBeingMeasured = false;// Todo перерести реализацию изменения данного поля в сам класс
         public string RouteName
         {
             get;

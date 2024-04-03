@@ -51,6 +51,7 @@ namespace LibDevicesManager
                     deviceInfo = $"{usbNumber}: Agilent 33220A, s/n{serialNumber}";
                     generators.Add(deviceInfo);
                 }
+                device.Close();
             }
             return generators;
         }

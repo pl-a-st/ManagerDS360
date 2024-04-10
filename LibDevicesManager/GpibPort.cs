@@ -1,6 +1,7 @@
 ﻿using Ivi.Visa.Interop;
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -387,5 +388,48 @@ namespace LibDevicesManager
         }
         */
         #endregion NotUsed
+    }
+
+    public class ConnectedUSBPort
+    {
+        public GpibPort Port;
+        public int CountConnections;
+        public string DeviceInfo;
+        public string Resource;
+
+        
+        public ConnectedUSBPort()
+        {
+            CountConnections = 0;
+            DeviceInfo = string.Empty;
+            Resource = string.Empty;
+        }
+        /*
+        public Result Open(string portName)
+        {
+            Result result = Result.Failure;
+            if (Port == null)
+            {
+                //Port = new SerialPort();
+            }
+
+            result = ComPort.PortOpen(GeneratorModel.DS360, portName, out Port);
+            if (result == Result.Success)
+            {
+                DeviceInfo = $"{Port.PortName}:";
+                CountConnections++;
+            }
+            return result;
+        }
+        public Result Close()
+        {
+            CountConnections--;
+            if (CountConnections == 0)
+            {
+                return ComPort.PortClose(Port);
+            }
+            return Result.Success;
+        }
+        */
     }
 }

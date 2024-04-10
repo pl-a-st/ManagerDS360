@@ -18,21 +18,35 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            
+        //проверка FindAllAgilent33220A
+        List<string> devices = Agilent33220A.FindAllAgilent33220A();
+            foreach (string device in devices)
+            {
+                Console.WriteLine(device);
+            }
+
+            string deviceInfo = "USB0: Agilent 33220A, s/nMY44031938";
+            Console.WriteLine(Agilent33220A.GetSerialNumberFromDeviceInfo(deviceInfo));
+            
             //проверка разбиения строки
+            /*
             string str = "USB0::0x0957::0x0407::MY44027128";
             string usb = string.Empty;
             string sn = string.Empty;
             Agilent33220A.GetDeviceInfo(str, out usb, out sn);
             Console.WriteLine($"{usb}:Agilent 33220A, s/n{sn}");
+            */
 
             //Проверка VISA-IVI-USB
-            /*
+            
             ResourceManager rm = new ResourceManager();
             string[] resourses = rm.FindRsrc("?*");
 
             try
             {
                 resourses = rm.FindRsrc("?*");
+                Console.WriteLine("Ресурсы:");
                 foreach (string r in resourses)
                 {
                     Console.WriteLine(r);
@@ -49,8 +63,9 @@ namespace ForLibDevicesTestOnly
                     Marshal.FinalReleaseComObject(rm);
                 }
             }
+            /*
             Result result = Result.Failure;
-            GpibPort device = new GpibPort("USB0::0x0957::0x0407::MY44027128");
+            GpibPort device = new GpibPort("USB0::0x0957::0x0407::MY44031938");
             result = device.Send("*IDN?");
             if (result != Result.Success)
             {

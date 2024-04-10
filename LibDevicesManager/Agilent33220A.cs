@@ -14,22 +14,28 @@ namespace LibDevicesManager
             get { return GetAddress(); }
             set { SetAddress(value); }
         }
-        public static List<string> ConnectedUSBPort; //?
+        public static List<ConnectedUSBPort> ConnectedUSBPort;
+        private static List<string[]> resources = new List<string[]>();
+        private static List<string> generators = new List<string>();
+
         public Agilent33220A()
         {
             Generator<Agilent33220A>.GeneratorModel = GeneratorModel.Agilent33220A;
         }
-        public List<string> FindAllAgilent33220A()
+        public static List<string> FindAllAgilent33220A()
         {
             Result result = Result.Failure;
             List<string> usbPorts = new List<string>();
-            List<string> generators = new List<string>();
+            //List<string> generators = new List<string>();
             usbPorts = GpibPort.GetUSBPorts();
             string response = string.Empty;
-            const string rightRespons = "Agilent 33220A"; //Вписать отклик от Agilent 33220A
+            const string rightRespons = "Agilent Technologies,33220A";
+            const string rightRespons2 = "Agilent Technologies,33210A";
             string deviceInfo = string.Empty; // формат должен быть deviceName = $"{usbNumber}: Agilent 33220A, s/n{serialNumber}";
-            string usbNumber = string.Empty;
-            string serialNumber = string.Empty;
+            //string usbNumber = string.Empty;
+            //string serialNumber = string.Empty;
+            generators.Clear();
+            resources.Clear();
             foreach (string usbPort in usbPorts)
             {
                 GpibPort device = new GpibPort(usbPort);
@@ -47,21 +53,94 @@ namespace LibDevicesManager
                 }
                 if (response.Contains(rightRespons))
                 {
-                    GetDeviceInfo(usbPort, out usbNumber, out serialNumber);
-                    deviceInfo = $"{usbNumber}: Agilent 33220A, s/n{serialNumber}";
+                    string[] resourceNameSplited = ConvertResourceNameToArray(usbPort);
+                    deviceInfo = $"{resourceNameSplited[0]}: Agilent 33220A, s/n{resourceNameSplited[3]}";
                     generators.Add(deviceInfo);
+                    resources.Add(resourceNameSplited);
+                }
+                if (response.Contains(rightRespons2))
+                {
+                    string[] resourceNameSplited = ConvertResourceNameToArray(usbPort);
+                    deviceInfo = $"{resourceNameSplited[0]}: Agilent 33210A, s/n{resourceNameSplited[3]}";
+                    generators.Add(deviceInfo);
+                    resources.Add(resourceNameSplited);
                 }
                 device.Close();
             }
             return generators;
         }
-        public static void GetDeviceInfo (string identificationString, out string usbNumber, out string serialNumber)
+
+        public static string GetSerialNumberFromDeviceInfo(string deviceInfo)
+        {
+            string sn = string.Empty;
+            string substringMark = "s/n";
+            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
+            if (snStartPosition < 0)
+            {
+                return sn;
+            }
+            sn = deviceInfo.Substring(snStartPosition);
+            return sn;
+        }
+        private static string GetSerialNumberFromResourceName(string resourceName)
+        {
+            return ConvertResourceNameToArray(resourceName)[3]; //TODO: обработать исключения
+        }
+        public static string[] ConvertResourceNameToArray(string resourceName) //TODO: добавить проверку корректности resourceName
+        {
+            string[] stringSeparator = { "::" };
+            string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
+            return str;
+        }
+        private static int FindIndexInConnectedUSBPort(string serialNumber)
+        {
+            if (ConnectedUSBPort == null)
+            {
+                ConnectedUSBPort = new List<ConnectedUSBPort>();
+            }
+            int index = -1;
+            if (ConnectedUSBPort.Count != 0)
+            {
+                for (int i = 0; i < ConnectedUSBPort.Count; i++)
+                {
+                    if (GetSerialNumberFromDeviceInfo(ConnectedUSBPort[i].DeviceInfo) == serialNumber)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            return index;
+        }
+        private static int FindIndexInResources (string serialNumber)
+        {
+            int index = -1;
+            string sn = string.Empty;
+            if (resources.Count != 0)
+            {
+                for (int i = 0; i < resources.Count; i++)
+                {
+                    sn = resources[i][3];
+                    if (sn == serialNumber)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            return index;
+        }
+        public static void GetDeviceInfo(string resource, out string usbNumber, out string vendorId, out string productId, out string serialNumber)
         {
             usbNumber = string.Empty;
             serialNumber = string.Empty;
+            vendorId = string.Empty;
+            productId = string.Empty;
             string[] stringSeparator = { "::" };
-            string[] str = identificationString.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
+            string[] str = resource.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
             usbNumber = str[0];
+            vendorId = str[1];
+            productId = str[2];
             serialNumber = str[3];
         }
         public Result SendAgilent33220ASetting()

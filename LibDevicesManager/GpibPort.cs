@@ -179,7 +179,7 @@ namespace LibDevicesManager
         {
             List<string> gpibPorts = GetGpibPorts();
             if (gpibPorts != null && gpibPorts.Count > 0)
-            resourceName = $"{gpibPorts[0]}::INSTR"; 
+                resourceName = $"{gpibPorts[0]}::INSTR";
             if (rm == null)
             {
                 try
@@ -304,7 +304,7 @@ namespace LibDevicesManager
             string ch = string.Empty;
             do
             {
-                result = ReadChar(deviceIO, out ch, attemptCount:5) ;
+                result = ReadChar(deviceIO, out ch, attemptCount: 5);
                 if (result != Result.Success)
                 {
                     return result;
@@ -336,7 +336,7 @@ namespace LibDevicesManager
                 {
                     if (attemptCount > 0)
                     {
-                        return ReadChar(deviceIO, out charReaded, attemptCount-1);
+                        return ReadChar(deviceIO, out charReaded, attemptCount - 1);
                     }
                     exceptionMessage = $"Ошибка: {e.Message}";
                     return Result.Exception;
@@ -397,26 +397,24 @@ namespace LibDevicesManager
         public string DeviceInfo;
         public string Resource;
 
-        
+
         public ConnectedUSBPort()
         {
             CountConnections = 0;
             DeviceInfo = string.Empty;
             Resource = string.Empty;
         }
-        /*
-        public Result Open(string portName)
+
+        public Result Open(string resourceName)
         {
             Result result = Result.Failure;
+            if (Port != null)
+            {
+                //TODO:
+            }
             if (Port == null)
             {
-                //Port = new SerialPort();
-            }
-
-            result = ComPort.PortOpen(GeneratorModel.DS360, portName, out Port);
-            if (result == Result.Success)
-            {
-                DeviceInfo = $"{Port.PortName}:";
+                Port = new GpibPort(resourceName);
                 CountConnections++;
             }
             return result;
@@ -426,10 +424,46 @@ namespace LibDevicesManager
             CountConnections--;
             if (CountConnections == 0)
             {
-                return ComPort.PortClose(Port);
+                Port.Close();
             }
             return Result.Success;
         }
-        */
+    }
+    public class ConnectedResource
+    {
+        public int CountConnections;
+        public string ResourceName;
+        public string DeviceInfo;
+        public GpibPort Port;
+        public ConnectedResource() {
+            CountConnections = 0;
+            DeviceInfo = string.Empty;
+            ResourceName = string.Empty;
+        }
+
+        public Result Open(string resourceName)
+        {
+            if (Port != null)
+            {
+                //TODO:
+               return Result.Failure;
+            }
+            if (Port == null)
+            {
+                Port = new GpibPort(resourceName);
+                CountConnections++;
+            }
+            return Result.Success;
+        }
+        public Result Close()
+        {
+            CountConnections--;
+            if (CountConnections == 0)
+            {
+                Port.Close();
+                Port = null;
+            }
+            return Result.Success;
+        }
     }
 }

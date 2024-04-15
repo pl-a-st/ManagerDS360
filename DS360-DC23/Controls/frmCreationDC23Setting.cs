@@ -117,7 +117,7 @@ namespace ManagerDS360.Controls
             }
             if (lstChannelSecond.SelectedIndex != -1)
             {
-                StringToCopy = lstChannelSecond.Items[lstChannelFirst.SelectedIndex].ToString();
+                StringToCopy = lstChannelSecond.Items[lstChannelSecond.SelectedIndex].ToString();
             }
         }
 

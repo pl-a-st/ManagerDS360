@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 namespace LibDevicesManager
 {
     /// <summary>
+    /// Для вызова досрочного выхода из родительского метода 
+    /// </summary>
+    public class EarlyExitException : Exception
+    {
+        public EarlyExitException(string message)
+            : base(message) { }
+    }
+    /// <summary>
     /// Сортированный словарь реализуеющий АЧХ 
     /// где ключ - частота,
     /// занчение - коэффициент, на который нужно домножить

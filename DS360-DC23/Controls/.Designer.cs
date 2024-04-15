@@ -56,9 +56,6 @@ namespace ManagerDS360 {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cboTestedDevice = new System.Windows.Forms.ComboBox();
             this.lblTestedDevice = new System.Windows.Forms.Label();
-            this.butStartTest = new LibControls.ButtonForPicture();
-            this.butLable = new LibControls.ButtonForPicture();
-            this.butStopTest = new LibControls.ButtonForPicture();
             this.label1 = new System.Windows.Forms.Label();
             this.grpTest = new System.Windows.Forms.GroupBox();
             this.lblTestStatus = new System.Windows.Forms.Label();
@@ -73,10 +70,14 @@ namespace ManagerDS360 {
             this.lblParametrToHold = new System.Windows.Forms.Label();
             this.lblFreq = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.butStartTest = new LibControls.ButtonForPicture();
+            this.butLable = new LibControls.ButtonForPicture();
+            this.butStopTest = new LibControls.ButtonForPicture();
             this.butVibCalibSetting = new LibControls.ButtonForPicture();
             this.butVibCalibStop = new LibControls.ButtonForPicture();
-            this.label2 = new System.Windows.Forms.Label();
             this.treRouteTree = new LibControls.TreeViewWithSetting();
+            this.проверкаКоррекцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpCommand.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -332,13 +333,13 @@ namespace ManagerDS360 {
             // mnuHelp
             // 
             this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Size = new System.Drawing.Size(158, 22);
+            this.mnuHelp.Size = new System.Drawing.Size(180, 22);
             this.mnuHelp.Text = "Справка";
             // 
             // mnuAboutProgram
             // 
             this.mnuAboutProgram.Name = "mnuAboutProgram";
-            this.mnuAboutProgram.Size = new System.Drawing.Size(158, 22);
+            this.mnuAboutProgram.Size = new System.Drawing.Size(180, 22);
             this.mnuAboutProgram.Text = "О программе";
             this.mnuAboutProgram.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -347,7 +348,8 @@ namespace ManagerDS360 {
             this.mnuForTest.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuTestFirst,
             this.toolStripMenuItem1,
-            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem});
+            this.поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem,
+            this.проверкаКоррекцииToolStripMenuItem});
             this.mnuForTest.Name = "mnuForTest";
             this.mnuForTest.Size = new System.Drawing.Size(89, 20);
             this.mnuForTest.Text = "Для тестов";
@@ -446,59 +448,6 @@ namespace ManagerDS360 {
             this.lblTestedDevice.Size = new System.Drawing.Size(222, 14);
             this.lblTestedDevice.TabIndex = 0;
             this.lblTestedDevice.Text = "Подключить поверяемый прибор";
-            // 
-            // butStartTest
-            // 
-            this.butStartTest.BackColor = System.Drawing.Color.Transparent;
-            this.butStartTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Заготовки;
-            this.butStartTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butStartTest.FlatAppearance.BorderSize = 0;
-            this.butStartTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butStartTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butStartTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butStartTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butStartTest.Location = new System.Drawing.Point(132, 363);
-            this.butStartTest.Name = "butStartTest";
-            this.butStartTest.Size = new System.Drawing.Size(69, 45);
-            this.butStartTest.TabIndex = 24;
-            this.butStartTest.UseVisualStyleBackColor = false;
-            this.butStartTest.Click += new System.EventHandler(this.butStartTest_Click);
-            // 
-            // butLable
-            // 
-            this.butLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butLable.BackColor = System.Drawing.Color.Transparent;
-            this.butLable.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butLable.BackgroundImage")));
-            this.butLable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butLable.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.butLable.FlatAppearance.BorderSize = 0;
-            this.butLable.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butLable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butLable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butLable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butLable.Location = new System.Drawing.Point(15, 746);
-            this.butLable.Name = "butLable";
-            this.butLable.Size = new System.Drawing.Size(217, 102);
-            this.butLable.TabIndex = 20;
-            this.butLable.UseVisualStyleBackColor = false;
-            this.butLable.Click += new System.EventHandler(this.butLable_Click);
-            // 
-            // butStopTest
-            // 
-            this.butStopTest.BackColor = System.Drawing.Color.Transparent;
-            this.butStopTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Стоп_серый;
-            this.butStopTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.butStopTest.FlatAppearance.BorderSize = 0;
-            this.butStopTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.butStopTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.butStopTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.butStopTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butStopTest.Location = new System.Drawing.Point(65, 363);
-            this.butStopTest.Name = "butStopTest";
-            this.butStopTest.Size = new System.Drawing.Size(51, 45);
-            this.butStopTest.TabIndex = 23;
-            this.butStopTest.UseVisualStyleBackColor = false;
-            this.butStopTest.Click += new System.EventHandler(this.butStopTest_Click);
             // 
             // label1
             // 
@@ -658,6 +607,70 @@ namespace ManagerDS360 {
             this.label3.TabIndex = 30;
             this.label3.Text = "Задано:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(27, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(179, 14);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Вибрационная установка";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // butStartTest
+            // 
+            this.butStartTest.BackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Заготовки;
+            this.butStartTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butStartTest.FlatAppearance.BorderSize = 0;
+            this.butStartTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butStartTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butStartTest.Location = new System.Drawing.Point(132, 363);
+            this.butStartTest.Name = "butStartTest";
+            this.butStartTest.Size = new System.Drawing.Size(69, 45);
+            this.butStartTest.TabIndex = 24;
+            this.butStartTest.UseVisualStyleBackColor = false;
+            this.butStartTest.Click += new System.EventHandler(this.butStartTest_Click);
+            // 
+            // butLable
+            // 
+            this.butLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butLable.BackColor = System.Drawing.Color.Transparent;
+            this.butLable.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("butLable.BackgroundImage")));
+            this.butLable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butLable.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.butLable.FlatAppearance.BorderSize = 0;
+            this.butLable.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butLable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butLable.Location = new System.Drawing.Point(15, 746);
+            this.butLable.Name = "butLable";
+            this.butLable.Size = new System.Drawing.Size(217, 102);
+            this.butLable.TabIndex = 20;
+            this.butLable.UseVisualStyleBackColor = false;
+            this.butLable.Click += new System.EventHandler(this.butLable_Click);
+            // 
+            // butStopTest
+            // 
+            this.butStopTest.BackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.BackgroundImage = global::ManagerDS360.Properties.Resources.Стоп_серый;
+            this.butStopTest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.butStopTest.FlatAppearance.BorderSize = 0;
+            this.butStopTest.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.butStopTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butStopTest.Location = new System.Drawing.Point(65, 363);
+            this.butStopTest.Name = "butStopTest";
+            this.butStopTest.Size = new System.Drawing.Size(51, 45);
+            this.butStopTest.TabIndex = 23;
+            this.butStopTest.UseVisualStyleBackColor = false;
+            this.butStopTest.Click += new System.EventHandler(this.butStopTest_Click);
+            // 
             // butVibCalibSetting
             // 
             this.butVibCalibSetting.BackColor = System.Drawing.Color.Transparent;
@@ -692,17 +705,6 @@ namespace ManagerDS360 {
             this.butVibCalibStop.UseVisualStyleBackColor = false;
             this.butVibCalibStop.Click += new System.EventHandler(this.butVibCalibStop_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(27, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(179, 14);
-            this.label2.TabIndex = 28;
-            this.label2.Text = "Вибрационная установка";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // treRouteTree
             // 
             this.treRouteTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -717,6 +719,13 @@ namespace ManagerDS360 {
             this.treRouteTree.Size = new System.Drawing.Size(752, 800);
             this.treRouteTree.TabIndex = 7;
             this.treRouteTree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treRouteTree_MouseDoubleClick);
+            // 
+            // проверкаКоррекцииToolStripMenuItem
+            // 
+            this.проверкаКоррекцииToolStripMenuItem.Name = "проверкаКоррекцииToolStripMenuItem";
+            this.проверкаКоррекцииToolStripMenuItem.Size = new System.Drawing.Size(382, 22);
+            this.проверкаКоррекцииToolStripMenuItem.Text = "Проверка коррекции";
+            this.проверкаКоррекцииToolStripMenuItem.Click += new System.EventHandler(this.проверкаКоррекцииToolStripMenuItem_Click);
             // 
             // frmManagerDS360
             // 
@@ -817,6 +826,7 @@ namespace ManagerDS360 {
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem;
         private System.Windows.Forms.Label lblCommandStatus;
+        private System.Windows.Forms.ToolStripMenuItem проверкаКоррекцииToolStripMenuItem;
     }
 }
 

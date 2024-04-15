@@ -1222,13 +1222,12 @@ namespace ManagerDS360
         private void поискЗначенийСКЗНеПоддерживаемыDS360ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DS360Setting dS360Setting = new DS360Setting();
-            double RMS = 0.000914;
-            double step = 0.000001;
+            double RMS = 1;
+            double step = 0.001;
             List<double> errorList = new List<double>();
             while (RMS > 0.000005)
             {
-                //while (RMS > step*1000)
-                //{
+                
                 dS360Setting.AmplitudeRMS = RMS;
 
                 for (int i = 0; i < 3; i++)
@@ -1243,8 +1242,10 @@ namespace ManagerDS360
                 }
                 RMS -= step;
                 RMS = MetrologyRound.GetRounded(RMS, 5);
-                //}
-                //step /= 10;
+                if (RMS <= step * 1000 && step >= 0.000001)
+                {
+                    step /= 10;
+                }
             }
             frmInputName frmInputName = new frmInputName();
             foreach (double db in errorList)
@@ -1252,6 +1253,14 @@ namespace ManagerDS360
                 frmInputName.txtNameSet.Text += " " + db;
             }
             frmInputName.ShowDialog();
+        }
+
+        private void проверкаКоррекцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmInputName frmInput = new frmInputName();
+            frmInput.ShowDialog();
+            string value = DS360Setting.CorrectErroInPhysicalGenerator(frmInput.txtNameSet.Text);
+            MessageBox.Show(value);
         }
     }
 }

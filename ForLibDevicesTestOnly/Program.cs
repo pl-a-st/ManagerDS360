@@ -65,6 +65,12 @@ namespace ForLibDevicesTestOnly
                     Marshal.FinalReleaseComObject(rm);
                 }
             }
+            string rName = "ASRL1::INSTR";
+            IviPort iviPort1 = new IviPort(rName);
+            IviPort iviPort2 = new IviPort(rName);
+            IviPort iviPort3 = new IviPort(rName);
+            IviPort iviPort4 = new IviPort(rName);
+            IviPort iviPort5 = new IviPort(rName);
             */
             /*
             Result result = Result.Failure;

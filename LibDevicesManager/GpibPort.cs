@@ -9,6 +9,30 @@ using System.Threading.Tasks;
 
 namespace LibDevicesManager
 {
+    public class IviPort
+    {
+        public IMessage DeviceIO { get; set; }
+        public IMessage deviceIO;
+        public IVisaSession ivs;
+        public static ResourceManager rm;
+        private string resourceName;
+
+        public IviPort (string resourceName)
+        {
+            this.resourceName = resourceName;
+            Open();
+        }
+        private void Open()
+        {
+            if (rm == null)
+            {
+                rm = new ResourceManager();
+            }
+            ivs = rm.Open(resourceName, AccessMode.NO_LOCK, 0, "");
+            deviceIO = new FormattedIO488().IO;
+            deviceIO = (IMessage)ivs;
+        }
+    }
     public class GpibPort
     {
         public int GpibAddress { get; set; }

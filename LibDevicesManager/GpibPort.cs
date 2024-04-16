@@ -91,7 +91,7 @@ namespace LibDevicesManager
             if (ConnectedResources != null && ConnectedResources.Count != 0)
             {
                 int index = -1;
-                // TODO: int index = FindIndexInConnectedComPort(portName);
+                // TODO: int index = FindIndexInConnectedResources(portName);
                 if (index >= 0)
                 {
                     result = ConnectedResources[index].Close();

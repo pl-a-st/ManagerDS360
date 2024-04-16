@@ -30,6 +30,7 @@ namespace LibDevicesManager
                 return GetAllPorts();
             }
         }
+        public static List<ConnectedResource> ConnectedResources;
         private int gpibAddress;
 
         public IMessage DeviceIO { get; set; }
@@ -46,7 +47,7 @@ namespace LibDevicesManager
 
         public GpibPort()
         {
-            FindAndInitFirstGpibPort();
+            //FindAndInitFirstGpibPort();
         }
         public GpibPort(int gpibAddress)
         {
@@ -61,6 +62,48 @@ namespace LibDevicesManager
         #endregion Constructors
 
         #region PublicMethods
+        public static Result ConnectResource (string resourceName)
+        {
+            Result result = Result.Failure;
+            //TODO: добавить проверку корректности resourceName?
+            if (ConnectedResources == null)
+            {
+                ConnectedResources = new List<ConnectedResource>();
+            }
+            if (ConnectedResources.Count != 0)
+            {
+                //TODO: FindIndexInConnectedResources
+                //int index = FindIndexInConnectedResources(resourceName);
+                int index = -1;
+                if (index >= 0)
+                {
+                    ConnectedResources[index].CountConnections++;
+                    return Result.Success;
+                }
+            }
+            ConnectedResource port = new ConnectedResource(resourceName);
+            result = port.Open();
+            return result;
+        }
+        public static Result DisconnectResource(string portName)
+        {
+            Result result = Result.Failure;
+            if (ConnectedResources != null && ConnectedResources.Count != 0)
+            {
+                int index = -1;
+                // TODO: int index = FindIndexInConnectedComPort(portName);
+                if (index >= 0)
+                {
+                    result = ConnectedResources[index].Close();
+                    if (ConnectedResources[index].CountConnections == 0)
+                    {
+                        ConnectedResources.RemoveAt(index);
+                    }
+                    return result;
+                }
+            }
+            return result;
+        }
         public static List<string> GetAllPorts()
         {
             string[] allResources;
@@ -217,7 +260,7 @@ namespace LibDevicesManager
                 }
             }
         }
-        private void Init(string portName)
+        public Result Init(string portName)
         {
             resourceName = portName + "::INSTR";
             if (rm == null)
@@ -229,6 +272,7 @@ namespace LibDevicesManager
                 catch (Exception e)
                 {
                     exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    return Result.Exception;
                 }
             }
             if (rm != null)
@@ -241,6 +285,7 @@ namespace LibDevicesManager
                 {
                     exceptionMessage = $"Ошибка открытия порта: {e.Message}";
                     Marshal.FinalReleaseComObject(rm);
+                    return Result.Exception;
                 }
             }
             if (ivs != null)
@@ -249,13 +294,16 @@ namespace LibDevicesManager
                 {
                     deviceIO = new FormattedIO488().IO;
                     deviceIO = (IMessage)ivs;
+                    return Result.Success;
                 }
                 catch (Exception e)
                 {
                     exceptionMessage = $"Ошибка: {e.Message}";
                     Close();
+                    return Result.Exception;
                 }
             }
+            return Result.Failure;
         }
         private void Init(int gpibAddress)
         {
@@ -435,25 +483,37 @@ namespace LibDevicesManager
         public string ResourceName;
         public string DeviceInfo;
         public GpibPort Port;
-        public ConnectedResource() {
+        //public IMessage DeviceIO { get; set; }
+        //private IMessage deviceIO;
+        //private IVisaSession ivs;
+        //private ResourceManager rm;
+        public ConnectedResource(string resourceName) {
             CountConnections = 0;
             DeviceInfo = string.Empty;
-            ResourceName = string.Empty;
+            ResourceName = resourceName;
         }
 
-        public Result Open(string resourceName)
+        public Result Open()
         {
+            Result result = Result.Failure;
             if (Port != null)
             {
                 //TODO:
-               return Result.Failure;
+               return result;
             }
             if (Port == null)
             {
-                Port = new GpibPort(resourceName);
-                CountConnections++;
+                Port = new GpibPort();
+                result = Port.Init(ResourceName);
             }
-            return Result.Success;
+            if (result != Result.Success)
+            {
+                Port.Close();
+                Port = null;
+                return result;
+            }
+            CountConnections++;
+            return result;
         }
         public Result Close()
         {

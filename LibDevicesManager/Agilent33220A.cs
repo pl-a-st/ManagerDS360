@@ -94,11 +94,12 @@ namespace LibDevicesManager
         }
         private static int FindIndexInConnectedUSBPort(string serialNumber)
         {
+            int index = -1;
             if (ConnectedUSBPort == null)
             {
-                ConnectedUSBPort = new List<ConnectedUSBPort>();
+                //ConnectedUSBPort = new List<ConnectedUSBPort>();
+                return index;
             }
-            int index = -1;
             if (ConnectedUSBPort.Count != 0)
             {
                 for (int i = 0; i < ConnectedUSBPort.Count; i++)

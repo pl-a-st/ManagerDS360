@@ -11,6 +11,14 @@ namespace LibDevicesManager
     {
         Success, Failure, Exception, ParamError, AcsessError, Canceled
     }
+    public enum PortType
+    {
+        SerialPort,
+        IviUsb,
+        IviGPIB,
+        IviTCPIP,
+        IviASRL
+    }
     public enum DeviceType
     {
         Generator,

@@ -65,6 +65,7 @@
     <Compile Include="GeneratorForVibCalib.cs" />
     <Compile Include="GpibPort.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="IviPort.cs" />
     <Compile Include="Multimeter.cs" />
     <Compile Include="MultimeterForVibCalib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

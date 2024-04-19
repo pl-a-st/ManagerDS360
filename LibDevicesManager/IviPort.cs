@@ -16,7 +16,7 @@ namespace LibDevicesManager
         public IMessage deviceIO;
         public IVisaSession ivs;
         public PortType PortType;
-        public static ResourceManager rm;
+        private static ResourceManager rm;
         public static string defaultAdress;
         private string resourceName;
         private static List<string> resources;
@@ -185,6 +185,18 @@ namespace LibDevicesManager
                 resources = new List<string>();
             }
             resources.Clear();
+            if (rm == null)
+            {
+                try
+                {
+                    rm = new ResourceManager();
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка открытия порта: {e.Message}";
+                    return resources;
+                }
+            }
             try
             {
                 try
@@ -212,6 +224,17 @@ namespace LibDevicesManager
             }
             return resources;
         }
+        public static bool IsResourceNameExist(string resourceName)
+        {
+            foreach (string resource in Resources)
+            {
+                if (resourceName == resource)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     public class ConnectedIviResource
     {
@@ -233,20 +256,27 @@ namespace LibDevicesManager
             {
                 connectedIviPorts = new List<ConnectedIviPort>();
             }
-            int index = GetItemIndex(resourceName);
-            if (index < 0)
+            if (IviPort.IsResourceNameExist(resourceName))
             {
-                connectedIviPort = new ConnectedIviPort(resourceName);
-                Result result = connectedIviPort.Open();
-                if (result == Result.Success)
+                int index = GetItemIndex(resourceName);
+                if (index < 0)
                 {
-                    connectedIviPorts.Add(connectedIviPort);
+                    connectedIviPort = new ConnectedIviPort(resourceName);
+                    Result result = connectedIviPort.Open();
+                    if (result == Result.Success)
+                    {
+                        connectedIviPorts.Add(connectedIviPort);
+                        return result;
+                    }
+                    connectedIviPort.Close();
+                    return result;
                 }
-                return result;
+                connectedIviPorts[index].CountConnections++;
+                connectedIviPort = connectedIviPorts[index];
+                return Result.Success;
             }
-            connectedIviPorts[index].CountConnections++;
-            connectedIviPort = connectedIviPorts[index];
-            return Result.Success;
+            connectedIviPort = null;
+            return Result.ParamError;
         }
         public static Result Disconnect(string resourceName)
         {
@@ -353,6 +383,8 @@ namespace LibDevicesManager
     {
         public DeviceType DeviceType { get; set; }
         public string ResourceName { get; set; }
+        public string SerialNumber;
+        public string DeviceInfo;
         private ConnectedIviPort ConnectedPort;
         private bool isConnected;
         public IviDevice()
@@ -363,6 +395,11 @@ namespace LibDevicesManager
         public Result Connect()
         {
             Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedPort);
+            if (SetDeviceInfo() != Result.Success)
+            {
+                Disconnect();
+                return Result.Failure;
+            }
             if (result == Result.Success)
             {
                 isConnected = true;
@@ -371,9 +408,14 @@ namespace LibDevicesManager
         }
         public Result Disconnect()
         {
-            return Result.Failure;
-        }
 
+            Result result = ConnectedIviDevices.Disconnect(ResourceName);
+            if (result == Result.Success)
+            {
+                isConnected = false;
+            }
+            return result;
+        }
         public Result Receive(out string response)
         {
             Result result = Result.Failure;
@@ -404,5 +446,25 @@ namespace LibDevicesManager
             result = ConnectedPort.Send(command);
             return result;
         }
+
+        private Result SetDeviceFields()
+        {
+            //TODO:
+            return Result.Failure;
+        }
+        private static string GetSerialNumberFromDeviceInfo(string deviceInfo)
+        {
+            string sn = string.Empty;
+            string substringMark = "s/n";
+            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
+            if (snStartPosition < 0)
+            {
+                return sn;
+            }
+            sn = deviceInfo.Substring(snStartPosition);
+            return sn;
+        }
+
+
     }
 }

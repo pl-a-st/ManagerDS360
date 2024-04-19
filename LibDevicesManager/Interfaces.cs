@@ -25,6 +25,15 @@ namespace LibDevicesManager
         Multimeter,
         Unknown
     }
+    public enum DeviceModel
+    {
+        DS360,
+        Agilent33220A,
+        Agilent33210A,
+        Agilent3458A,
+        Agilent34401A,
+        Unknown
+    }
     public enum GeneratorModel
     {
         DS360,

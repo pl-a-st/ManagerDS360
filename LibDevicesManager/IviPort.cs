@@ -449,15 +449,47 @@ namespace LibDevicesManager
             SetPortType();
             if (portType == PortType.IviUSB)
             {
-                if (Send ("IDN?") != Result.Success || Receive(out response) != Result.Success)
+                result = Send("IDN?");
+                if ( result != Result.Success)
                 {
-                    return Result.Failure;
+                    return result;
                 }
-
-                
+                result = Receive(out response);
+                if (result != Result.Success)
+                {
+                    return result;
+                }
+                IdentifyDeviceModel(response);
             }
-            //TODO:
-            return Result.Failure;
+            if (portType == PortType.IviGPIB)
+            {
+                result = Send("IDN?");
+                if (result != Result.Success)
+                {
+                    return result;
+                }
+                result = Receive(out response);
+                if (result != Result.Success)
+                {
+                    result = Send("ID?");
+                    if (result != Result.Success)
+                    {
+                        return result;
+                    }
+                    result = Receive(out response);
+                    if (result != Result.Success)
+                    {
+                        return result;
+                    }
+                }
+                IdentifyDeviceModel(response);
+            }
+            if (DeviceModel == DeviceModel.Unknown)
+            {
+                return Result.Failure;
+            }
+            //TODO: GetSerialNumber, SetDeviceInfo
+            return Result.Success;
         }
         private void SetPortType()
         {
@@ -496,6 +528,8 @@ namespace LibDevicesManager
         {
             const string response33220A = "Agilent Technologies,33220A";
             const string response33210A = "Agilent Technologies,33210A";
+            const string response3458A = "HP3458A";
+            const string responseDS360 = "DS360";
             //deviceModel = DeviceModel.Unknown;
             if (response == response33220A)
             {
@@ -507,6 +541,12 @@ namespace LibDevicesManager
             {
                 deviceModel = DeviceModel.Agilent33210A;
                 deviceType = DeviceType.Generator;
+                return Result.Success;
+            }
+            if (response == response3458A)
+            {
+                deviceModel = DeviceModel.Agilent3458A;
+                deviceType = DeviceType.Multimeter;
                 return Result.Success;
             }
             return Result.ParamError;

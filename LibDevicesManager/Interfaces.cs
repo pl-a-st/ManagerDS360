@@ -14,7 +14,7 @@ namespace LibDevicesManager
     public enum PortType
     {
         SerialPort,
-        IviUsb,
+        IviUSB,
         IviGPIB,
         IviTCPIP,
         IviASRL

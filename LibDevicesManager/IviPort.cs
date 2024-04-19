@@ -32,7 +32,7 @@ namespace LibDevicesManager
         {
             if (resourceName.StartsWith("USB"))
             {
-                PortType = PortType.IviUsb;
+                PortType = PortType.IviUSB;
             }
             if (resourceName.StartsWith("GPIB"))
             {
@@ -236,17 +236,6 @@ namespace LibDevicesManager
             return false;
         }
     }
-    public class ConnectedIviResource
-    {
-        public int CountConnections;
-        public string ResourceName;
-        public ConnectedIviResource(string resourceName)
-        {
-            CountConnections = 0;
-            ResourceName = resourceName;
-        }
-
-    }
     public static class ConnectedIviDevices
     {
         public static List<ConnectedIviPort> connectedIviPorts;
@@ -381,21 +370,27 @@ namespace LibDevicesManager
     }
     public class IviDevice : IDevice
     {
-        public DeviceType DeviceType { get; set; }
+        public DeviceType DeviceType { get { return deviceType; }}
+        public DeviceModel DeviceModel { get { return deviceModel; } }
+        public PortType PortType { get { return portType; } set { SetPortType(); } }
         public string ResourceName { get; set; }
         public string SerialNumber;
         public string DeviceInfo;
+        private PortType portType;
+        private DeviceType deviceType;
+        private DeviceModel deviceModel;
         private ConnectedIviPort ConnectedPort;
         private bool isConnected;
         public IviDevice()
         {
-            DeviceType = DeviceType.Unknown;
+            deviceType = DeviceType.Unknown;
+            deviceModel = DeviceModel.Unknown;
             isConnected = false;
         }
         public Result Connect()
         {
-            Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedPort);
-            if (SetDeviceInfo() != Result.Success)
+            Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedPort); //Проверка корректности ResourceName проводится в этом методе
+            if (SetDeviceFields() != Result.Success)
             {
                 Disconnect();
                 return Result.Failure;
@@ -449,8 +444,35 @@ namespace LibDevicesManager
 
         private Result SetDeviceFields()
         {
+            Result result = Result.Failure;
+            string response = string.Empty;
+            SetPortType();
+            if (portType == PortType.IviUSB)
+            {
+                if (Send ("IDN?") != Result.Success || Receive(out response) != Result.Success)
+                {
+                    return Result.Failure;
+                }
+
+                
+            }
             //TODO:
             return Result.Failure;
+        }
+        private void SetPortType()
+        {
+            if (ResourceName.StartsWith("USB"))
+            {
+                portType = PortType.IviUSB;
+            }
+            if (ResourceName.StartsWith("GPIB"))
+            {
+                portType = PortType.IviGPIB;
+            }
+            if (ResourceName.StartsWith("TCPIP"))
+            {
+                portType = PortType.IviTCPIP;
+            }
         }
         private static string GetSerialNumberFromDeviceInfo(string deviceInfo)
         {
@@ -464,7 +486,31 @@ namespace LibDevicesManager
             sn = deviceInfo.Substring(snStartPosition);
             return sn;
         }
-
+        private static string[] ConvertResourceNameToArray(string resourceName) 
+        {
+            string[] stringSeparator = { "::" };
+            string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
+            return str;
+        }
+        private Result IdentifyDeviceModel(string response)
+        {
+            const string response33220A = "Agilent Technologies,33220A";
+            const string response33210A = "Agilent Technologies,33210A";
+            //deviceModel = DeviceModel.Unknown;
+            if (response == response33220A)
+            {
+                deviceModel = DeviceModel.Agilent33220A;
+                deviceType = DeviceType.Generator;
+                return Result.Success;
+            }
+            if (response == response33210A)
+            {
+                deviceModel = DeviceModel.Agilent33210A;
+                deviceType = DeviceType.Generator;
+                return Result.Success;
+            }
+            return Result.ParamError;
+        }
 
     }
 }

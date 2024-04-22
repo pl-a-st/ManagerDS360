@@ -397,8 +397,15 @@ namespace LibDevicesManager
         private string deviceInfo;
         private ConnectedIviDevice ConnectedIviDevice;
         private bool isConnected;
-        public IviDevice()
+        public IviDevice() //TODO: оставить для дефлотных
         {
+            deviceType = DeviceType.Unknown;
+            deviceModel = DeviceModel.Unknown;
+            isConnected = false;
+        }
+        public IviDevice(string resourceName)
+        {
+            ResourceName = resourceName;
             deviceType = DeviceType.Unknown;
             deviceModel = DeviceModel.Unknown;
             isConnected = false;

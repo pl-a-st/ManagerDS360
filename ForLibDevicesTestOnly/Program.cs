@@ -17,9 +17,24 @@ namespace ForLibDevicesTestOnly
         static void Main(string[] args)
         {
             Console.WriteLine("FOR TEST ONLY");
-            DeviceModel dm = DeviceModel.Agilent33220A;
-            Console.WriteLine(dm.ToString());
+            
+
             //ТЕСТОВАЯ ЧАСТЬ
+            //проверка IviDevice
+            List<string> resources = IviPort.GetAllResources();
+            List<IviDevice> devices = new List<IviDevice>();
+            //int countDevice = 0;
+            foreach (string resource in resources)
+            {
+                Console.WriteLine(resource);
+                if (resource.StartsWith("USB"))
+                {
+                    devices.Add( new IviDevice(resource));
+                    //countDevice++;
+                }
+            }
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
 
             //проверка FindAllAgilent33220A
             /*

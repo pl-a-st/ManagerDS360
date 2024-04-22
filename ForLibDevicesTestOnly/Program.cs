@@ -17,10 +17,20 @@ namespace ForLibDevicesTestOnly
         static void Main(string[] args)
         {
             Console.WriteLine("FOR TEST ONLY");
-            
+
 
             //ТЕСТОВАЯ ЧАСТЬ
-            //проверка IviDevice
+            //проверка IviDevice (USB0::0x0957::0x0407::MY44031938::INSTR)
+            
+            IviPort iviPort = new IviPort("USB0::0x0957::0x0407::MY44031938::INSTR");
+            Result result = iviPort.Open();
+            iviPort.Send("*IDN?");
+            string str;
+            iviPort.ReadString(out str);
+            Console.WriteLine(str);
+            Console.ReadKey();
+            
+            
             List<string> resources = IviPort.GetAllResources();
             List<IviDevice> devices = new List<IviDevice>();
             //int countDevice = 0;
@@ -33,6 +43,8 @@ namespace ForLibDevicesTestOnly
                     //countDevice++;
                 }
             }
+            devices[0].Connect();
+            
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
 

@@ -333,6 +333,7 @@ namespace LibDevicesManager
             {
                 Port = new IviPort(ResourceName);
                 result = Port.Open();
+                Task.Delay(100);
             }
             if (result != Result.Success)
             {
@@ -413,14 +414,19 @@ namespace LibDevicesManager
         public Result Connect()
         {
             Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedIviDevice); //Проверка корректности ResourceName проводится в этом методе
+            if (result == Result.Success)
+            {
+                isConnected = true;
+            }
             if (SetDeviceFields() != Result.Success)
             {
                 Disconnect();
+                isConnected = false;
                 return Result.Failure;
             }
             if (result == Result.Success)
             {
-                isConnected = true;
+                //isConnected = true;
                 ConnectedIviDevice.SetDeviceInfo(deviceInfo);
             }
             return result;
@@ -453,7 +459,8 @@ namespace LibDevicesManager
         public Result Send(string command)
         {
             Result result = Result.Failure;
-            if (isConnected)
+            /*
+            if (!isConnected)
             { 
                 result = Connect();
                 if (result != Result.Success)
@@ -461,6 +468,7 @@ namespace LibDevicesManager
                     return result;
                 }
             }
+            */
             result = ConnectedIviDevice.Send(command);
             return result;
         }
@@ -472,7 +480,7 @@ namespace LibDevicesManager
             SetPortType();
             if (portType == PortType.IviUSB)
             {
-                result = Send("IDN?");
+                result = Send("*IDN?");
                 if ( result != Result.Success)
                 {
                     return result;

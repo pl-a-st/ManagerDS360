@@ -239,7 +239,7 @@ namespace LibDevicesManager
     public static class ConnectedIviDevices
     {
         public static List<ConnectedIviPort> connectedIviPorts;
-        public static Result Connect(string resourceName, out ConnectedIviPort connectedIviPort)
+        public static Result Connect(string resourceName, out ConnectedIviPort connectedIviPort) //TODO: возможно потребуется отличие new: isNewConnection
         {
             if (connectedIviPorts == null)
             {
@@ -277,7 +277,9 @@ namespace LibDevicesManager
             connectedIviPorts[index].CountConnections--;
             if (connectedIviPorts[index].CountConnections == 0)
             {
-                return connectedIviPorts[index].Close();
+                Result result = connectedIviPorts[index].Close();
+                connectedIviPorts.RemoveAt(index);
+                return result;
             }
             return Result.Success;
         }
@@ -316,12 +318,12 @@ namespace LibDevicesManager
         public Result Open()
         {
             Result result = Result.Failure;
-            if (Port != null)
+            if (Port != null) //
             {
                 //TODO:
-                return result;
+                return result; //
             }
-            if (Port == null)
+            if (Port == null)  //
             {
                 Port = new IviPort(ResourceName);
                 result = Port.Open();
@@ -353,6 +355,7 @@ namespace LibDevicesManager
         {
             return Port.ReadString(out stringReaded);
         }
+        /* //NotUsed
         public int GetIndexFromConnected()
         {
             int index = -1;
@@ -367,6 +370,7 @@ namespace LibDevicesManager
             }
             return false;
         }
+        */
     }
     public class IviDevice : IDevice
     {
@@ -374,11 +378,13 @@ namespace LibDevicesManager
         public DeviceModel DeviceModel { get { return deviceModel; } }
         public PortType PortType { get { return portType; } set { SetPortType(); } }
         public string ResourceName { get; set; }
-        public string SerialNumber;
-        public string DeviceInfo;
+        public string SerialNumber { get { return serialNumber; } }
+        public string DeviceInfo { get { return deviceInfo; } }
         private PortType portType;
         private DeviceType deviceType;
         private DeviceModel deviceModel;
+        private string serialNumber;
+        private string deviceInfo;
         private ConnectedIviPort ConnectedPort;
         private bool isConnected;
         public IviDevice()
@@ -426,7 +432,6 @@ namespace LibDevicesManager
             result = ConnectedPort.ReadString(out response);
             return result;
         }
-
         public Result Send(string command)
         {
             Result result = Result.Failure;
@@ -459,7 +464,7 @@ namespace LibDevicesManager
                 {
                     return result;
                 }
-                IdentifyDeviceModel(response);
+                IdentifyDevice(response);
             }
             if (portType == PortType.IviGPIB)
             {
@@ -482,7 +487,7 @@ namespace LibDevicesManager
                         return result;
                     }
                 }
-                IdentifyDeviceModel(response);
+                IdentifyDevice(response);
             }
             if (DeviceModel == DeviceModel.Unknown)
             {
@@ -524,33 +529,82 @@ namespace LibDevicesManager
             string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
             return str;
         }
-        private Result IdentifyDeviceModel(string response)
+        private Result IdentifyDevice(string response)
         {
+            Result result= Result.ParamError;
+            deviceModel = DeviceModel.Unknown;
             const string response33220A = "Agilent Technologies,33220A";
             const string response33210A = "Agilent Technologies,33210A";
             const string response3458A = "HP3458A";
-            const string responseDS360 = "DS360";
-            //deviceModel = DeviceModel.Unknown;
+            const string responseDS360 = "StanfordResearchSystems,DS360,";
             if (response == response33220A)
             {
                 deviceModel = DeviceModel.Agilent33220A;
                 deviceType = DeviceType.Generator;
-                return Result.Success;
+                result = Result.Success;
             }
             if (response == response33210A)
             {
                 deviceModel = DeviceModel.Agilent33210A;
                 deviceType = DeviceType.Generator;
-                return Result.Success;
+                result = Result.Success;
             }
             if (response == response3458A)
             {
                 deviceModel = DeviceModel.Agilent3458A;
                 deviceType = DeviceType.Multimeter;
-                return Result.Success;
+                result = Result.Success;
             }
-            return Result.ParamError;
+            if (response.StartsWith(responseDS360)) //TODO: проверить
+            {
+                deviceModel = DeviceModel.DS360;
+                deviceType = DeviceType.Generator;
+                result = Result.Success;
+            }
+            SetSerialNumber(response);
+            SetDeviceInfo();
+            return result;
         }
-
+        private void SetSerialNumber(string response)
+        {
+            if (portType == PortType.IviUSB)
+            {
+                string[] subString = ConvertResourceNameToArray(ResourceName);
+                if (subString != null && subString.Length > 3)
+                {
+                    serialNumber = subString[3];
+                }
+            }
+            if (deviceModel == DeviceModel.Agilent3458A || deviceModel == DeviceModel.Unknown)
+            {
+                serialNumber = string.Empty;
+                return;
+            }
+            if (deviceModel == DeviceModel.DS360)
+            {
+                string[] subString = response.Split(',');
+                serialNumber = subString[2];
+            }
+        }
+        private void SetDeviceInfo()
+        {
+            string port = string.Empty;
+            string model = string.Empty;
+            if (portType == PortType.IviUSB)
+            {
+                port = ResourceName.Substring(startIndex: 0, length: 4);
+            }
+            if (portType == PortType.IviGPIB)
+            {
+                string[] substring = ConvertResourceNameToArray(ResourceName);
+                port = $"{substring[0]}/{substring[1]}";
+            }
+            if (portType == PortType.IviTCPIP)
+            {
+                //TODO
+            }
+            model = DeviceModel.ToString();
+            deviceInfo = $"{port}: {model}, sn{serialNumber}";
+        }
     }
 }

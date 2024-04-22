@@ -17,6 +17,8 @@ namespace ForLibDevicesTestOnly
         static void Main(string[] args)
         {
             Console.WriteLine("FOR TEST ONLY");
+            DeviceModel dm = DeviceModel.Agilent33220A;
+            Console.WriteLine(dm.ToString());
             //ТЕСТОВАЯ ЧАСТЬ
 
             //проверка FindAllAgilent33220A

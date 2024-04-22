@@ -28,21 +28,7 @@ namespace LibDevicesManager
             SetPortType();
             //Open();
         }
-        private void SetPortType()
-        {
-            if (resourceName.StartsWith("USB"))
-            {
-                PortType = PortType.IviUSB;
-            }
-            if (resourceName.StartsWith("GPIB"))
-            {
-                PortType = PortType.IviGPIB;
-            }
-            if (resourceName.StartsWith("TCPIP"))
-            {
-                PortType = PortType.IviTCPIP;
-            }
-        }
+        
         public Result Open()
         {
             //resourceName = portName + "::INSTR";
@@ -131,52 +117,6 @@ namespace LibDevicesManager
         {
             return ReadString(deviceIO, out stringReaded);
         }
-        private Result ReadString(IMessage deviceIO, out string stringReaded)
-        {
-            Result result;
-            stringReaded = string.Empty;
-            string ch = string.Empty;
-            do
-            {
-                result = ReadChar(deviceIO, out ch, attemptCount: 5);
-                if (result != Result.Success)
-                {
-                    return result;
-                }
-                if (ch == "\n" || ch == "\r")
-                {
-                    continue;
-                }
-                stringReaded += ch;
-            }
-            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия 
-            return Result.Success;
-        }
-        private Result ReadChar(IMessage deviceIO, out string charReaded, int attemptCount)
-        {
-            charReaded = string.Empty;
-            if (deviceIO == null)
-            {
-                return Result.ParamError;
-            }
-            if (deviceIO != null)
-            {
-                try
-                {
-                    charReaded = deviceIO.ReadString(1);
-                }
-                catch (Exception e)
-                {
-                    if (attemptCount > 0)
-                    {
-                        return ReadChar(deviceIO, out charReaded, attemptCount - 1);
-                    }
-                    exceptionMessage = $"Ошибка: {e.Message}";
-                    return Result.Exception;
-                }
-            }
-            return Result.Success;
-        }
         public static List<string> GetAllResources()
         {
             string[] allResources;
@@ -235,36 +175,98 @@ namespace LibDevicesManager
             }
             return false;
         }
+        private void SetPortType()
+        {
+            if (resourceName.StartsWith("USB"))
+            {
+                PortType = PortType.IviUSB;
+            }
+            if (resourceName.StartsWith("GPIB"))
+            {
+                PortType = PortType.IviGPIB;
+            }
+            if (resourceName.StartsWith("TCPIP"))
+            {
+                PortType = PortType.IviTCPIP;
+            }
+        }
+        private Result ReadString(IMessage deviceIO, out string stringReaded)
+        {
+            Result result;
+            stringReaded = string.Empty;
+            string ch = string.Empty;
+            do
+            {
+                result = ReadChar(deviceIO, out ch, attemptCount: 5);
+                if (result != Result.Success)
+                {
+                    return result;
+                }
+                if (ch == "\n" || ch == "\r")
+                {
+                    continue;
+                }
+                stringReaded += ch;
+            }
+            while (ch != string.Empty && ch != "\n"); //Проверить необходимость первого условия 
+            return Result.Success;
+        }
+        private Result ReadChar(IMessage deviceIO, out string charReaded, int attemptCount)
+        {
+            charReaded = string.Empty;
+            if (deviceIO == null)
+            {
+                return Result.ParamError;
+            }
+            if (deviceIO != null)
+            {
+                try
+                {
+                    charReaded = deviceIO.ReadString(1);
+                }
+                catch (Exception e)
+                {
+                    if (attemptCount > 0)
+                    {
+                        return ReadChar(deviceIO, out charReaded, attemptCount - 1);
+                    }
+                    exceptionMessage = $"Ошибка: {e.Message}";
+                    return Result.Exception;
+                }
+            }
+            return Result.Success;
+        }
+        
     }
     public static class ConnectedIviDevices
     {
-        public static List<ConnectedIviPort> connectedIviPorts;
-        public static Result Connect(string resourceName, out ConnectedIviPort connectedIviPort) //TODO: возможно потребуется отличие new: isNewConnection
+        public static List<ConnectedIviDevice> connectedIviDevices;
+        public static Result Connect(string resourceName, out ConnectedIviDevice connectedIviDevice) //TODO: возможно потребуется отличие new: isNewConnection
         {
-            if (connectedIviPorts == null)
+            if (connectedIviDevices == null)
             {
-                connectedIviPorts = new List<ConnectedIviPort>();
+                connectedIviDevices = new List<ConnectedIviDevice>();
             }
             if (IviPort.IsResourceNameExist(resourceName))
             {
                 int index = GetItemIndex(resourceName);
                 if (index < 0)
                 {
-                    connectedIviPort = new ConnectedIviPort(resourceName);
-                    Result result = connectedIviPort.Open();
+                    connectedIviDevice = new ConnectedIviDevice(resourceName);
+                    Result result = connectedIviDevice.Open();
                     if (result == Result.Success)
                     {
-                        connectedIviPorts.Add(connectedIviPort);
+                        connectedIviDevices.Add(connectedIviDevice);
                         return result;
                     }
-                    connectedIviPort.Close();
+                    connectedIviDevice.Close();
                     return result;
                 }
-                connectedIviPorts[index].CountConnections++;
-                connectedIviPort = connectedIviPorts[index];
+                connectedIviDevices[index].CountConnections++;
+                connectedIviDevice = connectedIviDevices[index];
                 return Result.Success;
             }
-            connectedIviPort = null;
+            connectedIviDevice = null;
             return Result.ParamError;
         }
         public static Result Disconnect(string resourceName)
@@ -274,11 +276,11 @@ namespace LibDevicesManager
             {
                 return Result.ParamError;
             }
-            connectedIviPorts[index].CountConnections--;
-            if (connectedIviPorts[index].CountConnections == 0)
+            connectedIviDevices[index].CountConnections--;
+            if (connectedIviDevices[index].CountConnections == 0)
             {
-                Result result = connectedIviPorts[index].Close();
-                connectedIviPorts.RemoveAt(index);
+                Result result = connectedIviDevices[index].Close();
+                connectedIviDevices.RemoveAt(index);
                 return result;
             }
             return Result.Success;
@@ -286,13 +288,13 @@ namespace LibDevicesManager
         public static int GetItemIndex(string resourceName)
         {
             int index = -1;
-            if (connectedIviPorts == null || connectedIviPorts.Count == 0)
+            if (connectedIviDevices == null || connectedIviDevices.Count == 0)
             {
                 return index;
             }
-            for (int i = 0; i < connectedIviPorts.Count; i++)
+            for (int i = 0; i < connectedIviDevices.Count; i++)
             {
-                if (connectedIviPorts[i].ResourceName == resourceName)
+                if (connectedIviDevices[i].ResourceName == resourceName)
                 {
                     return i;
                 }
@@ -300,19 +302,23 @@ namespace LibDevicesManager
             return index;
         }
     }
-    public class ConnectedIviPort
+    public class ConnectedIviDevice
     {
         public int CountConnections;
-        public string ResourceName;
-        public string DeviceInfo;
-        public string SerialNumber;
-        public PortType PortType;
+        public string ResourceName { get { return resourceName; } }
+        public string DeviceInfo { get { return deviceInfo; } }
+        //public string SerialNumber { get { return serialNumber; } }
+        //public PortType PortType;
         public IviPort Port;
-        public ConnectedIviPort(string resourceName)
+
+        private string resourceName;
+        private string deviceInfo;
+        //private string serialNumber;
+        public ConnectedIviDevice(string resourceName)
         {
-            CountConnections = 0;
-            DeviceInfo = string.Empty;
-            ResourceName = resourceName;
+            //CountConnections = 0;
+            //DeviceInfo = string.Empty;
+            this.resourceName = resourceName;
         }
 
         public Result Open()
@@ -339,7 +345,7 @@ namespace LibDevicesManager
         }
         public Result Close()
         {
-            CountConnections--;
+            CountConnections--; //проверить
             if (CountConnections == 0)
             {
                 Port.Close();
@@ -354,6 +360,10 @@ namespace LibDevicesManager
         public Result ReadString(out string stringReaded)
         {
             return Port.ReadString(out stringReaded);
+        }
+        public void SetDeviceInfo(string deviceInfo)
+        {
+            this.deviceInfo = deviceInfo;
         }
         /* //NotUsed
         public int GetIndexFromConnected()
@@ -385,7 +395,7 @@ namespace LibDevicesManager
         private DeviceModel deviceModel;
         private string serialNumber;
         private string deviceInfo;
-        private ConnectedIviPort ConnectedPort;
+        private ConnectedIviDevice ConnectedIviDevice;
         private bool isConnected;
         public IviDevice()
         {
@@ -395,7 +405,7 @@ namespace LibDevicesManager
         }
         public Result Connect()
         {
-            Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedPort); //Проверка корректности ResourceName проводится в этом методе
+            Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedIviDevice); //Проверка корректности ResourceName проводится в этом методе
             if (SetDeviceFields() != Result.Success)
             {
                 Disconnect();
@@ -404,6 +414,7 @@ namespace LibDevicesManager
             if (result == Result.Success)
             {
                 isConnected = true;
+                ConnectedIviDevice.SetDeviceInfo(deviceInfo);
             }
             return result;
         }
@@ -429,7 +440,7 @@ namespace LibDevicesManager
                     return result;
                 }
             }
-            result = ConnectedPort.ReadString(out response);
+            result = ConnectedIviDevice.ReadString(out response);
             return result;
         }
         public Result Send(string command)
@@ -443,7 +454,7 @@ namespace LibDevicesManager
                     return result;
                 }
             }
-            result = ConnectedPort.Send(command);
+            result = ConnectedIviDevice.Send(command);
             return result;
         }
 

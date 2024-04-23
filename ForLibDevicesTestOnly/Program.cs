@@ -21,16 +21,16 @@ namespace ForLibDevicesTestOnly
 
             //ТЕСТОВАЯ ЧАСТЬ
             //проверка IviDevice (USB0::0x0957::0x0407::MY44031938::INSTR)
-            
+
             IviPort iviPort = new IviPort("USB0::0x0957::0x0407::MY44031938::INSTR");
             Result result = iviPort.Open();
             iviPort.Send("*IDN?");
             string str;
             iviPort.ReadString(out str);
-            Console.WriteLine(str);
+            Console.WriteLine("Ответ от MY44031938: " + str);
             //Console.ReadKey();
-            
-            
+
+
             List<string> resources = IviPort.GetAllResources();
             List<IviDevice> devices = new List<IviDevice>();
             //int countDevice = 0;
@@ -39,14 +39,16 @@ namespace ForLibDevicesTestOnly
                 Console.WriteLine(resource);
                 if (resource.StartsWith("USB"))
                 {
-                    devices.Add( new IviDevice(resource));
+                    devices.Add(new IviDevice(resource));
                     //countDevice++;
                 }
             }
-            //devices[0].Connect();
-            
+            if (devices.Count > 0)
+            {
+                devices[0].Connect();
+            }
             Console.WriteLine("Press any key to continue");
-              Console.ReadKey();
+            Console.ReadKey();
             //*/
 
             //проверка FindAllAgilent33220A

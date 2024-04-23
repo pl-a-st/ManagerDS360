@@ -319,13 +319,13 @@ namespace LibDevicesManager
             {
                 return Result.ParamError;
             }
-            connectedIviDevices[index].CountConnections--;
-            if (connectedIviDevices[index].CountConnections == 0)
+            if (connectedIviDevices[index].CountConnections == 1)
             {
                 Result result = connectedIviDevices[index].Close();
                 connectedIviDevices.RemoveAt(index);
                 return result;
             }
+            connectedIviDevices[index].CountConnections--;
             return Result.Success;
         }
         public static int GetItemIndex(string resourceName)
@@ -491,7 +491,7 @@ namespace LibDevicesManager
         {
             Result result = Result.Failure;
             response = string.Empty;
-            if (isConnected)
+            if (!isConnected)
             {
                 result = Connect();
                 if (result != Result.Success)
@@ -599,19 +599,19 @@ namespace LibDevicesManager
             const string response33210A = "Agilent Technologies,33210A";
             const string response3458A = "HP3458A";
             const string responseDS360 = "StanfordResearchSystems,DS360,";
-            if (response == response33220A)
+            if (response.StartsWith(response33220A))
             {
                 deviceModel = DeviceModel.Agilent33220A;
                 deviceType = DeviceType.Generator;
                 result = Result.Success;
             }
-            if (response == response33210A)
+            if (response.StartsWith(response33210A))
             {
                 deviceModel = DeviceModel.Agilent33210A;
                 deviceType = DeviceType.Generator;
                 result = Result.Success;
             }
-            if (response == response3458A)
+            if (response.StartsWith(response3458A))
             {
                 deviceModel = DeviceModel.Agilent3458A;
                 deviceType = DeviceType.Multimeter;

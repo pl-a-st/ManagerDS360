@@ -21,6 +21,7 @@ namespace ForLibDevicesTestOnly
 
             //ТЕСТОВАЯ ЧАСТЬ
             //проверка IviDevice (USB0::0x0957::0x0407::MY44031938::INSTR)
+            //ответ: Agilent Technologies,33220A,MY44031938,2.02-2.02-22-2
 
             IviPort iviPort = new IviPort("USB0::0x0957::0x0407::MY44031938::INSTR");
             Result result = iviPort.Open();
@@ -33,6 +34,7 @@ namespace ForLibDevicesTestOnly
 
             List<string> resources = IviPort.GetAllResources();
             List<IviDevice> devices = new List<IviDevice>();
+            string usbResource = string.Empty;
             //int countDevice = 0;
             foreach (string resource in resources)
             {
@@ -40,6 +42,7 @@ namespace ForLibDevicesTestOnly
                 if (resource.StartsWith("USB"))
                 {
                     devices.Add(new IviDevice(resource));
+                    usbResource = resource;
                     //countDevice++;
                 }
             }
@@ -47,9 +50,45 @@ namespace ForLibDevicesTestOnly
             {
                 devices[0].Connect();
             }
+
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
-            //*/
+            IviDevice generator1 = new IviDevice(usbResource);
+            IviDevice generator2 = new IviDevice(usbResource);
+            Console.WriteLine("Press any key to set F = 300 Hz");
+            Console.ReadKey();
+            generator1.Send("FREQ 300");
+            Console.WriteLine("Press any key to set F = 500 Hz");
+            Console.ReadKey();
+            generator2.Send("FREQ 500");
+            Console.WriteLine("Press any key to set F = 1000/700 Hz");
+            Console.ReadKey();
+            devices[0].Send("FREQ 1000");
+            if (devices.Count > 1)
+                devices[1].Send("FREQ 700");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.WriteLine("Press any key to disconnect device[0]");
+            Console.ReadKey();
+            if (devices.Count > 0)
+                devices[0].Disconnect();
+            Console.WriteLine("Press any key to disconnect generator2");
+            Console.ReadKey();
+            generator2.Disconnect();
+            Console.WriteLine("Press any key to disconnect generator1");
+            Console.ReadKey();
+            generator1.Disconnect();
+            Console.ReadKey();
+            Console.WriteLine("Press any key to set F = 500 Hz");
+            Console.ReadKey();
+            generator2.Send("FREQ 500");
+            generator2.Disconnect();
+            Console.WriteLine("Press any key to disconnect device[1]");
+            Console.ReadKey();
+            if (devices.Count > 1)
+                devices[1].Disconnect();
+            generator1.Disconnect();
+            Console.ReadKey();
 
             //проверка FindAllAgilent33220A
             /*

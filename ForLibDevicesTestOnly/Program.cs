@@ -28,7 +28,7 @@ namespace ForLibDevicesTestOnly
             string str;
             iviPort.ReadString(out str);
             Console.WriteLine(str);
-            Console.ReadKey();
+            //Console.ReadKey();
             
             
             List<string> resources = IviPort.GetAllResources();
@@ -43,10 +43,11 @@ namespace ForLibDevicesTestOnly
                     //countDevice++;
                 }
             }
-            devices[0].Connect();
+            //devices[0].Connect();
             
             Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+              Console.ReadKey();
+            //*/
 
             //проверка FindAllAgilent33220A
             /*

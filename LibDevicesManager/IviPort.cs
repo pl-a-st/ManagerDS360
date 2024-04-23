@@ -16,7 +16,7 @@ namespace LibDevicesManager
         public IMessage deviceIO;
         public IVisaSession ivs;
         public PortType PortType;
-        private static ResourceManager rm;
+        private ResourceManager rm;
         public static string defaultAdress;
         private string resourceName;
         private static List<string> resources;
@@ -125,6 +125,48 @@ namespace LibDevicesManager
                 resources = new List<string>();
             }
             resources.Clear();
+            try
+            {
+                ResourceManager resourceManager = new ResourceManager();
+                try
+                {
+                    allResources = resourceManager.FindRsrc("?*");
+                    if (allResources != null)
+                    {
+                        foreach (string resource in allResources)
+                        {
+                            if (resource.EndsWith("INSTR"))
+                            {
+                                resources.Add(resource.Substring(0, resource.Length));
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    exceptionMessage = $"Ошибка: {e.Message}";
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+                finally
+                {
+                    Marshal.FinalReleaseComObject(resourceManager);
+                }
+            }
+            catch (Exception e)
+            {
+                exceptionMessage = $"Ошибка: {e.Message}";
+            }
+            return resources;
+        }
+        /*
+        public static List<string> _GetAllResources()
+        {
+            string[] allResources;
+            if (resources == null)
+            {
+                resources = new List<string>();
+            }
+            resources.Clear();
             if (rm == null)
             {
                 try
@@ -164,6 +206,7 @@ namespace LibDevicesManager
             }
             return resources;
         }
+        */
         public static bool IsResourceNameExist(string resourceName)
         {
             foreach (string resource in Resources)
@@ -411,6 +454,13 @@ namespace LibDevicesManager
             deviceModel = DeviceModel.Unknown;
             isConnected = false;
         }
+        public IviDevice(string resourceName, DeviceModel deviceModel)
+        {
+            ResourceName = resourceName;
+            deviceType = DeviceType.Unknown;
+            this.deviceModel = deviceModel;
+            isConnected = false;
+        }
         public Result Connect()
         {
             Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedIviDevice); //Проверка корректности ResourceName проводится в этом методе
@@ -430,9 +480,8 @@ namespace LibDevicesManager
         }
         public Result Disconnect()
         {
-
             Result result = ConnectedIviDevices.Disconnect(ResourceName);
-            if (result == Result.Success)
+            if (result == Result.Success) //TODO
             {
                 isConnected = false;
             }
@@ -456,7 +505,6 @@ namespace LibDevicesManager
         public Result Send(string command)
         {
             Result result = Result.Failure;
-
             if (!isConnected)
             {
                 result = Connect();
@@ -465,12 +513,11 @@ namespace LibDevicesManager
                     return result;
                 }
             }
-
             result = ConnectedIviDevice.Send(command);
             return result;
         }
-
-        private Result SetDeviceFields()
+        #region PrivateMethods
+        private Result SetDeviceFields() //PortType, DeviceModel,
         {
             Result result = Result.Failure;
             string response = string.Empty;
@@ -491,7 +538,7 @@ namespace LibDevicesManager
             }
             if (portType == PortType.IviGPIB)
             {
-                result = Send("IDN?");
+                result = Send("*IDN?"); //TODO проверить
                 if (result != Result.Success)
                 {
                     return result;
@@ -499,7 +546,7 @@ namespace LibDevicesManager
                 result = Receive(out response);
                 if (result != Result.Success)
                 {
-                    result = Send("ID?");
+                    result = Send("*ID?");
                     if (result != Result.Success)
                     {
                         return result;
@@ -511,6 +558,10 @@ namespace LibDevicesManager
                     }
                 }
                 IdentifyDevice(response);
+            }
+            if (portType == PortType.IviTCPIP)
+            {
+                //TODO
             }
             if (DeviceModel == DeviceModel.Unknown)
             {
@@ -534,18 +585,6 @@ namespace LibDevicesManager
                 portType = PortType.IviTCPIP;
             }
         }
-        private static string GetSerialNumberFromDeviceInfo(string deviceInfo)
-        {
-            string sn = string.Empty;
-            string substringMark = "s/n";
-            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
-            if (snStartPosition < 0)
-            {
-                return sn;
-            }
-            sn = deviceInfo.Substring(snStartPosition);
-            return sn;
-        }
         private static string[] ConvertResourceNameToArray(string resourceName)
         {
             string[] stringSeparator = { "::" };
@@ -554,8 +593,8 @@ namespace LibDevicesManager
         }
         private Result IdentifyDevice(string response)
         {
-            Result result = Result.ParamError;
-            deviceModel = DeviceModel.Unknown;
+            Result result = Result.ParamError; //TODO заменить на UnKnoun?
+            //deviceModel = DeviceModel.Unknown;
             const string response33220A = "Agilent Technologies,33220A";
             const string response33210A = "Agilent Technologies,33210A";
             const string response3458A = "HP3458A";
@@ -596,6 +635,7 @@ namespace LibDevicesManager
                 if (subString != null && subString.Length > 3)
                 {
                     serialNumber = subString[3];
+                    return;
                 }
             }
             if (deviceModel == DeviceModel.Agilent3458A || deviceModel == DeviceModel.Unknown)
@@ -607,6 +647,7 @@ namespace LibDevicesManager
             {
                 string[] subString = response.Split(',');
                 serialNumber = subString[2];
+                return;
             }
         }
         private void SetDeviceInfo()
@@ -629,5 +670,18 @@ namespace LibDevicesManager
             model = DeviceModel.ToString();
             deviceInfo = $"{port}: {model}, sn{serialNumber}";
         }
+        private static string GetSerialNumberFromDeviceInfo(string deviceInfo)
+        {
+            string sn = string.Empty;
+            string substringMark = "s/n";
+            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
+            if (snStartPosition < 0)
+            {
+                return sn;
+            }
+            sn = deviceInfo.Substring(snStartPosition);
+            return sn;
+        }
+        #endregion PrivateMethods
     }
 }

@@ -28,7 +28,7 @@ namespace LibDevicesManager
             SetPortType();
             //Open();
         }
-        
+
         public Result Open()
         {
             //resourceName = portName + "::INSTR";
@@ -236,7 +236,7 @@ namespace LibDevicesManager
             }
             return Result.Success;
         }
-        
+
     }
     public static class ConnectedIviDevices
     {
@@ -385,7 +385,7 @@ namespace LibDevicesManager
     }
     public class IviDevice : IDevice
     {
-        public DeviceType DeviceType { get { return deviceType; }}
+        public DeviceType DeviceType { get { return deviceType; } }
         public DeviceModel DeviceModel { get { return deviceModel; } }
         public PortType PortType { get { return portType; } set { SetPortType(); } }
         public string ResourceName { get; set; }
@@ -414,21 +414,18 @@ namespace LibDevicesManager
         public Result Connect()
         {
             Result result = ConnectedIviDevices.Connect(ResourceName, out ConnectedIviDevice); //Проверка корректности ResourceName проводится в этом методе
-            if (result == Result.Success)
+            if (result != Result.Success)
             {
-                isConnected = true;
+                return result;
             }
+            isConnected = true;
             if (SetDeviceFields() != Result.Success)
             {
                 Disconnect();
                 isConnected = false;
                 return Result.Failure;
             }
-            if (result == Result.Success)
-            {
-                //isConnected = true;
-                ConnectedIviDevice.SetDeviceInfo(deviceInfo);
-            }
+            ConnectedIviDevice.SetDeviceInfo(deviceInfo);
             return result;
         }
         public Result Disconnect()
@@ -459,16 +456,16 @@ namespace LibDevicesManager
         public Result Send(string command)
         {
             Result result = Result.Failure;
-            /*
+
             if (!isConnected)
-            { 
+            {
                 result = Connect();
                 if (result != Result.Success)
                 {
                     return result;
                 }
             }
-            */
+
             result = ConnectedIviDevice.Send(command);
             return result;
         }
@@ -481,7 +478,7 @@ namespace LibDevicesManager
             if (portType == PortType.IviUSB)
             {
                 result = Send("*IDN?");
-                if ( result != Result.Success)
+                if (result != Result.Success)
                 {
                     return result;
                 }
@@ -549,7 +546,7 @@ namespace LibDevicesManager
             sn = deviceInfo.Substring(snStartPosition);
             return sn;
         }
-        private static string[] ConvertResourceNameToArray(string resourceName) 
+        private static string[] ConvertResourceNameToArray(string resourceName)
         {
             string[] stringSeparator = { "::" };
             string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
@@ -557,7 +554,7 @@ namespace LibDevicesManager
         }
         private Result IdentifyDevice(string response)
         {
-            Result result= Result.ParamError;
+            Result result = Result.ParamError;
             deviceModel = DeviceModel.Unknown;
             const string response33220A = "Agilent Technologies,33220A";
             const string response33210A = "Agilent Technologies,33210A";

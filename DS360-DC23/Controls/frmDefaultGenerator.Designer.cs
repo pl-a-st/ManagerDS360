@@ -96,6 +96,7 @@
             this.cboListComPorts.TabIndex = 1;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
             this.cboListComPorts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.cboListComPorts.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // groupBox1
             // 

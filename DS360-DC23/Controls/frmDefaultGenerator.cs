@@ -136,5 +136,10 @@ namespace ManagerDS360
         private void groupBox1_Enter(object sender, EventArgs e)
         {
         }
+
+        private void cboIgnore_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

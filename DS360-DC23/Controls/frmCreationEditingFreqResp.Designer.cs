@@ -169,6 +169,7 @@
             this.Controls.Add(this.txtNameFreqResp);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(420, 653);
             this.Name = "frmCreationEditingFreqResp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Создание и редактирование маршрута";

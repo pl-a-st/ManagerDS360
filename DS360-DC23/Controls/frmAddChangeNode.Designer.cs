@@ -76,6 +76,8 @@ namespace ManagerDS360.Controls
             this.cboChannel.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboChannel.FormattingEnabled = true;
             this.cboChannel.Location = new System.Drawing.Point(189, 36);
+            this.cboChannel.MaximumSize = new System.Drawing.Size(187, 0);
+            this.cboChannel.MinimumSize = new System.Drawing.Size(187, 0);
             this.cboChannel.Name = "cboChannel";
             this.cboChannel.Size = new System.Drawing.Size(187, 22);
             this.cboChannel.TabIndex = 19;

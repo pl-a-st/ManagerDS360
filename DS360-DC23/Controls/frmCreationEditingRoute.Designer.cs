@@ -230,9 +230,11 @@
             this.cboSettingsType.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboSettingsType.FormattingEnabled = true;
             this.cboSettingsType.Location = new System.Drawing.Point(6, 31);
+            this.cboSettingsType.MinimumSize = new System.Drawing.Size(156, 0);
             this.cboSettingsType.Name = "cboSettingsType";
             this.cboSettingsType.Size = new System.Drawing.Size(156, 24);
             this.cboSettingsType.TabIndex = 5;
+            this.cboSettingsType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // butDown
             // 

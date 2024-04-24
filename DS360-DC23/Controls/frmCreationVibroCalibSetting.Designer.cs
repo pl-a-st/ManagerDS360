@@ -39,21 +39,21 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblDetector = new System.Windows.Forms.Label();
             this.cboDetector = new System.Windows.Forms.ComboBox();
+            this.butStop = new System.Windows.Forms.Button();
             this.txtConversionFactor = new LibControls.ModifiedTextBox();
             this.txtFrequency = new LibControls.ModifiedTextBox();
             this.txtValue = new LibControls.ModifiedTextBox();
-            this.butStop = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cboSetValue
             // 
-            this.cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSetValue.FormattingEnabled = true;
             this.cboSetValue.Location = new System.Drawing.Point(14, 73);
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(152, 21);
             this.cboSetValue.TabIndex = 5;
+            this.cboSetValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // lblSetValue
             // 
@@ -164,12 +164,25 @@
             // 
             // cboDetector
             // 
-            this.cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector.FormattingEnabled = true;
             this.cboDetector.Location = new System.Drawing.Point(14, 110);
             this.cboDetector.Name = "cboDetector";
             this.cboDetector.Size = new System.Drawing.Size(152, 21);
             this.cboDetector.TabIndex = 39;
+            this.cboDetector.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
+            // 
+            // butStop
+            // 
+            this.butStop.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.butStop.Location = new System.Drawing.Point(214, 210);
+            this.butStop.MaximumSize = new System.Drawing.Size(110, 27);
+            this.butStop.MinimumSize = new System.Drawing.Size(110, 27);
+            this.butStop.Name = "butStop";
+            this.butStop.Size = new System.Drawing.Size(110, 27);
+            this.butStop.TabIndex = 39;
+            this.butStop.Text = "Остановить";
+            this.butStop.UseVisualStyleBackColor = true;
+            this.butStop.Click += new System.EventHandler(this.butStop_Click);
             // 
             // txtConversionFactor
             // 
@@ -194,19 +207,6 @@
             this.txtValue.Size = new System.Drawing.Size(152, 20);
             this.txtValue.TabIndex = 8;
             // 
-            // butStop
-            // 
-            this.butStop.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butStop.Location = new System.Drawing.Point(214, 210);
-            this.butStop.MaximumSize = new System.Drawing.Size(110, 27);
-            this.butStop.MinimumSize = new System.Drawing.Size(110, 27);
-            this.butStop.Name = "butStop";
-            this.butStop.Size = new System.Drawing.Size(110, 27);
-            this.butStop.TabIndex = 39;
-            this.butStop.Text = "Остановить";
-            this.butStop.UseVisualStyleBackColor = true;
-            this.butStop.Click += new System.EventHandler(this.butStop_Click);
-            // 
             // frmCreationVibroCalibSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,6 +220,7 @@
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(398, 291);
             this.Name = "frmCreationVibroCalibSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = ",";

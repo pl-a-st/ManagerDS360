@@ -75,6 +75,7 @@ namespace ManagerDS360
             // 
             // cboListComPorts
             // 
+            this.cboListComPorts.BackColor = System.Drawing.Color.White;
             this.cboListComPorts.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cboListComPorts.FormattingEnabled = true;
             this.cboListComPorts.Location = new System.Drawing.Point(19, 47);
@@ -83,6 +84,7 @@ namespace ManagerDS360
             this.cboListComPorts.Size = new System.Drawing.Size(208, 22);
             this.cboListComPorts.TabIndex = 3;
             this.cboListComPorts.SelectedIndexChanged += new System.EventHandler(this.cboListComPorts_SelectedIndexChanged);
+            this.cboListComPorts.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // lblLisеComPorts
             // 
@@ -194,6 +196,7 @@ namespace ManagerDS360
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(208, 22);
             this.comboBox1.TabIndex = 6;
+            this.comboBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // groupBox3
             // 
@@ -239,6 +242,7 @@ namespace ManagerDS360
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(208, 22);
             this.comboBox2.TabIndex = 6;
+            this.comboBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label2
             // 
@@ -283,6 +287,7 @@ namespace ManagerDS360
             this.cboMultToMultType.Name = "cboMultToMultType";
             this.cboMultToMultType.Size = new System.Drawing.Size(208, 22);
             this.cboMultToMultType.TabIndex = 12;
+            this.cboMultToMultType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label5
             // 
@@ -322,6 +327,7 @@ namespace ManagerDS360
             this.cboMultToMultAddress.Name = "cboMultToMultAddress";
             this.cboMultToMultAddress.Size = new System.Drawing.Size(208, 22);
             this.cboMultToMultAddress.TabIndex = 9;
+            this.cboMultToMultAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label6
             // 
@@ -343,6 +349,7 @@ namespace ManagerDS360
             this.cboGenToMultType.Name = "cboGenToMultType";
             this.cboGenToMultType.Size = new System.Drawing.Size(208, 22);
             this.cboGenToMultType.TabIndex = 7;
+            this.cboGenToMultType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label4
             // 
@@ -384,6 +391,7 @@ namespace ManagerDS360
             this.cboGenToMultAddress.Size = new System.Drawing.Size(208, 22);
             this.cboGenToMultAddress.TabIndex = 3;
             this.cboGenToMultAddress.SelectedIndexChanged += new System.EventHandler(this.cboGenToMultAddress_SelectedIndexChanged);
+            this.cboGenToMultAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label3
             // 
@@ -421,7 +429,7 @@ namespace ManagerDS360
             // 
             // butConnectGenToVib
             // 
-            this.butConnectGenToVib.Location = new System.Drawing.Point(12, 125);
+            this.butConnectGenToVib.Location = new System.Drawing.Point(12, 122);
             this.butConnectGenToVib.Name = "butConnectGenToVib";
             this.butConnectGenToVib.Size = new System.Drawing.Size(208, 23);
             this.butConnectGenToVib.TabIndex = 14;
@@ -439,6 +447,7 @@ namespace ManagerDS360
             this.cboMultToVibType.Size = new System.Drawing.Size(208, 22);
             this.cboMultToVibType.TabIndex = 12;
             this.cboMultToVibType.SelectedIndexChanged += new System.EventHandler(this.cboMultToVibType_SelectedIndexChanged);
+            this.cboMultToVibType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label7
             // 
@@ -480,6 +489,7 @@ namespace ManagerDS360
             this.cboMultToVibAddress.Size = new System.Drawing.Size(208, 22);
             this.cboMultToVibAddress.TabIndex = 9;
             this.cboMultToVibAddress.SelectedIndexChanged += new System.EventHandler(this.cboMultToVibAddress_SelectedIndexChanged);
+            this.cboMultToVibAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label8
             // 
@@ -502,6 +512,7 @@ namespace ManagerDS360
             this.cboGenToVibType.Size = new System.Drawing.Size(208, 22);
             this.cboGenToVibType.TabIndex = 7;
             this.cboGenToVibType.SelectedIndexChanged += new System.EventHandler(this.cboGenToVibType_SelectedIndexChanged);
+            this.cboGenToVibType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label9
             // 
@@ -543,6 +554,7 @@ namespace ManagerDS360
             this.cboGenToVibAddress.Size = new System.Drawing.Size(208, 22);
             this.cboGenToVibAddress.TabIndex = 3;
             this.cboGenToVibAddress.SelectedIndexChanged += new System.EventHandler(this.cboGenToVibAddress_SelectedIndexChanged);
+            this.cboGenToVibAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // label10
             // 
@@ -567,6 +579,8 @@ namespace ManagerDS360
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximumSize = new System.Drawing.Size(938, 421);
+            this.MinimumSize = new System.Drawing.Size(938, 421);
             this.Name = "frmDevicePlugIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Подключение приборов";

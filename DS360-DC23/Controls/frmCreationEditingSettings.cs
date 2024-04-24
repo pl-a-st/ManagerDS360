@@ -495,5 +495,10 @@ namespace ManagerDS360
         {
 
         }
+
+        private void cboIgnore_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

@@ -97,6 +97,7 @@
             this.cboTypeSignal.Size = new System.Drawing.Size(143, 21);
             this.cboTypeSignal.TabIndex = 6;
             this.cboTypeSignal.SelectedIndexChanged += new System.EventHandler(this.cboTypeSignal_SelectedIndexChanged);
+            this.cboTypeSignal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // lblTypeSignal
             // 
@@ -111,13 +112,13 @@
             // 
             // cboSetValue
             // 
-            this.cboSetValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSetValue.FormattingEnabled = true;
             this.cboSetValue.Location = new System.Drawing.Point(23, 73);
             this.cboSetValue.Name = "cboSetValue";
             this.cboSetValue.Size = new System.Drawing.Size(143, 21);
             this.cboSetValue.TabIndex = 5;
             this.cboSetValue.SelectedIndexChanged += new System.EventHandler(this.cboSetValue_SelectedIndexChanged);
+            this.cboSetValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // lblSetValue
             // 
@@ -202,13 +203,13 @@
             // 
             // cboDetector
             // 
-            this.cboDetector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector.FormattingEnabled = true;
             this.cboDetector.Location = new System.Drawing.Point(19, 91);
             this.cboDetector.Name = "cboDetector";
             this.cboDetector.Size = new System.Drawing.Size(143, 22);
             this.cboDetector.TabIndex = 9;
             this.cboDetector.SelectedIndexChanged += new System.EventHandler(this.cboDetector_SelectedIndexChanged);
+            this.cboDetector.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // butSend
             // 
@@ -225,7 +226,6 @@
             // 
             // cboDetector2
             // 
-            this.cboDetector2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDetector2.FormattingEnabled = true;
             this.cboDetector2.ItemHeight = 14;
             this.cboDetector2.Location = new System.Drawing.Point(17, 91);
@@ -233,6 +233,7 @@
             this.cboDetector2.Size = new System.Drawing.Size(143, 22);
             this.cboDetector2.TabIndex = 12;
             this.cboDetector2.SelectedIndexChanged += new System.EventHandler(this.cboDetector2_SelectedIndexChanged);
+            this.cboDetector2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboIgnore_KeyPress);
             // 
             // lblValue
             // 
@@ -440,7 +441,8 @@
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(450, 450);
+            this.MaximumSize = new System.Drawing.Size(641, 450);
+            this.MinimumSize = new System.Drawing.Size(641, 450);
             this.Name = "frmCreationEditingSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = ",";

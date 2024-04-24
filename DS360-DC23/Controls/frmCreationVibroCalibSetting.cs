@@ -240,6 +240,11 @@ namespace ManagerDS360
             VibrationStand.Generator.SetOutputOff();
         }
 
+        private void cboIgnore_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         //internal bool IsTwoTone()
         //{
         //    return PmData.GetEnumFromString(PmData.FunctionTypeSignal, cboTypeSignal.Text) == FunctionTypeSignal.Синус_Синус

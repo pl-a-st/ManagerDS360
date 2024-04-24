@@ -54,14 +54,14 @@ namespace ManagerDS360.Controls
             this.lstAddresses.Name = "lstAddresses";
             this.lstAddresses.ScrollAlwaysVisible = true;
             this.lstAddresses.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstAddresses.Size = new System.Drawing.Size(882, 388);
+            this.lstAddresses.Size = new System.Drawing.Size(403, 244);
             this.lstAddresses.TabIndex = 0;
             // 
             // butSave
             // 
             this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(744, 421);
+            this.butSave.Location = new System.Drawing.Point(265, 277);
             this.butSave.Name = "butSave";
             this.butSave.Size = new System.Drawing.Size(157, 40);
             this.butSave.TabIndex = 5;
@@ -75,7 +75,7 @@ namespace ManagerDS360.Controls
             this.groupBox2.Controls.Add(this.cboTestedDevice);
             this.groupBox2.Controls.Add(this.lblTestedDevice);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(907, 5);
+            this.groupBox2.Location = new System.Drawing.Point(428, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(230, 76);
             this.groupBox2.TabIndex = 22;
@@ -90,6 +90,7 @@ namespace ManagerDS360.Controls
             this.cboTestedDevice.Size = new System.Drawing.Size(215, 24);
             this.cboTestedDevice.TabIndex = 1;
             this.cboTestedDevice.SelectedIndexChanged += new System.EventHandler(this.cboTestedDevice_SelectedIndexChanged_1);
+            this.cboTestedDevice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboTestedDevice_KeyPress);
             // 
             // lblTestedDevice
             // 
@@ -105,7 +106,7 @@ namespace ManagerDS360.Controls
             // 
             this.ButCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ButCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButCancel.Location = new System.Drawing.Point(19, 421);
+            this.ButCancel.Location = new System.Drawing.Point(19, 277);
             this.ButCancel.Name = "ButCancel";
             this.ButCancel.Size = new System.Drawing.Size(157, 40);
             this.ButCancel.TabIndex = 5;
@@ -117,7 +118,8 @@ namespace ManagerDS360.Controls
             // 
             this.butGetAddresses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butGetAddresses.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butGetAddresses.Location = new System.Drawing.Point(907, 141);
+            this.butGetAddresses.Location = new System.Drawing.Point(428, 141);
+            this.butGetAddresses.MinimumSize = new System.Drawing.Size(230, 40);
             this.butGetAddresses.Name = "butGetAddresses";
             this.butGetAddresses.Size = new System.Drawing.Size(230, 40);
             this.butGetAddresses.TabIndex = 5;
@@ -129,7 +131,7 @@ namespace ManagerDS360.Controls
             // 
             this.ButDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ButDelete.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButDelete.Location = new System.Drawing.Point(907, 187);
+            this.ButDelete.Location = new System.Drawing.Point(428, 187);
             this.ButDelete.Name = "ButDelete";
             this.ButDelete.Size = new System.Drawing.Size(230, 40);
             this.ButDelete.TabIndex = 5;
@@ -141,7 +143,7 @@ namespace ManagerDS360.Controls
             // 
             this.txtRouteName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRouteName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRouteName.Location = new System.Drawing.Point(907, 109);
+            this.txtRouteName.Location = new System.Drawing.Point(428, 109);
             this.txtRouteName.Name = "txtRouteName";
             this.txtRouteName.Size = new System.Drawing.Size(230, 23);
             this.txtRouteName.TabIndex = 23;
@@ -151,7 +153,7 @@ namespace ManagerDS360.Controls
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(907, 90);
+            this.label1.Location = new System.Drawing.Point(428, 90);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 16);
             this.label1.TabIndex = 24;
@@ -161,7 +163,7 @@ namespace ManagerDS360.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 473);
+            this.ClientSize = new System.Drawing.Size(661, 329);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRouteName);
             this.Controls.Add(this.groupBox2);
@@ -170,6 +172,7 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.butGetAddresses);
             this.Controls.Add(this.butSave);
             this.Controls.Add(this.lstAddresses);
+            this.MinimumSize = new System.Drawing.Size(677, 368);
             this.Name = "frmGetAllNodeAddressesFromRoute";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Получение адресов узлов из маршрута";

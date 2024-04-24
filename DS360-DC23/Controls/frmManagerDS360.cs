@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AcroPDFLib;
 using LibControls;
 using LibDevicesManager;
 using LibDevicesManager.DC23;
@@ -763,22 +764,7 @@ namespace ManagerDS360
             }
         }
 
-        private void butPlay_MouseEnter(object sender, EventArgs e)
-        {
-            butPlay.BackgroundImage = Properties.Resources.Play2;
-        }
-        private void butPlay_MouseLeave(object sender, EventArgs e)
-        {
-            butPlay.BackgroundImage = Properties.Resources.Play;
-        }
-        private void butPlay_MouseDown(object sender, MouseEventArgs e)
-        {
-            SetButClikSize(butPlay);
-        }
-        private void butPlay_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetButAfterClickSize(butPlay);
-        }
+
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
         }
@@ -1167,7 +1153,7 @@ namespace ManagerDS360
         {
             if (VibrationStand.IsTesting)
             {
-                VibrationStand.StopTest();
+                VibrationStand.StopWork();
             }
         }
 
@@ -1175,7 +1161,7 @@ namespace ManagerDS360
         {
             if (VibrationStand.IsTesting)
             {
-                VibrationStand.StopTest();
+                VibrationStand.StopWork();
             }
             VibrationStand.Generator.SetOutputOff();
             FrmVibroCalib.CallType = CallType.Control;
@@ -1227,7 +1213,7 @@ namespace ManagerDS360
             List<double> errorList = new List<double>();
             while (RMS > 0.000005)
             {
-                
+
                 dS360Setting.AmplitudeRMS = RMS;
 
                 for (int i = 0; i < 3; i++)
@@ -1262,5 +1248,49 @@ namespace ManagerDS360
             string value = DS360Setting.CorrectErroInPhysicalGenerator(frmInput.txtNameSet.Text);
             MessageBox.Show(value);
         }
+
+        private void cboTestedDevice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void mnuHelp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileFullPath = DAO.GetApplicationDataPath("Help.pdf");
+                using (FileStream fileStream = new FileStream(fileFullPath, FileMode.Create, FileAccess.Write))
+                {
+                    using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                    {
+                        binaryWriter.Write(Properties.Resources.Краткая_инструкция_по_автоматизации_поверки);
+                    }
+                }
+                System.Diagnostics.Process.Start(fileFullPath);
+            }
+            catch(Exception exp)
+            {
+                if (exp.Message.Contains("так как этот файл используется другим процессом."))
+                {
+                    MessageBox.Show(
+                        this,
+                        "Не удалось открыть файл, возможно он уже открыт",
+                        "Предупреждение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning,
+                        MessageBoxDefaultButton.Button1);
+
+                    return;
+                }
+                MessageBox.Show(
+                    this,
+                    "Не удалось открыть файл, возможно не установлен компонент для чтения файлов формата pdf",
+                    "Предупреждение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button1);
+            }
+        }
     }
+    
 }

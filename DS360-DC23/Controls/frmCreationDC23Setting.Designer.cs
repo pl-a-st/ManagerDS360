@@ -355,6 +355,8 @@ namespace ManagerDS360.Controls
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRouteName);
+            this.MaximumSize = new System.Drawing.Size(784, 522);
+            this.MinimumSize = new System.Drawing.Size(784, 522);
             this.Name = "frmCreationDC23Setting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Измерение СД-23";

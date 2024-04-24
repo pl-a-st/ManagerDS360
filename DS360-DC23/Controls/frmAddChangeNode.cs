@@ -57,5 +57,10 @@ namespace ManagerDS360.Controls
         {
            
         }
+
+        private void cboIgnore_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

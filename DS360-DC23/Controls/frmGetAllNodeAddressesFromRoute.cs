@@ -140,7 +140,7 @@ namespace ManagerDS360.Controls
                 Task.Delay(300);
             }
             ManagerDC23.Client.ReceivedMessageDC23Event -= Client_ReceivedMessageDC23Event;
-            AcyncShowMassageAndChangePicture("Все узлы получены.");
+            AcyncShowMassage("Все узлы получены.");
         }
 
         private async Task GetAllAddressNodeWithProgessBar()
@@ -204,6 +204,20 @@ namespace ManagerDS360.Controls
 
             }));
         }
+        private void AcyncShowMassage(string massege)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                MessageBox.Show(
+                   this,
+                   massege,
+                   "Сообщение",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Information,
+                   MessageBoxDefaultButton.Button1);
+
+            }));
+        }
         private void Client_ReceivedMessageDC23Event(string message)
         {
             BeginInvoke(new Action(() =>
@@ -241,6 +255,11 @@ namespace ManagerDS360.Controls
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void cboTestedDevice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

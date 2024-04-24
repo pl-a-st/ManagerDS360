@@ -163,6 +163,16 @@ namespace ManagerDS360.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Краткая_инструкция_по_автоматизации_поверки {
+            get {
+                object obj = ResourceManager.GetObject("Краткая_инструкция_по_автоматизации_поверки", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Логотип_ВАСТ {

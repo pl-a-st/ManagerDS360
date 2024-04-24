@@ -11,10 +11,27 @@ namespace LibDevicesManager
     {
         Success, Failure, Exception, ParamError, AcsessError, Canceled
     }
+    public enum PortType
+    {
+        SerialPort,
+        IviUSB,
+        IviGPIB,
+        IviTCPIP,
+        IviASRL
+    }
     public enum DeviceType
     {
         Generator,
         Multimeter,
+        Unknown
+    }
+    public enum DeviceModel
+    {
+        DS360,
+        Agilent33220A,
+        Agilent33210A,
+        Agilent3458A,
+        Agilent34401A,
         Unknown
     }
     public enum GeneratorModel

@@ -18,12 +18,99 @@ namespace ForLibDevicesTestOnly
         {
             Console.WriteLine("FOR TEST ONLY");
             //ТЕСТОВАЯ ЧАСТЬ
+            //Проверка Agilent33220A.cs
+            //Agilent33220A generator = new Agilent33220A();
+            //generator.
+            //проверка IviDevice (USB0::0x0957::0x0407::MY44031938::INSTR)
+            //ответ: Agilent Technologies,33220A,MY44031938,2.02-2.02-22-2
+            
+            IviPort iviPort = new IviPort("USB0::0x0957::0x0407::MY44031938::INSTR");
+            Result result = iviPort.Open();
+            iviPort.Send("*IDN?");
+            string str;
+            iviPort.ReadString(out str);
+            Console.WriteLine("Ответ от MY44031938: " + str);
+            //Console.ReadKey();
+
+
+            List<string> resources = IviPort.GetAllResources();
+            List<IviDevice> devices = new List<IviDevice>();
+            string usbResource = string.Empty;
+            //int countDevice = 0;
+            foreach (string resource in resources)
+            {
+                Console.WriteLine(resource);
+                if (resource.StartsWith("USB"))
+                {
+                    devices.Add(new IviDevice(resource));
+                    usbResource = resource;
+                    //countDevice++;
+                }
+            }
+            if (devices.Count > 0)
+            {
+                devices[0].Connect();
+            }
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            IviDevice generator1 = new IviDevice(usbResource);
+            IviDevice generator2 = new IviDevice(usbResource);
+            Console.WriteLine("Press any key to set F = 300 Hz");
+            Console.ReadKey();
+            generator1.Send("FREQ 300");
+            Console.WriteLine("Press any key to set F = 500 Hz");
+            Console.ReadKey();
+            generator2.Send("FREQ 500");
+            Console.WriteLine("Press any key to set F = 1000/700 Hz");
+            Console.ReadKey();
+            devices[0].Send("FREQ 1000");
+            if (devices.Count > 1)
+                devices[1].Send("FREQ 700");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.WriteLine("Press any key to disconnect device[0]");
+            Console.ReadKey();
+            if (devices.Count > 0)
+                devices[0].Disconnect();
+            Console.WriteLine("Press any key to disconnect generator2");
+            Console.ReadKey();
+            generator2.Disconnect();
+            Console.WriteLine("Press any key to disconnect generator1");
+            Console.ReadKey();
+            generator1.Disconnect();
+            Console.ReadKey();
+            Console.WriteLine("Press any key to set F = 500 Hz");
+            Console.ReadKey();
+            generator2.Send("FREQ 500");
+            generator2.Disconnect();
+            Console.WriteLine("Press any key to disconnect device[1]");
+            Console.ReadKey();
+            if (devices.Count > 1)
+                devices[1].Disconnect();
+            generator1.Disconnect();
+            Console.ReadKey();
+            
+            //проверка FindAllAgilent33220A
+            /*
+            List<string> devices = Agilent33220A.FindAllAgilent33220A();
+            foreach (string device in devices)
+            {
+                Console.WriteLine(device);
+            }
+
+            string deviceInfo = "USB0: Agilent 33220A, s/nMY44031938";
+            Console.WriteLine(Agilent33220A.GetSerialNumberFromDeviceInfo(deviceInfo));
+            */
+
             //проверка разбиения строки
+            /*
             string str = "USB0::0x0957::0x0407::MY44027128";
             string usb = string.Empty;
             string sn = string.Empty;
             Agilent33220A.GetDeviceInfo(str, out usb, out sn);
             Console.WriteLine($"{usb}:Agilent 33220A, s/n{sn}");
+            */
 
             //Проверка VISA-IVI-USB
             /*
@@ -33,6 +120,7 @@ namespace ForLibDevicesTestOnly
             try
             {
                 resourses = rm.FindRsrc("?*");
+                Console.WriteLine("Ресурсы:");
                 foreach (string r in resourses)
                 {
                     Console.WriteLine(r);
@@ -49,8 +137,16 @@ namespace ForLibDevicesTestOnly
                     Marshal.FinalReleaseComObject(rm);
                 }
             }
+            string rName = "ASRL1::INSTR";
+            IviPort iviPort1 = new IviPort(rName);
+            IviPort iviPort2 = new IviPort(rName);
+            IviPort iviPort3 = new IviPort(rName);
+            IviPort iviPort4 = new IviPort(rName);
+            IviPort iviPort5 = new IviPort(rName);
+            */
+            /*
             Result result = Result.Failure;
-            GpibPort device = new GpibPort("USB0::0x0957::0x0407::MY44027128");
+            GpibPort device = new GpibPort("USB0::0x0957::0x0407::MY44031938");
             result = device.Send("*IDN?");
             if (result != Result.Success)
             {

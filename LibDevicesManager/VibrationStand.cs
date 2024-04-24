@@ -140,10 +140,8 @@ namespace LibDevicesManager
             }
             return coeff;
         }
-        /// <summary>
-        /// Метод в разработке (рефакторинг)
-        /// </summary>
-        private void SetVibroParamInStend() // todo отрефакторить
+        
+        private void SetVibroParamInStend() 
         {
             try
             {
@@ -167,7 +165,7 @@ namespace LibDevicesManager
 
         private void SetVibroParamInStendEarlyExit()
         {
-            CancellLastVibrostendSetup();
+            CancellLastVibrostendWork();
             VibStendStatus = VibStendStatus.SetupProcess;
             StatusHasChanged.Invoke(new VibStendInfo(this, -1));
             double voltToHold = GetVoltageFromVibroparam() / CurentFreqResp.GetCoefficient(Frequency.Get_Hz());
@@ -202,7 +200,7 @@ namespace LibDevicesManager
                     SetStatusNotStablyOrCorrection(voltToHold, currentVoltage);
                 }
                 Generator.AmplitudeRMS = MetrologyRound.GetRounded(Generator.AmplitudeRMS, 4) * voltToHold / currentVoltage;
-                GeneratorChangeAmplitudeRMSOrTrowE(currentVoltage);
+                GeneratorChangeAmplitudeRMSOrTrowEx(currentVoltage);
                 Thread.Sleep(500);
                 lastVoltage = currentVoltage;
                 MultMeasureOrThrowEx(out currentVoltage);
@@ -210,7 +208,7 @@ namespace LibDevicesManager
             InformAboutCorrectCompletionAndThrowEx(currentVoltage);
         }
 
-        private void GeneratorChangeAmplitudeRMSOrTrowE(double currentVoltage)
+        private void GeneratorChangeAmplitudeRMSOrTrowEx(double currentVoltage)
         {
             Result result = Result.Failure;
             for (int i = 0; i < 3; i++)
@@ -318,12 +316,12 @@ namespace LibDevicesManager
             return voltToHold;
         }
 
-        private void CancellLastVibrostendSetup()
+        private void CancellLastVibrostendWork()
         {
             VibStendStatus = VibStendStatus.SetupProcess;
             StatusHasChanged.Invoke(new VibStendInfo(this, 0));
             Generator.SetOutputOff();
-            StopTest();
+            StopWork();
             while (IsTesting)
             {
                 VibStendStatus = VibStendStatus.Stoping;
@@ -335,8 +333,10 @@ namespace LibDevicesManager
             CancelTokenSourceForTest = new CancellationTokenSource();
             TokenForTest = CancelTokenSourceForTest.Token;
         }
-
-        static public void StopTest()
+        /// <summary>
+        /// Останавливает поддержание уровня вибрации на стенде
+        /// </summary>
+        static public void StopWork()
         {
             CancelTokenSourceForTest.Cancel();
         }

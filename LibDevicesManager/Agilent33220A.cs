@@ -14,15 +14,51 @@ namespace LibDevicesManager
             get { return GetAddress(); }
             set { SetAddress(value); }
         }
-        public static List<ConnectedUSBPort> ConnectedUSBPort;
+        //public static List<ConnectedUSBPort> ConnectedUSBPort;
         private static List<string[]> resources = new List<string[]>();
         private static List<string> generators = new List<string>();
+        private IviDevice generator;
 
         public Agilent33220A()
         {
             Generator<Agilent33220A>.GeneratorModel = GeneratorModel.Agilent33220A;
         }
-        public static List<string> FindAllAgilent33220A()
+
+        
+        public static string GetSerialNumberFromDeviceInfo(string deviceInfo)
+        {
+            string sn = string.Empty;
+            string substringMark = "s/n";
+            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
+            if (snStartPosition < 0)
+            {
+                return sn;
+            }
+            sn = deviceInfo.Substring(snStartPosition);
+            return sn;
+        }
+        public static string[] ConvertResourceNameToArray(string resourceName) //TODO: добавить проверку корректности resourceName
+        {
+            string[] stringSeparator = { "::" };
+            string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
+            return str;
+        }
+        public Result SendAgilent33220ASetting()
+        {
+            //TODO: Прописать метод
+            return Result.Failure;
+        }
+        private static string GetAddress()
+        {
+            return Generator<Agilent33220A>.Address;
+        }
+        private static void SetAddress(string address)
+        {
+            Generator<Agilent33220A>.Address = address; //TODO: вписать проверку корректности адреса
+        }
+        #region NotUsed
+        /*
+        private static List<string> FindAllAgilent33220A()
         {
             Result result = Result.Failure;
             List<string> usbPorts = new List<string>();
@@ -69,28 +105,9 @@ namespace LibDevicesManager
             }
             return generators;
         }
-
-        public static string GetSerialNumberFromDeviceInfo(string deviceInfo)
-        {
-            string sn = string.Empty;
-            string substringMark = "s/n";
-            int snStartPosition = deviceInfo.IndexOf(substringMark) + substringMark.Length;
-            if (snStartPosition < 0)
-            {
-                return sn;
-            }
-            sn = deviceInfo.Substring(snStartPosition);
-            return sn;
-        }
         private static string GetSerialNumberFromResourceName(string resourceName)
         {
             return ConvertResourceNameToArray(resourceName)[3]; //TODO: обработать исключения
-        }
-        public static string[] ConvertResourceNameToArray(string resourceName) //TODO: добавить проверку корректности resourceName
-        {
-            string[] stringSeparator = { "::" };
-            string[] str = resourceName.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
-            return str;
         }
         private static int FindIndexInConnectedUSBPort(string serialNumber)
         {
@@ -113,7 +130,7 @@ namespace LibDevicesManager
             }
             return index;
         }
-        private static int FindIndexInResources (string serialNumber)
+        private static int FindIndexInResources(string serialNumber)
         {
             int index = -1;
             string sn = string.Empty;
@@ -131,7 +148,7 @@ namespace LibDevicesManager
             }
             return index;
         }
-        public static void GetDeviceInfo(string resource, out string usbNumber, out string vendorId, out string productId, out string serialNumber)
+        private static void GetDeviceInfo(string resource, out string usbNumber, out string vendorId, out string productId, out string serialNumber)
         {
             usbNumber = string.Empty;
             serialNumber = string.Empty;
@@ -144,19 +161,7 @@ namespace LibDevicesManager
             productId = str[2];
             serialNumber = str[3];
         }
-        public Result SendAgilent33220ASetting()
-        {
-            //TODO: Прописать метод
-            return Result.Failure;
-        }
-        private static string GetAddress()
-        {
-            return Generator<Agilent33220A>.Address;
-        }
-
-        private static void SetAddress(string address)
-        {
-            Generator<Agilent33220A>.Address = address; //TODO: вписать проверку корректности адреса
-        }
+        */
+        #endregion NotUsed
     }
 }

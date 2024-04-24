@@ -23,6 +23,7 @@ namespace LibDevicesManager
         /// </summary>
         /// <returns>одно из значений перечисления DeviceModel </returns>
         //public MultimeterModel MultimeterModel { get { return MultimeterModel.Agilent3458A; } }
+        
         public int AddressGPIB;
         public string PortName
         {

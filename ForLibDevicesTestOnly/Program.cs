@@ -23,7 +23,7 @@ namespace ForLibDevicesTestOnly
             //generator.
             //проверка IviDevice (USB0::0x0957::0x0407::MY44031938::INSTR)
             //ответ: Agilent Technologies,33220A,MY44031938,2.02-2.02-22-2
-            /*
+            
             IviPort iviPort = new IviPort("USB0::0x0957::0x0407::MY44031938::INSTR");
             Result result = iviPort.Open();
             iviPort.Send("*IDN?");
@@ -90,7 +90,7 @@ namespace ForLibDevicesTestOnly
                 devices[1].Disconnect();
             generator1.Disconnect();
             Console.ReadKey();
-            */
+            
             //проверка FindAllAgilent33220A
             /*
             List<string> devices = Agilent33220A.FindAllAgilent33220A();
